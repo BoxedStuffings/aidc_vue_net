@@ -1,4 +1,3 @@
-<script src="https://unpkg.com/vue-router@4"></script>
 import { createRouter, createWebHistory } from 'vue-router'
 import TV from '../components/TV.vue'
 import MainSelection from '../components/MainSelection.vue'
