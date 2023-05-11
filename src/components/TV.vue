@@ -63,8 +63,9 @@ export default {
         <!-- Individual cards -->
         <ui class="card" v-for="(TV, index) in availableTVs" :key="index">
           <!-- Outline for selection -->
-          <img class="imageCheck" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }" src="../assets/boxedstuffings.png">
           <div class="imageOutline" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }">
+            <!-- Card check mark -->
+            <img class="imageCheck" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }" src="../assets/boxedstuffings.png">
             <!-- Display image -->
             <img :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }" src="../assets/boxedstuffings.png">
           </div>
