@@ -22,6 +22,16 @@ export default {
         }
     }
   },
+
+  mounted() {
+    Telegram.WebApp.BackButton.show()
+    Telegram.WebApp.BackButton.onClick(() => {
+      if (Telegram.WebApp.BackButton.isVisible) {
+        this.$router.go(-1)
+        Telegram.WebApp.BackButton.hide()
+      }
+    })
+  }
   
 }
 
