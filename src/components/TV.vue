@@ -17,10 +17,6 @@ export default {
         { id: "1029F", text: 'TV Test 6'},
         { id: "1029G", text: 'TV Test 7'}
       ],
-
-      tgMainButton: Telegram.WebApp.MainButton.setParams({
-        text: 'Select Tv'
-      }).onClick(this.$router.push('/MainSelection'))
     }
   },
 
@@ -28,6 +24,7 @@ export default {
     selectTV(TV, buttonIndex) {
       const index = this.selectedTvs.findIndex(t => t == TV)
       const buttonID = "button_" + buttonIndex
+      const tgMainButton = Telegram.WebApp.MainButton
 
       if (index >= 0) {
         this.selectedTvs.splice(index, 1)
@@ -39,16 +36,25 @@ export default {
 
       if (this.selectedTvs.length >= 1) { 
         console.log("test 1")
-        Telegram.WebApp.MainButton.show()
+        tgMainButton.isActive = true
+        tgMainButton.show()
       } else {
         console.log("test 2")
-        Telegram.WebApp.MainButton.hide()
+        tgMainButton.isActive = false
+        tgMainButton.hide()
       }
     },
   },
 }
-// Telegram.WebApp.MainButton.onClick(this.$router.push('/MainSelection'))
 
+Telegram.WebApp.MainButton.setParams({
+  text: 'Select Tv',
+  is_active: false
+})
+
+Telegram.WebApp.onEvent('mainButtonClicked', this.$router.push('/MainSelection'))
+
+// Telegram.WebApp.MainButton.onClick(this.$router.push('/MainSelection'))
 </script>
 
 <template>
