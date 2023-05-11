@@ -36,11 +36,9 @@ export default {
 
       if (this.selectedTvs.length >= 1) { 
         console.log("test 1")
-        tgMainButton.isActive = true
         tgMainButton.show()
       } else {
         console.log("test 2")
-        tgMainButton.isActive = false
         tgMainButton.hide()
       }
     },
@@ -49,10 +47,11 @@ export default {
   mounted() {
     Telegram.WebApp.MainButton.setParams({
       text: 'Select Tv',
-      is_active: false
+    }).onClick(() => {
+      if (Telegram.WebApp.MainButton.isVisible) {
+        this.$router.push('/MainSelection')
+      }
     })
-
-    Telegram.WebApp.onEvent('mainButtonClicked', this.$router.push('/MainSelection'))
   }
 
 }
