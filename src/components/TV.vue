@@ -50,6 +50,7 @@ export default {
     }).onClick(() => {
       if (Telegram.WebApp.MainButton.isVisible) {
         this.$router.push('/MainSelection')
+        Telegram.WebApp.MainButton.hide()
       }
     })
   }
