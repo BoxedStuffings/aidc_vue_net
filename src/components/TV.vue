@@ -97,14 +97,10 @@ export default {
   height: auto;
   position: relative;
 }
-/* .imageOutline.selected::before {
-  content: "✓";
-  background-color: grey;
-  transform: scale(1);
-} */
 .imageCheck.selected {
   visibility: visible;
   transform: scale(1);
+  z-index: 2;
 }
 .imageCheck {
   visibility: hidden;
