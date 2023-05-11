@@ -55,8 +55,6 @@ export default {
   }
 
 }
-
-// Telegram.WebApp.MainButton.onClick(this.$router.push('/MainSelection'))
 </script>
 
 <template>
@@ -65,6 +63,7 @@ export default {
         <!-- Individual cards -->
         <ui class="card" v-for="(TV, index) in availableTVs" :key="index">
           <!-- Outline for selection -->
+          <img class="imageCheck" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }" src="../assets/boxedstuffings.png">
           <div class="imageOutline" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }">
             <!-- Display image -->
             <img :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }" src="../assets/boxedstuffings.png">
@@ -95,13 +94,19 @@ export default {
 .imageOutline {
   max-width: 70%;
   height: auto;
+  position: relative;
 }
-.imageOutline.selected::before {
+/* .imageOutline.selected::before {
   content: "✓";
   background-color: grey;
   transform: scale(1);
+} */
+.imageCheck.selected {
+  visibility: visible;
+  transform: scale(1);
 }
-.imageOutline::before {
+.imageCheck {
+  visibility: hidden;
   display: block;
   border-radius: 50%;
   position: absolute;
@@ -113,6 +118,7 @@ export default {
   line-height: 28px;
   transition-duration: 0.4s;
   transform: scale(0);
+  z-index: 2;
 }
 .imageOutline img {
   max-width: 100%;
