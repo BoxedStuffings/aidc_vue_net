@@ -16,7 +16,11 @@ export default {
         { id: "1029E", text: 'TV Test 5'},
         { id: "1029F", text: 'TV Test 6'},
         { id: "1029G", text: 'TV Test 7'}
-      ]
+      ],
+
+      tgMainButton: Telegram.WebApp.MainButton.setParams({
+        text: 'Select Tv'
+      }).onClick(this.$router.push('/MainSelection'))
     }
   },
 
@@ -35,9 +39,6 @@ export default {
 
       if (this.selectedTvs.length >= 1) { 
         console.log("test 1")
-        Telegram.WebApp.MainButton.text = "Select Tv"
-        // Telegram.WebApp.MainButton.onClick(this.test())
-        // Telegram.WebApp.MainButton.onClick(Telegram.WebApp.MainButton.text = "test")
         Telegram.WebApp.MainButton.show()
       } else {
         console.log("test 2")
