@@ -45,14 +45,17 @@ export default {
       }
     },
   },
+
+  mounted() {
+    Telegram.WebApp.MainButton.setParams({
+      text: 'Select Tv',
+      is_active: false
+    })
+
+    Telegram.WebApp.onEvent('mainButtonClicked', this.$router.push('/MainSelection'))
+  }
+
 }
-
-Telegram.WebApp.MainButton.setParams({
-  text: 'Select Tv',
-  is_active: false
-})
-
-Telegram.WebApp.onEvent('mainButtonClicked', this.$router.push('/MainSelection'))
 
 // Telegram.WebApp.MainButton.onClick(this.$router.push('/MainSelection'))
 </script>
