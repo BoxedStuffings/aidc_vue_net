@@ -38,59 +38,26 @@ export default {
 </script>
 
 <template>
-    <div class="mainSelectionHolder">
-        <ui :id="'mainSelectionCard_' + index" class="mainSelectionCard" @click="SelectCard(index)" v-for="(options, index) in availableOptions" :key="index">
-            <div class="mainSelectionCardHolder">
-                <img class="mainSelectionCardIcon" src="../assets/boxedstuffings.png">
-                <div class="mainSelectionCardTexts">
-                    <h2>{{ options.name }}</h2>
-                    <p class="mainSelectionCardDescription">{{ options.description }}</p>    
-                </div>       
-            </div>
-        </ui>
-    </div>
+  <div class="Holder">
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="https://picsum.photos/id/237/200/100" class="d-block w-100">
+        </div>
+        <div class="carousel-item">
+          <img src="https://picsum.photos/id/230/200/100" class="d-block w-100">
+        </div>
+        <div class="carousel-item">
+          <img src="https://picsum.photos/id/259/200/100" class="d-block w-100">
+        </div>
+      </div>
+    </div>   
+  </div>
 </template>
 
 <style scoped>
-.mainSelectionHolder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.Holder {
+  height: 50%;
+  width: 50%;
 }
-.mainSelectionCard {
-    box-sizing: border-box;
-    width: 90%;
-    margin: 1%;
-    padding: 10px;
-    border: 2px solid black;
-    border-radius: 8px;
-    box-shadow: 2px 5px #888888;
-    transition-duration: 0.4s;
-}
-.mainSelectionCard.selected {
-    transform: scale(0.9);
-}
-.mainSelectionCardHolder {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-}
-.mainSelectionCardIcon {
-    height: 15vh;
-    width: auto;
-    border-radius: 8px;
-}
-.mainSelectionCardTexts {
-    margin-left: 10px;
-
-}
-.mainSelectionCardTexts h2 {
-    margin-block: 0;
-}
-.mainSelectionCardDescription {
-    font-size: 2.5vmin;
-    margin: 1px;
-    min-height: 90%;
-}
-
 </style>

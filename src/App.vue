@@ -1,5 +1,4 @@
 <script setup>
-import TV from './components/TV.vue'
 </script>
 
 <template>

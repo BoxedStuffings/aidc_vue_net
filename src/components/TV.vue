@@ -60,9 +60,9 @@ export default {
 
 <template>
     <!-- Main Grid -->
-    <div id="Tv_Grid">
+    <div id="TvGrid">
         <!-- Individual cards -->
-        <ui class="card" v-for="(TV, index) in availableTVs" :key="index">
+        <ui class="TvCard" v-for="(TV, index) in availableTVs" :key="index">
           <!-- Outline for selection -->
           <div class="imageOutline" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }">
             <!-- Card check mark -->
@@ -79,7 +79,7 @@ export default {
 </template>
 
 <style scoped>
-#Tv_Grid {
+#TvGrid {
   margin: 2vh 2vw;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -87,7 +87,7 @@ export default {
   justify-items: center;
   box-sizing: border-box;
 }
-.card {
+.TvCard {
   margin: 5%;
   display: flex;
   flex-direction: column;
@@ -127,7 +127,7 @@ img.selected {
   box-shadow: 0 0 4px white;
   z-index: -1;
 }
-.card button {
+.TvCard button {
   background-color: #ff5081;
   width: 80%;
   padding: 5px 0;
