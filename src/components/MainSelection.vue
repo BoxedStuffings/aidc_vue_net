@@ -38,12 +38,12 @@ export default {
 </script>
 
 <template>
-    <div id="mainSelectionHolder">
+    <div class="mainSelectionHolder">
         <ui :id="'mainSelectionCard_' + index" class="mainSelectionCard" @click="test(index)" v-for="(options, index) in availableOptions" :key="index">
-            <div id="mainSelectionCardHolder">
+            <div class="mainSelectionCardHolder">
                 <img class="mainSelectionCardIcon" src="../assets/boxedstuffings.png">
-                <div id="mainSelectionCardTexts">
-                    <h1>{{ options.name }}</h1>
+                <div class="mainSelectionCardTexts">
+                    <h2>{{ options.name }}</h2>
                     <p class="mainSelectionCardDescription">{{ options.description }}</p>    
                 </div>       
             </div>
@@ -52,12 +52,11 @@ export default {
 </template>
 
 <style scoped>
-#mainSelectionHolder {
+.mainSelectionHolder {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
 .mainSelectionCard {
     box-sizing: border-box;
     width: 90%;
@@ -71,17 +70,27 @@ export default {
 .mainSelectionCard.selected {
     transform: scale(0.9);
 }
-#mainSelectionCardHolder {
-    position: relative;
+.mainSelectionCardHolder {
     display: flex;
     flex-direction: row;
+    height: 100%;
 }
 .mainSelectionCardIcon {
     height: 15vh;
+    width: auto;
     border-radius: 8px;
 }
-#mainSelectionCardTexts {
+.mainSelectionCardTexts {
     margin-left: 10px;
+
+}
+.mainSelectionCardTexts h2 {
+    margin-block: 0;
+}
+.mainSelectionCardDescription {
+    font-size: 2.5vmin;
+    margin: 1px;
+    min-height: 90%;
 }
 
 </style>
