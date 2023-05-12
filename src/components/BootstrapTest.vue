@@ -20,6 +20,9 @@ export default {
         } else {
             card.classList.add("selected")
         }
+    },
+    test(test) {
+      console.log(test)
     }
   },
 
@@ -41,13 +44,13 @@ export default {
   <div class="Holder">
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
-        <div class="carousel-item active">
+        <div class="carousel-item active" @click="test(1)">
           <img src="https://picsum.photos/id/237/200/100" class="d-block w-100">
         </div>
-        <div class="carousel-item">
+        <div class="carousel-item" @click="test(2)">
           <img src="https://picsum.photos/id/230/200/100" class="d-block w-100">
         </div>
-        <div class="carousel-item">
+        <div class="carousel-item" @click="test(3)">
           <img src="https://picsum.photos/id/259/200/100" class="d-block w-100">
         </div>
       </div>

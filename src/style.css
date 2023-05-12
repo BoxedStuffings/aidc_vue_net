@@ -1,7 +1,7 @@
 body {
-  min-height: 100vh;
-  color: var(--tg-theme-text-color);
-  background: var(--tg-theme-bg-color);
+  /* min-height: 100vh; */
+  color: var(--tg-theme-text-color)!important;
+  background: var(--tg-theme-bg-color)!important;
   transition: color 0.5s, background-color 0.5s;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

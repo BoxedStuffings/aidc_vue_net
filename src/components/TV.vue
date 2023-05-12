@@ -72,7 +72,7 @@ export default {
           </div>
             <!-- Display name -->
             <p>TV • {{ TV.id }}</p>
-            <button :id="'button_' + index" @click="selectTV(TV, index)">Selects</button>
+            <button :id="'button_' + index" @click="selectTV(TV, index)" data-bs-toggle="tooltip">Select</button>
         </ui> 
         {{ selectedTvs }}  <!-- for testing -->
     </div>
