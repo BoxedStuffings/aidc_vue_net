@@ -12,6 +12,10 @@ export default {
   },
 
   methods: {
+    SelectCard(index) {
+        console.log("ph")
+    },
+
     pressingDown(index) {
       const card = document.getElementById("Card_" + index)
       card.style.transitionDuration = '0.4s'

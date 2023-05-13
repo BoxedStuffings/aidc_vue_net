@@ -13,13 +13,7 @@ export default {
 
   methods: {
     SelectCard(index) {
-        const card = document.getElementById("mainSelectionCard_" + index)
-        if (card.classList.contains("selected")) {
-            card.classList.remove("selected")
-        } else {
-            card.classList.add("selected")
-        }
-        console.log("test")
+        this.$router.push('/BootstrapTest')
     },
 
     pressingDown(index) {
