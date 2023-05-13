@@ -1,6 +1,4 @@
 <script>
-import { onMounted, ref } from 'vue'
-
 export default {
   data() {
     return {
@@ -21,27 +19,39 @@ export default {
   },
 
   methods: {
-    selectTV(TV, buttonIndex) {
+    selectTV(TV, Index) {
       const index = this.selectedTvs.findIndex(t => t == TV)
-      const buttonID = "button_" + buttonIndex
+      const button = document.getElementById("button_" + Index)
       const tgMainButton = Telegram.WebApp.MainButton
 
       if (index >= 0) {
         this.selectedTvs.splice(index, 1)
-        document.getElementById(buttonID).innerHTML = "Select"
+        button.innerHTML = "Select"
       } else {
         this.selectedTvs.push(TV)
-        document.getElementById(buttonID).innerHTML = "Unselect"
+        button.innerHTML = "Unselect"
       }
 
       if (this.selectedTvs.length >= 1) { 
-        console.log("test 1")
         tgMainButton.show()
       } else {
-        console.log("test 2")
         tgMainButton.hide()
       }
     },
+
+    pressingDown(index) {
+        const card = document.getElementById("button_" + index)
+
+        card.style.transitionDuration = '0.4s'
+        card.style.transform = 'scale(0.95)'
+    },
+
+    notPressingDown(index) {
+        const card = document.getElementById("button_" + index)
+
+        card.style.transitionDuration = '0.2s'
+        card.style.transform = 'scale(1)'
+    }
   },
 
   mounted() {
@@ -60,26 +70,26 @@ export default {
 
 <template>
     <!-- Main Grid -->
-    <div id="TvGrid">
+    <div id="tv-grid">
         <!-- Individual cards -->
-        <ui class="TvCard" v-for="(TV, index) in availableTVs" :key="index">
+        <ui class="tv-card" v-for="(TV, index) in availableTVs" :key="index">
           <!-- Outline for selection -->
-          <div class="imageOutline" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }">
+          <div class="tv-imageOutline" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }">
             <!-- Card check mark -->
-            <img class="imageCheck" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }" src="../assets/boxedstuffings.png">
+            <img class="tv-imageCheck" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }" src="../assets/boxedstuffings.png">
             <!-- Display image -->
             <img :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }" src="../assets/boxedstuffings.png">
           </div>
             <!-- Display name -->
             <p>TV • {{ TV.id }}</p>
-            <button :id="'button_' + index" @click="selectTV(TV, index)" data-bs-toggle="tooltip">Select</button>
+            <button :id="'button_' + index" @click="selectTV(TV, index)" @touchstart="pressingDown(index)" @touchend="notPressingDown(index)" data-bs-toggle="tooltip">Select</button>
         </ui> 
         {{ selectedTvs }}  <!-- for testing -->
     </div>
 </template>
 
 <style scoped>
-#TvGrid {
+#tv-grid {
   margin: 2vh 2vw;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -87,23 +97,23 @@ export default {
   justify-items: center;
   box-sizing: border-box;
 }
-.TvCard {
+.tv-card {
   margin: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.imageOutline {
+.tv-imageOutline {
   max-width: 70%;
   height: auto;
   position: relative;
 }
-.imageCheck.selected {
+.tv-imageCheck.selected {
   visibility: visible;
   transform: scale(1);
   z-index: 2;
 }
-.imageCheck {
+.tv-imageCheck {
   visibility: hidden;
   display: block;
   border-radius: 50%;
@@ -118,7 +128,7 @@ export default {
   transform: scale(0);
   z-index: 2;
 }
-.imageOutline img {
+.tv-imageOutline img {
   max-width: 100%;
   height: auto;
 }
@@ -127,16 +137,15 @@ img.selected {
   box-shadow: 0 0 4px white;
   z-index: -1;
 }
-.TvCard button {
-  background-color: #ff5081;
+.tv-card button {
+  background-color: var(--accent);
   width: 80%;
   padding: 5px 0;
   border: 0px;
   border-radius: 6px;
-  color: white;
+  color: var(--tg-theme-text-color);
   text-align: center;
   justify-content: center;
   display: inline-block;
 }
-
 </style>

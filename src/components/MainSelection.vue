@@ -1,5 +1,4 @@
 <script>
-
 export default {
   data() {
     return {
@@ -20,6 +19,19 @@ export default {
         } else {
             card.classList.add("selected")
         }
+        console.log("test")
+    },
+
+    pressingDown(index) {
+        const card = document.getElementById("mainSelectionCard_" + index)
+        card.style.transitionDuration = '0.4s'
+        card.style.transform = 'scale(0.95)'
+    },
+
+    notPressingDown(index) {
+        const card = document.getElementById("mainSelectionCard_" + index)
+        card.style.transitionDuration = '0.2s'
+        card.style.transform = 'scale(1)'
     }
   },
 
@@ -32,19 +44,18 @@ export default {
       }
     })
   }
-  
-}
 
+}
 </script>
 
 <template>
     <div class="mainSelectionHolder">
-        <ui :id="'mainSelectionCard_' + index" class="mainSelectionCard" @click="SelectCard(index)" v-for="(options, index) in availableOptions" :key="index">
-            <div class="mainSelectionCardHolder">
-                <img class="mainSelectionCardIcon" src="../assets/boxedstuffings.png">
-                <div class="mainSelectionCardTexts">
+        <ui :id="'mainSelectionCard_' + index" class="mainSelectionCard" @click="SelectCard(index)" @touchstart="pressingDown(index)" @touchend="notPressingDown(index)" v-for="(options, index) in availableOptions" :key="index">
+            <div class="mainSelectionCard-Holder">
+                <img class="mainSelectionCard-Icon" src="../assets/boxedstuffings.png">
+                <div class="mainSelectionCard-Texts">
                     <h2>{{ options.name }}</h2>
-                    <p class="mainSelectionCardDescription">{{ options.description }}</p>    
+                    <p class="mainSelectionCard-Description">{{ options.description }}</p>    
                 </div>       
             </div>
         </ui>
@@ -68,29 +79,27 @@ export default {
     transition-duration: 0.4s;
 }
 .mainSelectionCard.selected {
-    transform: scale(0.9);
+    transform: scale(0.95)!important;
 }
-.mainSelectionCardHolder {
+.mainSelectionCard-Holder {
     display: flex;
     flex-direction: row;
     height: 100%;
 }
-.mainSelectionCardIcon {
+.mainSelectionCard-Icon {
     height: 15vh;
     width: auto;
     border-radius: 8px;
 }
-.mainSelectionCardTexts {
+.mainSelectionCard-Texts {
     margin-left: 10px;
-
 }
-.mainSelectionCardTexts h2 {
+.mainSelectionCard-Texts h2 {
     margin-block: 0;
 }
-.mainSelectionCardDescription {
+.mainSelectionCard-Description {
     font-size: 2.5vmin;
     margin: 1px;
     min-height: 90%;
 }
-
 </style>

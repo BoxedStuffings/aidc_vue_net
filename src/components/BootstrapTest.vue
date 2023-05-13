@@ -1,5 +1,4 @@
 <script>
-
 export default {
   data() {
     return {
@@ -13,16 +12,16 @@ export default {
   },
 
   methods: {
-    SelectCard(index) {
-        const card = document.getElementById("mainSelectionCard_" + index)
-        if (card.classList.contains("selected")) {
-            card.classList.remove("selected")
-        } else {
-            card.classList.add("selected")
-        }
+    pressingDown(index) {
+      const card = document.getElementById("Card_" + index)
+      card.style.transitionDuration = '0.4s'
+      card.style.transform = 'scale(0.95)'
     },
-    test(test) {
-      console.log(test)
+
+    notPressingDown(index) {
+      const card = document.getElementById("Card_" + index)
+      card.style.transitionDuration = '0.2s'
+      card.style.transform = 'scale(1)'
     }
   },
 
@@ -35,32 +34,38 @@ export default {
       }
     })
   }
-  
-}
 
+}
 </script>
 
 <template>
-  <div class="Holder">
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active" @click="test(1)">
-          <img src="https://picsum.photos/id/237/200/100" class="d-block w-100">
+  <div class="card-holder">
+    <div class="row row-cols-1 row-cols-md-1 g-4">
+      <ui :id="'Card_' + index" class="" @click="SelectCard(index)" v-for="(options, index) in availableOptions" :key="index">
+        <div class="col">
+          <div class="card" @touchstart="pressingDown(index)" @touchend="notPressingDown(index)">
+            <img src="../assets/boxedstuffings.png" class="card-img-top card-img" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{ options.name }}</h5>
+              <p class="card-text">{{ options.description }}</p>
+            </div>
+          </div>
         </div>
-        <div class="carousel-item" @click="test(2)">
-          <img src="https://picsum.photos/id/230/200/100" class="d-block w-100">
-        </div>
-        <div class="carousel-item" @click="test(3)">
-          <img src="https://picsum.photos/id/259/200/100" class="d-block w-100">
-        </div>
-      </div>
-    </div>   
+      </ui>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.Holder {
-  height: 50%;
-  width: 50%;
+.card-holder{
+  padding: 2vh 2vw;
+}
+.card-img {
+  max-height: 30vh;
+  padding: 2%;
+  border-radius: 0.6rem;
+}
+.card-body{
+  font-size: 2.5vmin;
 }
 </style>
