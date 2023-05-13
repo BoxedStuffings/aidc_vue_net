@@ -45,7 +45,7 @@ export default {
 <template>
   <div class="card-holder">
     <div class="row row-cols-1 row-cols-md-1 g-0">
-      <ui :id="'Card_' + index" class="" @click="SelectCard(index)" v-for="(options, index) in availableOptions" :key="index">
+      <ui :id="'Card_' + index" class="noselect" @click="SelectCard(index)" v-for="(options, index) in availableOptions" :key="index">
         <div class="col">
           <div class="card" @touchstart="pressingDown(index)" @touchend="notPressingDown(index)">
             <img src="../assets/boxedstuffings.png" class="card-img-top card-img">

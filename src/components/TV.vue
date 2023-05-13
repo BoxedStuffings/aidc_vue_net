@@ -72,7 +72,7 @@ export default {
     <!-- Main Grid -->
     <div id="tv-grid">
         <!-- Individual cards -->
-        <ui class="tv-card" v-for="(TV, index) in availableTVs" :key="index">
+        <ui class="tv-card noselect" v-for="(TV, index) in availableTVs" :key="index">
           <!-- Outline for selection -->
           <div class="tv-imageOutline" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }">
             <!-- Card check mark -->
@@ -82,7 +82,7 @@ export default {
           </div>
             <!-- Display name -->
             <p>TV • {{ TV.id }}</p>
-            <button :id="'button_' + index" @click="selectTV(TV, index)" @touchstart="pressingDown(index)" @touchend="notPressingDown(index)" data-bs-toggle="tooltip">Select</button>
+            <button :id="'button_' + index" @click="selectTV(TV, index)" @touchstart="pressingDown(index)" @touchend="notPressingDown(index)">Select</button>
         </ui> 
         {{ selectedTvs }}  <!-- for testing -->
     </div>

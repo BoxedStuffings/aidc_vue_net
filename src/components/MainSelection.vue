@@ -44,7 +44,7 @@ export default {
 
 <template>
     <div class="mainSelectionHolder">
-        <ui :id="'mainSelectionCard_' + index" class="mainSelectionCard" @click="SelectCard(index)" @touchstart="pressingDown(index)" @touchend="notPressingDown(index)" v-for="(options, index) in availableOptions" :key="index">
+        <ui :id="'mainSelectionCard_' + index" class="mainSelectionCard noselect" @click="SelectCard(index)" @touchstart="pressingDown(index)" @touchend="notPressingDown(index)" v-for="(options, index) in availableOptions" :key="index">
             <div class="mainSelectionCard-Holder">
                 <img class="mainSelectionCard-Icon" src="../assets/boxedstuffings.png">
                 <div class="mainSelectionCard-Texts">
