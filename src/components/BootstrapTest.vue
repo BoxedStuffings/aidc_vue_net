@@ -50,7 +50,7 @@ export default {
           <div class="card" @touchstart="pressingDown(index)" @touchend="notPressingDown(index)">
             <img src="../assets/boxedstuffings.png" class="card-img-top card-img" alt="...">
             <div class="card-body">
-              <h5 class="card-title">{{ options.name }}</h5>
+              <h1 class="card-title">{{ options.name }}</h1>
               <p class="card-text">{{ options.description }}</p>
             </div>
           </div>
@@ -64,10 +64,13 @@ export default {
 .card-holder{
   padding: 2vh 2vw;
 }
+.card{
+  background: var(--tg-theme-bg-color);
+}
 .card-img {
-  max-height: 30vh;
+  max-height: 25vh;
   padding: 2%;
-  border-radius: 0.6rem;
+  border-radius: 0.8rem;
 }
 .card-body{
   font-size: 2.5vmin;
