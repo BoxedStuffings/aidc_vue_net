@@ -48,7 +48,7 @@ export default {
       <ui :id="'Card_' + index" class="" @click="SelectCard(index)" v-for="(options, index) in availableOptions" :key="index">
         <div class="col">
           <div class="card" @touchstart="pressingDown(index)" @touchend="notPressingDown(index)">
-            <img src="../assets/boxedstuffings.png" class="card-img-top card-img" alt="...">
+            <img src="../assets/boxedstuffings.png" class="card-img-top card-img">
             <div class="card-body">
               <h1 class="card-title">{{ options.name }}</h1>
               <p class="card-text">{{ options.description }}</p>
