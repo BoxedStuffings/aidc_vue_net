@@ -44,7 +44,7 @@ export default {
 
 <template>
   <div class="card-holder">
-    <div class="row row-cols-1 row-cols-md-1 g-4">
+    <div class="row row-cols-1 row-cols-md-1 g-0">
       <ui :id="'Card_' + index" class="" @click="SelectCard(index)" v-for="(options, index) in availableOptions" :key="index">
         <div class="col">
           <div class="card" @touchstart="pressingDown(index)" @touchend="notPressingDown(index)">
@@ -74,5 +74,11 @@ export default {
 }
 .card-body{
   font-size: 2.5vmin;
+}
+
+@media (prefers-color-scheme: dark) {
+  .card {
+    border: 1px solid rgba(255, 255, 255, 0.173)
+  }
 }
 </style>
