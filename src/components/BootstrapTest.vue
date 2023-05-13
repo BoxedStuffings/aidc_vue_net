@@ -62,10 +62,11 @@ export default {
 
 <style scoped>
 .card-holder{
-  padding: 2vh 2vw;
+  padding: 1vh 2vw;
 }
 .card{
   background: var(--tg-theme-bg-color);
+  margin-top: 2vh;
 }
 .card-img {
   max-height: 25vh;
