@@ -1,56 +1,18 @@
 <script>
+import { store } from '../Store.js'
+
 export default {
   data() {
     return {
-        // Data recieved -- test values
-        availableOptions: [
-            {
-                "_id": 0,
-                "title":"Default Banner",
-                "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
-                "media":"hehe.com"
-            },
-
-            {
-                "_id": 2,
-                "title":"Custom",
-                "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
-                "media":"hehe.com",
-                "display_variations":[
-                    {
-                        "_id": 1,
-                        "title":"Variation 1",
-                        "desc":"",
-                        "wireframe":"",
-                        "sample_media":"",
-                        "background_media":[""]
-                    }
-                ]
-            },
-
-            {
-                "_id": 1,
-                "title":"Standard",
-                "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
-                "media":"hehe.com",
-                "display_variations":[
-                    {
-                        "_id": 1,
-                        "title":"Variation 1",
-                        "desc":"",
-                        "wireframe":"",
-                        "sample_media":"",
-                        "background_media":[""]
-                    }
-                ]
-            }
-        ]
+        // Data received -- test values from store
+        store,
+        
     }
   },
 
   methods: {
     selectCard(selection_id) {
-        const card = this.availableOptions.find(x => x._id === selection_id)
+        const card = store.availableMSOptions.find(x => x._id === selection_id)
         card.display_variations ? this.$router.push('/BootstrapTest') : console.log("test")
     },
 
@@ -82,7 +44,7 @@ export default {
 
 <template>
     <div class="ms-holder">
-        <ui :id="'ms-card-id_' + option._id" class="ms-card noselect" @click="selectCard(option._id)" @touchstart="pressingDown(option._id)" @touchend="notPressingDown(option._id)" v-for="option in availableOptions" :key="option._id">
+        <ui :id="'ms-card-id_' + option._id" class="ms-card noselect" @click="selectCard(option._id)" @touchstart="pressingDown(option._id)" @touchend="notPressingDown(option._id)" v-for="option in store.availableMSOptions" :key="option._id">
             <div class="ms-card-holder">
                 <div class="ms-card-header">
                     <img class="ms-card-icon" src="../assets/boxedstuffings.png">

@@ -1,117 +1,30 @@
 <script>
+import { store } from '../Store.js'
+
 export default {
   data() {
     return {
-      // Data to be sent
-      selectedTvs: [],
+    // Data received -- test values from store
+      store,
       
-      // Data recieved -- test values
-      availableTVs: [
-        {
-          "_id": 1,
-          "current_display":null,
-          "image":"adwdwadawd.com",
-          "info":"wdwdwd",
-          "address":"heheMACAddress",
-          "updated_at":{"$date":{"$numberLong":"1683464890493"}},
-          "created_at":{"$date":{"$numberLong":"1683459833600"}}
-        },
-
-        {
-          "_id": 2,
-          "current_display":null,
-          "image":"adwdwadawd.com",
-          "info":"wdwdwd",
-          "address":"heheMACAddress",
-          "updated_at":{"$date":{"$numberLong":"1683462882369"}},
-          "created_at":{"$date":{"$numberLong":"1683462580446"}}
-        },
-
-        {
-          "_id": 3,
-          "current_display":null,
-          "image":"adwdwadawd.com",
-          "info":"wdwdwd",
-          "address":"heheMACAddress",
-          "updated_at":{"$date":{"$numberLong":"1683488829939"}},
-          "created_at":{"$date":{"$numberLong":"1683462677844"}},
-          "displays":[
-            {"tv_id":{"$numberInt":"3"},
-              "display_type":"seed",
-              "display_variation":"seed",
-              "display_start":"2023-05-08T14:30",
-              "display_end":"2023-05-08T16:30",
-              "userdefinedfields":{
-                "field1":{
-                    "size":"12",
-                    "font":"Montserrat",
-                    "colour":"#HEX"
-                  }
-                },
-              "_id":{"$oid":"6457e537888697b4e10d9323"}
-            },
-            {"tv_id": 3,
-              "display_type":"2",
-              "display_variation":"1",
-              "display_start":"2023-05-08T08:30",
-              "display_end":"2023-05-08T09:30",
-              "userdefinedfields":{
-                "field1":{
-                    "size":"12",
-                    "font":"Montserrat",
-                    "colour":"#HEX"
-                  }
-                },
-              "_id":{"$oid":"6458003d0f33f0ac5d09ed62"}
-            }
-          ]
-        },
-
-        {
-          "_id": 4,
-          "current_display":"nnn",
-          "image":"adwdwadawd.com",
-          "info":"wdwdwd",
-          "address":"heheMACAddress",
-          "displays":[
-              {
-                "tv_id": 4,
-                "display_type":"2",
-                "display_variation":"1",
-                "display_start":"2023-05-08T08:30",
-                "display_end":"2023-05-08T09:30",
-                "userdefinedfields":{
-                  "field1":{
-                      "size":"12",
-                      "font":"Montserrat",
-                      "colour":"#HEX"
-                    }
-                  },
-                "_id":{"$oid":"645805da560e36c1dd0c39a2"}
-              }
-            ],
-          "updated_at":{"$date":{"$numberLong":"1683490266918"}},
-          "created_at":{"$date":{"$numberLong":"1683489545605"}}
-        }
-      ],
     }
   },
 
   methods: {
     selectTV(TV, selection_id) {
-      const index = this.selectedTvs.findIndex(x => x == TV)
+      const index = store.findIndexOfSelectedTv(TV)
       const button = document.getElementById("button-id_" + selection_id)
       const tgMainButton = Telegram.WebApp.MainButton
 
       if (index >= 0) {
-        this.selectedTvs.splice(index, 1)
+        store.spliceSelectedTvAt(index)
         button.innerHTML = "Select"
       } else {
-        this.selectedTvs.push(TV)
+        store.pushSelectedTv(TV)
         button.innerHTML = "Unselect"
       }
 
-      if (this.selectedTvs.length >= 1) { 
+      if (store.selectedTvs.length >= 1) { 
         tgMainButton.show()
       } else {
         tgMainButton.hide()
@@ -151,19 +64,19 @@ export default {
     <!-- Main Grid -->
     <div id="tv-grid">
         <!-- Individual cards -->
-        <ui class="tv-card noselect" v-for="TV in availableTVs" :key="TV._id">
+        <ui class="tv-card noselect" v-for="TV in store.availableTVs" :key="TV._id">
           <!-- Outline for selection -->
-          <div class="tv-card-imageOutline" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }">
+          <div class="tv-card-imageOutline" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }">
             <!-- Card check mark -->
-            <img class="tv-card-imageCheck" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }" src="../assets/boxedstuffings.png">
+            <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
             <!-- Display image -->
-            <img :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }" src="../assets/boxedstuffings.png">
+            <img :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
           </div>
             <!-- Display name -->
             <p>TV • {{ TV._id }}</p>
             <button :id="'button-id_' + TV._id" @click="selectTV(TV, TV._id)" @touchstart="pressingDown(TV._id)" @touchend="notPressingDown(TV._id)">Select</button>
         </ui> 
-        {{ selectedTvs }}  <!-- for testing -->
+        {{ store.selectedTvs }}  <!-- for testing -->
     </div>
 </template>
 
