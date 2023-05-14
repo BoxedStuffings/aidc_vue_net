@@ -6,7 +6,6 @@ export default {
     return {
         // Data received -- test values from store
         store,
-        
     }
   },
 
@@ -61,17 +60,15 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 1vh 2vw;
 }
 .ms-card {
     box-sizing: border-box;
     width: 90%;
-    margin: 1%;
-    /* border: 2px solid black; */
+    margin-block: 2%;
     border: 1px solid rgba(0, 0, 0, 0.175);;
     border-radius: 0.375rem;
-    /* border-radius: 8px; */
     padding: 10px;
-    /* box-shadow: 2px 5px #888888; */
     transition-duration: 0.4s;
 }
 .ms-card.selected {

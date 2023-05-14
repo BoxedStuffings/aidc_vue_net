@@ -6,7 +6,6 @@ export default {
     return {
       // Data received -- test values from store
       store,
-      
     }
   },
 
@@ -65,7 +64,7 @@ export default {
 }
 .card{
   margin-top: 2vh;
-  background: var(--tg-theme-bg-color);
+  background-color: var(--tg-theme-bg-color);
 }
 .card-img {
   max-height: 25vh;

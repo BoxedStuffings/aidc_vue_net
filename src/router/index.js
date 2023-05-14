@@ -1,7 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import TV from '../components/TV.vue'
 import MainSelection from '../components/MainSelection.vue'
 import BootstrapTest from '../components/BootstrapTest.vue'
+import ImageUpload from '../components/StaticImageUpload.vue'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,6 +24,11 @@ const router = createRouter({
       path: '/BootstrapTest',
       name: 'Bootstrap Test',
       component: BootstrapTest
+    },
+    {
+      path: '/ImageUp',
+      name: 'StatiImageUpload',
+      component: ImageUpload
     }
   ]
 })

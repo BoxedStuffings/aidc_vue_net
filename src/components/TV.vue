@@ -6,7 +6,6 @@ export default {
     return {
     // Data received -- test values from store
       store,
-      
     }
   },
 
@@ -86,7 +85,7 @@ export default {
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   row-gap: 2vh;
   justify-items: center;
-  margin: 2vh 2vw;
+  padding: 1vh 2vw;
   box-sizing: border-box;
 }
 .tv-card {
@@ -137,7 +136,7 @@ img.selected {
   border-radius: 6px;
   padding: 5px 0;
   background-color: var(--accent);
-  color: var(--tg-theme-text-color);
+  color: var(--tg-theme-button-text-color);
   text-align: center;
 }
 </style>
