@@ -72,13 +72,10 @@ export default {
     background-color: #242862;
     color: var(--tg-theme-button-text-colorr);
 }
-
 small {
     font-size: 1.5vmin;
 }
-
 input[type="file"] {
     display: none;
 }
-
 </style>

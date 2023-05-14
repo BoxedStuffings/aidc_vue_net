@@ -11,7 +11,7 @@ export default {
 
   methods: {
     selectCard(selection_id) {
-        console.log("ph")
+        this.$router.push('/ImageUp')
     },
 
     pressingDown(selection_id) {
