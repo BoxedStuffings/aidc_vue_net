@@ -7,21 +7,100 @@ export default {
       
       // Data recieved -- test values
       availableTVs: [
-        { id: "1029B", text: 'TV Test 1'},
-        { id: "1030A", text: 'TV Test 2'},
-        { id: "1031C", text: 'TV Test 3'},
-        { id: "1029D", text: 'TV Test 4'},
-        { id: "1029E", text: 'TV Test 5'},
-        { id: "1029F", text: 'TV Test 6'},
-        { id: "1029G", text: 'TV Test 7'}
+        {
+          "_id": 1,
+          "current_display":null,
+          "image":"adwdwadawd.com",
+          "info":"wdwdwd",
+          "address":"heheMACAddress",
+          "updated_at":{"$date":{"$numberLong":"1683464890493"}},
+          "created_at":{"$date":{"$numberLong":"1683459833600"}}
+        },
+
+        {
+          "_id": 2,
+          "current_display":null,
+          "image":"adwdwadawd.com",
+          "info":"wdwdwd",
+          "address":"heheMACAddress",
+          "updated_at":{"$date":{"$numberLong":"1683462882369"}},
+          "created_at":{"$date":{"$numberLong":"1683462580446"}}
+        },
+
+        {
+          "_id": 3,
+          "current_display":null,
+          "image":"adwdwadawd.com",
+          "info":"wdwdwd",
+          "address":"heheMACAddress",
+          "updated_at":{"$date":{"$numberLong":"1683488829939"}},
+          "created_at":{"$date":{"$numberLong":"1683462677844"}},
+          "displays":[
+            {"tv_id":{"$numberInt":"3"},
+              "display_type":"seed",
+              "display_variation":"seed",
+              "display_start":"2023-05-08T14:30",
+              "display_end":"2023-05-08T16:30",
+              "userdefinedfields":{
+                "field1":{
+                    "size":"12",
+                    "font":"Montserrat",
+                    "colour":"#HEX"
+                  }
+                },
+              "_id":{"$oid":"6457e537888697b4e10d9323"}
+            },
+            {"tv_id": 3,
+              "display_type":"2",
+              "display_variation":"1",
+              "display_start":"2023-05-08T08:30",
+              "display_end":"2023-05-08T09:30",
+              "userdefinedfields":{
+                "field1":{
+                    "size":"12",
+                    "font":"Montserrat",
+                    "colour":"#HEX"
+                  }
+                },
+              "_id":{"$oid":"6458003d0f33f0ac5d09ed62"}
+            }
+          ]
+        },
+
+        {
+          "_id": 4,
+          "current_display":"nnn",
+          "image":"adwdwadawd.com",
+          "info":"wdwdwd",
+          "address":"heheMACAddress",
+          "displays":[
+              {
+                "tv_id": 4,
+                "display_type":"2",
+                "display_variation":"1",
+                "display_start":"2023-05-08T08:30",
+                "display_end":"2023-05-08T09:30",
+                "userdefinedfields":{
+                  "field1":{
+                      "size":"12",
+                      "font":"Montserrat",
+                      "colour":"#HEX"
+                    }
+                  },
+                "_id":{"$oid":"645805da560e36c1dd0c39a2"}
+              }
+            ],
+          "updated_at":{"$date":{"$numberLong":"1683490266918"}},
+          "created_at":{"$date":{"$numberLong":"1683489545605"}}
+        }
       ],
     }
   },
 
   methods: {
-    selectTV(TV, Index) {
-      const index = this.selectedTvs.findIndex(t => t == TV)
-      const button = document.getElementById("button_" + Index)
+    selectTV(TV, selection_id) {
+      const index = this.selectedTvs.findIndex(x => x == TV)
+      const button = document.getElementById("button-id_" + selection_id)
       const tgMainButton = Telegram.WebApp.MainButton
 
       if (index >= 0) {
@@ -39,15 +118,15 @@ export default {
       }
     },
 
-    pressingDown(index) {
-        const card = document.getElementById("button_" + index)
+    pressingDown(selection_id) {
+        const card = document.getElementById("button-id_" + selection_id)
 
         card.style.transitionDuration = '0.4s'
         card.style.transform = 'scale(0.95)'
     },
 
-    notPressingDown(index) {
-        const card = document.getElementById("button_" + index)
+    notPressingDown(selection_id) {
+        const card = document.getElementById("button-id_" + selection_id)
 
         card.style.transitionDuration = '0.2s'
         card.style.transform = 'scale(1)'
@@ -72,17 +151,17 @@ export default {
     <!-- Main Grid -->
     <div id="tv-grid">
         <!-- Individual cards -->
-        <ui class="tv-card noselect" v-for="(TV, index) in availableTVs" :key="index">
+        <ui class="tv-card noselect" v-for="TV in availableTVs" :key="TV._id">
           <!-- Outline for selection -->
-          <div class="tv-imageOutline" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }">
+          <div class="tv-card-imageOutline" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }">
             <!-- Card check mark -->
-            <img class="tv-imageCheck" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }" src="../assets/boxedstuffings.png">
+            <img class="tv-card-imageCheck" :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }" src="../assets/boxedstuffings.png">
             <!-- Display image -->
             <img :class="{selected : selectedTvs.findIndex(t => t == TV) >= 0 }" src="../assets/boxedstuffings.png">
           </div>
             <!-- Display name -->
-            <p>TV • {{ TV.id }}</p>
-            <button :id="'button_' + index" @click="selectTV(TV, index)" @touchstart="pressingDown(index)" @touchend="notPressingDown(index)">Select</button>
+            <p>TV • {{ TV._id }}</p>
+            <button :id="'button-id_' + TV._id" @click="selectTV(TV, TV._id)" @touchstart="pressingDown(TV._id)" @touchend="notPressingDown(TV._id)">Select</button>
         </ui> 
         {{ selectedTvs }}  <!-- for testing -->
     </div>
@@ -90,62 +169,62 @@ export default {
 
 <style scoped>
 #tv-grid {
-  margin: 2vh 2vw;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   row-gap: 2vh;
   justify-items: center;
+  margin: 2vh 2vw;
   box-sizing: border-box;
 }
 .tv-card {
-  margin: 5%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 5%;
 }
-.tv-imageOutline {
-  max-width: 70%;
-  height: auto;
+.tv-card-imageOutline {
   position: relative;
+  height: auto;
+  max-width: 70%;
 }
-.tv-imageCheck.selected {
+.tv-card-imageCheck.selected {
   visibility: visible;
   transform: scale(1);
   z-index: 2;
 }
-.tv-imageCheck {
-  visibility: hidden;
+.tv-card-imageCheck {
   display: block;
-  border-radius: 50%;
+  visibility: hidden;
   position: absolute;
   top: -5px;
   left: -5px;
   width: 25px;
   height: 25px;
+  border-radius: 50%;
   text-align: center;
   line-height: 28px;
-  transition-duration: 0.4s;
   transform: scale(0);
+  transition-duration: 0.4s;
   z-index: 2;
 }
-.tv-imageOutline img {
-  max-width: 100%;
+.tv-card-imageOutline img {
   height: auto;
+  max-width: 100%;
 }
 img.selected {
-  transform: scale(0.9);
   box-shadow: 0 0 4px white;
+  transform: scale(0.9);
   z-index: -1;
 }
 .tv-card button {
-  background-color: var(--accent);
+  display: inline-block;
+  justify-content: center;
   width: 80%;
-  padding: 5px 0;
   border: 0px;
   border-radius: 6px;
+  padding: 5px 0;
+  background-color: var(--accent);
   color: var(--tg-theme-text-color);
   text-align: center;
-  justify-content: center;
-  display: inline-block;
 }
 </style>

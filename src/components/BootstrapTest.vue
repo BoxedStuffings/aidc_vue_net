@@ -4,28 +4,28 @@ export default {
     return {
         // Data recieved -- test values
         availableOptions: [
-            { id: "01", name: "Default", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et magna facilisis, tempus orci a, eleifend tellus. Pellentesque blandit neque semper odio ultrices, eu gravida nulla egestas. Donec convallis ante id risus posuere, eget finibus ante fringilla. Mauris pulvinar urna eu nisl tristique iaculis eget placerat neque. Nunc faucibus bibendum nulla, eu ultricies lorem ullamcorper quis. Pellentesque porta euismod dolor id consectetur."},
-            { id: "02", name: "Standard", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et magna facilisis, tempus orci a, eleifend tellus. Pellentesque blandit neque semper odio ultrices, eu gravida nulla egestas. Donec convallis ante id risus posuere, eget finibus ante fringilla. Mauris pulvinar urna eu nisl tristique iaculis eget placerat neque. Nunc faucibus bibendum nulla, eu ultricies lorem ullamcorper quis. Pellentesque porta euismod dolor id consectetur."},
-            { id: "03", name: "Custom", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et magna facilisis, tempus orci a, eleifend tellus. Pellentesque blandit neque semper odio ultrices, eu gravida nulla egestas. Donec convallis ante id risus posuere, eget finibus ante fringilla. Mauris pulvinar urna eu nisl tristique iaculis eget placerat neque. Nunc faucibus bibendum nulla, eu ultricies lorem ullamcorper quis. Pellentesque porta euismod dolor id consectetur."}
+            { _id: 1, name: "Default", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et magna facilisis, tempus orci a, eleifend tellus. Pellentesque blandit neque semper odio ultrices, eu gravida nulla egestas. Donec convallis ante id risus posuere, eget finibus ante fringilla. Mauris pulvinar urna eu nisl tristique iaculis eget placerat neque. Nunc faucibus bibendum nulla, eu ultricies lorem ullamcorper quis. Pellentesque porta euismod dolor id consectetur."},
+            { _id: 2, name: "Standard", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et magna facilisis, tempus orci a, eleifend tellus. Pellentesque blandit neque semper odio ultrices, eu gravida nulla egestas. Donec convallis ante id risus posuere, eget finibus ante fringilla. Mauris pulvinar urna eu nisl tristique iaculis eget placerat neque. Nunc faucibus bibendum nulla, eu ultricies lorem ullamcorper quis. Pellentesque porta euismod dolor id consectetur."},
+            { _id: 3, name: "Custom", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et magna facilisis, tempus orci a, eleifend tellus. Pellentesque blandit neque semper odio ultrices, eu gravida nulla egestas. Donec convallis ante id risus posuere, eget finibus ante fringilla. Mauris pulvinar urna eu nisl tristique iaculis eget placerat neque. Nunc faucibus bibendum nulla, eu ultricies lorem ullamcorper quis. Pellentesque porta euismod dolor id consectetur."}
         ]
     }
   },
 
   methods: {
-    SelectCard(index) {
+    selectCard(selection_id) {
         console.log("ph")
     },
 
-    pressingDown(index) {
-      const card = document.getElementById("Card_" + index)
-      card.style.transitionDuration = '0.4s'
+    pressingDown(selection_id) {
+      const card = document.getElementById("card-id_" + selection_id)
       card.style.transform = 'scale(0.95)'
+      card.style.transitionDuration = '0.4s'
     },
 
-    notPressingDown(index) {
-      const card = document.getElementById("Card_" + index)
-      card.style.transitionDuration = '0.2s'
+    notPressingDown(selection_id) {
+      const card = document.getElementById("card-id_" + selection_id)
       card.style.transform = 'scale(1)'
+      card.style.transitionDuration = '0.2s'
     }
   },
 
@@ -45,13 +45,13 @@ export default {
 <template>
   <div class="card-holder">
     <div class="row row-cols-1 row-cols-md-1 g-0">
-      <ui :id="'Card_' + index" class="noselect" @click="SelectCard(index)" v-for="(options, index) in availableOptions" :key="index">
+      <ui :id="'card-id_' + option._id" class="noselect" @click="selectCard(option._id)" v-for="option in availableOptions" :key="option._id">
         <div class="col">
-          <div class="card" @touchstart="pressingDown(index)" @touchend="notPressingDown(index)">
+          <div class="card" @touchstart="pressingDown(option._id)" @touchend="notPressingDown(option._id)">
             <img src="../assets/boxedstuffings.png" class="card-img-top card-img">
             <div class="card-body">
-              <h1 class="card-title">{{ options.name }}</h1>
-              <p class="card-text">{{ options.description }}</p>
+              <h1 class="card-title">{{ option.name }}</h1>
+              <p class="card-text">{{ option.description }}</p>
             </div>
           </div>
         </div>
@@ -65,13 +65,13 @@ export default {
   padding: 1vh 2vw;
 }
 .card{
-  background: var(--tg-theme-bg-color);
   margin-top: 2vh;
+  background: var(--tg-theme-bg-color);
 }
 .card-img {
   max-height: 25vh;
-  padding: 2%;
   border-radius: 0.8rem;
+  padding: 2%;
 }
 .card-body{
   font-size: 2.5vmin;
