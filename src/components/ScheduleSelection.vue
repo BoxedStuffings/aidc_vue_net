@@ -56,11 +56,11 @@ export default {
             <input type="radio" class="btn-check" name="options" :id="'option_' + option._id" :value="option.Description" v-model="selectedOption">
             <label class="btn btn-secondary ss-btn" :for="'option_' + option._id">{{ option.Description }}</label>
         </ui>
-        <input type="radio" class="btn-check" name="options" id="option_Date" value="Date" v-model="selectedOption">
+        <input type="radio" class="btn-check" name="options" id="option_Date" value="DateTime" v-model="selectedOption">
         <label class="btn btn-secondary ss-btn" for="option_Date">
-            Choose Time
+            Choose Date & Time
             <span>
-                <input type="date" class="form-control" :min="currentDate" v-model="selectedDate">
+                <input type="datetime-local" class="form-control" :min="currentDate" v-model="selectedDate">
             </span>
         </label>
         Current Date: {{ currentDate }}<br>
@@ -96,7 +96,7 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    border-radius: 0;
+    margin-block: 1%;
     text-align: left;
 }
 </style>
