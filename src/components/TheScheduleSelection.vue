@@ -96,11 +96,13 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    min-height: 5vh;
     margin-block: 1%;
     text-align: left;
     font-size: 2.5vmin;
 }
 .form-control {
     font-size: 2.5vmin;
+    min-width: 95%;
 }
 </style>

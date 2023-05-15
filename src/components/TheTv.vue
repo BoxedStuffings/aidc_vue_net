@@ -6,6 +6,7 @@ export default {
     return {
     // Data received -- test values from store
       store,
+      telegramMainButton: Telegram.WebApp.MainButton
     }
   },
 
@@ -46,21 +47,18 @@ export default {
     },
 
     mainButtonVisibility() {
-      const telegramMainButton = Telegram.WebApp.MainButton
-      store.selectedTvs.length >= 1 ? telegramMainButton.show() : telegramMainButton.hide() 
+      store.selectedTvs.length >= 1 ? this.telegramMainButton.show() : this.telegramMainButton.hide() 
     }
 
   },
 
   mounted() {
-    const telegramMainButton = Telegram.WebApp.MainButton
-
-    telegramMainButton.setParams({
+    this.telegramMainButton.setParams({
       text: 'Select Tv',
     }).onClick(() => {
-      if (telegramMainButton.isVisible) {
+      if (this.telegramMainButton.isVisible) {
         this.$router.push('/MainSelection')
-        telegramMainButton.hide()
+        this.telegramMainButton.hide()
       }
     })
     this.mainButtonVisibility()
