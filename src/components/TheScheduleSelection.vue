@@ -48,7 +48,7 @@ export default {
 
 <template>
     <div class="ss-holder">
-        <div class="ss-header">
+        <div class="ss-header noselect">
             <img src="../assets/boxedstuffings.png">
             <h2>Schedule Display</h2>
         </div>
@@ -98,5 +98,9 @@ export default {
     align-items: center;
     margin-block: 1%;
     text-align: left;
+    font-size: 2.5vmin;
+}
+.form-control {
+    font-size: 2.5vmin;
 }
 </style>

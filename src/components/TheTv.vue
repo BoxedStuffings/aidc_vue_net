@@ -11,7 +11,7 @@ export default {
 
   methods: {
     selectTV(TV, selection_id) {
-      const telegramMainButton = Telegram.WebApp.MainButton
+      // const telegramMainButton = Telegram.WebApp.MainButton
       let index = store.findIndexOfSelectedTv(TV)
       let button = document.getElementById('button-id_' + selection_id)
 
@@ -23,11 +23,11 @@ export default {
         button.innerHTML = 'Unselect'
       }
 
-      if (store.selectedTvs.length >= 1) { 
-        telegramMainButton.show()
-      } else {
-        telegramMainButton.hide()
-      }
+      // if (store.selectedTvs.length >= 1) { 
+      //   telegramMainButton.show()
+      // } else {
+      //   telegramMainButton.hide()
+      // }
     },
 
     pressingDown(selection_id) {
@@ -42,6 +42,16 @@ export default {
 
         card.style.transform = 'scale(1)'
         card.style.transitionDuration = '0.2s'
+    }
+  },
+
+  computed: {
+    mainButtonVisibility() {
+      const telegramMainButton = Telegram.WebApp.MainButton
+      let isVisible = store.selectedTvs.length >= 1 ? True : false
+
+      isVisible ? telegramMainButton.show() : telegramMainButton.hide()
+      return isVisible
     }
   },
 

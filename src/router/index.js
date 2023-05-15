@@ -5,7 +5,7 @@ import MainSelection from '../components/MainSelection.vue'
 import StandardDisplaySelection from '../components/StandardDisplaySelection.vue'
 import VariationSelection from '../components/VariationSelection.vue'
 import ImageUpload from '../components/StaticImageUpload.vue'
-import ScheduleSelection from '../components/ScheduleSelection.vue'
+import ScheduleSelection from '../components/TheScheduleSelection.vue'
 
 
 const router = createRouter({
