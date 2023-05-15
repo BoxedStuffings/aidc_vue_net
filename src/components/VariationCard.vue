@@ -30,7 +30,7 @@ export default {
   background-color: var(--tg-theme-bg-color);
 }
 .card-img {
-  max-height: 25vh;
+  max-height: 45vh;
   border-radius: 0.8rem;
   padding: 2%;
 }
