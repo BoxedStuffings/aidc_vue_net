@@ -23,6 +23,7 @@ export default {
         button.innerHTML = 'Unselect'
       }
 
+      this.mainButtonVisibility()
       // if (store.selectedTvs.length >= 1) { 
       //   telegramMainButton.show()
       // } else {
@@ -42,17 +43,13 @@ export default {
 
         card.style.transform = 'scale(1)'
         card.style.transitionDuration = '0.2s'
-    }
-  },
+    },
 
-  computed: {
     mainButtonVisibility() {
       const telegramMainButton = Telegram.WebApp.MainButton
-      let isVisible = store.selectedTvs.length >= 1 ? True : false
-
-      isVisible ? telegramMainButton.show() : telegramMainButton.hide()
-      return isVisible
+      store.selectedTvs.length >= 1 ? telegramMainButton.show() : telegramMainButton.hide() 
     }
+
   },
 
   mounted() {
@@ -66,6 +63,7 @@ export default {
         telegramMainButton.hide()
       }
     })
+    this.mainButtonVisibility()
   }
 
 }
@@ -86,7 +84,7 @@ export default {
             <!-- Display name -->
             <p>TV • {{ TV._id }}</p>
             <button :id="'button-id_' + TV._id" @click="selectTV(TV, TV._id)" @touchstart="pressingDown(TV._id)" @touchend="notPressingDown(TV._id)">Select</button>
-        </ui> 
+        </ui>
         {{ store.selectedTvs }}  <!-- for testing -->
     </div>
 </template>
