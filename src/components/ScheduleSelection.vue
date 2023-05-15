@@ -1,0 +1,102 @@
+<script>
+import { store } from '../Store.js'
+
+export default {
+  data() {
+    return {
+        // Data received -- test values from store
+        store,
+        options: [
+            {_id:0, Description: 'Immediately'},
+            {_id:1, Description: 'In 10 Minutes'},
+            {_id:2, Description: 'In 1 Hour'}
+        ],
+        currentDate: '',
+        selectedDate: '',
+        selectedOption: ''
+    }
+  },
+
+  methods: {
+    selectCard(selection_id) {
+        let card = store.availableMSOptions.find(x => x._id === selection_id)
+
+        card.display_variations ? this.$router.push('/VariationSelection') : this.$router.push('/StandardDisplay')
+    },
+  },
+
+  mounted() {
+    const date = new Date()
+    const telegramBackButton = Telegram.WebApp.BackButton
+    const dateOption = document.getElementById('option_Date')
+    let currentLocalDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().substring(0, 10)
+
+    telegramBackButton.show()
+    telegramBackButton.onClick(() => {
+      if (telegramBackButton.isVisible) {
+        this.$router.go(-1)
+        telegramBackButton.hide()
+      }
+    }),
+
+    this.currentDate = currentLocalDate
+    dateOption.min = currentLocalDate
+  }
+
+}
+</script>
+
+<template>
+    <div class="ss-holder">
+        <div class="ss-header">
+            <img src="../assets/boxedstuffings.png">
+            <h2>Schedule Display</h2>
+        </div>
+        <ui v-for="option in options" :key="option._id">
+            <input type="radio" class="btn-check" name="options" :id="'option_' + option._id" :value="option.Description" v-model="selectedOption">
+            <label class="btn btn-secondary ss-btn" :for="'option_' + option._id">{{ option.Description }}</label>
+        </ui>
+        <input type="radio" class="btn-check" name="options" id="option_Date" value="Date" v-model="selectedOption">
+        <label class="btn btn-secondary ss-btn" for="option_Date">
+            Choose Time
+            <span>
+                <input type="date" class="form-control" :min="currentDate" v-model="selectedDate">
+            </span>
+        </label>
+        Current Date: {{ currentDate }}<br>
+        Selected Date: {{ selectedDate }}<br>
+        Selected Option: {{ selectedOption }}
+    </div>
+</template>
+
+<style scoped>
+.ss-holder {
+    display: flex;
+    flex-direction: column;
+    padding: 1vh 2vw;
+}
+.ss-header {
+    display: flex;
+    margin-block: 2%;
+}
+.ss-header img {
+    height: 100%;
+    width: 8vw;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.ss-header h2 {
+    width: 100%;
+    margin-block: 0;
+    padding: 1%;
+    font-size: 4vmin;
+}
+.ss-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0;
+    text-align: left;
+}
+</style>
