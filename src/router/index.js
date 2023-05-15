@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import TV from '../components/TV.vue'
+import TV from '../components/TheTv.vue'
 import MainSelection from '../components/MainSelection.vue'
-import BootstrapTest from '../components/BootstrapTest.vue'
+import StandardDisplaySelection from '../components/StandardDisplaySelection.vue'
+import VariationSelection from '../components/VariationSelection.vue'
 import ImageUpload from '../components/StaticImageUpload.vue'
 
 
@@ -21,15 +22,20 @@ const router = createRouter({
       component: MainSelection
     },
     {
-      path: '/BootstrapTest',
-      name: 'Bootstrap Test',
-      component: BootstrapTest
+      path: '/StandardDisplay',
+      name: 'Standard Display Selection',
+      component: StandardDisplaySelection
+    },
+    {
+      path: '/VariationSelection',
+      name: 'Variation Selection',
+      component: VariationSelection
     },
     {
       path: '/ImageUp',
-      name: 'StatiImageUpload',
+      name: 'Static Image Upload',
       component: ImageUpload
-    }
+    },
   ]
 })
 

@@ -1,6 +1,6 @@
 <script>
 import { store } from '../Store.js'
-import  cardtest  from './Card.Vue'
+import  cardComponent  from './VariationCard.vue'
 
 export default {
   data() {
@@ -11,12 +11,13 @@ export default {
   },
 
   components: {
-    cardtest
+    cardComponent
   },
 
   methods: {
     selectCard(selection_id) {
-        this.$router.push('/Imageup')
+      console.log('test')
+        // this.$router.push('/Imageup')
     },
 
     pressingDown(selection_id) {
@@ -53,16 +54,9 @@ export default {
   <div class="card-holder">
     <div class="row row-cols-1 row-cols-md-1 g-0">
       <ui :id="'card-id_' + option._id" class="noselect" @click="selectCard(option._id)" v-for="option in store.availableCardOptions" :key="option._id">
-        <cardtest :cardOption="option" @touchstart="pressingDown(option._id)" @touchend="notPressingDown(option._id)" />
-        <!-- <div class="col">
-          <div class="card" @touchstart="pressingDown(option._id)" @touchend="notPressingDown(option._id)">
-            <img src="../assets/boxedstuffings.png" class="card-img-top card-img">
-            <div class="card-body">
-              <h1 class="card-title">{{ option.name }}</h1>
-              <p class="card-text">{{ option.description }}</p>
-            </div>
-          </div>
-        </div> -->
+        <div class="col">
+          <cardComponent :card="option" @touchstart="pressingDown(option._id)" @touchend="notPressingDown(option._id)" />
+        </div>
       </ui>
     </div>
   </div>
@@ -71,23 +65,5 @@ export default {
 <style scoped>
 .card-holder{
   padding: 1vh 2vw;
-}
-.card{
-  margin-top: 2vh;
-  background-color: var(--tg-theme-bg-color);
-}
-.card-img {
-  max-height: 25vh;
-  border-radius: 0.8rem;
-  padding: 2%;
-}
-.card-body{
-  font-size: 2.5vmin;
-}
-
-@media (prefers-color-scheme: dark) {
-  .card {
-    border: 1px solid rgba(255, 255, 255, 0.173)
-  }
 }
 </style>
