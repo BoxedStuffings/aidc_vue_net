@@ -23,13 +23,21 @@ export default {
 
         card.display_variations ? this.$router.push('/VariationSelection') : this.$router.push('/StandardDisplay')
     },
+
+    dateTimePicked() {
+        this.selectedOption = "DateTime"
+    }
+    // validate() {
+    //     if (new Date(this.selectedDate).getTime() < new Date(this.currentDate).getTime()) {
+    //         console.log('test')
+    //     }
+    // }
   },
 
   mounted() {
     const date = new Date()
     const telegramBackButton = Telegram.WebApp.BackButton
-    const dateOption = document.getElementById('option_Date')
-    let currentLocalDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().substring(0, 10)
+    let currentLocalDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().substring(0, 16)
 
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
@@ -39,8 +47,8 @@ export default {
       }
     }),
 
-    this.currentDate = currentLocalDate
-    dateOption.min = currentLocalDate
+    this.currentDate = currentLocalDateTime
+    this.selectedDate = currentLocalDateTime
   }
 
 }
@@ -60,7 +68,7 @@ export default {
         <label class="btn btn-secondary ss-btn" for="option_Date">
             Choose Date & Time
             <span>
-                <input type="datetime-local" class="form-control" :min="currentDate" v-model="selectedDate">
+                <input type="datetime-local" class="form-control" :min="currentDate" v-model="selectedDate" @change="dateTimePicked">
             </span>
         </label>
         Current Date: {{ currentDate }}<br>
@@ -96,13 +104,13 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    min-height: 5vh;
+    min-height: 7vh;
     margin-block: 1%;
     text-align: left;
-    font-size: 2.5vmin;
+    font-size: 3vmin;
 }
 .form-control {
-    font-size: 2.5vmin;
+    font-size: 3vmin;
     min-width: 95%;
 }
 </style>
