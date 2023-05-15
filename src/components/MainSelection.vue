@@ -11,29 +11,34 @@ export default {
 
   methods: {
     selectCard(selection_id) {
-        const card = store.availableMSOptions.find(x => x._id === selection_id)
-        card.display_variations ? this.$router.push('/BootstrapTest') : console.log("test")
+        let card = store.availableMSOptions.find(x => x._id === selection_id)
+
+        card.display_variations ? this.$router.push('/BootstrapTest') : console.log('test')
     },
 
     pressingDown(selection_id) {
-        const card = document.getElementById("ms-card-id_" + selection_id)
-        card.style.transitionDuration = '0.4s'
+        let card = document.getElementById('ms-card-id_' + selection_id)
+
         card.style.transform = 'scale(0.95)'
+        card.style.transitionDuration = '0.4s'
     },
 
     notPressingDown(selection_id) {
-        const card = document.getElementById("ms-card-id_" + selection_id)
-        card.style.transitionDuration = '0.2s'
+        let card = document.getElementById('ms-card-id_' + selection_id)
+
         card.style.transform = 'scale(1)'
+        card.style.transitionDuration = '0.2s'
     }
   },
 
   mounted() {
-    Telegram.WebApp.BackButton.show()
-    Telegram.WebApp.BackButton.onClick(() => {
-      if (Telegram.WebApp.BackButton.isVisible) {
+    const telegramBackButton = Telegram.WebApp.BackButton
+
+    telegramBackButton.show()
+    telegramBackButton.onClick(() => {
+      if (telegramBackButton.isVisible) {
         this.$router.go(-1)
-        Telegram.WebApp.BackButton.hide()
+        telegramBackButton.hide()
       }
     })
   }

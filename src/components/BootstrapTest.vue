@@ -15,24 +15,28 @@ export default {
     },
 
     pressingDown(selection_id) {
-      const card = document.getElementById("card-id_" + selection_id)
+      let card = document.getElementById('card-id_' + selection_id)
+
       card.style.transform = 'scale(0.95)'
       card.style.transitionDuration = '0.4s'
     },
 
     notPressingDown(selection_id) {
-      const card = document.getElementById("card-id_" + selection_id)
+      let card = document.getElementById('card-id_' + selection_id)
+
       card.style.transform = 'scale(1)'
       card.style.transitionDuration = '0.2s'
     }
   },
 
   mounted() {
-    Telegram.WebApp.BackButton.show()
-    Telegram.WebApp.BackButton.onClick(() => {
-      if (Telegram.WebApp.BackButton.isVisible) {
+    const telegramBackButton = Telegram.WebApp.BackButton
+
+    telegramBackButton.show()
+    telegramBackButton.onClick(() => {
+      if (telegramBackButton.isVisible) {
         this.$router.go(-1)
-        Telegram.WebApp.BackButton.hide()
+        telegramBackButton.hide()
       }
     })
   }

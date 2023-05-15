@@ -11,17 +11,26 @@ export default {
 
   methods: {
     selectImageFile(fileEvent) {
-        const image = fileEvent.target.files[0]
-        image.type.indexOf('image/') !== 0 ? console.log("invalid image") : store.uploadImage(image)
+        let image = fileEvent.target.files[0]
+        image.type.indexOf('image/') !== 0 ? console.log('invalid image') : store.uploadImage(image)
+
+        // test
+        if (store.imageObj instanceof File) {
+          let bg = document.getElementById('holder')
+          let img = URL.createObjectURL(image)
+          bg.style.backgroundImage = `url(${img})`
+        }
     },
   },
 
   mounted() {
-    Telegram.WebApp.BackButton.show()
-    Telegram.WebApp.BackButton.onClick(() => {
-      if (Telegram.WebApp.BackButton.isVisible) {
+    const telegramBackButton = Telegram.WebApp.BackButton
+
+    telegramBackButton.show()
+    telegramBackButton.onClick(() => {
+      if (telegramBackButton.isVisible) {
         this.$router.go(-1)
-        Telegram.WebApp.BackButton.hide()
+        telegramBackButton.hide()
       }
     })
   }
@@ -30,21 +39,25 @@ export default {
 </script>
 
 <template>
-    <div class="img-upload-holder">
+    <div class="img-upload-holder" id="holder">
         <div class="img-upload-content">
-            <img class="img-upload-icon" src="../assets/boxedstuffings.png">
+            <img class="img-upload-icon noselect" src="../assets/boxedstuffings.png">
             <label class="btn btn-primary img-upload-btn">
                 Choose File
                 <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
             </label>
-            <small>{{ store.imageUpload.name }}</small>
+            <small>{{ store.imageObj.name }}</small>
         </div>
     </div>
 </template>
 
 <style scoped>
 .img-upload-holder{
-    height: 100vh;
+  margin: 20px;
+  border-radius: 15px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
 }
 .img-upload-content {
     display: flex;

@@ -145,7 +145,7 @@ export const store = reactive({
     // Data to be sent (Selected TVs from TV.vue)
     selectedTvs: [],
 
-    imageUpload: [],
+    imageObj: {},
 
     // Functions for selectedTvs array
     findIndexOfSelectedTv(TV) {
@@ -162,7 +162,7 @@ export const store = reactive({
 
     // Functions for image upload
     uploadImage(image) {
-        this.imageUpload = image
+        this.imageObj = image
     }
 
 

@@ -11,47 +11,49 @@ export default {
 
   methods: {
     selectTV(TV, selection_id) {
-      const index = store.findIndexOfSelectedTv(TV)
-      const button = document.getElementById("button-id_" + selection_id)
-      const tgMainButton = Telegram.WebApp.MainButton
+      const telegramMainButton = Telegram.WebApp.MainButton
+      let index = store.findIndexOfSelectedTv(TV)
+      let button = document.getElementById('button-id_' + selection_id)
 
       if (index >= 0) {
         store.spliceSelectedTvAt(index)
-        button.innerHTML = "Select"
+        button.innerHTML = 'Select'
       } else {
         store.pushSelectedTv(TV)
-        button.innerHTML = "Unselect"
+        button.innerHTML = 'Unselect'
       }
 
       if (store.selectedTvs.length >= 1) { 
-        tgMainButton.show()
+        telegramMainButton.show()
       } else {
-        tgMainButton.hide()
+        telegramMainButton.hide()
       }
     },
 
     pressingDown(selection_id) {
-        const card = document.getElementById("button-id_" + selection_id)
+        let card = document.getElementById('button-id_' + selection_id)
 
         card.style.transitionDuration = '0.4s'
         card.style.transform = 'scale(0.95)'
     },
 
     notPressingDown(selection_id) {
-        const card = document.getElementById("button-id_" + selection_id)
+        let card = document.getElementById('button-id_' + selection_id)
 
-        card.style.transitionDuration = '0.2s'
         card.style.transform = 'scale(1)'
+        card.style.transitionDuration = '0.2s'
     }
   },
 
   mounted() {
-    Telegram.WebApp.MainButton.setParams({
+    const telegramMainButton = Telegram.WebApp.MainButton
+
+    telegramMainButton.setParams({
       text: 'Select Tv',
     }).onClick(() => {
-      if (Telegram.WebApp.MainButton.isVisible) {
+      if (telegramMainButton.isVisible) {
         this.$router.push('/MainSelection')
-        Telegram.WebApp.MainButton.hide()
+        telegramMainButton.hide()
       }
     })
   }
