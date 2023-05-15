@@ -53,11 +53,11 @@ export default {
 
 <style scoped>
 .img-upload-holder{
+  height: calc(100vh - 40px);
   margin: 20px;
   border-radius: 15px;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
 }
 .img-upload-content {
     display: flex;
@@ -81,8 +81,8 @@ export default {
     font-size: 2.5vmin;
 }
 .img-upload-btn:hover, :not(.btn-check) + .img-upload-btn:active {
-    border-color: var(--tg-theme-secondary-bg-color);
     background-color: #242862;
+    border-color: var(--tg-theme-secondary-bg-color);
     color: var(--tg-theme-button-text-colorr);
 }
 small {
