@@ -41,7 +41,7 @@ export default {
 
 <template>
     <div class="vid-upload-holder">
-        <video autoplay muted loop id="vid-bg" :src="vid"></video>
+        <video autoplay muted loop playsinline id="vid-bg" :src="vid"></video>
         <div class="vid-upload-content">
             <img class="vid-upload-icon noselect" src="../assets/boxedstuffings.png">
             <label class="btn btn-primary vid-upload-btn">
