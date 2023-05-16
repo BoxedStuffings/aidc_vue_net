@@ -6,13 +6,14 @@ export default {
     return {
     // Data received -- test values from store
       store,
-      telegramMainButton: Telegram.WebApp.MainButton
+      telegramWebAppObj: Telegram.WebApp,
+      telegramInitData: telegramWebAppObj.initData,
+      telegramInitDataUnsafe: telegramWebAppObj.initDataUnsafe
     }
   },
 
   methods: {
     selectTV(TV, selection_id) {
-      // const telegramMainButton = Telegram.WebApp.MainButton
       let index = store.findIndexOfSelectedTv(TV)
       let button = document.getElementById('button-id_' + selection_id)
 
@@ -25,11 +26,6 @@ export default {
       }
 
       this.mainButtonVisibility()
-      // if (store.selectedTvs.length >= 1) { 
-      //   telegramMainButton.show()
-      // } else {
-      //   telegramMainButton.hide()
-      // }
     },
 
     pressingDown(selection_id) {
@@ -47,18 +43,24 @@ export default {
     },
 
     mainButtonVisibility() {
-      store.selectedTvs.length >= 1 ? this.telegramMainButton.show() : this.telegramMainButton.hide() 
+      store.selectedTvs.length >= 1 ? this.telegramWebAppObj.MainButton.show() : this.telegramWebAppObj.MainButton.hide() 
     }
 
   },
 
+  // beforeMount() {
+  //   const telegramWebAppObj = Telegram.WebApp
+  //   const telegramInitData = telegramWebAppObj.initData
+  //   const telegramInitDataUnsafe = telegramWebAppObj.initDataUnsafe
+  // },
+
   mounted() {
-    this.telegramMainButton.setParams({
+    this.telegramWebAppObj.MainButton.setParams({
       text: 'Select Tv',
     }).onClick(() => {
-      if (this.telegramMainButton.isVisible) {
+      if (this.telegramWebAppObj.MainButton.isVisible) {
         this.$router.push('/MainSelection')
-        this.telegramMainButton.hide()
+        this.telegramWebAppObj.MainButton.hide()
       }
     })
     this.mainButtonVisibility()
@@ -83,7 +85,8 @@ export default {
             <p>TV • {{ TV._id }}</p>
             <button :id="'button-id_' + TV._id" @click="selectTV(TV, TV._id)" @touchstart="pressingDown(TV._id)" @touchend="notPressingDown(TV._id)">Select</button>
         </ui>
-        {{ store.selectedTvs }}  <!-- for testing -->
+        TelegramInitData: {{ telegramInitData }} <!-- for testing --> <br>
+        <!-- TelegramInitDataUnsafe: {{ telegramInitDataUnsafe }} for testing -->
     </div>
 </template>
 
