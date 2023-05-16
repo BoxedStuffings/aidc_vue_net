@@ -42,7 +42,7 @@ export default {
 </script>
 
 <template>
-    <div class="img-upload-holder" id="holder">
+    <div id="holder" class="img-upload-holder">
         <div class="img-upload-content">
             <img class="img-upload-icon noselect" src="../assets/boxedstuffings.png">
             <label class="btn btn-primary img-upload-btn">

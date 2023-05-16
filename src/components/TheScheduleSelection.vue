@@ -25,13 +25,8 @@ export default {
     },
 
     dateTimePicked() {
-        this.selectedOption = "DateTime"
+        this.selectedOption = 'DateTime'
     }
-    // validate() {
-    //     if (new Date(this.selectedDate).getTime() < new Date(this.currentDate).getTime()) {
-    //         console.log('test')
-    //     }
-    // }
   },
 
   mounted() {
@@ -61,14 +56,14 @@ export default {
             <h2>Schedule Display</h2>
         </div>
         <ui v-for="option in options" :key="option._id">
-            <input type="radio" class="btn-check" name="options" :id="'option_' + option._id" :value="option.Description" v-model="selectedOption">
+            <input type="radio" name="options" :value="option.Description" :id="'option_' + option._id" class="btn-check" v-model="selectedOption">
             <label class="btn btn-secondary ss-btn" :for="'option_' + option._id">{{ option.Description }}</label>
         </ui>
-        <input type="radio" class="btn-check" name="options" id="option_Date" value="DateTime" v-model="selectedOption">
+        <input type="radio" name="options" value="DateTime" id="option_Date" class="btn-check" v-model="selectedOption">
         <label class="btn btn-secondary ss-btn" for="option_Date">
             Choose Date & Time
             <span>
-                <input type="datetime-local" class="form-control" :min="currentDate" v-model="selectedDate" @change="dateTimePicked">
+                <input type="datetime-local" :min="currentDate" class="form-control" @change="dateTimePicked" v-model="selectedDate">
             </span>
         </label>
         Current Date: {{ currentDate }}<br>

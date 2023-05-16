@@ -16,7 +16,7 @@ export default {
 
 <template>
   <div class="card">
-    <img src="../assets/boxedstuffings.png" class="card-img-top card-img">
+    <img class="card-img-top card-img" src="../assets/boxedstuffings.png">
     <div class="card-body">
       <h1 class="card-title">{{ option.name }}</h1>
       <p class="card-text">{{ option.description }}</p>

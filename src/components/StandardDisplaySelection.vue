@@ -18,7 +18,7 @@ export default {
     selectCard(selection_id) {
         let card = store.standardDisplayOptions.find(x => x._id === selection_id)
 
-        card.title === "Static Image" ? this.$router.push('/ImageUp') : this.$router.push('/VideoUp')
+        card.title === 'Static Image' ? this.$router.push('/ImageUp') : this.$router.push('/VideoUp')
     },
 
     pressingDown(selection_id) {

@@ -7,8 +7,6 @@ export default {
     // Data received -- test values from store
       store,
       telegramMainButton: Telegram.WebApp.MainButton,
-      test: Object
-      // telegramWebAppObj: Telegram.WebApp.initDataUnsafe.query_id,
     }
   },
 
@@ -63,7 +61,6 @@ export default {
     })
 
     this.mainButtonVisibility()
-    this.test = store.telegramWebAppInfo.constructor.name
   }
 
 }
@@ -74,7 +71,7 @@ export default {
     <div id="tv-grid">
         <!-- Individual cards -->
         <ui class="tv-card noselect" v-for="TV in store.availableTVs" :key="TV._id">
-          <!-- Outline for selection -->
+          <!-- Image outline for selection -->
           <div class="tv-card-imageOutline" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }">
             <!-- Card check mark -->
             <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
@@ -85,10 +82,6 @@ export default {
             <p>TV • {{ TV._id }}</p>
             <button :id="'button-id_' + TV._id" @click="selectTV(TV, TV._id)" @touchstart="pressingDown(TV._id)" @touchend="notPressingDown(TV._id)">Select</button>
         </ui>
-        <!-- TelegramInitData: {{ telegramWebAppObj.initData }} for testing <br> -->
-        TelegramInitDataUnsafe: {{ store.telegramWebAppInfo }}
-        TelegramInitDataUnsafeType: {{ test }}
-        Test: {{ store.telegramWebAppInfo.query_id }}
     </div>
 </template>
 
