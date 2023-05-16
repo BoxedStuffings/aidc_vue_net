@@ -159,6 +159,8 @@ export const store = reactive({
     ],
 
     // Data to be sent (Selected TVs from TV.vue)
+    telegramWebAppInfo: [],
+
     selectedTvs: [],
 
     imageObj: {},
@@ -186,8 +188,10 @@ export const store = reactive({
     // Functions for image upload
     uploadVideo(video) {
       this.videoObj = video
-    }
+    },
 
-    
+    initTelegramData(initData) {
+      this.telegramWebAppInfo = initData
+    }
 
 })
