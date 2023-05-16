@@ -163,6 +163,8 @@ export const store = reactive({
 
     imageObj: {},
 
+    videoObj: {},
+
     // Functions for selectedTvs array
     findIndexOfSelectedTv(TV) {
         return this.selectedTvs.findIndex(x => x == TV)
@@ -178,7 +180,14 @@ export const store = reactive({
 
     // Functions for image upload
     uploadImage(image) {
-        this.imageObj = image
+      this.imageObj = image
+    },
+
+    // Functions for image upload
+    uploadVideo(video) {
+      this.videoObj = video
     }
+
+    
 
 })

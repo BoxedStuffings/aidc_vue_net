@@ -12,12 +12,15 @@ export default {
   methods: {
     selectImageFile(fileEvent) {
         let image = fileEvent.target.files[0]
+
+        console.log(image.type)
         image.type.indexOf('image/') !== 0 ? console.log('invalid image') : store.uploadImage(image)
 
         // test
-        if (store.imageObj instanceof File) {
+        if (store.imageObj instanceof File && image.type.indexOf('image/') == 0) {
           let bg = document.getElementById('holder')
-          let img = URL.createObjectURL(image)
+          let img = URL.createObjectURL(store.imageObj)
+
           bg.style.backgroundImage = `url(${img})`
         }
     },
@@ -60,35 +63,35 @@ export default {
   background-size: cover;
 }
 .img-upload-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    padding: 1vh 2vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1vh 2vw;
 }
 .img-upload-icon {
-    max-width: 200px;
-    width: 30vw;
-    margin: 2%;
+  max-width: 200px;
+  width: 30vw;
+  margin: 2%;
 }
 .img-upload-btn {
-    max-width: 240px;
-    width: 40vw;
-    margin: 2%;
-    background-color: var(--secondary);
-    color: var(--tg-theme-button-text-color);
-    font-size: 2.5vmin;
+  max-width: 240px;
+  width: 40vw;
+  margin: 2%;
+  background-color: var(--secondary);
+  color: var(--tg-theme-button-text-color);
+  font-size: 2.5vmin;
 }
 .img-upload-btn:hover, :not(.btn-check) + .img-upload-btn:active {
-    background-color: #242862;
-    border-color: var(--tg-theme-secondary-bg-color);
-    color: var(--tg-theme-button-text-colorr);
+  background-color: #242862;
+  border-color: var(--tg-theme-secondary-bg-color);
+  color: var(--tg-theme-button-text-colorr);
 }
 small {
-    font-size: 1.5vmin;
+  font-size: 1.5vmin;
 }
 input[type="file"] {
-    display: none;
+  display: none;
 }
 </style>

@@ -5,6 +5,7 @@ import MainSelection from '../components/MainSelection.vue'
 import StandardDisplaySelection from '../components/StandardDisplaySelection.vue'
 import VariationSelection from '../components/VariationSelection.vue'
 import ImageUpload from '../components/StaticImageUpload.vue'
+import VideoUpload from '../components/VideoUpload.vue'
 import ScheduleSelection from '../components/TheScheduleSelection.vue'
 
 
@@ -38,11 +39,17 @@ const router = createRouter({
       component: ImageUpload
     },
     {
+      path: '/VideoUp',
+      name: 'Video Upload',
+      component: VideoUpload
+    },
+    {
       path: '/ScheduleSelection',
       name: 'Schedule Selection',
       component: ScheduleSelection
-    },
+    }
   ]
+
 })
 
 export default router
