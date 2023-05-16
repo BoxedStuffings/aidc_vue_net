@@ -7,7 +7,7 @@ export default {
     // Data received -- test values from store
       store,
       telegramMainButton: Telegram.WebApp.MainButton,
-      telegramWebAppObj: Telegram.WebApp.initDataUnsafe,
+      telegramWebAppObj: Telegram.WebApp.initDataUnsafe.query_id,
 
       test: ""
     }
@@ -25,7 +25,7 @@ export default {
         store.pushSelectedTv(TV)
         button.innerHTML = 'Unselect'
       }
-
+      this.test = this.telegramWebAppObj.query_id
       this.mainButtonVisibility()
     },
 
@@ -60,7 +60,7 @@ export default {
     })
     this.mainButtonVisibility()
 
-    this.test = JSON.stringify(this.telegramWebAppObj, null, 2)
+    // this.test = JSON.stringify(this.telegramWebAppObj, null, 2)
   }
 
 }
@@ -83,7 +83,8 @@ export default {
             <button :id="'button-id_' + TV._id" @click="selectTV(TV, TV._id)" @touchstart="pressingDown(TV._id)" @touchend="notPressingDown(TV._id)">Select</button>
         </ui>
         <!-- TelegramInitData: {{ telegramWebAppObj.initData }} for testing <br> -->
-        TelegramInitDataUnsafe: {{ test }}
+        TelegramInitDataUnsafe: {{ telegramWebAppObj }}
+        Test: {{ test }}
     </div>
 </template>
 
