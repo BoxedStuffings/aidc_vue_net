@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import TV from '../components/TheTv.vue'
+import TV from '../components/Tv.vue'
 import MainSelection from '../components/MainSelection.vue'
 import StandardDisplaySelection from '../components/StandardDisplaySelection.vue'
 import VariationSelection from '../components/VariationSelection.vue'
 import ImageUpload from '../components/StaticImageUpload.vue'
 import VideoUpload from '../components/VideoUpload.vue'
-import ScheduleSelection from '../components/TheScheduleSelection.vue'
+import ScheduleSelection from '../components/ScheduleSelection.vue'
 
 
 const router = createRouter({
