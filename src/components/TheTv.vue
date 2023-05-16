@@ -86,7 +86,9 @@ export default {
             <button :id="'button-id_' + TV._id" @click="selectTV(TV, TV._id)" @touchstart="pressingDown(TV._id)" @touchend="notPressingDown(TV._id)">Select</button>
         </ui>
         <!-- TelegramInitData: {{ telegramWebAppObj.initData }} for testing <br> -->
-        TelegramInitDataUnsafe: {{ test }}
+        TelegramInitDataUnsafe: {{ store.telegramWebAppInfo }}
+        TelegramInitDataUnsafeType: {{ test }}
+        Test: {{ store.telegramWebAppInfo.query_id }}
     </div>
 </template>
 
