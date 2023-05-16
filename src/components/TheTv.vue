@@ -6,9 +6,10 @@ export default {
     return {
     // Data received -- test values from store
       store,
-      telegramWebAppObj: Telegram.WebApp,
-      telegramInitData: telegramWebAppObj.initData,
-      telegramInitDataUnsafe: telegramWebAppObj.initDataUnsafe
+      telegramMainButton: Telegram.WebApp.MainButton,
+      telegramWebAppObj: Telegram.WebApp
+      // telegramInitData: telegramWebAppObj.initData,
+      // telegramInitDataUnsafe: telegramWebAppObj.initDataUnsafe
     }
   },
 
@@ -43,24 +44,18 @@ export default {
     },
 
     mainButtonVisibility() {
-      store.selectedTvs.length >= 1 ? this.telegramWebAppObj.MainButton.show() : this.telegramWebAppObj.MainButton.hide() 
+      store.selectedTvs.length >= 1 ? this.telegramMainButton.show() : this.telegramMainButton.hide() 
     }
 
   },
 
-  // beforeMount() {
-  //   const telegramWebAppObj = Telegram.WebApp
-  //   const telegramInitData = telegramWebAppObj.initData
-  //   const telegramInitDataUnsafe = telegramWebAppObj.initDataUnsafe
-  // },
-
   mounted() {
-    this.telegramWebAppObj.MainButton.setParams({
+    this.telegramMainButton.setParams({
       text: 'Select Tv',
     }).onClick(() => {
-      if (this.telegramWebAppObj.MainButton.isVisible) {
+      if (this.telegramMainButton.isVisible) {
         this.$router.push('/MainSelection')
-        this.telegramWebAppObj.MainButton.hide()
+        this.telegramMainButton.hide()
       }
     })
     this.mainButtonVisibility()
@@ -85,7 +80,7 @@ export default {
             <p>TV • {{ TV._id }}</p>
             <button :id="'button-id_' + TV._id" @click="selectTV(TV, TV._id)" @touchstart="pressingDown(TV._id)" @touchend="notPressingDown(TV._id)">Select</button>
         </ui>
-        TelegramInitData: {{ telegramInitData }} <!-- for testing --> <br>
+        TelegramInitData: {{ telegramWebAppObj.initData }} <!-- for testing --> <br>
         <!-- TelegramInitDataUnsafe: {{ telegramInitDataUnsafe }} for testing -->
     </div>
 </template>
