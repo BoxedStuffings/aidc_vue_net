@@ -158,6 +158,16 @@ export const store = reactive({
         { _id: 3, name: "Variation 3", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et magna facilisis, tempus orci a, eleifend tellus. Pellentesque blandit neque semper odio ultrices, eu gravida nulla egestas. Donec convallis ante id risus posuere, eget finibus ante fringilla. Mauris pulvinar urna eu nisl tristique iaculis eget placerat neque. Nunc faucibus bibendum nulla, eu ultricies lorem ullamcorper quis. Pellentesque porta euismod dolor id consectetur."}
     ],
 
+    canvasToolbarOptions: [
+      { _id: 1, name: "Canvas"},
+      { _id: 2, name: "Templates"},
+      { _id: 3, name: "Elements"},
+      { _id: 4, name: "Insert"},
+      { _id: 5, name: "Options"},
+      { _id: 6, name: "test"},
+      { _id: 6, name: "font"}
+    ],
+
     // Data to be sent (Selected TVs from TV.vue)
     telegramWebAppInfo: [],
 

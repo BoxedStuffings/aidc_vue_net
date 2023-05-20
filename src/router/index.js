@@ -3,10 +3,12 @@ import { createRouter, createWebHistory } from 'vue-router'
 import TV from '../components/Tv.vue'
 import MainSelection from '../components/MainSelection.vue'
 import StandardDisplaySelection from '../components/StandardDisplaySelection.vue'
-import VariationSelection from '../components/VariationSelection.vue'
+import CanvasSelection from '../components/CanvasSelection.vue'
 import ImageUpload from '../components/StaticImageUpload.vue'
 import VideoUpload from '../components/VideoUpload.vue'
 import ScheduleSelection from '../components/ScheduleSelection.vue'
+import tb from '../components/Toolbar.vue'
+
 
 
 const router = createRouter({
@@ -29,9 +31,9 @@ const router = createRouter({
       component: StandardDisplaySelection
     },
     {
-      path: '/VariationSelection',
-      name: 'Variation Selection',
-      component: VariationSelection
+      path: '/CanvasSelection',
+      name: 'Canvas Selection',
+      component: CanvasSelection
     },
     {
       path: '/ImageUp',
@@ -47,7 +49,7 @@ const router = createRouter({
       path: '/ScheduleSelection',
       name: 'Schedule Selection',
       component: ScheduleSelection
-    }
+    },
   ]
 
 })

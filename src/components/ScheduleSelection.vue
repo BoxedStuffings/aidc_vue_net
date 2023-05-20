@@ -4,7 +4,6 @@ import { store } from '../Store.js'
 export default {
   data() {
     return {
-        // Data received -- test values from store
         store,
         options: [
             {_id:0, Description: 'Immediately'},

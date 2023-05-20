@@ -5,7 +5,6 @@ import  mainSelectionCardComponent  from './MainSelectionCard.vue'
 export default {
   data() {
     return {
-        // Data received -- test values from store
         store,
     }
   },
