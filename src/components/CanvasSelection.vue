@@ -129,7 +129,6 @@ export default {
   position: relative;
   z-index: 3;
 }
-
 .canvas-wrapper{
   width: 100%;
   position: absolute;
@@ -139,7 +138,6 @@ export default {
   align-items: center;
   background: lightgrey;
   transition-duration: .2s;
-
 }
 .toolbar {
   height: 10%;

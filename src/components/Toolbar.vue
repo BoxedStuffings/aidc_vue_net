@@ -70,6 +70,8 @@ export default {
 <style scoped>
 .tb-holder {
     display: flex;
+    background: var(--tg-theme-bg-color) !important;
+    color: var(--tg-theme-text-color) !important;
 }
 .tb-content {
     height: 100%;
