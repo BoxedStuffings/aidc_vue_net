@@ -3,7 +3,7 @@ import { store } from '../Store.js'
 import '@fortawesome/fontawesome-free/css/all.css';
 
 import font from '../components/toolbarComponents/Fonts.vue'
-import test from './toolbarComponents/test.vue'
+import test from './toolbarComponents/Test.vue'
 
 export default {
     data() {
