@@ -26,7 +26,7 @@ export default {
       const aspectRatio = 16 / 9
       let canvasOffset = 0
 
-      this.isBottomSheetOpened ? canvasOffset = 70/100 : canvasOffset = 90/100
+      this.isBottomSheetOpened ? canvasOffset = 66/100 : canvasOffset = 90/100
 
       // Updating canvas-wrapper height on resize
       this.wrapperHeight = document.querySelector('.cs-holder').offsetHeight * canvasOffset
