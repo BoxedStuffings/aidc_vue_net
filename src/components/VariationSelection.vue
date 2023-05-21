@@ -18,15 +18,15 @@ export default {
       this.$router.push('/ScheduleSelection')
     },
 
-    pressingDown(selection_id) {
-      let card = document.getElementById('card-id_' + selection_id)
+    pressingDown(selection_ref) {
+      let card = this.$refs[selection_ref][0]
 
       card.style.transform = 'scale(0.95)'
       card.style.transitionDuration = '0.4s'
     },
 
-    notPressingDown(selection_id) {
-      let card = document.getElementById('card-id_' + selection_id)
+    notPressingDown(selection_ref) {
+      let card = this.$refs[selection_ref][0]
 
       card.style.transform = 'scale(1)'
       card.style.transitionDuration = '0.2s'
@@ -53,7 +53,7 @@ export default {
     <div class="row row-cols-1 row-cols-md-1 g-0">
       <ui :id="'card-id_' + option._id" class="noselect" @click="selectCard(option._id)" v-for="option in store.availableCardOptions" :key="option._id">
         <div class="col">
-          <cardComponent :card="option" @touchstart="pressingDown(option._id)" @touchend="notPressingDown(option._id)" />
+          <cardComponent :ref="`card-ref-id_${option._id}`" :card="option" @touchstart="pressingDown(`card-ref-id_${option._id}`)" @touchend="notPressingDown(`card-ref-id_${option._id}`)"></cardComponent>
         </div>
       </ui>
     </div>

@@ -5,7 +5,7 @@ import  mainSelectionCardComponent  from './MainSelectionCard.vue'
 export default {
   data() {
     return {
-        store,
+        store
     }
   },
 
@@ -20,15 +20,15 @@ export default {
         card.title === 'Static Image' ? this.$router.push('/ImageUp') : this.$router.push('/VideoUp')
     },
 
-    pressingDown(selection_id) {
-        let card = document.getElementById('sd-card-id_' + selection_id)
+    pressingDown(selection_ref) {
+        let card = this.$refs[selection_ref][0]
 
         card.style.transform = 'scale(0.95)'
         card.style.transitionDuration = '0.4s'
     },
 
-    notPressingDown(selection_id) {
-        let card = document.getElementById('sd-card-id_' + selection_id)
+    notPressingDown(selection_ref) {
+        let card = this.$refs[selection_ref][0]
 
         card.style.transform = 'scale(1)'
         card.style.transitionDuration = '0.2s'
@@ -52,8 +52,8 @@ export default {
 
 <template>
     <div class="sd-holder">
-        <ui :id="'sd-card-id_' + option._id" class="sd-card noselect" @click="selectCard(option._id)" @touchstart="pressingDown(option._id)" @touchend="notPressingDown(option._id)" v-for="option in store.standardDisplayOptions" :key="option._id">
-            <mainSelectionCardComponent :mainSelectionCard="option" />
+        <ui :ref="`sd-card-ref-id_${option._id}`" :id="'sd-card-id_' + option._id" class="sd-card noselect" @click="selectCard(option._id)" @touchstart="pressingDown(`sd-card-ref-id_${option._id}`)" @touchend="notPressingDown(`sd-card-ref-id_${option._id}`)" v-for="option in store.standardDisplayOptions" :key="option._id">
+            <mainSelectionCardComponent :mainSelectionCard="option"></mainSelectionCardComponent>
         </ui>
     </div>
 </template>

@@ -8,8 +8,9 @@ export default {
     return {
       store,
       wrapperHeight: 0,
-      canvasHeight: 0,
-      big: false
+      isBottomSheetOpened: false,
+      canvasHeight: 0, //TBR
+      big: false //TBR
     }
   },
 
@@ -20,11 +21,14 @@ export default {
   methods: {
     // Function to update canvas dimensions
     updateCanvasDimensions() {
-      const aspectRatio = 16 / 9;
+      const aspectRatio = 16 / 9
+      let canvasOffset = 0
+
+      this.isBottomSheetOpened ? canvasOffset = 70/100 : canvasOffset = 90/100
 
       // Updating canvas-wrapper height on resize
-      this.wrapperHeight = document.querySelector('.cs-holder').offsetHeight * 90/100
-      
+      this.wrapperHeight = document.querySelector('.cs-holder').offsetHeight * canvasOffset
+
       // Get the available width and height
       const canvasWrapper = document.querySelector('.canvas-wrapper')
       const availableHeight = this.wrapperHeight
@@ -33,21 +37,25 @@ export default {
       // Values based on available space (Max size of canvas possible; scaling on width of viewport)
       let newHeight = availableWidth / aspectRatio - 30
       let newWidth = availableWidth - 30
-      this.big = false
+      this.big = false //TBR
 
       // If canvas overlaps the toolbar; change canvas size to scale on available height
       if (newHeight >= availableHeight) {
         newHeight = availableHeight - 30
         newWidth = availableHeight * aspectRatio - 30
-        this.big = true
+        this.big = true //TBR
       }
-      this.canvasHeight = newHeight
+      this.canvasHeight = newHeight //TBR
 
       this.canvas.setWidth(newWidth);
       this.canvas.setHeight(newHeight);
       this.canvas.renderAll();
-    }
+    },
 
+    fitCanvasToBottomSheet(state) {
+      this.isBottomSheetOpened = state
+      this.updateCanvasDimensions()
+    }
   },
 
   mounted() {
@@ -62,7 +70,7 @@ export default {
     this.canvas =  new fabric.Canvas('canvas',{
       backgroundColor: 'white',
       selectionColor: 'rgba(163, 180, 255, 0.59)',
-      selectionLineWidth: 2,
+      selectionLineWidth: 2
     })
     this.canvas.add(rect)
 
@@ -89,10 +97,14 @@ export default {
     <div class="canvas-wrapper" :style="{'height' : `${wrapperHeight}px`}">
       <canvas id="canvas"></canvas>
     </div>
+
+    <!-- TBR -->
     <h4 :style="{'z-index': 2, 'position': 'absolute'}">WrapperHeight: {{ wrapperHeight }}</h4>
     <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '5%'}">CanvasHeight: {{ canvasHeight }}</h4>
     <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
     <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasLarger?: {{ big }}</h4>
+    <!-- TBR -->
+
     <toolbar class="toolbar"></toolbar>
   </div>
 </template>
@@ -112,6 +124,8 @@ export default {
   justify-content: center;
   align-items: center;
   background: lightgrey;
+  transition-duration: .2s;
+
 }
 .toolbar {
   height: 10%;

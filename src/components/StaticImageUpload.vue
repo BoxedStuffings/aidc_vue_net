@@ -17,7 +17,7 @@ export default {
 
         // test
         if (store.imageObj instanceof File && image.type.indexOf('image/') == 0) {
-          let bg = document.getElementById('holder')
+          let bg = this.$refs.siuHolder
           let img = URL.createObjectURL(store.imageObj)
 
           bg.style.backgroundImage = `url(${img})`
@@ -41,7 +41,7 @@ export default {
 </script>
 
 <template>
-    <div id="holder" class="img-upload-holder">
+    <div ref="siuHolder" class="img-upload-holder">
         <div class="img-upload-content">
             <img class="img-upload-icon noselect" src="../assets/boxedstuffings.png">
             <label class="btn btn-primary img-upload-btn">

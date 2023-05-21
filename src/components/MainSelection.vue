@@ -5,7 +5,7 @@ import  mainSelectionCardComponent  from './MainSelectionCard.vue'
 export default {
   data() {
     return {
-        store,
+        store
     }
   },
 
@@ -20,15 +20,15 @@ export default {
         card.display_variations ? this.$router.push('/CanvasSelection') : this.$router.push('/StandardDisplay')
     },
 
-    pressingDown(selection_id) {
-        let card = document.getElementById('ms-card-id_' + selection_id)
+    pressingDown(selection_ref) {
+        let card = this.$refs[selection_ref][0]
 
         card.style.transform = 'scale(0.95)'
         card.style.transitionDuration = '0.4s'
     },
 
-    notPressingDown(selection_id) {
-        let card = document.getElementById('ms-card-id_' + selection_id)
+    notPressingDown(selection_ref) {
+        let card = this.$refs[selection_ref][0]
 
         card.style.transform = 'scale(1)'
         card.style.transitionDuration = '0.2s'
@@ -52,8 +52,8 @@ export default {
 
 <template>
     <div class="ms-holder">
-        <ui :id="'ms-card-id_' + option._id" class="ms-card noselect" @click="selectCard(option._id)" @touchstart="pressingDown(option._id)" @touchend="notPressingDown(option._id)" v-for="option in store.availableMSOptions" :key="option._id">
-            <mainSelectionCardComponent :mainSelectionCard="option" />
+        <ui :ref="`ms-card-ref-id_${option._id}`" :id="'ms-card-id_' + option._id" class="ms-card noselect" @click="selectCard(option._id)" @touchstart="pressingDown(`ms-card-ref-id_${option._id}`)" @touchend="notPressingDown(`ms-card-ref-id_${option._id}`)" v-for="option in store.availableMSOptions" :key="option._id">
+            <mainSelectionCardComponent :mainSelectionCard="option"></mainSelectionCardComponent>
         </ui>
     </div>
 </template>

@@ -1,8 +1,9 @@
 <script>
 import { store } from '../Store.js'
-import { VueBottomSheet } from '@webzlodimir/vue-bottom-sheet'
-import '@webzlodimir/vue-bottom-sheet/dist/style.css'
+// import { VueBottomSheet } from '@webzlodimir/vue-bottom-sheet'
+// import '@webzlodimir/vue-bottom-sheet/dist/style.css'
 
+import BottomSheet from './toolbarComponents/BottomSheet.vue'
 import font from '../components/toolbarComponents/Fonts.vue'
 import test from './toolbarComponents/test.vue'
 
@@ -10,12 +11,12 @@ export default {
   data() {
     return {
         store,
-        bottomSheet: 'font'
+        bottomSheetContent: 'font'
     }
   },
 
   components: {
-    VueBottomSheet,
+    BottomSheet,
     font,
     test
   },
@@ -23,32 +24,33 @@ export default {
   methods: {
     selectToolbarOption(toolbarItem) {
         console.log(toolbarItem._id + ': ' + toolbarItem.name)
-        this.bottomSheet = toolbarItem.name
+        this.bottomSheetContent = toolbarItem.name
         if (toolbarItem._id === 6) {
             this.openBottomSheet()
+            this.$parent.fitCanvasToBottomSheet(true)
         }
     },
 
-    pressingDown(selection_id) {
-        let item = document.getElementById('toolbar-item-id_' + selection_id)
+    pressingDown(selection_ref) {
+        let item = this.$refs[selection_ref][0]
 
         item.style.transitionDuration = '0.4s'
         item.style.transform = 'scale(0.95)'
     },
 
-    notPressingDown(selection_id) {
-        let item = document.getElementById('toolbar-item-id_' + selection_id)
+    notPressingDown(selection_ref) {
+        let item = this.$refs[selection_ref][0]
 
         item.style.transform = 'scale(1)'
         item.style.transitionDuration = '0.2s'
     },
 
     openBottomSheet() {
-        this.$refs.myBottomSheet.open()
+        this.$refs.bottomSheetRef.open()
     },
 
     closeBottomSheet() {
-        this.$refs.myBottomSheet.close()
+        this.$refs.bottomSheetRef.close()
     }
   },
 
@@ -57,13 +59,13 @@ export default {
 
 <template>
     <div class="tb-holder">
-        <ui :id="'toolbar-item-id_' + option._id" class="tb-content" @click="selectToolbarOption(option)" @touchstart="pressingDown(option._id)" @touchend="notPressingDown(option._id)" v-for="option in store.canvasToolbarOptions" :key="option._id">
+        <ui :ref="`tb-item-ref-id_${option._id}`" :id="'toolbar-item-id_' + option._id" class="tb-content" @click="selectToolbarOption(option)" @touchstart="pressingDown(`tb-item-ref-id_${option._id}`)" @touchend="notPressingDown(`tb-item-ref-id_${option._id}`)" v-for="option in store.canvasToolbarOptions" :key="option._id">
             <img class="tb-img" src="../assets/boxedstuffings.png">
             <h4 class="tb-name">{{ option.name }}</h4>
         </ui>
-        <vue-bottom-sheet ref="myBottomSheet">
-            <component :is="bottomSheet"></component>
-        </vue-bottom-sheet>
+        <BottomSheet ref="bottomSheetRef">
+            <component :is="bottomSheetContent"></component>
+        </BottomSheet>
     </div>
 </template>
 

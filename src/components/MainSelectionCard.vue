@@ -9,7 +9,7 @@ export default {
 
   props: {
     mainSelectionCard: Object
-  },
+  }
 
 }
 </script>
@@ -25,7 +25,6 @@ export default {
 </template>
 
 <style scoped>
-
 .ms-card-holder {
     display: flex;
     flex-direction: column;

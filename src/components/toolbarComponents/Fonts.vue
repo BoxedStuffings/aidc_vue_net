@@ -5,11 +5,7 @@ export default {
     return {
         font: 'Select'
     }
-  },
-
-  methods: {
-
-  },
+  }
 
 }
 </script>

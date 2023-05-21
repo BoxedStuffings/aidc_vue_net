@@ -5,14 +5,14 @@ export default {
   data() {
     return {
       store,
-      telegramMainButton: Telegram.WebApp.MainButton,
+      telegramMainButton: Telegram.WebApp.MainButton
     }
   },
 
   methods: {
-    selectTV(TV, selection_id) {
+    selectTV(TV, selection_ref) {
       let index = store.findIndexOfSelectedTv(TV)
-      let button = document.getElementById('button-id_' + selection_id)
+      let button = this.$refs[selection_ref][0]
 
       if (index >= 0) {
         store.spliceSelectedTvAt(index)
@@ -25,15 +25,15 @@ export default {
       this.mainButtonVisibility()
     },
 
-    pressingDown(selection_id) {
-        let card = document.getElementById('button-id_' + selection_id)
+    pressingDown(selection_ref) {
+        let card = this.$refs[selection_ref][0]
 
         card.style.transitionDuration = '0.4s'
         card.style.transform = 'scale(0.95)'
     },
 
-    notPressingDown(selection_id) {
-        let card = document.getElementById('button-id_' + selection_id)
+    notPressingDown(selection_ref) {
+        let card = this.$refs[selection_ref][0]
 
         card.style.transform = 'scale(1)'
         card.style.transitionDuration = '0.2s'
@@ -79,7 +79,7 @@ export default {
           </div>
             <!-- Display name -->
             <p>TV • {{ TV._id }}</p>
-            <button :id="'button-id_' + TV._id" @click="selectTV(TV, TV._id)" @touchstart="pressingDown(TV._id)" @touchend="notPressingDown(TV._id)">Select</button>
+            <button :ref="`button-ref-id_${TV._id}`" @click="selectTV(TV, `button-ref-id_${TV._id}`)" @touchstart="pressingDown(`button-ref-id_${TV._id}`)" @touchend="notPressingDown(`button-ref-id_${TV._id}`)">Select</button>
         </ui>
     </div>
 </template>
