@@ -7,9 +7,6 @@ import CanvasSelection from '../components/CanvasSelection.vue'
 import ImageUpload from '../components/StaticImageUpload.vue'
 import VideoUpload from '../components/VideoUpload.vue'
 import ScheduleSelection from '../components/ScheduleSelection.vue'
-import tb from '../components/Toolbar.vue'
-
-
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

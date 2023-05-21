@@ -6,32 +6,37 @@ import { fabric } from 'fabric'
 export default {
   data() {
     return {
-        store,
+        store
     }
   },
+
   components: {
-    Toolbar,
+    Toolbar
   },
 
   methods: {
     // Function to update canvas dimensions
      updateCanvasDimensions() {
       const aspectRatio = 16 / 9;
+
       // Get the available width and height
       const availableWidth = window.innerWidth-30;
       const availableHeight = window.innerHeight-30;
       let newWidth = 1280;
       let newHeight = 720;
+
       // Update the canvas dimensions
       if(availableWidth < 1280){
         newWidth = availableWidth;
         newHeight = availableWidth/aspectRatio
       }
+
       this.canvas.setWidth(newWidth);
       this.canvas.setHeight(newHeight);
       this.canvas.renderAll();
     }
   },
+
   mounted() {
     //Intialize Fabric.js Canvas
     this.canvas =  new fabric.Canvas('canvas',{
@@ -39,12 +44,15 @@ export default {
       selectionColor: 'rgba(163, 180, 255, 0.59)',
       selectionLineWidth: 2,
     })
+
     const rect = new fabric.Rect({
       width: 100, height: 200,
       fill: 'red',
       angle: 30
     });
+
     this.canvas.add(rect)
+
     //Resize Canvas Dimensions
     this.updateCanvasDimensions();
     window.addEventListener('resize',this.updateCanvasDimensions);
