@@ -3,7 +3,10 @@
 </script>
 
 <template>
-    <img src="../../assets/boxedstuffings.png">
+    <div>
+        <img src="../../assets/boxedstuffings.png">
+        <img src="../../assets/boxedstuffings.png">
+    </div>
 </template>
 
 <style scoped>
