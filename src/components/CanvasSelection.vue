@@ -8,6 +8,9 @@ export default {
   data() {
     return {
       store,
+      wrapperHeight: 0,
+      canvasHeight: 0,
+      big: false
     }
   },
 
@@ -18,50 +21,55 @@ export default {
 
   methods: {
     // Function to update canvas dimensions
-     updateCanvasDimensions() {
+    updateCanvasDimensions() {
       const aspectRatio = 16 / 9;
-
+      // Updating canvas-wrapper height on resize
+      this.wrapperHeight = document.querySelector('.cs-holder').offsetHeight * 90/100
+      
       // Get the available width and height
       const canvasWrapper = document.querySelector('.canvas-wrapper')
-      const availableWidth = canvasWrapper.offsetWidth-30;
-      const availableHeight = canvasWrapper.offsetHeight-30;
-      let newWidth = 1280;
-      let newHeight = 720;
+      const availableHeight = this.wrapperHeight
+      const availableWidth = canvasWrapper.clientWidth
 
-      // Update the canvas dimensions
-      if(availableWidth < 1280){
-        newWidth = availableWidth;
-        newHeight = availableWidth/aspectRatio
+      // Values based on available space (Max size of canvas possible; scaling on width of viewport)
+      let newHeight = availableWidth / aspectRatio - 30
+      let newWidth = availableWidth - 30
+      this.big = false
+
+      // If canvas overlaps the toolbar; change canvas size to scale on available height
+      if (newHeight >= availableHeight) {
+        newHeight = availableHeight - 30
+        newWidth = availableHeight * aspectRatio - 30
+        this.big = true
       }
+      this.canvasHeight = newHeight
 
       this.canvas.setWidth(newWidth);
       this.canvas.setHeight(newHeight);
       this.canvas.renderAll();
     }
+
   },
 
   mounted() {
+    const telegramBackButton = Telegram.WebApp.BackButton
+    const rect = new fabric.Rect({
+      width: 100, height: 200,
+      fill: 'red',
+      angle: 30
+    })
+    
     //Intialize Fabric.js Canvas
     this.canvas =  new fabric.Canvas('canvas',{
       backgroundColor: 'white',
       selectionColor: 'rgba(163, 180, 255, 0.59)',
       selectionLineWidth: 2,
     })
-
-    const rect = new fabric.Rect({
-      width: 100, height: 200,
-      fill: 'red',
-      angle: 30
-    });
-
     this.canvas.add(rect)
 
     //Resize Canvas Dimensions
-    this.updateCanvasDimensions();
-    window.addEventListener('resize',this.updateCanvasDimensions);
-
-    // Telegram API
-    const telegramBackButton = Telegram.WebApp.BackButton
+    this.updateCanvasDimensions()
+    window.addEventListener('resize', this.updateCanvasDimensions)
 
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
@@ -70,6 +78,8 @@ export default {
         telegramBackButton.hide()
       }
     })
+
+    Telegram.WebApp.expand()
   }
 
 }
@@ -83,6 +93,10 @@ export default {
     <div class="canvas-wrapper">
       <canvas id="canvas"></canvas>
     </div>
+    <h4 :style="{'z-index': 2, 'position': 'absolute'}">WrapperHeight: {{ wrapperHeight }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '5%'}">CanvasHeight: {{ canvasHeight }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasLarger?: {{ big }}</h4>
     <toolbar class="toolbar"></toolbar>
   </div>
 </template>
@@ -111,16 +125,17 @@ export default {
 }
 
 .canvas-wrapper{
-  max-height: 70%;
-  height: fit-content;
   width: 100%;
   position: absolute;
-  top: 10vh;
+  top: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
+  background: lightgrey;
 }
 
 .toolbar {
+  height: 10%;
   width: 100%;
   position: absolute;
   bottom: 0;

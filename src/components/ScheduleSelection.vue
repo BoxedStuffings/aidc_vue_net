@@ -33,16 +33,16 @@ export default {
     const telegramBackButton = Telegram.WebApp.BackButton
     let currentLocalDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().substring(0, 16)
 
+    this.currentDate = currentLocalDateTime
+    this.selectedDate = currentLocalDateTime
+
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
       if (telegramBackButton.isVisible) {
         this.$router.go(-1)
         telegramBackButton.hide()
       }
-    }),
-
-    this.currentDate = currentLocalDateTime
-    this.selectedDate = currentLocalDateTime
+    })
   }
 
 }
@@ -54,10 +54,12 @@ export default {
             <img src="../assets/boxedstuffings.png">
             <h2>Schedule Display</h2>
         </div>
+        <!-- Options -->
         <ui v-for="option in options" :key="option._id">
             <input type="radio" name="options" :value="option.Description" :id="'option_' + option._id" class="btn-check" v-model="selectedOption">
             <label class="btn btn-secondary ss-btn" :for="'option_' + option._id">{{ option.Description }}</label>
         </ui>
+        <!-- DateTime selector -->
         <input type="radio" name="options" value="DateTime" id="option_Date" class="btn-check" v-model="selectedOption">
         <label class="btn btn-secondary ss-btn" for="option_Date">
             Choose Date & Time

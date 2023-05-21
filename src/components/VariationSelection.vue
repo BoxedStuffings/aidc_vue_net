@@ -5,7 +5,7 @@ import  cardComponent  from './VariationCard.vue'
 export default {
   data() {
     return {
-      store,
+      store
     }
   },
 

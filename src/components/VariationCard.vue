@@ -3,7 +3,7 @@
 export default {
   data() {
     return {
-      option: this.card,
+      option: this.card
     }
   },
 
