@@ -1,5 +1,6 @@
 <script>
 import { store } from '../Store.js'
+import Navbar from './Navbar.vue'
 import  Toolbar  from './Toolbar.vue'
 import { fabric } from 'fabric'
 
@@ -15,7 +16,8 @@ export default {
   },
 
   components: {
-    Toolbar
+    Toolbar,
+    Navbar
   },
 
   methods: {
@@ -94,7 +96,10 @@ export default {
 
 <template>
   <div class="cs-holder">
-    <div class="canvas-wrapper" :style="{'height' : `${wrapperHeight}px`}">
+    <div class="navbar-wrapper">
+      <navbar class="navbar"></navbar>
+    </div>
+    <div class="canvas-wrapper">
       <canvas id="canvas"></canvas>
     </div>
 
@@ -115,7 +120,23 @@ export default {
   height: 100vh;
   width: 100%;
   position: relative;
+  background: lightgrey;
 }
+.navbar-wrapper{
+  display: flex;
+  justify-content: center;
+  height: 5%;
+  min-height: 10px;
+  max-height: 50px;
+}
+.navbar{
+  width: 40%;
+  min-width: 200px;
+  max-width: 400px;
+  position: absolute;
+  
+}
+
 .canvas-wrapper{
   width: 100%;
   position: absolute;
@@ -127,6 +148,7 @@ export default {
   transition-duration: .2s;
 
 }
+
 .toolbar {
   height: 10%;
   width: 100%;

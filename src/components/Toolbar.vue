@@ -5,7 +5,7 @@ import { store } from '../Store.js'
 
 import BottomSheet from './toolbarComponents/BottomSheet.vue'
 import font from '../components/toolbarComponents/Fonts.vue'
-import test from './toolbarComponents/test.vue'
+import test from './toolbarComponents/Test.vue'
 
 export default {
   data() {

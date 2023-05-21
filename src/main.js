@@ -6,8 +6,21 @@ import router from './router'
 import './style.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
+import '@fortawesome/fontawesome-free/css/all.css';
 
-const app = createApp(App)
+/* import the fontawesome core */
+import { library } from '@fortawesome/fontawesome-svg-core'
+/* import font awesome icon component */
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+/* import specific icons */
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 
-app.use(router)
-app.mount('#app')
+
+/* add icons to the library */
+library.add(far, fas)
+
+createApp(App)
+.component('font-awesome-icon', FontAwesomeIcon)
+.use(router)
+.mount('#app');
