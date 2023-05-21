@@ -4,7 +4,7 @@ import { VueBottomSheet } from '@webzlodimir/vue-bottom-sheet'
 import '@webzlodimir/vue-bottom-sheet/dist/style.css'
 
 import font from '../components/toolbarComponents/Fonts.vue'
-import test from './toolbarComponents/Test.vue'
+import test from './toolbarComponents/test.vue'
 
 export default {
   data() {
