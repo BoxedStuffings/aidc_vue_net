@@ -4,7 +4,7 @@ import { VueBottomSheet } from '@webzlodimir/vue-bottom-sheet'
 import '@webzlodimir/vue-bottom-sheet/dist/style.css'
 
 import font from '../components/toolbarComponents/Fonts.vue'
-import test from '../components/toolbarComponents/test.vue'
+import test from '../components/toolbarComponents/Test.vue'
 
 export default {
   data() {
@@ -62,7 +62,7 @@ export default {
             <h4 class="tb-name">{{ option.name }}</h4>
         </ui>
         <vue-bottom-sheet ref="myBottomSheet">
-            <component :is="bottomSheet" max-height="40%"></component>
+            <component :is="bottomSheet"></component>
         </vue-bottom-sheet>
     </div>
 </template>
