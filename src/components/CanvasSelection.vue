@@ -7,7 +7,9 @@ export default {
   data() {
     return {
       store,
-      wrapperHeight: 0
+      wrapperHeight: 0,
+      canvasHeight: 0,
+      big: false
     }
   },
 
@@ -31,12 +33,15 @@ export default {
       // Values based on available space (Max size of canvas possible; scaling on width of viewport)
       let newHeight = availableWidth / aspectRatio - 30
       let newWidth = availableWidth - 30
+      this.big = false
 
       // If canvas overlaps the toolbar; change canvas size to scale on available height
       if (newHeight >= availableHeight) {
         newHeight = availableHeight - 30
-        newWidth = availableHeight * aspectRatio - 30 
+        newWidth = availableHeight * aspectRatio - 30
+        this.big = true
       }
+      this.canvasHeight = newHeight
 
       this.canvas.setWidth(newWidth);
       this.canvas.setHeight(newHeight);
@@ -84,6 +89,10 @@ export default {
     <div class="canvas-wrapper" :style="{'height' : `${wrapperHeight}px`}">
       <canvas id="canvas"></canvas>
     </div>
+    <h4 :style="{'z-index': 2, 'position': 'absolute'}">WrapperHeight: {{ wrapperHeight }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '5%'}">CanvasHeight: {{ canvasHeight }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasLarger?: {{ big }}</h4>
     <toolbar class="toolbar"></toolbar>
   </div>
 </template>
@@ -94,7 +103,6 @@ export default {
   height: 100vh;
   width: 100%;
   position: relative;
-  background: lightgrey;
 }
 .canvas-wrapper{
   width: 100%;
@@ -103,6 +111,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: lightgrey;
 }
 .toolbar {
   height: 10%;
