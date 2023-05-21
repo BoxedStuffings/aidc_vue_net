@@ -7,7 +7,7 @@ export default {
   data() {
     return {
       store,
-      wrapperHeight: ''
+      wrapperHeight: 0
     }
   },
 
@@ -17,17 +17,22 @@ export default {
 
   methods: {
     // Function to update canvas dimensions
-     updateCanvasDimensions() {
+    updateCanvasDimensions() {
       const aspectRatio = 16 / 9;
-      this.wrapperHeight = String(document.querySelector('.cs-holder').offsetHeight * 90/100)
+
+      // Updating canvas-wrapper height on resize
+      this.wrapperHeight = document.querySelector('.cs-holder').offsetHeight * 90/100
       
       // Get the available width and height
       const canvasWrapper = document.querySelector('.canvas-wrapper')
       const availableHeight = this.wrapperHeight
       const availableWidth = canvasWrapper.clientWidth
+
+      // Values based on available space (Max size of canvas possible; scaling on width of viewport)
       let newHeight = availableWidth / aspectRatio - 30
       let newWidth = availableWidth - 30
 
+      // If canvas overlaps the toolbar; change canvas size to scale on available height
       if (newHeight >= availableHeight) {
         newHeight = availableHeight - 30
         newWidth = availableHeight * aspectRatio - 30 
@@ -41,7 +46,12 @@ export default {
   },
 
   mounted() {
-    Telegram.WebApp.expand()
+    const telegramBackButton = Telegram.WebApp.BackButton
+    const rect = new fabric.Rect({
+      width: 100, height: 200,
+      fill: 'red',
+      angle: 30
+    })
     
     //Intialize Fabric.js Canvas
     this.canvas =  new fabric.Canvas('canvas',{
@@ -49,22 +59,11 @@ export default {
       selectionColor: 'rgba(163, 180, 255, 0.59)',
       selectionLineWidth: 2,
     })
-
-    const rect = new fabric.Rect({
-      width: 100, height: 200,
-      fill: 'red',
-      angle: 30
-    })
-
     this.canvas.add(rect)
 
     //Resize Canvas Dimensions
     this.updateCanvasDimensions()
-
     window.addEventListener('resize', this.updateCanvasDimensions)
-
-    // Telegram API
-    const telegramBackButton = Telegram.WebApp.BackButton
 
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
@@ -73,6 +72,8 @@ export default {
         telegramBackButton.hide()
       }
     })
+
+    Telegram.WebApp.expand()
   }
 
 }
