@@ -48,7 +48,7 @@ export default {
     height: 100%;
     width: 100vw;
     position: relative;
-    color: var(--tg-theme-text-color) !important;
+    background: white;
     overflow: scroll;
 }
 .bs-close-btn {

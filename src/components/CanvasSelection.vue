@@ -144,7 +144,6 @@ export default {
   width: 100%;
   position: absolute;
   bottom: 0;
-  border: 1px solid black;
   padding-block: 1vh;
 }
 </style>
