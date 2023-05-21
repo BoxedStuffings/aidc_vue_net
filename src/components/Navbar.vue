@@ -5,7 +5,7 @@ import '@webzlodimir/vue-bottom-sheet/dist/style.css'
 import '@fortawesome/fontawesome-free/css/all.css';
 
 import font from '../components/toolbarComponents/Fonts.vue'
-import test from './toolbarComponents/Test.vue'
+import test from './toolbarComponents/test.vue'
 
 
 export default {
