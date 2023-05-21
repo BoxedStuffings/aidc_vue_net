@@ -1,7 +1,5 @@
 <script>
 import { store } from '../Store.js'
-// import { VueBottomSheet } from '@webzlodimir/vue-bottom-sheet'
-// import '@webzlodimir/vue-bottom-sheet/dist/style.css'
 
 import BottomSheet from './toolbarComponents/BottomSheet.vue'
 import font from '../components/toolbarComponents/Fonts.vue'
