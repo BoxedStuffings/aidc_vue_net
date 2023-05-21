@@ -69,10 +69,7 @@ export default {
 
 <style scoped>
 .tb-holder {
-    display: grid;
-    grid-auto-flow: column;
-    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
-    justify-content: space-around;
+    display: flex;
 }
 .tb-content {
     height: 100%;
@@ -81,14 +78,14 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 .tb-img {
-    height: auto;
-    width: 50%;
+    height: 50%;
 }
 .tb-name {
     margin: 0;
     text-align: center;
-    font-size: 1.5vmax;
+    font-size: 1.4vmax;
 }
 </style>

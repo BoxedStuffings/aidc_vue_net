@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       store,
+      wrapperHeight: ''
     }
   },
 
@@ -18,27 +19,30 @@ export default {
     // Function to update canvas dimensions
      updateCanvasDimensions() {
       const aspectRatio = 16 / 9;
-
+      this.wrapperHeight = String(document.querySelector('.cs-holder').offsetHeight * 90/100)
+      
       // Get the available width and height
       const canvasWrapper = document.querySelector('.canvas-wrapper')
-      const availableWidth = canvasWrapper.offsetWidth-30;
-      const availableHeight = canvasWrapper.offsetHeight-30;
-      let newWidth = 1280;
-      let newHeight = 720;
+      const availableHeight = this.wrapperHeight
+      const availableWidth = canvasWrapper.clientWidth
+      let newHeight = availableWidth / aspectRatio - 30
+      let newWidth = availableWidth - 30
 
-      // Update the canvas dimensions
-      if(availableWidth < 1280){
-        newWidth = availableWidth;
-        newHeight = availableWidth/aspectRatio
+      if (newHeight >= availableHeight) {
+        newHeight = availableHeight - 30
+        newWidth = availableHeight * aspectRatio - 30 
       }
 
       this.canvas.setWidth(newWidth);
       this.canvas.setHeight(newHeight);
       this.canvas.renderAll();
     }
+
   },
 
   mounted() {
+    Telegram.WebApp.expand()
+    
     //Intialize Fabric.js Canvas
     this.canvas =  new fabric.Canvas('canvas',{
       backgroundColor: 'white',
@@ -50,13 +54,14 @@ export default {
       width: 100, height: 200,
       fill: 'red',
       angle: 30
-    });
+    })
 
     this.canvas.add(rect)
 
     //Resize Canvas Dimensions
-    this.updateCanvasDimensions();
-    window.addEventListener('resize',this.updateCanvasDimensions);
+    this.updateCanvasDimensions()
+
+    window.addEventListener('resize', this.updateCanvasDimensions)
 
     // Telegram API
     const telegramBackButton = Telegram.WebApp.BackButton
@@ -75,7 +80,7 @@ export default {
 
 <template>
   <div class="cs-holder">
-    <div class="canvas-wrapper">
+    <div class="canvas-wrapper" :style="{'height' : `${wrapperHeight}px`}">
       <canvas id="canvas"></canvas>
     </div>
     <toolbar class="toolbar"></toolbar>
@@ -91,15 +96,15 @@ export default {
   background: lightgrey;
 }
 .canvas-wrapper{
-  max-height: 70%;
-  height: fit-content;
   width: 100%;
   position: absolute;
-  top: 10vh;
+  top: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .toolbar {
+  height: 10%;
   width: 100%;
   position: absolute;
   bottom: 0;
