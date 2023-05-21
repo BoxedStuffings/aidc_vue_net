@@ -96,9 +96,7 @@ export default {
 
 <template>
   <div class="cs-holder">
-    <div class="navbar-wrapper">
-      <navbar class="navbar"></navbar>
-    </div>
+    <navbar class="navbar-wrapper"></navbar>
     <div class="canvas-wrapper" :style="{'height' : `${wrapperHeight}px`}">
       <canvas id="canvas"></canvas>
     </div>
@@ -131,12 +129,7 @@ export default {
   position: relative;
   z-index: 3;
 }
-.navbar{
-  /* width: 40%;
-  min-width: 200px;
-  max-width: 400px;
-  position: absolute; */
-}
+
 .canvas-wrapper{
   width: 100%;
   position: absolute;

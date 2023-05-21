@@ -39,7 +39,12 @@ export default {
 
                 //If Item that is clicked
                 if (index == navbar_id) {
-                    item.style.backgroundColor = click
+                    if (item.style.backgroundColor == click){
+                        item.style.backgroundColor = unClick
+                    }
+                    else{
+                        item.style.backgroundColor = click
+                    } 
                 }
 
                 // Unclick every other item
@@ -54,17 +59,19 @@ export default {
 </script>
 
 <template>
-    <div class="nb-item" id="zoom-in" @click="selectNavbarOption(0)" ref="zoomIn">
-        <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
-    </div>
-    <div class="nb-item" id="zoom-out" @click="selectNavbarOption(1)" ref="zoomOut">
-        <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
-    </div>
-    <div class="nb-item" id="grab" @click="selectNavbarOption(2)" ref="grab">
-        <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
-    </div>
-    <div class="nb-item" id="fit-screen" @click="selectNavbarOption(3)" ref="fitScreen">
-        <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
+    <div>
+        <div class="nb-item" id="zoom-in" @click="selectNavbarOption(0)" ref="zoomIn">
+            <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
+        </div>
+        <div class="nb-item" id="zoom-out" @click="selectNavbarOption(1)" ref="zoomOut">
+            <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
+        </div>
+        <div class="nb-item" id="grab" @click="selectNavbarOption(2)" ref="grab">
+            <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
+        </div>
+        <div class="nb-item" id="fit-screen" @click="selectNavbarOption(3)" ref="fitScreen">
+            <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
+        </div>
     </div>
 </template>
 
