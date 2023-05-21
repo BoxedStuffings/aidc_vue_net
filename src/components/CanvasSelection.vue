@@ -6,7 +6,7 @@ import { fabric } from 'fabric'
 export default {
   data() {
     return {
-        store
+      store,
     }
   },
 
@@ -20,8 +20,9 @@ export default {
       const aspectRatio = 16 / 9;
 
       // Get the available width and height
-      const availableWidth = window.innerWidth-30;
-      const availableHeight = window.innerHeight-30;
+      const canvasWrapper = document.querySelector('.canvas-wrapper')
+      const availableWidth = canvasWrapper.offsetWidth-30;
+      const availableHeight = canvasWrapper.offsetHeight-30;
       let newWidth = 1280;
       let newHeight = 720;
 
@@ -74,32 +75,35 @@ export default {
 
 <template>
   <div class="cs-holder">
-    <!-- Canvas -->
-    <canvas id="canvas"></canvas>
-    <!-- ToolBar -->
-    <toolbar class="toolbar"/>
+    <div class="canvas-wrapper">
+      <canvas id="canvas"></canvas>
+    </div>
+    <toolbar class="toolbar"></toolbar>
   </div>
 </template>
 
 <style scoped>
 .cs-holder {
-    height: 100vh;
-    width: 100vw;
-    position: relative;
-    background: lightgrey;
-    display:flex;
-    justify-content: center;
-    align-items: center;
+  min-height: 100vh;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  background: lightgrey;
 }
-canvas{
+.canvas-wrapper{
+  max-height: 70%;
+  height: fit-content;
+  width: 100%;
+  position: absolute;
+  top: 10vh;
+  display: flex;
+  justify-content: center;
 }
 .toolbar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    border: 1px solid black;
-    padding-block: 1vh;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  border: 1px solid black;
+  padding-block: 1vh;
 }
-
 </style>
