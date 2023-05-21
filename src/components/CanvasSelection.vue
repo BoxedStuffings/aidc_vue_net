@@ -99,15 +99,15 @@ export default {
     <div class="navbar-wrapper">
       <navbar class="navbar"></navbar>
     </div>
-    <div class="canvas-wrapper">
+    <div class="canvas-wrapper" :style="{'height' : `${wrapperHeight}px`}">
       <canvas id="canvas"></canvas>
     </div>
 
     <!-- TBR -->
-    <h4 :style="{'z-index': 2, 'position': 'absolute'}">WrapperHeight: {{ wrapperHeight }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '5%'}">CanvasHeight: {{ canvasHeight }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasLarger?: {{ big }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">WrapperHeight: {{ wrapperHeight }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4>
     <!-- TBR -->
 
     <toolbar class="toolbar"></toolbar>
@@ -123,20 +123,20 @@ export default {
   background: lightgrey;
 }
 .navbar-wrapper{
-  display: flex;
-  justify-content: center;
   height: 5%;
   min-height: 10px;
   max-height: 50px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
 }
 .navbar{
-  width: 40%;
+  /* width: 40%;
   min-width: 200px;
   max-width: 400px;
-  position: absolute;
-  
+  position: absolute; */
 }
-
 .canvas-wrapper{
   width: 100%;
   position: absolute;
@@ -148,7 +148,6 @@ export default {
   transition-duration: .2s;
 
 }
-
 .toolbar {
   height: 10%;
   width: 100%;
