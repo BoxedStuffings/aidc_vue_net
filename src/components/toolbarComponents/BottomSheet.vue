@@ -48,7 +48,6 @@ export default {
     height: 100%;
     width: 100vw;
     position: relative;
-    background: var(--tg-theme-bg-color) !important;
     color: var(--tg-theme-text-color) !important;
     overflow: scroll;
 }

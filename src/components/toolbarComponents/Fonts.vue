@@ -67,8 +67,7 @@ export default {
     width: fit-content;
     display: flex;
     justify-content: space-between;
-    background: var(--tg-theme-button-text-color) !important;
-    /* background: rgba(72, 66, 66, 0.2); */
+    background: rgba(72, 66, 66, 0.2);
     margin-block: 8px;
     border-radius: 0.375rem;
     padding: 2%;
