@@ -9,7 +9,7 @@ export default {
     open() {
         const bottomSheet = this.$refs.bsExpendable
 
-        bottomSheet.style.height = '30vh'
+        bottomSheet.style.height = '33vh'
     },
 
     close() {
@@ -27,7 +27,9 @@ export default {
     <div ref="bsExpendable" class="bs-holder">
         <div class="bs-bg">
             <div class="bs-sheet">
-                <button type="button" class="btn-close bs-close-btn" @click="close"></button>
+                <div class="bs-close-btn-holder">
+                    <button type="button" class="btn-close bs-close-btn" @click="close"></button>
+                </div>
                 <slot></slot>
             </div>
         </div>
@@ -51,9 +53,19 @@ export default {
     background: white;
     overflow: scroll;
 }
+.bs-close-btn-holder {
+    max-height: fit-content;
+    height: fit-content;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: right;
+    background: white;
+    border-bottom: 1px solid rgb(205, 202, 202);
+    z-index: 10;
+}
 .bs-close-btn {
-    position: absolute;
-    right: 0;
     margin: 2%;
 }
 </style>

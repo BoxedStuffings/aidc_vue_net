@@ -28,7 +28,7 @@ export default {
       const aspectRatio = 16 / 9
       let canvasOffset = 0
 
-      this.isBottomSheetOpened ? canvasOffset = 70 / 100 : canvasOffset = 90 / 100
+      this.isBottomSheetOpened ? canvasOffset = 66/100 : canvasOffset = 90/100
 
       // Updating canvas-wrapper height on resize
       this.wrapperHeight = document.querySelector('.cs-holder').offsetHeight * canvasOffset
@@ -129,10 +129,14 @@ export default {
     </div>
 
     <!-- TBR -->
-    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '10%' }">WrapperHeight: {{ wrapperHeight }}</h4>
-    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '15%' }">CanvasHeight: {{ canvasHeight }}</h4>
-    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '20%' }">ToolBarHeight: {{ wrapperHeight / 90 * 100 }}</h4>
-    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '25%' }">CanvasLarger?: {{ big }}</h4>
+    <!-- <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">WrapperHeight: {{ wrapperHeight }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4> -->
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">QueryID: {{ store.telegramWebAppInfo.query_id }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">UserID: {{ store.telegramWebAppInfo.user.id }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '30%'}">UserObject: {{ store.telegramWebAppInfo }}</h4>
+
     <!-- TBR -->
 
     <toolbar class="toolbar"></toolbar>
@@ -175,7 +179,9 @@ export default {
   width: 100%;
   position: absolute;
   bottom: 0;
-  border: 1px solid black;
   padding-block: 1vh;
+}
+h4{
+  color: black !important;
 }
 </style>
