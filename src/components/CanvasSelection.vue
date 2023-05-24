@@ -1,7 +1,7 @@
 <script>
 import { store } from '../Store.js'
 import Navbar from './Navbar.vue'
-import  Toolbar  from './Toolbar.vue'
+import Toolbar from './Toolbar.vue'
 import { fabric } from 'fabric'
 
 export default {
@@ -10,8 +10,10 @@ export default {
       store,
       wrapperHeight: 0,
       isBottomSheetOpened: false,
-      canvasHeight: 0, //TBR
-      big: false //TBR
+      canvasHeight: 0, // Current Canvas Height  
+      canvasWidth: 0, // Current Canvas Width  
+      big: false, //TBR
+      scale: 1 // Zoom In, Out Scale
     }
   },
 
@@ -26,7 +28,7 @@ export default {
       const aspectRatio = 16 / 9
       let canvasOffset = 0
 
-      this.isBottomSheetOpened ? canvasOffset = 70/100 : canvasOffset = 90/100
+      this.isBottomSheetOpened ? canvasOffset = 70 / 100 : canvasOffset = 90 / 100
 
       // Updating canvas-wrapper height on resize
       this.wrapperHeight = document.querySelector('.cs-holder').offsetHeight * canvasOffset
@@ -47,33 +49,58 @@ export default {
         newWidth = availableHeight * aspectRatio - 30
         this.big = true //TBR
       }
-      this.canvasHeight = newHeight //TBR
+      //Updating values with current H&W
+      this.canvasHeight = newHeight
+      this.canvasWidth = newWidth
 
-      this.canvas.setWidth(newWidth);
-      this.canvas.setHeight(newHeight);
+      this.canvas.setWidth(this.canvasWidth);
+      this.canvas.setHeight(this.canvasHeight);
       this.canvas.renderAll();
     },
 
     fitCanvasToBottomSheet(state) {
       this.isBottomSheetOpened = state
       this.updateCanvasDimensions()
-    }
+    },
+
+    //Navbar functions  
+    ZoomInOutCanvas(option) {
+      console.log(option)
+      if (option == 0) { // Zoom In
+        if (this.scale + 0.1 < 1.5) {
+          this.scale = this.scale + 0.1
+        }
+      }
+      else if(option == 1){ // Zoom Out
+        if (this.scale - 0.1 > 0.2) {
+          this.scale = this.scale - 0.1
+        }
+      }
+      else { // Fit to Screen
+        this.scale = 1
+      }
+      //scaling objects in canvas down
+      this.canvas.setZoom(this.scale)
+      //scaling canvas dimension down
+      this.canvas.setHeight(this.canvasHeight * this.scale)
+      this.canvas.setWidth(this.canvasWidth * this.scale)
+    },
   },
 
   mounted() {
     const telegramBackButton = Telegram.WebApp.BackButton
+    //Intialize Fabric.js Canvas
+    this.canvas = new fabric.Canvas('canvas', {
+      backgroundColor: 'white',
+      selectionColor: 'rgba(163, 180, 255, 0.59)',
+      selectionLineWidth: 2
+    })
     const rect = new fabric.Rect({
       width: 100, height: 200,
       fill: 'red',
       angle: 30
     })
-    
-    //Intialize Fabric.js Canvas
-    this.canvas =  new fabric.Canvas('canvas',{
-      backgroundColor: 'white',
-      selectionColor: 'rgba(163, 180, 255, 0.59)',
-      selectionLineWidth: 2
-    })
+
     this.canvas.add(rect)
 
     //Resize Canvas Dimensions
@@ -96,16 +123,16 @@ export default {
 
 <template>
   <div class="cs-holder">
-    <navbar class="navbar-wrapper"></navbar>
-    <div class="canvas-wrapper" :style="{'height' : `${wrapperHeight}px`}">
+    <navbar class="navbar-wrapper" :ZoomInOutCanvas="ZoomInOutCanvas"></navbar>
+    <div class="canvas-wrapper" :style="{ 'height': `${wrapperHeight}px` }">
       <canvas id="canvas"></canvas>
     </div>
 
     <!-- TBR -->
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">WrapperHeight: {{ wrapperHeight }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4>
+    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '10%' }">WrapperHeight: {{ wrapperHeight }}</h4>
+    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '15%' }">CanvasHeight: {{ canvasHeight }}</h4>
+    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '20%' }">ToolBarHeight: {{ wrapperHeight / 90 * 100 }}</h4>
+    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '25%' }">CanvasLarger?: {{ big }}</h4>
     <!-- TBR -->
 
     <toolbar class="toolbar"></toolbar>
@@ -119,8 +146,10 @@ export default {
   width: 100%;
   position: relative;
   background: lightgrey;
+  overflow:hidden;
 }
-.navbar-wrapper{
+
+.navbar-wrapper {
   height: 5%;
   min-height: 10px;
   max-height: 50px;
@@ -129,7 +158,8 @@ export default {
   position: relative;
   z-index: 3;
 }
-.canvas-wrapper{
+
+.canvas-wrapper {
   width: 100%;
   position: absolute;
   top: 0;
@@ -139,6 +169,7 @@ export default {
   background: lightgrey;
   transition-duration: .2s;
 }
+
 .toolbar {
   height: 10%;
   width: 100%;
