@@ -54,6 +54,7 @@ export default {
     overflow: scroll;
 }
 .bs-close-btn-holder {
+    max-height: fit-content;
     height: fit-content;
     width: 100%;
     position: sticky;

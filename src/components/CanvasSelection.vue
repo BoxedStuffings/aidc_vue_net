@@ -106,6 +106,7 @@ export default {
     <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
     <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
     <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4>
+    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '30%'}">UserObject: {{ store.telegramWebAppInfo }}</h4>
     <!-- TBR -->
 
     <toolbar class="toolbar"></toolbar>
