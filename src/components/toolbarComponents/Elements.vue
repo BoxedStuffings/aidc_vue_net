@@ -4,25 +4,42 @@ import { fabric } from 'fabric'
 export default {
   data() {
     return {
-        textEditable: new fabric.Textbox('Editable Textbox', {
-            width: 500,
-            editable: true
-        }),
-
-        circle: new fabric.Circle({
-            radius: 50,
-            fill: 'green',
-        }),
-
-        square: new fabric.Rect({
-            width: 100, height: 100,
-            fill: 'purple',
-            angle: 30
-        })
     }
   },
 
   methods: {
+    createTextEditable() {
+        let textEditable = new fabric.Textbox(
+            'Editable TextBox',
+            {
+                width: 300,
+                editable: true
+            }
+        )
+
+        this.insertElement(textEditable)
+    },
+
+    createCircle() {
+        let circle = new fabric.Circle({
+            radius: 50,
+            fill: 'green'
+        })
+
+        this.insertElement(circle)
+    },
+    
+    createSquare() {
+        let square = new fabric.Rect({
+            height: 100,
+            width: 100,
+            fill: 'purple',
+            angle: 30
+        })
+
+        this.insertElement(square)
+    },
+
     insertElement(element) {
         this.$parent.$parent.$parent.insertElementToCanvas(element)
     }
@@ -33,13 +50,13 @@ export default {
 
 <template>
     <div class="element-holder">
-        <ui class="element-option-card" @click="insertElement(textEditable)">
+        <ui class="element-option-card" @click="createTextEditable()">
             <font-awesome-icon icon="fa-solid fa-face-frown-open" beat />
         </ui>
-        <ui class="element-option-card" @click="insertElement(square)">
+        <ui class="element-option-card" @click="createSquare()">
             <font-awesome-icon icon="fa-solid fa-square" />
         </ui>
-        <ui class="element-option-card" @click="insertElement(circle)">
+        <ui class="element-option-card" @click="createCircle()">
             <font-awesome-icon icon="fa-solid fa-circle" />
         </ui>
         <ui class="element-option-card">
