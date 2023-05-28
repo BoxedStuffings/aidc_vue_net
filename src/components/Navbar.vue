@@ -21,10 +21,6 @@ export default {
         test
     },
 
-    props: [
-        'ZoomInOutCanvas',
-    ],
-
     methods: {
         // Zoom IN, Zoom OUT, FIT to Screen
         selectZoom(option) {
@@ -40,12 +36,21 @@ export default {
             else{
                 this.uponClick(fitScreenItem)
             }
-            this.ZoomInOutCanvas(option)
+            this.$parent.ZoomInOutCanvas(option)
         },
         // Grab Canvas
         selectGrab() {
             const grabItem = this.$refs.grab
-            grabItem.style.backgroundColor == this.click ? grabItem.style.backgroundColor = this.unClick : grabItem.style.backgroundColor = this.click
+            //Click
+            if (grabItem.style.backgroundColor == this.unClick){
+                grabItem.style.backgroundColor = this.click
+                this.$parent.GrabCanvas(true)
+            }
+            //unClick
+            else{
+                grabItem.style.backgroundColor = this.unClick
+                this.$parent.GrabCanvas(false)
+            }
 
         },
         //change div colour
