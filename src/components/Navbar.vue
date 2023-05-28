@@ -3,9 +3,6 @@ import { store } from '../Store.js'
 import '@fortawesome/fontawesome-free/css/all.css';
 import { fabric } from 'fabric'
 
-import font from '../components/toolbarComponents/Fonts.vue'
-import elements from './toolbarComponents/Elements.vue'
-
 export default {
     data() {
         return {
@@ -14,11 +11,6 @@ export default {
             click: 'lightgrey',
             unClick: 'white',
         }
-    },
-
-    components: {
-        font,
-        elements
     },
 
     methods: {
@@ -45,7 +37,6 @@ export default {
             if (grabItem.style.backgroundColor == this.click){
                 grabItem.style.backgroundColor = this.unClick
                 this.$parent.GrabCanvas(false)
-
             }
             //Click
             else{

@@ -93,6 +93,7 @@ export default {
       this.canvas.setHeight(this.canvasHeight * this.scale)
       this.canvas.setWidth(this.canvasWidth * this.scale)
     },
+
     //TODO: Canvas Grab and Pan
     GrabCanvas(status) {
       //Clicked 
@@ -100,10 +101,12 @@ export default {
         this.canvas.defaultCursor = 'move'
         this.isDragging = false
         this.selection = false
+
         //PC
         this.canvas.on('mouse:down', this.canvasDragStart)
         this.canvas.on('mouse:move', this.canvasDragMove)
         this.canvas.on('mouse:up', this.canvasDragEnd)
+        
         //Mobile
         this.canvas.on('touch:down', this.canvasDragStart)
         this.canvas.on('touch:move', this.canvasDragMove)
@@ -120,6 +123,7 @@ export default {
         this.selection = true
       }
     },
+
     // Handle interaction start (mouse down / touch start)
     canvasDragStart(opt) {
       console.log('start')
@@ -130,6 +134,7 @@ export default {
       this.lastPosX = this.clientX
       this.lastPosY = this.clientY
     },
+
     // Handle interaction move (mouse move / touch move)
     canvasDragMove(opt) {
       if (this.isDragging) {
@@ -145,6 +150,7 @@ export default {
 
       }
     },
+
     // Handle interaction end (mouse up / touch end)
     canvasDragEnd(opt) {
       // on mouse up we want to recalculate new interaction
@@ -154,6 +160,7 @@ export default {
       this.isDragging = false
       this.selection = true
     },
+
     getClientXandY(e){
       // Touch events dont have client x and y
       if (e.clientX != null) {
