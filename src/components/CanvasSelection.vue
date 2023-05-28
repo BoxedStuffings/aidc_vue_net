@@ -13,8 +13,8 @@ export default {
       isBottomSheetOpened: false,
       canvasHeight: 0, // Original Canvas Height  
       canvasWidth: 0, // Original Canvas Width 
-      canvasLeft: 0, // Original Canvas Height  
-      canvasTop: 0, // Original Canvas Width  
+      canvasLeft: 0, // Original Canvas Left  
+      canvasTop: 0, // Original Canvas Top  
       big: false, //TBR
       scale: 1, // Zoom In, Out Scale
       clientX: 0,
@@ -99,7 +99,6 @@ export default {
       this.canvas.setWidth(this.canvasWidth * this.scale)
     },
 
-    //TODO: Canvas Grab and Pan
     GrabCanvas(status) {
       //Clicked 
       if (status) {
@@ -166,6 +165,7 @@ export default {
       this.isDragging = false
       this.canvas.selection = true
     },
+
     getClientXandY(e){
       // Touch events dont have client x and y
       if (e.clientX != null) {
