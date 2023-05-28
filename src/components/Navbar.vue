@@ -1,6 +1,7 @@
 <script>
 import { store } from '../Store.js'
 import '@fortawesome/fontawesome-free/css/all.css';
+import { fabric } from 'fabric'
 
 import font from '../components/toolbarComponents/Fonts.vue'
 import test from './toolbarComponents/test.vue'
@@ -8,7 +9,10 @@ import test from './toolbarComponents/test.vue'
 export default {
     data() {
         return {
-            store
+            store,
+            //preset click values
+            click: 'lightgrey',
+            unClick: 'white',
         }
     },
 
@@ -17,42 +21,40 @@ export default {
         test
     },
 
+    props: [
+        'ZoomInOutCanvas',
+    ],
+
     methods: {
-        selectNavbarOption(navbar_id) {
-            //preset colours
-            const unClick = 'white'
-            const click = 'lightgrey'
-
-            console.log(navbar_id)
-
-            //Ref elements within template
+        // Zoom IN, Zoom OUT, FIT to Screen
+        selectZoom(option) {
             const zoomInItem = this.$refs.zoomIn
             const zoomOutItem = this.$refs.zoomOut
-            const grabItem = this.$refs.grab
             const fitScreenItem = this.$refs.fitScreen
+            if(option == 0){
+                this.uponClick(zoomInItem)
+            }
+            else if(option == 1){
+                this.uponClick(zoomOutItem)
+            }
+            else{
+                this.uponClick(fitScreenItem)
+            }
+            this.ZoomInOutCanvas(option)
+        },
+        // Grab Canvas
+        selectGrab() {
+            const grabItem = this.$refs.grab
+            grabItem.style.backgroundColor == this.click ? grabItem.style.backgroundColor = this.unClick : grabItem.style.backgroundColor = this.click
 
-            //Adding into array for easy access 
-            const itemArray = [zoomInItem, zoomOutItem, grabItem, fitScreenItem]
-
-            //Change background colour of item
-            itemArray.forEach((item, index) => {
-
-                //If Item that is clicked
-                if (index == navbar_id) {
-                    if (item.style.backgroundColor == click){
-                        item.style.backgroundColor = unClick
-                    }
-                    else{
-                        item.style.backgroundColor = click
-                    } 
-                }
-
-                // Unclick every other item
-                else {
-                    item.style.backgroundColor = unClick
-                }
-            })
-        }
+        },
+        //change div colour
+        uponClick(item) {
+            item.style.backgroundColor = this.click
+            setTimeout(() => {
+                item.style.backgroundColor = this.unClick
+            }, 100)
+        },
     }
 
 }
@@ -60,16 +62,16 @@ export default {
 
 <template>
     <div>
-        <div class="nb-item" id="zoom-in" @click="selectNavbarOption(0)" ref="zoomIn">
+        <div class="nb-item" id="zoom-in" @click="selectZoom(0)" ref="zoomIn">
             <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
         </div>
-        <div class="nb-item" id="zoom-out" @click="selectNavbarOption(1)" ref="zoomOut">
+        <div class="nb-item" id="zoom-out" @click="selectZoom(1)" ref="zoomOut">
             <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
         </div>
-        <div class="nb-item" id="grab" @click="selectNavbarOption(2)" ref="grab">
+        <div class="nb-item" id="grab" @click="selectGrab()" ref="grab">
             <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
         </div>
-        <div class="nb-item" id="fit-screen" @click="selectNavbarOption(3)" ref="fitScreen">
+        <div class="nb-item" id="fit-screen" @click="selectZoom(2)" ref="fitScreen">
             <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
         </div>
     </div>
