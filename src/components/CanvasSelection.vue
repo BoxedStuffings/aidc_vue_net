@@ -11,12 +11,14 @@ export default {
       store,
       wrapperHeight: 0,
       isBottomSheetOpened: false,
-      canvasHeight: 0, // Current Canvas Height  
-      canvasWidth: 0, // Current Canvas Width  
+      canvasHeight: 0, // Original Canvas Height  
+      canvasWidth: 0, // Original Canvas Width 
+      canvasLeft: 0, // Original Canvas Left  
+      canvasTop: 0, // Original Canvas Top  
       big: false, //TBR
       scale: 1, // Zoom In, Out Scale
-      clientX:0,
-      clientY:0,
+      clientX: 0,
+      clientY: 0,
     }
   },
 
@@ -52,10 +54,11 @@ export default {
         newWidth = availableHeight * aspectRatio - 30
         this.big = true //TBR
       }
-      
       //Updating values with current H&W
       this.canvasHeight = newHeight
       this.canvasWidth = newWidth
+      this.canvasLeft = this.$refs.canvasElement.style.left || 0
+      this.canvasTop = this.$refs.canvasElement.style.top || 0
 
       this.canvas.setWidth(this.canvasWidth)
       this.canvas.setHeight(this.canvasHeight)
@@ -84,6 +87,8 @@ export default {
         }
       } else { // Fit to Screen
         this.scale = 1
+        this.$refs.canvasElement.style.left = this.canvasLeft
+        this.$refs.canvasElement.style.top = this.canvasTop
       }
 
       //scaling objects in canvas down
@@ -94,7 +99,6 @@ export default {
       this.canvas.setWidth(this.canvasWidth * this.scale)
     },
 
-    //TODO: Canvas Grab and Pan
     GrabCanvas(status) {
       //Clicked 
       if (status) {
@@ -117,19 +121,21 @@ export default {
         this.canvas.off('mouse:down')
         this.canvas.off('mouse:move')
         this.canvas.off('mouse:up')
+        this.canvas.off('touch:down')
+        this.canvas.off('touch:move')
+        this.canvas.off('touch:end')
 
         this.canvas.defaultCursor = 'default'
         this.isDragging = false
-        this.selection = true
+        this.canvas.selection = true
       }
     },
 
     // Handle interaction start (mouse down / touch start)
     canvasDragStart(opt) {
-      console.log('start')
       var evt = opt.e
       this.isDragging = true
-      this.selection = false
+      this.canvas.selection = false
       this.getClientXandY(evt)
       this.lastPosX = this.clientX
       this.lastPosY = this.clientY
@@ -138,13 +144,16 @@ export default {
     // Handle interaction move (mouse move / touch move)
     canvasDragMove(opt) {
       if (this.isDragging) {
-        console.log('move')
         var e = opt.e
-        var vpt = this.canvas.viewportTransform
         this.getClientXandY(e)
-        vpt[4] += this.clientX - this.lastPosX
-        vpt[5] += this.clientY - this.lastPosY
-        this.canvas.requestRenderAll()
+
+        //Moves actual canvas position
+        const canvasElement = this.$refs.canvasElement
+        const currentLeft = parseInt(canvasElement.style.left) || 0
+        const currentTop = parseInt(canvasElement.style.top) || 0
+        canvasElement.style.left = currentLeft + (this.clientX - this.lastPosX) + 'px'
+        canvasElement.style.top = currentTop + (this.clientY - this.lastPosY) + 'px'
+
         this.lastPosX = this.clientX
         this.lastPosY = this.clientY
 
@@ -153,25 +162,21 @@ export default {
 
     // Handle interaction end (mouse up / touch end)
     canvasDragEnd(opt) {
-      // on mouse up we want to recalculate new interaction
-      // for all objects, so we call setViewportTransform
-      console.log('end')
-      this.canvas.setViewportTransform(this.canvas.viewportTransform)
       this.isDragging = false
-      this.selection = true
+      this.canvas.selection = true
     },
 
     getClientXandY(e){
       // Touch events dont have client x and y
       if (e.clientX != null) {
-          this.clientX = e.clientX
-          this.clientY = e.clientY
-        }
-        else {
-          var touch = e.touches[0]
-          this.clientX = touch.pageX
-          this.clientY = touch.pageY
-        }
+        this.clientX = e.clientX
+        this.clientY = e.clientY
+      }
+      else {
+        var touch = e.touches[0]
+        this.clientX = touch.pageX
+        this.clientY = touch.pageY
+      }
     }
 
   },
@@ -216,16 +221,18 @@ export default {
   <div class="cs-holder">
     <navbar class="navbar-wrapper"></navbar>
     <div class="canvas-wrapper" :style="{ 'height': `${wrapperHeight}px` }">
-      <canvas id="canvas" ref="canvas"></canvas>
+      <canvas id="canvas" ref="canvasElement"></canvas>
     </div>
 
     <!-- TBR -->
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">WrapperHeight: {{ wrapperHeight }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4>
-    <!-- <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '30%'}">QueryID: {{ store.telegramWebAppInfo.query_id }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '35%'}">UserID: {{ store.telegramWebAppInfo.user.id }}</h4> -->
+    <!-- <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">WrapperHeight: {{ wrapperHeight }}</h4>
+                                  <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
+                                  <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
+                                  <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4> -->
+    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '10%' }">QueryID: {{ store.telegramWebAppInfo.query_id }}
+    </h4>
+    <!-- <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">UserID: {{ store.telegramWebAppInfo.user.id }}</h4> -->
+    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '30%' }">UserObject: {{ store.telegramWebAppInfo }}</h4>
 
     <!-- TBR -->
 
