@@ -54,7 +54,7 @@ export default {
         newWidth = availableHeight * aspectRatio - 30
         this.big = true //TBR
       }
-      //Updating values with current H&W and Position
+      //Updating values with current H&W
       this.canvasHeight = newHeight
       this.canvasWidth = newWidth
       this.canvasLeft = this.$refs.canvasElement.style.left || 0
@@ -70,6 +70,10 @@ export default {
       this.updateCanvasDimensions()
     },
 
+    insertElementToCanvas(element) {
+      this.canvas.add(element)
+    },
+
     //Navbar functions  
     ZoomInOutCanvas(option) {
       if (option == 0) { // Zoom In
@@ -81,18 +85,20 @@ export default {
         if (this.scale - 0.1 > 0.2) {
           this.scale = this.scale - 0.1
         }
-      }
-      else { // Fit to Screen
+      } else { // Fit to Screen
         this.scale = 1
         this.$refs.canvasElement.style.left = this.canvasLeft
         this.$refs.canvasElement.style.top = this.canvasTop
       }
+
       //scaling objects in canvas down
       this.canvas.setZoom(this.scale)
+
       //scaling canvas dimension down
       this.canvas.setHeight(this.canvasHeight * this.scale)
       this.canvas.setWidth(this.canvasWidth * this.scale)
     },
+
     //TODO: Canvas Grab and Pan
     GrabCanvas(status) {
       //Clicked 
@@ -100,10 +106,12 @@ export default {
         this.canvas.defaultCursor = 'move'
         this.isDragging = false
         this.selection = false
+
         //PC
         this.canvas.on('mouse:down', this.canvasDragStart)
         this.canvas.on('mouse:move', this.canvasDragMove)
         this.canvas.on('mouse:up', this.canvasDragEnd)
+        
         //Mobile
         this.canvas.on('touch:down', this.canvasDragStart)
         this.canvas.on('touch:move', this.canvasDragMove)
@@ -123,6 +131,7 @@ export default {
         this.canvas.selection = true
       }
     },
+
     // Handle interaction start (mouse down / touch start)
     canvasDragStart(opt) {
       var evt = opt.e
@@ -132,6 +141,7 @@ export default {
       this.lastPosX = this.clientX
       this.lastPosY = this.clientY
     },
+
     // Handle interaction move (mouse move / touch move)
     canvasDragMove(opt) {
       if (this.isDragging) {
@@ -150,12 +160,13 @@ export default {
 
       }
     },
+
     // Handle interaction end (mouse up / touch end)
     canvasDragEnd(opt) {
       this.isDragging = false
       this.canvas.selection = true
     },
-    getClientXandY(e) {
+    getClientXandY(e){
       // Touch events dont have client x and y
       if (e.clientX != null) {
         this.clientX = e.clientX
@@ -172,12 +183,14 @@ export default {
 
   mounted() {
     const telegramBackButton = Telegram.WebApp.BackButton
+
     //Intialize Fabric.js Canvas
     this.canvas = new fabric.Canvas('canvas', {
       backgroundColor: 'white',
       selectionColor: 'rgba(163, 180, 255, 0.59)',
       selectionLineWidth: 2
     })
+
     const rect = new fabric.Rect({
       width: 100, height: 200,
       fill: 'red',
@@ -213,9 +226,9 @@ export default {
 
     <!-- TBR -->
     <!-- <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">WrapperHeight: {{ wrapperHeight }}</h4>
-                                        <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
-                                        <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
-                                        <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4> -->
+                                  <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
+                                  <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
+                                  <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4> -->
     <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '10%' }">QueryID: {{ store.telegramWebAppInfo.query_id }}
     </h4>
     <!-- <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">UserID: {{ store.telegramWebAppInfo.user.id }}</h4> -->
@@ -236,7 +249,6 @@ export default {
   background: lightgrey;
   overflow: hidden;
 }
-
 .navbar-wrapper {
   height: 5%;
   min-height: 10px;
@@ -246,7 +258,6 @@ export default {
   position: relative;
   z-index: 3;
 }
-
 .canvas-wrapper {
   width: 100%;
   position: absolute;
@@ -257,7 +268,6 @@ export default {
   background: lightgrey;
   transition-duration: .2s;
 }
-
 .toolbar {
   height: 10%;
   width: 100%;

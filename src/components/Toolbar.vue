@@ -3,7 +3,7 @@ import { store } from '../Store.js'
 
 import BottomSheet from './toolbarComponents/BottomSheet.vue'
 import font from '../components/toolbarComponents/Fonts.vue'
-import test from './toolbarComponents/test.vue'
+import Elements from './toolbarComponents/Elements.vue'
 
 export default {
   data() {
@@ -16,14 +16,14 @@ export default {
   components: {
     BottomSheet,
     font,
-    test
+    Elements
   },
 
   methods: {
     selectToolbarOption(toolbarItem) {
         console.log(toolbarItem._id + ': ' + toolbarItem.name)
         this.bottomSheetContent = toolbarItem.name
-        if (toolbarItem._id === 6) {
+        if (toolbarItem._id) {
             this.openBottomSheet()
             this.$parent.fitCanvasToBottomSheet(true)
         }
@@ -32,8 +32,8 @@ export default {
     pressingDown(selection_ref) {
         let item = this.$refs[selection_ref][0]
 
-        item.style.transitionDuration = '0.4s'
         item.style.transform = 'scale(0.95)'
+        item.style.transitionDuration = '0.4s'
     },
 
     notPressingDown(selection_ref) {
