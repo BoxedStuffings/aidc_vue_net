@@ -54,6 +54,7 @@ export default {
         newWidth = availableHeight * aspectRatio - 30
         this.big = true //TBR
       }
+      
       //Updating values with current H&W
       this.canvasHeight = newHeight
       this.canvasWidth = newWidth
