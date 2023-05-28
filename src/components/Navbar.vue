@@ -4,7 +4,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import { fabric } from 'fabric'
 
 import font from '../components/toolbarComponents/Fonts.vue'
-import test from './toolbarComponents/test.vue'
+import elements from './toolbarComponents/Elements.vue'
 
 export default {
     data() {
@@ -18,7 +18,7 @@ export default {
 
     components: {
         font,
-        test
+        elements
     },
 
     methods: {

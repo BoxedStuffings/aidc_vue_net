@@ -27,28 +27,42 @@ export default {
         <div class="font-row">
             <div class="font-row-bg">
                 <input type="radio" class="btn-check" name="text-align-options" id="align-left">
-                <label class="btn btn-secondary text-btn" for="align-left">Left-Align</label>
+                <label class="btn btn-secondary text-btn" for="align-left">
+                    <font-awesome-icon icon="fa-solid fa-align-left" />
+                </label>
 
                 <input type="radio" class="btn-check" name="text-align-options" id="align-center">
-                <label class="btn btn-secondary text-btn" for="align-center">Center-Align</label>
+                <label class="btn btn-secondary text-btn" for="align-center">
+                    <font-awesome-icon icon="fa-solid fa-align-center" />
+                </label>
 
                 <input type="radio" class="btn-check" name="text-align-options" id="align-right">
-                <label class="btn btn-secondary text-btn" for="align-right">Right-Align</label>
+                <label class="btn btn-secondary text-btn" for="align-right">
+                    <font-awesome-icon icon="fa-solid fa-align-right" />
+                </label>
             </div>
         </div>
         <div class="font-row">
             <div class="font-row-bg">
                 <input type="radio" class="btn-check" name="text-style-options" id="text-bold">
-                <label class="btn btn-secondary text-btn" for="text-bold">Bold</label>
+                <label class="btn btn-secondary text-btn" for="text-bold">
+                    <font-awesome-icon icon="fa-solid fa-bold" />
+                </label>
 
                 <input type="radio" class="btn-check" name="text-style-options" id="text-italic">
-                <label class="btn btn-secondary text-btn" for="text-italic">Italic</label>
+                <label class="btn btn-secondary text-btn" for="text-italic">
+                    <font-awesome-icon icon="fa-solid fa-italic" />
+                </label>
 
                 <input type="radio" class="btn-check" name="text-style-options" id="text-hold">
-                <label class="btn btn-secondary text-btn" for="text-hold">idkwhatthisis</label>
+                <label class="btn btn-secondary text-btn" for="text-hold">
+                    <font-awesome-icon icon="fa-solid fa-face-frown-open" />
+                </label>
 
                 <input type="radio" class="btn-check" name="text-style-options" id="text-underline">
-                <label class="btn btn-secondary text-btn" for="text-underline">Underline</label>
+                <label class="btn btn-secondary text-btn" for="text-underline">
+                    <font-awesome-icon icon="fa-solid fa-underline" />
+                </label>
             </div>
         </div>
     </div>
