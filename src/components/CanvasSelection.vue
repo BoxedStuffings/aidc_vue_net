@@ -1,4 +1,5 @@
 <script>
+import { V_ON_WITH_MODIFIERS } from '@vue/compiler-dom'
 import { store } from '../Store.js'
 import Navbar from './Navbar.vue'
 import Toolbar from './Toolbar.vue'
@@ -13,7 +14,9 @@ export default {
       canvasHeight: 0, // Current Canvas Height  
       canvasWidth: 0, // Current Canvas Width  
       big: false, //TBR
-      scale: 1 // Zoom In, Out Scale
+      scale: 1, // Zoom In, Out Scale
+      clientX:0,
+      clientY:0,
     }
   },
 
@@ -28,7 +31,7 @@ export default {
       const aspectRatio = 16 / 9
       let canvasOffset = 0
 
-      this.isBottomSheetOpened ? canvasOffset = 66/100 : canvasOffset = 90/100
+      this.isBottomSheetOpened ? canvasOffset = 66 / 100 : canvasOffset = 90 / 100
 
       // Updating canvas-wrapper height on resize
       this.wrapperHeight = document.querySelector('.cs-holder').offsetHeight * canvasOffset
@@ -53,9 +56,9 @@ export default {
       this.canvasHeight = newHeight
       this.canvasWidth = newWidth
 
-      this.canvas.setWidth(this.canvasWidth);
-      this.canvas.setHeight(this.canvasHeight);
-      this.canvas.renderAll();
+      this.canvas.setWidth(this.canvasWidth)
+      this.canvas.setHeight(this.canvasHeight)
+      this.canvas.renderAll()
     },
 
     fitCanvasToBottomSheet(state) {
@@ -65,13 +68,12 @@ export default {
 
     //Navbar functions  
     ZoomInOutCanvas(option) {
-      console.log(option)
       if (option == 0) { // Zoom In
         if (this.scale + 0.1 < 1.5) {
           this.scale = this.scale + 0.1
         }
       }
-      else if(option == 1){ // Zoom Out
+      else if (option == 1) { // Zoom Out
         if (this.scale - 0.1 > 0.2) {
           this.scale = this.scale - 0.1
         }
@@ -85,6 +87,80 @@ export default {
       this.canvas.setHeight(this.canvasHeight * this.scale)
       this.canvas.setWidth(this.canvasWidth * this.scale)
     },
+    //TODO: Canvas Grab and Pan
+    GrabCanvas(status) {
+      //Clicked 
+      if (status) {
+        this.canvas.defaultCursor = 'move'
+        this.isDragging = false
+        this.selection = false
+        //PC
+        this.canvas.on('mouse:down', this.canvasDragStart)
+        this.canvas.on('mouse:move', this.canvasDragMove)
+        this.canvas.on('mouse:up', this.canvasDragEnd)
+        //Mobile
+        this.canvas.on('touch:down', this.canvasDragStart)
+        this.canvas.on('touch:move', this.canvasDragMove)
+        this.canvas.on('touch:end', this.canvasDragEnd)
+      }
+      //Unclicked
+      else {
+        this.canvas.off('mouse:down')
+        this.canvas.off('mouse:move')
+        this.canvas.off('mouse:up')
+
+        this.canvas.defaultCursor = 'default'
+        this.isDragging = false
+        this.selection = true
+      }
+    },
+    // Handle interaction start (mouse down / touch start)
+    canvasDragStart(opt) {
+      console.log('start')
+      var evt = opt.e
+      this.isDragging = true
+      this.selection = false
+      this.getClientXandY(evt)
+      this.lastPosX = this.clientX
+      this.lastPosY = this.clientY
+    },
+    // Handle interaction move (mouse move / touch move)
+    canvasDragMove(opt) {
+      if (this.isDragging) {
+        console.log('move')
+        var e = opt.e
+        var vpt = this.canvas.viewportTransform
+        this.getClientXandY(e)
+        vpt[4] += this.clientX - this.lastPosX
+        vpt[5] += this.clientY - this.lastPosY
+        this.canvas.requestRenderAll()
+        this.lastPosX = this.clientX
+        this.lastPosY = this.clientY
+
+      }
+    },
+    // Handle interaction end (mouse up / touch end)
+    canvasDragEnd(opt) {
+      // on mouse up we want to recalculate new interaction
+      // for all objects, so we call setViewportTransform
+      console.log('end')
+      this.canvas.setViewportTransform(this.canvas.viewportTransform)
+      this.isDragging = false
+      this.selection = true
+    },
+    getClientXandY(e){
+      // Touch events dont have client x and y
+      if (e.clientX != null) {
+          this.clientX = e.clientX
+          this.clientY = e.clientY
+        }
+        else {
+          var touch = e.touches[0]
+          this.clientX = touch.pageX
+          this.clientY = touch.pageY
+        }
+    }
+
   },
 
   mounted() {
@@ -123,19 +199,20 @@ export default {
 
 <template>
   <div class="cs-holder">
-    <navbar class="navbar-wrapper" :ZoomInOutCanvas="ZoomInOutCanvas"></navbar>
+    <navbar class="navbar-wrapper"></navbar>
     <div class="canvas-wrapper" :style="{ 'height': `${wrapperHeight}px` }">
-      <canvas id="canvas"></canvas>
+      <canvas id="canvas" ref="canvas"></canvas>
     </div>
 
     <!-- TBR -->
     <!-- <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">WrapperHeight: {{ wrapperHeight }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4> -->
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">QueryID: {{ store.telegramWebAppInfo.query_id }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">UserID: {{ store.telegramWebAppInfo.user.id }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '30%'}">UserObject: {{ store.telegramWebAppInfo }}</h4>
+                                  <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
+                                  <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
+                                  <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4> -->
+    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '10%' }">QueryID: {{ store.telegramWebAppInfo.query_id }}
+    </h4>
+    <!-- <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">UserID: {{ store.telegramWebAppInfo.user.id }}</h4> -->
+    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '30%' }">UserObject: {{ store.telegramWebAppInfo }}</h4>
 
     <!-- TBR -->
 
@@ -146,11 +223,11 @@ export default {
 <style scoped>
 .cs-holder {
   min-height: 100vh;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   position: relative;
   background: lightgrey;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .navbar-wrapper {
@@ -181,7 +258,8 @@ export default {
   bottom: 0;
   padding-block: 1vh;
 }
-h4{
+
+h4 {
   color: black !important;
 }
 </style>
