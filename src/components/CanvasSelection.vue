@@ -57,8 +57,8 @@ export default {
       //Updating values with current H&W
       this.canvasHeight = newHeight
       this.canvasWidth = newWidth
-      this.canvasLeft = this.$refs.canvasElement.style.left || 0
-      this.canvasTop = this.$refs.canvasElement.style.top || 0
+      this.canvasLeft = '0px'
+      this.canvasTop = '0px'
 
       this.canvas.setWidth(this.canvasWidth)
       this.canvas.setHeight(this.canvasHeight)
@@ -77,7 +77,7 @@ export default {
     //Navbar functions  
     ZoomInOutCanvas(option) {
       if (option == 0) { // Zoom In
-        if (this.scale + 0.1 < 1.5) {
+        if (this.scale + 0.1 < 1.4) {
           this.scale = this.scale + 0.1
         }
       }
@@ -110,7 +110,7 @@ export default {
         this.canvas.on('mouse:down', this.canvasDragStart)
         this.canvas.on('mouse:move', this.canvasDragMove)
         this.canvas.on('mouse:up', this.canvasDragEnd)
-        
+
         //Mobile
         this.canvas.on('touch:down', this.canvasDragStart)
         this.canvas.on('touch:move', this.canvasDragMove)
@@ -127,7 +127,7 @@ export default {
 
         this.canvas.defaultCursor = 'default'
         this.isDragging = false
-        this.canvas.selection = true
+        this.CanvasSelection(true)
       }
     },
 
@@ -135,7 +135,7 @@ export default {
     canvasDragStart(opt) {
       var evt = opt.e
       this.isDragging = true
-      this.canvas.selection = false
+      this.CanvasSelection(false)
       this.getClientXandY(evt)
       this.lastPosX = this.clientX
       this.lastPosY = this.clientY
@@ -163,10 +163,10 @@ export default {
     // Handle interaction end (mouse up / touch end)
     canvasDragEnd(opt) {
       this.isDragging = false
-      this.canvas.selection = true
+      this.CanvasSelection(true)
     },
 
-    getClientXandY(e){
+    getClientXandY(e) {
       // Touch events dont have client x and y
       if (e.clientX != null) {
         this.clientX = e.clientX
@@ -177,8 +177,30 @@ export default {
         this.clientX = touch.pageX
         this.clientY = touch.pageY
       }
-    }
+    },
 
+    //Reuse this code multiple times
+    CanvasSelection(status) {
+      if (status) {
+        this.canvas.selection = true
+        this.canvas.forEachObject((obj) => {
+          obj.set({
+            selectable: true,
+            evented: true
+          })
+        });
+      }
+      else {
+        this.canvas.selection = false
+        this.canvas.forEachObject((obj) => {
+          obj.set({
+            selectable: false,
+            evented: false
+          })
+        });
+      }
+
+    }
   },
 
   mounted() {
@@ -226,9 +248,9 @@ export default {
 
     <!-- TBR -->
     <!-- <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">WrapperHeight: {{ wrapperHeight }}</h4>
-                                  <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
-                                  <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
-                                  <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4> -->
+                                      <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
+                                      <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
+                                      <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4> -->
     <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '10%' }">QueryID: {{ store.telegramWebAppInfo.query_id }}
     </h4>
     <!-- <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">UserID: {{ store.telegramWebAppInfo.user.id }}</h4> -->
@@ -249,6 +271,7 @@ export default {
   background: lightgrey;
   overflow: hidden;
 }
+
 .navbar-wrapper {
   height: 5%;
   min-height: 10px;
@@ -258,6 +281,7 @@ export default {
   position: relative;
   z-index: 3;
 }
+
 .canvas-wrapper {
   width: 100%;
   position: absolute;
@@ -268,6 +292,7 @@ export default {
   background: lightgrey;
   transition-duration: .2s;
 }
+
 .toolbar {
   height: 10%;
   width: 100%;
