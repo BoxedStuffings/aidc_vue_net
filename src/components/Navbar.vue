@@ -41,15 +41,16 @@ export default {
         // Grab Canvas
         selectGrab() {
             const grabItem = this.$refs.grab
-            //Click
-            if (grabItem.style.backgroundColor == this.unClick){
-                grabItem.style.backgroundColor = this.click
-                this.$parent.GrabCanvas(true)
-            }
             //unClick
-            else{
+            if (grabItem.style.backgroundColor == this.click){
                 grabItem.style.backgroundColor = this.unClick
                 this.$parent.GrabCanvas(false)
+
+            }
+            //Click
+            else{
+                grabItem.style.backgroundColor = this.click
+                this.$parent.GrabCanvas(true)
             }
 
         },
