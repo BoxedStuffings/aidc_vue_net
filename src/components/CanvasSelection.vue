@@ -54,7 +54,7 @@ export default {
         newWidth = availableHeight * aspectRatio - 30
         this.big = true //TBR
       }
-      
+
       //Updating values with current H&W
       this.canvasHeight = newHeight
       this.canvasWidth = newWidth
@@ -230,7 +230,7 @@ export default {
     <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
     <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
     <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4>
-    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '10%' }">QueryID: {{ store.telegramWebAppInfo.query_id }}
+    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '30%' }">QueryID: {{ store.telegramWebAppInfo.query_id }}
     </h4>
     <!-- <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">UserID: {{ store.telegramWebAppInfo.user.id }}</h4> -->
     <!-- <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '30%' }">UserObject: {{ store.telegramWebAppInfo }}</h4> -->
