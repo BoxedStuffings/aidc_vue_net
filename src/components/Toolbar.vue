@@ -2,7 +2,7 @@
 import { store } from '../Store.js'
 
 import BottomSheet from './toolbarComponents/BottomSheet.vue'
-import font from '../components/toolbarComponents/Fonts.vue'
+import Font from '../components/toolbarComponents/Fonts.vue'
 import Elements from './toolbarComponents/Elements.vue'
 import Insert from './toolbarComponents/Insert.vue'
 
@@ -16,7 +16,7 @@ export default {
 
     components: {
         BottomSheet,
-        font,
+        Font,
         Elements,
         Insert
     },

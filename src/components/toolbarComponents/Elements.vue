@@ -12,7 +12,7 @@ export default {
         let textEditable = new fabric.Textbox(
             'Editable TextBox',
             {
-                width: 300,
+                width: 100,
                 editable: true
             }
         )
@@ -22,7 +22,7 @@ export default {
 
     createCircle() {
         let circle = new fabric.Circle({
-            radius: 50,
+            radius: 20,
             fill: 'green'
         })
 
@@ -31,8 +31,8 @@ export default {
     
     createSquare() {
         let square = new fabric.Rect({
-            height: 100,
-            width: 100,
+            height: 50,
+            width: 50,
             fill: 'purple',
             angle: 30
         })
