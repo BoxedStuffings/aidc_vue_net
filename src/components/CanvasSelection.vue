@@ -202,17 +202,25 @@ export default {
       }
     },
 
-    // Resize canvas to fit bottom sheet on screen
+    // Move canvas to fit bottom sheet on screen
     fitCanvasToBottomSheet(state) {
       this.isBottomSheetOpened = state
       this.updateCanvasDimensions()
     },
 
     insertElementToCanvas(element) {
+      element.set({
+        top: this.canvas.height/3,
+        left: this.canvas.width/2
+      })
       this.canvas.add(element)
     },
 
     insertImageToCanvas(imageObj) {
+      imageObj.set({
+        top: this.canvas.height/3,
+        left: this.canvas.width/2.5
+      })
       imageObj.scaleToWidth(this.canvas.width/5, false);
       this.canvas.add(imageObj)
     }

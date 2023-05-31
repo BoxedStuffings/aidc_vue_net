@@ -52,6 +52,8 @@ export default {
     position: relative;
     background: white;
     overflow: scroll;
+    background-color: var(--tg-theme-bg-color);
+
 }
 .bs-close-btn-holder {
     max-height: fit-content;
@@ -61,11 +63,12 @@ export default {
     top: 0;
     display: flex;
     justify-content: right;
-    background: white;
+    background: var(--tg-theme-secondary-bg-color);
     border-bottom: 1px solid rgb(205, 202, 202);
     z-index: 10;
 }
 .bs-close-btn {
     margin: 2%;
+    color: var(--tg-theme-text-color);
 }
 </style>
