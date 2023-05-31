@@ -27,12 +27,13 @@ export default {
     },
 
     async getTVsFromDatabase() {
-      jquery.ajax({
+      await jquery.ajax({
         url: 'https://heehee.amphibistudio.sg/api/tv',
         method: 'GET',
         success:  (success) => store.initTVfromDB(success.data),
         error: (error) => console.log(error)
       })
+      console.log("test")
     },
 
     pressingDown(selection_ref) {
@@ -55,11 +56,9 @@ export default {
 
   },
 
-  async beforeMount() {
+  async mounted() {
     await this.getTVsFromDatabase()
-  },
 
-  mounted() {
     this.telegramMainButton.setParams({
       text: 'Select Tv',
     }).onClick(() => {
@@ -91,6 +90,7 @@ export default {
             <p>TV • {{ TV._id }}</p>
             <button :ref="`button-ref-id_${TV._id}`" @click="selectTV(TV, `button-ref-id_${TV._id}`)" @touchstart="pressingDown(`button-ref-id_${TV._id}`)" @touchend="notPressingDown(`button-ref-id_${TV._id}`)">Select</button>
         </ui>
+        <button @click="this.$router.push('/MainSelection')">nextpage</button>
     </div>
 </template>
 

@@ -258,7 +258,7 @@ export default {
     </div>
 
     <!-- TBR -->
-    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '10%' }">QueryID: {{ store.telegramWebAppInfo.query_id }}</h4>
+    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '10%' }" class="noselect">QueryID: {{ store.telegramWebAppInfo.query_id }}</h4>
     <!-- <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">UserID: {{ store.telegramWebAppInfo.user.id }}</h4> -->
     <!-- <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '30%' }">UserObject: {{ store.telegramWebAppInfo }}</h4> -->
     <!-- TBR -->

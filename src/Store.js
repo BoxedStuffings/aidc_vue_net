@@ -90,14 +90,12 @@ export const store = reactive({
 
     // Getting available TVs into store (TV.vue)
     initTVfromDB(tvArray){
-      if (this.availableTVsFromDataBase !== tvArray) {
-        this.availableTVsFromDataBase = tvArray
-      }
+      this.availableTVsFromDataBase = tvArray
     },
 
     // Find the selected TV within selectedTVs (TV.vue)
     findIndexOfSelectedTv(TV) {
-        return this.selectedTvs.findIndex(x => x == TV)
+        return this.selectedTvs.findIndex(x => x._id == TV._id)
     },
 
     // Remove unselected TV from selectedTVs (TV.vue)

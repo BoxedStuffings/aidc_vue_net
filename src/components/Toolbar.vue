@@ -62,7 +62,7 @@ export default {
     <div class="tb-holder">
         <ui :ref="`tb-item-ref-id_${option._id}`" :id="'toolbar-item-id_' + option._id" class="tb-content" @click="selectToolbarOption(option)" @touchstart="pressingDown(`tb-item-ref-id_${option._id}`)" @touchend="notPressingDown(`tb-item-ref-id_${option._id}`)" v-for="option in store.canvasToolbarOptions" :key="option._id">
             <img class="tb-img" src="../assets/boxedstuffings.png">
-            <h4 class="tb-name">{{ option.name }}</h4>
+            <h4 class="tb-name noselect">{{ option.name }}</h4>
         </ui>
         <BottomSheet ref="bottomSheetRef">
             <component :is="bottomSheetContent"></component>
