@@ -31,7 +31,7 @@ export default {
 .tv-card-imageOutline {
     width: 110px;
     padding-top: 45%;
-    animation: pulse-bg 1.2s infinite;
+    animation: pulse-bg 1.2s infinite !important;
 }
 span{
     height: 4px;
@@ -42,12 +42,12 @@ p{
     height: 16px;
     display: block;
     margin-bottom: 10px;
-    animation: pulse-bg 1.2s infinite;
+    animation: pulse-bg 1.2s infinite !important;
 }
 button{
     height: 34px;
     display: block;
-    animation: pulse-bg 1.2s infinite;
+    animation: pulse-bg 1.2s infinite !important;
 }
 
 @keyframes pulse-bg {
