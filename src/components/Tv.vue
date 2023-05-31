@@ -1,4 +1,5 @@
 <script>
+import jquery from 'jquery'
 import { store } from '../Store.js'
 
 export default {
@@ -25,6 +26,15 @@ export default {
       this.mainButtonVisibility()
     },
 
+    async getTVsFromDatabase() {
+      jquery.ajax({
+        url: 'https://heehee.amphibistudio.sg/api/tv',
+        method: 'GET',
+        success:  (success) => store.initTVfromDB(success.data),
+        error: (error) => console.log(error)
+      })
+    },
+
     pressingDown(selection_ref) {
         let card = this.$refs[selection_ref][0]
 
@@ -45,8 +55,9 @@ export default {
 
   },
 
-  beforeMount() {
+  async beforeMount() {
     store.initTelegramData(Telegram.WebApp.initDataUnsafe)
+    await this.getTVsFromDatabase()
   },
 
   mounted() {
@@ -69,7 +80,7 @@ export default {
     <!-- Main Grid -->
     <div id="tv-grid">
         <!-- Individual cards -->
-        <ui class="tv-card noselect" v-for="TV in store.availableTVs" :key="TV._id">
+        <ui class="tv-card noselect" v-for="TV in store.availableTVsFromDataBase" :key="TV._id">
           <!-- Image outline for selection -->
           <div class="tv-card-imageOutline" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }">
             <!-- Card check mark -->

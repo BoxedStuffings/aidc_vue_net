@@ -90,6 +90,8 @@ export const store = reactive({
           "created_at":{"$date":{"$numberLong":"1683489545605"}}
         }
     ],
+
+    availableTVsFromDataBase: [],
     
     // MainSelection as in db (placeholder values) (MainSelection.vue)
     availableMSOptions: [
@@ -177,6 +179,10 @@ export const store = reactive({
     videoObj: {},
 
     // Functions for selectedTvs array
+    initTVfromDB(tvArray){
+      this.availableTVsFromDataBase = tvArray
+    },
+
     findIndexOfSelectedTv(TV) {
         return this.selectedTvs.findIndex(x => x == TV)
     },
