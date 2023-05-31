@@ -201,6 +201,7 @@ export default {
     },
 
     insertImageToCanvas(imageObj) {
+      imageObj.scaleToWidth(this.canvas.width/5, false);
       this.canvas.add(imageObj)
     }
   },
