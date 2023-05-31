@@ -7,15 +7,19 @@ export default {
 
   methods: {
     open() {
-        const bottomSheet = this.$refs.bsExpendable
+        let bottomSheet = this.$refs.bsExpendable
+        let bottomSheetbg = this.$refs.bsSheet
 
         bottomSheet.style.height = '33vh'
+        bottomSheetbg.style.top = '0'
     },
 
     close() {
-        const bottomSheet = this.$refs.bsExpendable
-
+        let bottomSheet = this.$refs.bsExpendable
+        let bottomSheetbg = this.$refs.bsSheet
+        
         bottomSheet.style.height = '0%'
+        bottomSheetbg.style.top = '100px'
         this.$parent.$parent.fitCanvasToBottomSheet(false)
     }
   }
@@ -24,14 +28,13 @@ export default {
 </script>
 
 <template>
+    <div ref="bsSheet" class="bs-sheet"></div>
     <div ref="bsExpendable" class="bs-holder">
-        <div class="bs-sheet">
-            <div class="bs-close-btn-holder">
-                <button type="button" class="btn-close bs-close-btn" @click="close"></button>
-            </div>
-            <slot></slot>
+        <div class="bs-close-btn-holder">
+            <button type="button" class="btn-close bs-close-btn" @click="close"></button>
         </div>
-    </div>
+        <slot></slot>
+    </div>     
 </template>
 
 <style scoped>
@@ -45,11 +48,11 @@ export default {
     transition-duration: .2s;
 }
 .bs-sheet {
-    height: 100%;
+    height: 200px;
     width: 100vw;
-    position: sticky;
-    background: var(--tg-theme-bg-color);;
-    overflow: scroll;
+    position: absolute;
+    top: 100px;
+    background-color: var(--tg-theme-bg-color);
 }
 .bs-close-btn-holder {
     max-height: fit-content;

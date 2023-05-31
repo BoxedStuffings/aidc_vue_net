@@ -48,6 +48,7 @@ export default {
 <style scoped>
 .canvas-img-insert-holder{
   height: 100%;
+  background-color: var(--tg-theme-bg-color);
 }
 .canvas-img-insert-content {
   height: 100%;
