@@ -7,54 +7,55 @@ import Elements from './toolbarComponents/Elements.vue'
 import Insert from './toolbarComponents/Insert.vue'
 
 export default {
-  data() {
-    return {
-        store,
-        bottomSheetContent: 'font'
-    }
-  },
-
-  components: {
-    BottomSheet,
-    font,
-    Elements,
-    Insert
-  },
-
-  methods: {
-    selectToolbarOption(toolbarItem) {
-        console.log(toolbarItem._id + ': ' + toolbarItem.name)
-        this.bottomSheetContent = toolbarItem.name
-        if (toolbarItem._id) {
-            this.openBottomSheet()
-            this.$parent.fitCanvasToBottomSheet(true)
+    data() {
+        return {
+            store,
+            bottomSheetContent: 'font'
         }
     },
 
-    pressingDown(selection_ref) {
-        let item = this.$refs[selection_ref][0]
-
-        item.style.transform = 'scale(0.95)'
-        item.style.transitionDuration = '0.4s'
+    components: {
+        BottomSheet,
+        font,
+        Elements,
+        Insert
     },
 
-    notPressingDown(selection_ref) {
-        let item = this.$refs[selection_ref][0]
+    methods: {
+        selectToolbarOption(toolbarItem) {
+            console.log(toolbarItem._id + ': ' + toolbarItem.name)
+            this.bottomSheetContent = toolbarItem.name
+            if (toolbarItem._id) {
+                this.openBottomSheet()
+                this.$parent.fitCanvasToBottomSheet(true)
+            }
+        },
 
-        item.style.transform = 'scale(1)'
-        item.style.transitionDuration = '0.2s'
+        pressingDown(selection_ref) {
+            let item = this.$refs[selection_ref][0]
+
+            item.style.transform = 'scale(0.95)'
+            item.style.transitionDuration = '0.4s'
+        },
+
+        notPressingDown(selection_ref) {
+            let item = this.$refs[selection_ref][0]
+
+            item.style.transform = 'scale(1)'
+            item.style.transitionDuration = '0.2s'
+        },
+
+        openBottomSheet() {
+            this.$refs.bottomSheetRef.open()
+        },
+
+        closeBottomSheet() {
+            this.$refs.bottomSheetRef.close()
+        }
     },
-
-    openBottomSheet() {
-        this.$refs.bottomSheetRef.open()
-    },
-
-    closeBottomSheet() {
-        this.$refs.bottomSheetRef.close()
-    }
-  },
 
 }
+
 </script>
 
 <template>

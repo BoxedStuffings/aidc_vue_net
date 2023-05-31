@@ -191,6 +191,17 @@ export default {
 
     },
 
+    canvasObjectSelection() {
+      this.canvas.on("selection:created", () => this.textboxSelectionCheck()),
+      this.canvas.on("selection:updated", () => this.textboxSelectionCheck())
+    },
+
+    textboxSelectionCheck() {
+      if (this.canvas.getActiveObject().type === 'textbox') {
+        this.$refs.toolbar.selectToolbarOption({ _id: 9, name: "font"}) 
+      }
+    },
+
     fitCanvasToBottomSheet(state) {
       this.isBottomSheetOpened = state
       this.updateCanvasDimensions()
@@ -204,6 +215,7 @@ export default {
       imageObj.scaleToWidth(this.canvas.width/5, false);
       this.canvas.add(imageObj)
     }
+    
   },
 
   mounted() {
@@ -219,6 +231,7 @@ export default {
     //Resize Canvas Dimensions
     this.updateCanvasDimensions()
     window.addEventListener('resize', this.updateCanvasDimensions)
+    this.canvasObjectSelection()
 
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
@@ -229,7 +242,7 @@ export default {
     })
 
     Telegram.WebApp.expand()
-  }
+  },
 
 }
 </script>
@@ -247,7 +260,7 @@ export default {
     <!-- <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '30%' }">UserObject: {{ store.telegramWebAppInfo }}</h4> -->
     <!-- TBR -->
 
-    <toolbar class="toolbar"></toolbar>
+    <toolbar ref="toolbar" class="toolbar"></toolbar>
   </div>
 </template>
 

@@ -165,8 +165,7 @@ export const store = reactive({
       { _id: 2, name: "Templates"},
       { _id: 3, name: "Elements"},
       { _id: 4, name: "Insert"},
-      { _id: 5, name: "Options"},
-      { _id: 6, name: "font"}
+      { _id: 5, name: "Options"}
     ],
 
     // Data to be sent (Selected TVs from TV.vue)
