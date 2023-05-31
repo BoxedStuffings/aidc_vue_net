@@ -52,7 +52,7 @@ export default {
         newWidth = availableHeight * aspectRatio - 30
       }
 
-      //Updating values with current H&W
+      // Updating values with current H&W
       this.canvasHeight = newHeight
       this.canvasWidth = newWidth
       this.canvasLeft = '0px'
@@ -63,7 +63,7 @@ export default {
       this.canvas.renderAll()
     },
 
-    //Navbar functions  
+    // Navbar functions  
     ZoomInOutCanvas(option) {
       if (option == 0) { // Zoom In
         if (this.scale + 0.1 < 1.4) {
@@ -80,33 +80,33 @@ export default {
         this.$refs.canvasElement.style.top = this.canvasTop
       }
 
-      //scaling objects in canvas down
+      // scaling objects in canvas down
       this.canvas.setZoom(this.scale)
 
-      //scaling canvas dimension down
+      // scaling canvas dimension down
       this.canvas.setHeight(this.canvasHeight * this.scale)
       this.canvas.setWidth(this.canvasWidth * this.scale)
     },
 
     GrabCanvas(status) {
-      //Clicked 
+      // Clicked 
       if (status) {
         this.canvas.defaultCursor = 'move'
         this.isDragging = false
         this.selection = false
 
-        //PC
+        // PC
         this.canvas.on('mouse:down', this.canvasDragStart)
         this.canvas.on('mouse:move', this.canvasDragMove)
         this.canvas.on('mouse:up', this.canvasDragEnd)
 
-        //Mobile
+        // Mobile
         this.canvas.on('touch:down', this.canvasDragStart)
         this.canvas.on('touch:move', this.canvasDragMove)
         this.canvas.on('touch:end', this.canvasDragEnd)
       }
       else {
-        //Unclicked
+        // Unclicked
         this.canvas.off('mouse:down')
         this.canvas.off('mouse:move')
         this.canvas.off('mouse:up')
@@ -136,7 +136,7 @@ export default {
         var e = opt.e
         this.getClientXandY(e)
 
-        //Moves actual canvas position
+        // Moves actual canvas position
         const canvasElement = this.$refs.canvasElement
         const currentLeft = parseInt(canvasElement.style.left) || 0
         const currentTop = parseInt(canvasElement.style.top) || 0
@@ -168,7 +168,7 @@ export default {
       }
     },
 
-    //Reuse this code multiple times
+    // Reuse this code multiple times
     CanvasSelection(status) {
       if (status) {
         this.canvas.selection = true
@@ -202,6 +202,7 @@ export default {
       }
     },
 
+    // Resize canvas to fit bottom sheet on screen
     fitCanvasToBottomSheet(state) {
       this.isBottomSheetOpened = state
       this.updateCanvasDimensions()
@@ -221,16 +222,18 @@ export default {
   mounted() {
     const telegramBackButton = Telegram.WebApp.BackButton
 
-    //Intialize Fabric.js Canvas
+    // Intialize Fabric.js Canvas
     this.canvas = new fabric.Canvas('canvas', {
       backgroundColor: 'white',
       selectionColor: 'rgba(163, 180, 255, 0.59)',
       selectionLineWidth: 2
     })
 
-    //Resize Canvas Dimensions
+    // Resize Canvas Dimensions
     this.updateCanvasDimensions()
     window.addEventListener('resize', this.updateCanvasDimensions)
+
+    // Check for object selection in canvas
     this.canvasObjectSelection()
 
     telegramBackButton.show()
@@ -273,7 +276,6 @@ export default {
   background: lightgrey;
   overflow: hidden;
 }
-
 .navbar-wrapper {
   height: 5%;
   min-height: 10px;
@@ -283,7 +285,6 @@ export default {
   position: relative;
   z-index: 3;
 }
-
 .canvas-wrapper {
   width: 100%;
   position: absolute;
@@ -294,7 +295,6 @@ export default {
   background: lightgrey;
   transition-duration: .2s;
 }
-
 .toolbar {
   height: 10%;
   width: 100%;
@@ -302,7 +302,6 @@ export default {
   bottom: 0;
   padding-block: 1vh;
 }
-
 h4 {
   color: black !important;
 }

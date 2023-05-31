@@ -1,96 +1,6 @@
 import { reactive } from 'vue'
 
-export const store = reactive({   
-    // Tvs as in db (TV.vue)
-    availableTVs: [
-        {
-          "_id": 1,
-          "current_display":null,
-          "image":"adwdwadawd.com",
-          "info":"wdwdwd",
-          "address":"heheMACAddress",
-          "updated_at":{"$date":{"$numberLong":"1683464890493"}},
-          "created_at":{"$date":{"$numberLong":"1683459833600"}}
-        },
-
-        {
-          "_id": 2,
-          "current_display":null,
-          "image":"adwdwadawd.com",
-          "info":"wdwdwd",
-          "address":"heheMACAddress",
-          "updated_at":{"$date":{"$numberLong":"1683462882369"}},
-          "created_at":{"$date":{"$numberLong":"1683462580446"}}
-        },
-
-        {
-          "_id": 3,
-          "current_display":null,
-          "image":"adwdwadawd.com",
-          "info":"wdwdwd",
-          "address":"heheMACAddress",
-          "updated_at":{"$date":{"$numberLong":"1683488829939"}},
-          "created_at":{"$date":{"$numberLong":"1683462677844"}},
-          "displays":[
-            {"tv_id":{"$numberInt":"3"},
-              "display_type":"seed",
-              "display_variation":"seed",
-              "display_start":"2023-05-08T14:30",
-              "display_end":"2023-05-08T16:30",
-              "userdefinedfields":{
-                "field1":{
-                    "size":"12",
-                    "font":"Montserrat",
-                    "colour":"#HEX"
-                  }
-                },
-              "_id":{"$oid":"6457e537888697b4e10d9323"}
-            },
-            {"tv_id": 3,
-              "display_type":"2",
-              "display_variation":"1",
-              "display_start":"2023-05-08T08:30",
-              "display_end":"2023-05-08T09:30",
-              "userdefinedfields":{
-                "field1":{
-                    "size":"12",
-                    "font":"Montserrat",
-                    "colour":"#HEX"
-                  }
-                },
-              "_id":{"$oid":"6458003d0f33f0ac5d09ed62"}
-            }
-          ]
-        },
-
-        {
-          "_id": 4,
-          "current_display":"nnn",
-          "image":"adwdwadawd.com",
-          "info":"wdwdwd",
-          "address":"heheMACAddress",
-          "displays":[
-              {
-                "tv_id": 4,
-                "display_type":"2",
-                "display_variation":"1",
-                "display_start":"2023-05-08T08:30",
-                "display_end":"2023-05-08T09:30",
-                "userdefinedfields":{
-                  "field1":{
-                      "size":"12",
-                      "font":"Montserrat",
-                      "colour":"#HEX"
-                    }
-                  },
-                "_id":{"$oid":"645805da560e36c1dd0c39a2"}
-              }
-            ],
-          "updated_at":{"$date":{"$numberLong":"1683490266918"}},
-          "created_at":{"$date":{"$numberLong":"1683489545605"}}
-        }
-    ],
-
+export const store = reactive({
     availableTVsFromDataBase: [],
     
     // MainSelection as in db (placeholder values) (MainSelection.vue)
@@ -153,13 +63,14 @@ export const store = reactive({
       },
     ],
 
-    // Cards (placeholder values) (BootstrapTest.vue)
+    // Cards (placeholder values)
     availableCardOptions: [
         { _id: 1, name: "Variation 1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et magna facilisis, tempus orci a, eleifend tellus. Pellentesque blandit neque semper odio ultrices, eu gravida nulla egestas. Donec convallis ante id risus posuere, eget finibus ante fringilla. Mauris pulvinar urna eu nisl tristique iaculis eget placerat neque. Nunc faucibus bibendum nulla, eu ultricies lorem ullamcorper quis. Pellentesque porta euismod dolor id consectetur."},
         { _id: 2, name: "Variation 2", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et magna facilisis, tempus orci a, eleifend tellus. Pellentesque blandit neque semper odio ultrices, eu gravida nulla egestas. Donec convallis ante id risus posuere, eget finibus ante fringilla. Mauris pulvinar urna eu nisl tristique iaculis eget placerat neque. Nunc faucibus bibendum nulla, eu ultricies lorem ullamcorper quis. Pellentesque porta euismod dolor id consectetur."},
         { _id: 3, name: "Variation 3", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi et magna facilisis, tempus orci a, eleifend tellus. Pellentesque blandit neque semper odio ultrices, eu gravida nulla egestas. Donec convallis ante id risus posuere, eget finibus ante fringilla. Mauris pulvinar urna eu nisl tristique iaculis eget placerat neque. Nunc faucibus bibendum nulla, eu ultricies lorem ullamcorper quis. Pellentesque porta euismod dolor id consectetur."}
     ],
 
+    // Toolbar options
     canvasToolbarOptions: [
       { _id: 1, name: "Canvas"},
       { _id: 2, name: "Templates"},
@@ -168,7 +79,7 @@ export const store = reactive({
       { _id: 5, name: "Options"}
     ],
 
-    // Data to be sent (Selected TVs from TV.vue)
+    // Data to be sent
     telegramWebAppInfo: [],
 
     selectedTvs: [],
@@ -177,33 +88,37 @@ export const store = reactive({
 
     videoObj: {},
 
-    // Functions for selectedTvs array
+    // Getting available TVs into store (TV.vue)
     initTVfromDB(tvArray){
       this.availableTVsFromDataBase = tvArray
     },
 
+    // Find the selected TV within selectedTVs (TV.vue)
     findIndexOfSelectedTv(TV) {
         return this.selectedTvs.findIndex(x => x == TV)
     },
 
+    // Remove unselected TV from selectedTVs (TV.vue)
     spliceSelectedTvAt(index){
         this.selectedTvs.splice(index, 1)
     },
 
+    // Add selected TV to selectedTVs (TV.vue)
     pushSelectedTv(TV) {
         this.selectedTvs.push(TV)
     },
 
-    // Functions for image upload
+    // Image upload (StandardDisplaySelection.vue)
     uploadImage(image) {
       this.imageObj = image
     },
 
-    // Functions for image upload
+    // Video upload (VideoUpload.vue)
     uploadVideo(video) {
       this.videoObj = video
     },
 
+    // Getting Telegram data (TV.vue)
     initTelegramData(initData) {
       this.telegramWebAppInfo = initData
     }
