@@ -95,17 +95,17 @@ export const store = reactive({
 
     // Find the selected TV within selectedTVs (TV.vue)
     findIndexOfSelectedTv(TV) {
-        return this.selectedTvs.findIndex(x => x._id == TV._id)
+      return this.selectedTvs.findIndex(x => x._id == TV._id)
     },
 
     // Remove unselected TV from selectedTVs (TV.vue)
     spliceSelectedTvAt(index){
-        this.selectedTvs.splice(index, 1)
+      this.selectedTvs.splice(index, 1)
     },
 
     // Add selected TV to selectedTVs (TV.vue)
     pushSelectedTv(TV) {
-        this.selectedTvs.push(TV)
+      this.selectedTvs.push(TV)
     },
 
     // Image upload (StandardDisplaySelection.vue)

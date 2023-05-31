@@ -1,16 +1,43 @@
 <script>
 import jquery from 'jquery'
 import { store } from '../Store.js'
+import TvSkeleton from '../components/TvSkeleton.vue'
 
 export default {
   data() {
     return {
       store,
-      telegramMainButton: Telegram.WebApp.MainButton
+      telegramMainButton: Telegram.WebApp.MainButton,
+      loading: true
     }
   },
 
+  components: {
+    TvSkeleton
+  },
+
   methods: {
+
+    async getTVsFromDatabase() {
+      await jquery.ajax({
+        url: 'https://heehee.amphibistudio.sg/api/tv',
+        method: 'GET',
+        success:  (success) => store.initTVfromDB(success.data),
+        error: (error) => console.log(error)
+      })
+      this.loading = !this.loading
+    },
+
+    checkTVSelection() {
+      console.log("test")
+      store.availableTVsFromDataBase.forEach((tv) => {
+      let selectionCheck = store.findIndexOfSelectedTv(tv)
+      if (selectionCheck >= 0) {
+        let ref = `button-ref-id_${tv._id}`
+        this.$refs[ref][0].innerHTML = 'Unselect'
+      }})
+    },
+
     selectTV(TV, selection_ref) {
       let index = store.findIndexOfSelectedTv(TV)
       let button = this.$refs[selection_ref][0]
@@ -24,16 +51,6 @@ export default {
       }
 
       this.mainButtonVisibility()
-    },
-
-    async getTVsFromDatabase() {
-      await jquery.ajax({
-        url: 'https://heehee.amphibistudio.sg/api/tv',
-        method: 'GET',
-        success:  (success) => store.initTVfromDB(success.data),
-        error: (error) => console.log(error)
-      })
-      console.log("test")
     },
 
     pressingDown(selection_ref) {
@@ -58,6 +75,7 @@ export default {
 
   async mounted() {
     await this.getTVsFromDatabase()
+    this.checkTVSelection()
 
     this.telegramMainButton.setParams({
       text: 'Select Tv',
@@ -75,8 +93,10 @@ export default {
 </script>
 
 <template>
+  <div>
+    <TvSkeleton v-if="loading"></TvSkeleton>
     <!-- Main Grid -->
-    <div id="tv-grid">
+    <div id="tv-grid" v-else-if="!loading">
         <!-- Individual cards -->
         <ui class="tv-card noselect" v-for="TV in store.availableTVsFromDataBase" :key="TV._id">
           <!-- Image outline for selection -->
@@ -90,11 +110,11 @@ export default {
             <p>TV • {{ TV._id }}</p>
             <button :ref="`button-ref-id_${TV._id}`" @click="selectTV(TV, `button-ref-id_${TV._id}`)" @touchstart="pressingDown(`button-ref-id_${TV._id}`)" @touchend="notPressingDown(`button-ref-id_${TV._id}`)">Select</button>
         </ui>
-        <button @click="this.$router.push('/MainSelection')">nextpage</button>
     </div>
+  </div>
 </template>
 
-<style scoped>
+<style>
 #tv-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
