@@ -15,7 +15,6 @@ export default {
       canvasWidth: 0, // Original Canvas Width 
       canvasLeft: 0, // Original Canvas Left  
       canvasTop: 0, // Original Canvas Top  
-      big: false, //TBR
       scale: 1, // Zoom In, Out Scale
       clientX: 0,
       clientY: 0,
@@ -46,13 +45,11 @@ export default {
       // Values based on available space (Max size of canvas possible; scaling on width of viewport)
       let newHeight = availableWidth / aspectRatio - 30
       let newWidth = availableWidth - 30
-      this.big = false //TBR
 
       // If canvas overlaps the toolbar; change canvas size to scale on available height
       if (newHeight >= availableHeight) {
         newHeight = availableHeight - 30
         newWidth = availableHeight * aspectRatio - 30
-        this.big = true //TBR
       }
 
       //Updating values with current H&W
@@ -64,15 +61,6 @@ export default {
       this.canvas.setWidth(this.canvasWidth)
       this.canvas.setHeight(this.canvasHeight)
       this.canvas.renderAll()
-    },
-
-    fitCanvasToBottomSheet(state) {
-      this.isBottomSheetOpened = state
-      this.updateCanvasDimensions()
-    },
-
-    insertElementToCanvas(element) {
-      this.canvas.add(element)
     },
 
     //Navbar functions  
@@ -117,8 +105,8 @@ export default {
         this.canvas.on('touch:move', this.canvasDragMove)
         this.canvas.on('touch:end', this.canvasDragEnd)
       }
-      //Unclicked
       else {
+        //Unclicked
         this.canvas.off('mouse:down')
         this.canvas.off('mouse:move')
         this.canvas.off('mouse:up')
@@ -178,7 +166,16 @@ export default {
         this.clientX = touch.pageX
         this.clientY = touch.pageY
       }
-    }
+    },
+
+    fitCanvasToBottomSheet(state) {
+      this.isBottomSheetOpened = state
+      this.updateCanvasDimensions()
+    },
+
+    insertElementToCanvas(element) {
+      this.canvas.add(element)
+    },
 
   },
 
@@ -191,14 +188,6 @@ export default {
       selectionColor: 'rgba(163, 180, 255, 0.59)',
       selectionLineWidth: 2
     })
-
-    const rect = new fabric.Rect({
-      width: 100, height: 200,
-      fill: 'red',
-      angle: 30
-    })
-
-    this.canvas.add(rect)
 
     //Resize Canvas Dimensions
     this.updateCanvasDimensions()
@@ -226,15 +215,9 @@ export default {
     </div>
 
     <!-- TBR -->
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '10%'}">WrapperHeight: {{ wrapperHeight }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '15%'}">CanvasHeight: {{ canvasHeight }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">ToolBarHeight: {{ wrapperHeight/90*100 }}</h4>
-    <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '25%'}">CanvasLarger?: {{ big }}</h4>
-    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '30%' }">QueryID: {{ store.telegramWebAppInfo.query_id }}
-    </h4>
+    <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '10%' }">QueryID: {{ store.telegramWebAppInfo.query_id }}</h4>
     <!-- <h4 :style="{'z-index': 2, 'position': 'absolute', 'top': '20%'}">UserID: {{ store.telegramWebAppInfo.user.id }}</h4> -->
     <!-- <h4 :style="{ 'z-index': 2, 'position': 'absolute', 'top': '30%' }">UserObject: {{ store.telegramWebAppInfo }}</h4> -->
-
     <!-- TBR -->
 
     <toolbar class="toolbar"></toolbar>
