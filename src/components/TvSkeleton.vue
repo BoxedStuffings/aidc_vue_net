@@ -52,13 +52,13 @@ button{
 
 @keyframes pulse-bg {
     0% {
-        background-color: #eee;
+        background-color: #8c8c8c;
     }
     50% {
-        background-color: #e5e5e5;
+        background-color: #808080;
     }
     100% {
-        background-color: #eee;
+        background-color: #8c8c8c;
     }
 }
 </style>
