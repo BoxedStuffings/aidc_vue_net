@@ -25,13 +25,11 @@ export default {
 
 <template>
     <div ref="bsExpendable" class="bs-holder">
-        <div class="bs-bg">
-            <div class="bs-sheet">
-                <div class="bs-close-btn-holder">
-                    <button type="button" class="btn-close bs-close-btn" @click="close"></button>
-                </div>
-                <slot></slot>
+        <div class="bs-sheet">
+            <div class="bs-close-btn-holder">
+                <button type="button" class="btn-close bs-close-btn" @click="close"></button>
             </div>
+            <slot></slot>
         </div>
     </div>
 </template>
@@ -42,11 +40,12 @@ export default {
     width: 100%;
     position: absolute;
     bottom: 0;
-    display: flex;
-    justify-content: center;
+    overflow: scroll;
+    /* display: flex;
+    justify-content: center; */
     transition-duration: .2s;
 }
-.bs-sheet {
+/* .bs-sheet {
     height: 100%;
     width: 100vw;
     position: relative;
@@ -54,7 +53,7 @@ export default {
     overflow: scroll;
     background-color: var(--tg-theme-bg-color);
 
-}
+} */
 .bs-close-btn-holder {
     max-height: fit-content;
     height: fit-content;
@@ -64,11 +63,15 @@ export default {
     display: flex;
     justify-content: right;
     background: var(--tg-theme-secondary-bg-color);
-    border-bottom: 1px solid rgb(205, 202, 202);
+    border-bottom: 1px solid var(--tg-theme-secondary-bg-color);
     z-index: 10;
 }
 .bs-close-btn {
     margin: 2%;
     color: var(--tg-theme-hint-color);
+}
+slot{
+    position: absolute;
+    top: 20px;
 }
 </style>

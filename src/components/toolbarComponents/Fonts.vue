@@ -60,7 +60,7 @@ export default {
 
     this.bgDarken = this.pSBC(-0.2, color1)
     this.secondaryDarken = this.pSBC(-0.2, color2)
-    this.hintDarken = this.pSBC(-0.2, color3)
+    this.hintDarken = this.pSBC(-0.6, color3)
     this.buttonTextDarken = this.pSBC(-0.2, color4)
     this.buttonDarken = this.pSBC(-0.2, color5)
     
@@ -162,7 +162,7 @@ export default {
 .form-control {
     /* background: rgba(72, 66, 66, 0.1) !important; */
     color: var(--tg-theme-text-color) !important;
-    background-color: var(--computed-bg-darken) !important;
+    background-color: var(--computed-secondary-darken) !important;
 }
 .form-control:focus {
     box-shadow: 0 0 0 0.25rem var(--computed-hint-darken);
