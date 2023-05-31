@@ -104,22 +104,22 @@ export default {
         </div>
         <div class="font-row">
             <div class="font-row-bg">
-                <input type="radio" class="btn-check" name="text-style-options" id="text-bold">
+                <input type="button" class="btn-check" name="text-style-options" id="text-bold">
                 <label class="btn btn-secondary text-btn" for="text-bold">
                     <font-awesome-icon icon="fa-solid fa-bold" />
                 </label>
 
-                <input type="radio" class="btn-check" name="text-style-options" id="text-italic">
+                <input type="button" class="btn-check" name="text-style-options" id="text-italic">
                 <label class="btn btn-secondary text-btn" for="text-italic">
                     <font-awesome-icon icon="fa-solid fa-italic" />
                 </label>
 
-                <input type="radio" class="btn-check" name="text-style-options" id="text-hold">
+                <input type="button" class="btn-check" name="text-style-options" id="text-hold">
                 <label class="btn btn-secondary text-btn" for="text-hold">
                     <font-awesome-icon icon="fa-solid fa-face-frown-open" />
                 </label>
 
-                <input type="radio" class="btn-check" name="text-style-options" id="text-underline">
+                <input type="button" class="btn-check" name="text-style-options" id="text-underline">
                 <label class="btn btn-secondary text-btn" for="text-underline">
                     <font-awesome-icon icon="fa-solid fa-underline" />
                 </label>
@@ -161,8 +161,8 @@ export default {
 
 .form-control {
     /* background: rgba(72, 66, 66, 0.1) !important; */
+    color: var(--tg-theme-text-color) !important;
     background-color: var(--computed-bg-darken) !important;
-    color: var(--tg-theme-text-color);
 }
 .form-control:focus {
     box-shadow: 0 0 0 0.25rem var(--computed-hint-darken);

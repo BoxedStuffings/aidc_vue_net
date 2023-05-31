@@ -69,6 +69,6 @@ export default {
 }
 .bs-close-btn {
     margin: 2%;
-    color: var(--tg-theme-text-color);
+    color: var(--tg-theme-hint-color);
 }
 </style>
