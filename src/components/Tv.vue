@@ -56,7 +56,6 @@ export default {
   },
 
   async beforeMount() {
-    store.initTelegramData(Telegram.WebApp.initDataUnsafe)
     await this.getTVsFromDatabase()
   },
 
