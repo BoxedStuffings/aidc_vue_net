@@ -189,7 +189,7 @@ export default {
         });
       }
 
-    }
+    },
 
     fitCanvasToBottomSheet(state) {
       this.isBottomSheetOpened = state
