@@ -40,20 +40,17 @@ export default {
     width: 100%;
     position: absolute;
     bottom: 0;
+    background-color: var(--tg-theme-bg-color);
     overflow: scroll;
-    /* display: flex;
-    justify-content: center; */
     transition-duration: .2s;
 }
-/* .bs-sheet {
+.bs-sheet {
     height: 100%;
     width: 100vw;
-    position: relative;
-    background: white;
+    position: sticky;
+    background: var(--tg-theme-bg-color);;
     overflow: scroll;
-    background-color: var(--tg-theme-bg-color);
-
-} */
+}
 .bs-close-btn-holder {
     max-height: fit-content;
     height: fit-content;
