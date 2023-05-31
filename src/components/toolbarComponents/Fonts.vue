@@ -131,6 +131,7 @@ export default {
 <style scoped>
 .font-holder {
     padding: 5%;
+    background-color: var(--tg-theme-bg-color);
 }
 .font-row {
     display: flex;
@@ -170,7 +171,7 @@ export default {
 .text-btn {
     margin-inline: 2px;
     font-size: 1.7vmax;
-    background-color: var(--tg-theme-button-color);
+    background-color: var(--tg-theme-button-color) !important;
     color: var(--tg-theme-button-text-color);
 }
 </style>

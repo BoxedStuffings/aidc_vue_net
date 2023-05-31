@@ -62,7 +62,7 @@ export default {
     top: 0;
     display: flex;
     justify-content: right;
-    background: var(--tg-theme-secondary-bg-color);
+    background: var(--tg-theme-hint-color);
     border-bottom: 1px solid var(--tg-theme-secondary-bg-color);
     z-index: 10;
 }
