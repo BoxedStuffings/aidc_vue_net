@@ -8,18 +8,14 @@ export default {
   methods: {
     open() {
         let bottomSheet = this.$refs.bsExpendable
-        let bottomSheetbg = this.$refs.bsSheet
 
         bottomSheet.style.height = '33vh'
-        bottomSheetbg.style.top = '0'
     },
 
     close() {
         let bottomSheet = this.$refs.bsExpendable
-        let bottomSheetbg = this.$refs.bsSheet
         
         bottomSheet.style.height = '0%'
-        bottomSheetbg.style.top = '100px'
         this.$parent.$parent.fitCanvasToBottomSheet(false)
     }
   }
@@ -28,12 +24,13 @@ export default {
 </script>
 
 <template>
-    <div ref="bsSheet" class="bs-sheet"></div>
     <div ref="bsExpendable" class="bs-holder">
-        <div class="bs-close-btn-holder">
-            <button type="button" class="btn-close bs-close-btn" @click="close"></button>
+        <div ref="bsSheet" class="bs-sheet">
+            <div class="bs-close-btn-holder">
+                <button type="button" class="btn-close bs-close-btn" @click="close"></button>
+            </div>
+            <slot></slot>
         </div>
-        <slot></slot>
     </div>     
 </template>
 
@@ -44,14 +41,14 @@ export default {
     position: absolute;
     bottom: 0;
     background-color: var(--tg-theme-bg-color);
-    overflow: scroll;
     transition-duration: .2s;
+    overflow: scroll;
+    overscroll-behavior: none;
 }
 .bs-sheet {
-    height: 200px;
+    height: 100%;
     width: 100vw;
-    position: absolute;
-    top: 100px;
+    position: relative;
     background-color: var(--tg-theme-bg-color);
 }
 .bs-close-btn-holder {
@@ -69,9 +66,5 @@ export default {
 .bs-close-btn {
     margin: 2%;
     color: var(--tg-theme-hint-color);
-}
-slot{
-    position: absolute;
-    top: 20px;
 }
 </style>
