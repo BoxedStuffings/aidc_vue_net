@@ -10,7 +10,6 @@ export default {
     data() {
         return {
             store,
-            telegramMainButton: Telegram.WebApp.MainButton,
             bottomSheetContent: 'font'
         }
     },

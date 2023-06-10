@@ -6,6 +6,7 @@ export default {
   data() {
     return {
       store,
+      telegramMainButton: Telegram.WebApp.MainButton,
       card: {}
     }
   },
@@ -35,7 +36,7 @@ export default {
     },
 
     mainButtonVisibility() {
-      this.card._id ? this.telegramMainButton.show() : this.telegramMainButton.hide() 
+      this.card._id ? this.telegramMainButton.show() : this.telegramMainButton.hide()
     }
   },
 
@@ -63,8 +64,7 @@ export default {
             break;
         }
         
-        card.title === 'Custom' ? this.$router.push('/CanvasSelection') : this.$router.push('/StandardDisplay')
-        this.$router.push('/MainSelection')
+        // card.title === 'Custom' ? this.$router.push('/CanvasSelection') : this.$router.push('/StandardDisplay')
         this.telegramMainButton.hide()
       }
     })
