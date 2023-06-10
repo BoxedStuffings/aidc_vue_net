@@ -193,12 +193,13 @@ export default {
 
     canvasObjectSelection() {
       this.canvas.on("selection:created", () => this.textboxSelectionCheck()),
-      this.canvas.on("selection:updated", () => this.textboxSelectionCheck())
+      this.canvas.on("selection:updated", () => this.textboxSelectionCheck()),
+      this.canvas.on("selection:cleared", () => this.$refs.toolbar.editableTextboxSelected(false))
     },
 
     textboxSelectionCheck() {
       if (this.canvas.getActiveObject().type === 'textbox') {
-        this.$refs.toolbar.selectToolbarOption({ _id: 9, name: "font"}) 
+        this.$refs.toolbar.editableTextboxSelected(true)
       }
     },
 

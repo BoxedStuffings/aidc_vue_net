@@ -3,7 +3,7 @@ import { reactive } from 'vue'
 export const store = reactive({
     availableTVsFromDataBase: [],
     initcount: 0,
-    
+
     // MainSelection as in db (placeholder values) (MainSelection.vue)
     availableMSOptions: [
         {
@@ -77,6 +77,15 @@ export const store = reactive({
       { _id: 2, name: "Templates"},
       { _id: 3, name: "Elements"},
       { _id: 4, name: "Insert"},
+      { _id: 5, name: "Options"}
+    ],
+
+    // Canvas editable textbox options
+    canvasEditableTexboxOptions: [
+      { _id: 1, name: "Font"},
+      { _id: 2, name: "Color"},
+      { _id: 3, name: "Shadow"},
+      { _id: 4, name: "Animations"},
       { _id: 5, name: "Options"}
     ],
 

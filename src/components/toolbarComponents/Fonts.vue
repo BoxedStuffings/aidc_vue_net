@@ -72,7 +72,6 @@ export default {
 
 <template>
     <div class="font-holder" :style="cssVars">
-        <h2>Font</h2>
         <div class="font-row">
             <div class="font-row-bg">
                 <button class="btn btn-outline-secondary dropdown-toggle font-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ font }}</button>

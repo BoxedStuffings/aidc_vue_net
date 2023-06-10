@@ -27,6 +27,7 @@ export default {
     <div ref="bsExpendable" class="bs-holder">
         <div ref="bsSheet" class="bs-sheet">
             <div class="bs-close-btn-holder">
+                <h2> {{this.$parent.bottomSheetContent}} </h2>
                 <button type="button" class="btn-close bs-close-btn" @click="close"></button>
             </div>
             <slot></slot>
@@ -58,7 +59,9 @@ export default {
     position: sticky;
     top: 0;
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 3%;
     background: var(--tg-theme-hint-color);
     border-bottom: 1px solid var(--tg-theme-secondary-bg-color);
     z-index: 10;
