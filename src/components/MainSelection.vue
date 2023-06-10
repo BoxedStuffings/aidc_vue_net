@@ -62,6 +62,7 @@ export default {
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
       if (telegramBackButton.isVisible) {
+        this.telegramMainButton.offClick(mainSelectionTelegramButton)
         this.$router.go(-1)
         telegramBackButton.hide()
       }
