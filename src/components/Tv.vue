@@ -114,7 +114,6 @@ export default {
         <p>TV • {{ TV._id }}</p>
         <button :ref="`button-ref-id_${TV._id}`" @click="selectTV(TV, `button-ref-id_${TV._id}`)" @touchstart="pressingDown(`button-ref-id_${TV._id}`)" @touchend="notPressingDown(`button-ref-id_${TV._id}`)">Select</button>
       </ui>
-      <button @click="this.$router.push('/MainSelection')">test</button>
     </div>
   </div>
 </template>

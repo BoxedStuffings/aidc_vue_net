@@ -66,18 +66,19 @@ export default {
     this.telegramMainButton.setParams({
       text: 'Next',
     }).onClick(() => {
-      if (this.telegramMainButton.isVisible) {
-        switch(this.card.title) {
-          case 'Custom':
-            this.$router.push('/CanvasSelection');
-            break;
-          case 'Standard':
-            this.$router.push('/StandardDisplay')
-            break;
-        }
+      this.$router.push('/CanvasSelection')
+      // if (this.telegramMainButton.isVisible) {
+      //   switch(this.card.title) {
+      //     case 'Custom':
+      //       this.$router.push('/CanvasSelection');
+      //       break;
+      //     case 'Standard':
+      //       this.$router.push('/StandardDisplay')
+      //       break;
+      //   }
         
-        this.telegramMainButton.hide()
-      }
+      //   this.telegramMainButton.hide()
+      // }
     })
     
     this.mainButtonVisibility()
@@ -91,7 +92,6 @@ export default {
     <ui :ref="`ms-card-ref-id_${option._id}`" :id="'ms-card-id_' + option._id" class="ms-card noselect" :class="{selected : this.card._id === option._id }" @click="selectCard(option._id)" @touchstart="pressingDown(`ms-card-ref-id_${option._id}`)" @touchend="notPressingDown(`ms-card-ref-id_${option._id}`)" v-for="option in store.availableMSOptions" :key="option._id">
       <mainSelectionCardComponent :mainSelectionCard="option"></mainSelectionCardComponent>
     </ui>
-    <button @click="this.$router.go(-1)">test</button>
   </div>
 </template>
 
