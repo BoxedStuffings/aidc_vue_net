@@ -35,7 +35,6 @@ export default {
         if (selectionCheck >= 0) {
           let ref = `button-ref-id_${tv._id}`
           this.$refs[ref][0].innerHTML = 'Unselect'
-          this.loading = false
         }
       })
     },
@@ -76,7 +75,7 @@ export default {
   },
 
   mounted() {
-    store.initcount >= 1 ? console.log('Not first init') : this.initTV()
+    store.initcount >= 1 ? this.loading = !this.loading : this.initTV()
     this.checkTVSelection()
 
     this.telegramMainButton.setParams({

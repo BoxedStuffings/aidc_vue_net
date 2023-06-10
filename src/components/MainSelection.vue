@@ -35,7 +35,7 @@ export default {
     },
 
     mainButtonVisibility() {
-      this.card ? this.telegramMainButton.show() : this.telegramMainButton.hide() 
+      this.card._id ? this.telegramMainButton.show() : this.telegramMainButton.hide() 
     }
   },
 
@@ -63,7 +63,7 @@ export default {
             break;
         }
         
-        // card.title === 'Custom' ? this.$router.push('/CanvasSelection') : this.$router.push('/StandardDisplay')
+        card.title === 'Custom' ? this.$router.push('/CanvasSelection') : this.$router.push('/StandardDisplay')
         this.$router.push('/MainSelection')
         this.telegramMainButton.hide()
       }
