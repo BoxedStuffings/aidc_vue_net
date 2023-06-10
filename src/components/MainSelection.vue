@@ -40,20 +40,24 @@ export default {
       this.card._id ? this.telegramMainButton.show() : this.telegramMainButton.hide()
     },
 
-    testtt() {
-      switch(this.card.title) {
-          case 'Custom':
-           console.log("Custom")
-            break;
-          case 'Standard':
-            console.log("standard")
-            break;
-      }
-    }
   },
 
   mounted() {
     const telegramBackButton = Telegram.WebApp.BackButton
+    let mainSelectionTelegramButton = () => {
+      if (this.telegramMainButton.isVisible) {
+        switch(this.card.title) {
+          case 'Custom':
+            this.$router.push('/CanvasSelection');
+            break;
+          case 'Standard':
+            this.$router.push('/StandardDisplay')
+            break;
+        }
+        this.telegramMainButton.offClick(mainSelectionTelegramButton)
+        this.telegramMainButton.hide()
+      }
+    }
 
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
@@ -65,24 +69,10 @@ export default {
 
     this.telegramMainButton.setParams({
       text: 'Next',
-    }).onClick(() => {
-      this.$router.push('/CanvasSelection')
-      // if (this.telegramMainButton.isVisible) {
-      //   switch(this.card.title) {
-      //     case 'Custom':
-      //       this.$router.push('/CanvasSelection');
-      //       break;
-      //     case 'Standard':
-      //       this.$router.push('/StandardDisplay')
-      //       break;
-      //   }
-        
-      //   this.telegramMainButton.hide()
-      // }
-    })
+    }).onClick(mainSelectionTelegramButton)
     
     this.mainButtonVisibility()
-  }
+  },
 
 }
 </script>
