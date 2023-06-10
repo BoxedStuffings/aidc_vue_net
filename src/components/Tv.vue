@@ -76,7 +76,6 @@ export default {
 
   mounted() {
     store.initcount >= 1 ? this.loading = !this.loading : this.initTV()
-    this.checkTVSelection()
 
     this.telegramMainButton.setParams({
       text: 'Select Tv',
@@ -88,6 +87,10 @@ export default {
     })
 
     this.mainButtonVisibility()
+  },
+
+  updated() {
+    this.checkTVSelection()
   }
 
 }
@@ -111,6 +114,7 @@ export default {
         <p>TV • {{ TV._id }}</p>
         <button :ref="`button-ref-id_${TV._id}`" @click="selectTV(TV, `button-ref-id_${TV._id}`)" @touchstart="pressingDown(`button-ref-id_${TV._id}`)" @touchend="notPressingDown(`button-ref-id_${TV._id}`)">Select</button>
       </ui>
+      <button @click="this.$router.push('/MainSelection')">test</button>
     </div>
   </div>
 </template>
