@@ -5,11 +5,11 @@ export default {
   data() {
     return {
         loadedFont: [],
-        bgDarken: '',
-        secondaryDarken: '',
-        hintDarken: '',
-        buttonTextDarken: '',
-        buttonDarken: ''
+        // bgDarken: '',
+        // secondaryDarken: '',
+        // hintDarken: '',
+        // buttonTextDarken: '',
+        // buttonDarken: ''
     }
   },
 
