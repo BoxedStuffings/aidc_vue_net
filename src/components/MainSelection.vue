@@ -18,6 +18,7 @@ export default {
   methods: {
     selectCard(selection_id) {
       this.card = store.availableMSOptions.find(x => x._id === selection_id)
+
       this.mainButtonVisibility()
     },
 
@@ -37,6 +38,17 @@ export default {
 
     mainButtonVisibility() {
       this.card._id ? this.telegramMainButton.show() : this.telegramMainButton.hide()
+    },
+
+    testtt() {
+      switch(this.card.title) {
+          case 'Custom':
+           console.log("Custom")
+            break;
+          case 'Standard':
+            console.log("standard")
+            break;
+      }
     }
   },
 
@@ -64,7 +76,6 @@ export default {
             break;
         }
         
-        // card.title === 'Custom' ? this.$router.push('/CanvasSelection') : this.$router.push('/StandardDisplay')
         this.telegramMainButton.hide()
       }
     })
@@ -77,30 +88,32 @@ export default {
 
 <template>
   <div class="ms-holder">
-    <ui :ref="`ms-card-ref-id_${option._id}`" :id="'ms-card-id_' + option._id" class="ms-card noselect" @click="selectCard(option._id)" @touchstart="pressingDown(`ms-card-ref-id_${option._id}`)" @touchend="notPressingDown(`ms-card-ref-id_${option._id}`)" v-for="option in store.availableMSOptions" :key="option._id">
+    <ui :ref="`ms-card-ref-id_${option._id}`" :id="'ms-card-id_' + option._id" class="ms-card noselect" :class="{selected : this.card._id === option._id }" @click="selectCard(option._id)" @touchstart="pressingDown(`ms-card-ref-id_${option._id}`)" @touchend="notPressingDown(`ms-card-ref-id_${option._id}`)" v-for="option in store.availableMSOptions" :key="option._id">
       <mainSelectionCardComponent :mainSelectionCard="option"></mainSelectionCardComponent>
     </ui>
+    <button @click="testtt()">test</button>
   </div>
 </template>
 
 <style scoped>
 .ms-holder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1vh 2vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1vh 2vw;
 }
 .ms-card {
-    box-sizing: border-box;
-    width: 90%;
-    margin-block: 2%;
-    border: 1px solid rgba(0, 0, 0, 0.175);;
-    border-radius: 0.375rem;
-    padding: 10px;
-    transition-duration: 0.4s;
+  box-sizing: border-box;
+  width: 90%;
+  margin-block: 2%;
+  border: 1px solid rgba(0, 0, 0, 0.175);;
+  border-radius: 0.375rem;
+  padding: 10px;
+  transition-duration: 0.4s;
 }
 .ms-card.selected {
-    transform: scale(0.95)!important;
+  transform: scale(0.95)!important;
+  border-color: var(--accent);
 }
 
 @media (prefers-color-scheme: dark) {
