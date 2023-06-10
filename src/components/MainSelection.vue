@@ -5,7 +5,8 @@ import  mainSelectionCardComponent  from './MainSelectionCard.vue'
 export default {
   data() {
     return {
-        store
+      store,
+      card: {}
     }
   },
 
@@ -15,23 +16,25 @@ export default {
 
   methods: {
     selectCard(selection_id) {
-        let card = store.availableMSOptions.find(x => x._id === selection_id)
-
-        card.display_variations ? this.$router.push('/CanvasSelection') : this.$router.push('/StandardDisplay')
+      this.card = store.availableMSOptions.find(x => x._id === selection_id)
     },
 
     pressingDown(selection_ref) {
-        let card = this.$refs[selection_ref][0]
+      let card = this.$refs[selection_ref][0]
 
-        card.style.transform = 'scale(0.95)'
-        card.style.transitionDuration = '0.4s'
+      card.style.transform = 'scale(0.95)'
+      card.style.transitionDuration = '0.4s'
     },
 
     notPressingDown(selection_ref) {
-        let card = this.$refs[selection_ref][0]
+      let card = this.$refs[selection_ref][0]
 
-        card.style.transform = 'scale(1)'
-        card.style.transitionDuration = '0.2s'
+      card.style.transform = 'scale(1)'
+      card.style.transitionDuration = '0.2s'
+    },
+
+    mainButtonVisibility() {
+      store.selectedTvs.length >= 1 ? this.telegramMainButton.show() : this.telegramMainButton.hide() 
     }
   },
 
@@ -44,18 +47,39 @@ export default {
         this.$router.go(-1)
         telegramBackButton.hide()
       }
+    }),
+
+    this.telegramMainButton.setParams({
+      text: 'Next',
+    }).onClick(() => {
+      if (this.telegramMainButton.isVisible) {
+        switch(this.card.title) {
+          case 'Custom':
+            this.$router.push('/CanvasSelection');
+            break;
+          case 'Standard':
+            this.$router.push('/StandardDisplay')
+            break;
+        }
+        
+        // card.title === 'Custom' ? this.$router.push('/CanvasSelection') : this.$router.push('/StandardDisplay')
+        this.$router.push('/MainSelection')
+        this.telegramMainButton.hide()
+      }
     })
+    
+    this.mainButtonVisibility()
   }
 
 }
 </script>
 
 <template>
-    <div class="ms-holder">
-        <ui :ref="`ms-card-ref-id_${option._id}`" :id="'ms-card-id_' + option._id" class="ms-card noselect" @click="selectCard(option._id)" @touchstart="pressingDown(`ms-card-ref-id_${option._id}`)" @touchend="notPressingDown(`ms-card-ref-id_${option._id}`)" v-for="option in store.availableMSOptions" :key="option._id">
-            <mainSelectionCardComponent :mainSelectionCard="option"></mainSelectionCardComponent>
-        </ui>
-    </div>
+  <div class="ms-holder">
+    <ui :ref="`ms-card-ref-id_${option._id}`" :id="'ms-card-id_' + option._id" class="ms-card noselect" @click="selectCard(option._id)" @touchstart="pressingDown(`ms-card-ref-id_${option._id}`)" @touchend="notPressingDown(`ms-card-ref-id_${option._id}`)" v-for="option in store.availableMSOptions" :key="option._id">
+      <mainSelectionCardComponent :mainSelectionCard="option"></mainSelectionCardComponent>
+    </ui>
+  </div>
 </template>
 
 <style scoped>

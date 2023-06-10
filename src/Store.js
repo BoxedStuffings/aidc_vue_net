@@ -2,6 +2,7 @@ import { reactive } from 'vue'
 
 export const store = reactive({
     availableTVsFromDataBase: [],
+    initcount: 0,
     
     // MainSelection as in db (placeholder values) (MainSelection.vue)
     availableMSOptions: [

@@ -10,6 +10,7 @@ export default {
     data() {
         return {
             store,
+            telegramMainButton: Telegram.WebApp.MainButton,
             bottomSheetContent: 'font'
         }
     },
@@ -53,7 +54,7 @@ export default {
             this.$refs.bottomSheetRef.close()
         }
     },
-
+    
 }
 </script>
 

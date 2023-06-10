@@ -18,7 +18,7 @@ export default {
 
   methods: {
 
-    async getTVsFromDatabase() {
+    async initTV(){
       await jquery.ajax({
         url: 'https://heehee.amphibistudio.sg/api/tv',
         method: 'GET',
@@ -26,10 +26,10 @@ export default {
         error: (error) => console.log(error)
       })
       this.loading = !this.loading
+      store.initcount++
     },
 
     checkTVSelection() {
-      console.log("test")
       store.availableTVsFromDataBase.forEach((tv) => {
       let selectionCheck = store.findIndexOfSelectedTv(tv)
       if (selectionCheck >= 0) {
@@ -73,8 +73,8 @@ export default {
 
   },
 
-  async mounted() {
-    await this.getTVsFromDatabase()
+  mounted() {
+    store.initcount >= 1 ? console.log('Not first init') : this.initTV()
     this.checkTVSelection()
 
     this.telegramMainButton.setParams({
@@ -94,22 +94,22 @@ export default {
 
 <template>
   <div>
-    <TvSkeleton v-if="loading"></TvSkeleton>
+    <TvSkeleton v-if="this.loading"></TvSkeleton>
     <!-- Main Grid -->
-    <div id="tv-grid" v-else-if="!loading">
-        <!-- Individual cards -->
-        <ui class="tv-card noselect" v-for="TV in store.availableTVsFromDataBase" :key="TV._id">
-          <!-- Image outline for selection -->
-          <div class="tv-card-imageOutline" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }">
-            <!-- Card check mark -->
-            <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
-            <!-- Display image -->
-            <img :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
-          </div>
-            <!-- Display name -->
-            <p>TV • {{ TV._id }}</p>
-            <button :ref="`button-ref-id_${TV._id}`" @click="selectTV(TV, `button-ref-id_${TV._id}`)" @touchstart="pressingDown(`button-ref-id_${TV._id}`)" @touchend="notPressingDown(`button-ref-id_${TV._id}`)">Select</button>
-        </ui>
+    <div id="tv-grid" v-else-if="!this.loading">
+    <!-- Individual cards -->
+      <ui class="tv-card noselect" v-for="TV in store.availableTVsFromDataBase" :key="TV._id">
+        <!-- Image outline for selection -->
+        <div class="tv-card-imageOutline" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }">
+          <!-- Card check mark -->
+          <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
+          <!-- Display image -->
+          <img :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
+        </div>
+        <!-- Display name -->
+        <p>TV • {{ TV._id }}</p>
+        <button :ref="`button-ref-id_${TV._id}`" @click="selectTV(TV, `button-ref-id_${TV._id}`)" @touchstart="pressingDown(`button-ref-id_${TV._id}`)" @touchend="notPressingDown(`button-ref-id_${TV._id}`)">Select</button>
+      </ui>
     </div>
   </div>
 </template>
