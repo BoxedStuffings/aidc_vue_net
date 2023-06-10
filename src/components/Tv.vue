@@ -31,11 +31,13 @@ export default {
 
     checkTVSelection() {
       store.availableTVsFromDataBase.forEach((tv) => {
-      let selectionCheck = store.findIndexOfSelectedTv(tv)
-      if (selectionCheck >= 0) {
-        let ref = `button-ref-id_${tv._id}`
-        this.$refs[ref][0].innerHTML = 'Unselect'
-      }})
+        let selectionCheck = store.findIndexOfSelectedTv(tv)
+        if (selectionCheck >= 0) {
+          let ref = `button-ref-id_${tv._id}`
+          this.$refs[ref][0].innerHTML = 'Unselect'
+          this.loading = false
+        }
+      })
     },
 
     selectTV(TV, selection_ref) {

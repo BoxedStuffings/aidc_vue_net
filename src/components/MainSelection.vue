@@ -17,6 +17,7 @@ export default {
   methods: {
     selectCard(selection_id) {
       this.card = store.availableMSOptions.find(x => x._id === selection_id)
+      this.mainButtonVisibility()
     },
 
     pressingDown(selection_ref) {
@@ -34,7 +35,7 @@ export default {
     },
 
     mainButtonVisibility() {
-      store.selectedTvs.length >= 1 ? this.telegramMainButton.show() : this.telegramMainButton.hide() 
+      this.card ? this.telegramMainButton.show() : this.telegramMainButton.hide() 
     }
   },
 
