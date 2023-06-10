@@ -77,12 +77,6 @@ export default {
   mounted() {
     store.initcount >= 1 ? this.loading = !this.loading : this.initTV()
 
-    this.mainButtonVisibility()
-  },
-
-  updated() {
-    this.checkTVSelection()
-
     let tvTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
         this.$router.push('/MainSelection')
@@ -94,6 +88,12 @@ export default {
     this.telegramMainButton.setParams({
       text: 'Select Tv',
     }).onClick(tvTelegramButton)
+
+    this.mainButtonVisibility()
+  },
+
+  updated() {
+    this.checkTVSelection()
   }
 
 }

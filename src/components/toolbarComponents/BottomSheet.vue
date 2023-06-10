@@ -66,6 +66,9 @@ export default {
     border-bottom: 1px solid var(--tg-theme-secondary-bg-color);
     z-index: 10;
 }
+.bs-close-btn-holder > h2 {
+    margin: 0;
+}
 .bs-close-btn {
     margin: 2%;
     color: var(--tg-theme-hint-color);

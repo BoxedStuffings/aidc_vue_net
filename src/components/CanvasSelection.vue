@@ -224,6 +224,11 @@ export default {
       })
       imageObj.scaleToWidth(this.canvas.width/5, false);
       this.canvas.add(imageObj)
+    },
+
+    setFontFamily(font) {
+      this.canvas.getActiveObject().set('fontFamily', font)
+      this.canvas.requestRenderAll()
     }
     
   },

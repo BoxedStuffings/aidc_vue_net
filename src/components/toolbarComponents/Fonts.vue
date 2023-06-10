@@ -1,9 +1,10 @@
 <script>
+import fontfaceobserver from 'fontfaceobserver'
 
 export default {
   data() {
     return {
-        font: 'Select',
+        loadedFont: [],
         bgDarken: '',
         secondaryDarken: '',
         hintDarken: '',
@@ -13,6 +14,27 @@ export default {
   },
 
   methods: {
+    populateFonts() {
+        const fonts = ['Open Sans', 'Pacifico', 'VT323', 'Quicksand', 'Inconsolata'];
+        fonts.forEach((font) => {
+            let option = new Option(font, font)
+            this.$refs.fontDropDown.add(option, undefined)
+        })
+    },
+
+    loadAndUse(font) {
+        let url = 'https://fonts.googleapis.com/css?family=' + font.replace(/\s/g,'+') + ':' + '&display=swap'
+        let link = document.createElement("link");
+        link.type = "text/css";
+        link.rel = "stylesheet";
+        link.href = url;
+        document.head.append(link)
+        this.loadedFont.push(font)
+
+        let fontface = new fontfaceobserver(font)
+        fontface.load().then(this.$parent.$parent.$parent.setFontFamily(font)).catch((e) => console.log(e))
+    },
+
     pSBC(p,c0,c1,l){
         let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";
         if(typeof(p)!="number"||p<-1||p>1||typeof(c0)!="string"||(c0[0]!='r'&&c0[0]!='#')||(c1&&!a))return null;
@@ -64,7 +86,17 @@ export default {
     this.buttonTextDarken = this.pSBC(-0.2, color4)
     this.buttonDarken = this.pSBC(-0.2, color5)
     
-    // console.log(getComputedStyle(document.documentElement).getPropertyValue('--tg-theme-bg-color'))
+    this.populateFonts()
+
+    this.$refs.fontDropDown.onchange = () => {
+        let font = this.$refs.fontDropDown.value
+        if (this.loadedFont.includes(font)) {
+            this.$parent.$parent.$parent.setFontFamily(font)
+        } else {
+            this.loadAndUse(font)
+            console.log("test")
+        }
+    }
   }
 
 }
@@ -74,13 +106,9 @@ export default {
     <div class="font-holder" :style="cssVars">
         <div class="font-row">
             <div class="font-row-bg">
-                <button class="btn btn-outline-secondary dropdown-toggle font-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ font }}</button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" @click="font = 'Font Option 1'">Font Option 1</a></li>
-                    <li><a class="dropdown-item" @click="font = 'Font Option 2'">Font Option 2</a></li>
-                    <li><a class="dropdown-item" @click="font = 'Font Option 3'">Font Option 3</a></li>
-                </ul>
-                <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="">
+                <select ref="fontDropDown"></select>
+                <!-- <button ref="fontDropDown" class="btn btn-outline-secondary dropdown-toggle font-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ font }}</button>
+                <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder=""> -->
             </div>
         </div>
         <div class="font-row">

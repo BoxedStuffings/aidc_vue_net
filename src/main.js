@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 
 import 'jquery'
+import 'fontfaceobserver'
 
 import './style.css'
 import 'bootstrap/dist/css/bootstrap.css'
