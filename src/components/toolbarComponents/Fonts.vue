@@ -24,15 +24,15 @@ export default {
 
     loadAndUse(font) {
         let url = 'https://fonts.googleapis.com/css?family=' + font.replace(/\s/g,'+') + ':' + '&display=swap'
-        let link = document.createElement("link");
-        link.type = "text/css";
-        link.rel = "stylesheet";
+        let link = document.createElement('link');
+        link.type = 'text/css';
+        link.rel = 'stylesheet';
         link.href = url;
         document.head.append(link)
         this.loadedFont.push(font)
 
         let fontface = new fontfaceobserver(font)
-        fontface.load().then(this.$parent.$parent.$parent.setFontFamily(font)).catch((e) => console.log(e))
+        fontface.load().then(() => this.$parent.$parent.$parent.setFontFamily(font)).catch((e) => console.log(e))
     },
 
     // pSBC(p,c0,c1,l){
@@ -94,7 +94,6 @@ export default {
             this.$parent.$parent.$parent.setFontFamily(font)
         } else {
             this.loadAndUse(font)
-            console.log("test")
         }
     }
   }

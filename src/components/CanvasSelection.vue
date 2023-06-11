@@ -1,5 +1,4 @@
 <script>
-import { V_ON_WITH_MODIFIERS } from '@vue/compiler-dom'
 import { store } from '../Store.js'
 import Navbar from './Navbar.vue'
 import Toolbar from './Toolbar.vue'
