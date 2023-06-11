@@ -132,6 +132,7 @@ export default {
                 <div ref="fontSelect" class="font-select">
                     <select ref="fontDropDown"></select>
                 </div>
+
             </div>
         </div>
         <div class="font-row">
@@ -164,9 +165,9 @@ export default {
                     <font-awesome-icon icon="fa-solid fa-italic" />
                 </label>
 
-                <input type="button" class="btn-check" name="text-style-options" id="text-hold">
-                <label class="btn btn-secondary text-btn" for="text-hold" @click="toggleLinethrough()">
-                    <font-awesome-icon icon="fa-solid fa-face-frown-open" />
+                <input type="button" class="btn-check" name="text-style-options" id="text-linethrough">
+                <label class="btn btn-secondary text-btn" for="text-linethrough" @click="toggleLinethrough()">
+                    <font-awesome-icon icon="fa-solid fa-strikethrough" />
                 </label>
 
                 <input type="button" class="btn-check" name="text-style-options" id="text-underline">
@@ -194,7 +195,7 @@ export default {
     /* background: rgba(72, 66, 66, 0.2); */
     grid-auto-flow: column;
     background-color: var(--tg-theme-hint-color);
-    margin-block: 8px;
+    margin-block: 10px;
     border-radius: 0.375rem;
     padding: 2%;
 }
@@ -208,6 +209,8 @@ export default {
     display: none;
 }
 .select-selected {
+    border-radius: 0.375rem 0.375rem 0 0;
+    padding-left: 5%;
     background-color: #5c646d;
 }
 /* Style the arrow inside the select element: */
