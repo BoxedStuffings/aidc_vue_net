@@ -5,11 +5,6 @@ export default {
   data() {
     return {
         loadedFont: [],
-        // bgDarken: '',
-        // secondaryDarken: '',
-        // hintDarken: '',
-        // buttonTextDarken: '',
-        // buttonDarken: ''
     }
   },
 
@@ -35,67 +30,96 @@ export default {
         fontface.load().then(() => this.$parent.$parent.$parent.setFontFamily(font)).catch((e) => console.log(e))
     },
 
-    // pSBC(p,c0,c1,l){
-    //     let r,g,b,P,f,t,h,i=parseInt,m=Math.round,a=typeof(c1)=="string";
-    //     if(typeof(p)!="number"||p<-1||p>1||typeof(c0)!="string"||(c0[0]!='r'&&c0[0]!='#')||(c1&&!a))return null;
-    //     if(!this.pSBCr)this.pSBCr=(d)=>{
-    //         let n=d.length,x={};
-    //         if(n>9){
-    //             [r,g,b,a]=d=d.split(","),n=d.length;
-    //             if(n<3||n>4)return null;
-    //             x.r=i(r[3]=="a"?r.slice(5):r.slice(4)),x.g=i(g),x.b=i(b),x.a=a?parseFloat(a):-1
-    //         }else{
-    //             if(n==8||n==6||n<4)return null;
-    //             if(n<6)d="#"+d[1]+d[1]+d[2]+d[2]+d[3]+d[3]+(n>4?d[4]+d[4]:"");
-    //             d=i(d.slice(1),16);
-    //             if(n==9||n==5)x.r=d>>24&255,x.g=d>>16&255,x.b=d>>8&255,x.a=m((d&255)/0.255)/1000;
-    //             else x.r=d>>16,x.g=d>>8&255,x.b=d&255,x.a=-1
-    //         }return x};
-    //     h=c0.length>9,h=a?c1.length>9?true:c1=="c"?!h:false:h,f=this.pSBCr(c0),P=p<0,t=c1&&c1!="c"?this.pSBCr(c1):P?{r:0,g:0,b:0,a:-1}:{r:255,g:255,b:255,a:-1},p=P?p*-1:p,P=1-p;
-    //     if(!f||!t)return null;
-    //     if(l)r=m(P*f.r+p*t.r),g=m(P*f.g+p*t.g),b=m(P*f.b+p*t.b);
-    //     else r=m((P*f.r**2+p*t.r**2)**0.5),g=m((P*f.g**2+p*t.g**2)**0.5),b=m((P*f.b**2+p*t.b**2)**0.5);
-    //     a=f.a,t=t.a,f=a>=0||t>=0,a=f?a<0?t:t<0?a:a*P+t*p:0;
-    //     if(h)return"rgb"+(f?"a(":"(")+r+","+g+","+b+(f?","+m(a*1000)/1000:"")+")";
-    //     else return"#"+(4294967296+r*16777216+g*65536+b*256+(f?m(a*255):0)).toString(16).slice(1,f?undefined:-2)
-    // }
+    closeAllSelect(element) {
+        let arrNo = []
+        let x = document.getElementsByClassName('select-items')
+        let y = document.getElementsByClassName('select-selected')
+        for (let i = 0; i < y.length; i++) {
+            if (element == y[i]) {
+                arrNo.push(i)
+            } else {
+                y[i].classList.remove('select-arrow-active')
+            }
+        }
+        for (let i = 0; i < x.length; i++) {
+            if (arrNo.indexOf(i)) {
+                x[i].classList.add('select-hide')
+            }
+        }
+    },
+
+    alignText(alignment) {
+        this.$parent.$parent.$parent.setAlignment(alignment)
+    },
+
+    toggleWeight() {
+        this.$parent.$parent.$parent.toggleFontWeight()
+    },
+
+    toggleItalics() {
+        this.$parent.$parent.$parent.toggleItalics()
+    },
+
+    toggleLinethrough() {
+        this.$parent.$parent.$parent.toggleLinethrough()
+    },
+
+    toggleUnderline() {
+        this.$parent.$parent.$parent.toggleUnderline()
+    }
+
   },
 
-//   computed:{
-//     cssVars() {
-//         return {
-//             '--computed-bg-darken': this.bgDarken,
-//             '--computed-secondary-darken': this.secondaryDarken,
-//             '--computed-hint-darken': this.hintDarken,
-//             '--computed-button-text-darken': this.buttonTextDarken,
-//             '--computed-button-darken': this.buttonDarken
-//         }
-//     }
-//   },
-
   mounted() {
-    // let color1 = getComputedStyle(document.documentElement).getPropertyValue('--tg-theme-bg-color')
-    // let color2 = getComputedStyle(document.documentElement).getPropertyValue('--tg-theme-secondary-bg-color')
-    // let color3 = getComputedStyle(document.documentElement).getPropertyValue('--tg-theme-hint-color')
-    // let color4 = getComputedStyle(document.documentElement).getPropertyValue('--tg-theme-button-text-color')
-    // let color5 = getComputedStyle(document.documentElement).getPropertyValue('--tg-theme-button-color')
-
-    // this.bgDarken = this.pSBC(-0.2, color1)
-    // this.secondaryDarken = this.pSBC(-0.2, color2)
-    // this.hintDarken = this.pSBC(-0.6, color3)
-    // this.buttonTextDarken = this.pSBC(-0.2, color4)
-    // this.buttonDarken = this.pSBC(-0.2, color5)
-    
     this.populateFonts()
 
-    this.$refs.fontDropDown.onchange = () => {
-        let font = this.$refs.fontDropDown.value
-        if (this.loadedFont.includes(font)) {
-            this.$parent.$parent.$parent.setFontFamily(font)
-        } else {
-            this.loadAndUse(font)
-        }
+    // For font select button
+    const selectHolder = this.$refs.fontSelect
+    const selectElement = this.$refs.fontDropDown
+    
+    let selectedOptionElement = document.createElement('DIV')
+    selectedOptionElement.setAttribute('class', 'select-selected noselect')
+    selectedOptionElement.innerHTML = selectElement.options[selectElement.selectedIndex].innerHTML;
+    selectHolder.appendChild(selectedOptionElement)
+
+    let selectDropDown = document.createElement('DIV')
+    selectDropDown.setAttribute('class', 'select-items select-hide noselect')
+    for (let j = 1; j < selectElement.length; j++) {
+        let selectOption = document.createElement('DIV')
+
+        selectOption.innerHTML = selectElement.options[j].innerHTML
+        selectOption.addEventListener('click', (e) => {
+            let selectDisplay = e.srcElement.parentNode.previousSibling
+            for (let i = 0; i < selectElement.length; i++) {
+                if (selectElement.options[i].innerHTML == e.srcElement.innerHTML) {
+                    selectElement.selectedIndex = i
+                    let font = selectElement.value
+                    if (this.loadedFont.includes(font)) {
+                        this.$parent.$parent.$parent.setFontFamily(font)
+                    } else {
+                        this.loadAndUse(font)
+                    }
+                    selectDisplay.innerHTML = e.srcElement.innerHTML
+                    let previousSelected = e.srcElement.parentNode.getElementsByClassName('same-as-selected')
+                    for (let k = 0; k < previousSelected.length; k++) {
+                        previousSelected[k].removeAttribute('class')
+                    }
+                    e.srcElement.setAttribute('class', 'same-as-selected')
+                    break
+                }
+            }
+            selectDisplay.click()
+        })
+        selectDropDown.appendChild(selectOption)
     }
+    selectHolder.appendChild(selectDropDown)
+
+    selectedOptionElement.addEventListener('click', (e) => {
+        e.stopPropagation()
+        this.closeAllSelect(e.srcElement)
+        e.srcElement.nextSibling.classList.toggle('select-hide')
+        e.srcElement.classList.toggle('select-arrow-active')
+    })
   }
 
 }
@@ -105,25 +129,25 @@ export default {
     <div class="font-holder" :style="cssVars">
         <div class="font-row">
             <div class="font-row-bg">
-                <select ref="fontDropDown"></select>
-                <!-- <button ref="fontDropDown" class="btn btn-outline-secondary dropdown-toggle font-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">{{ font }}</button>
-                <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder=""> -->
+                <div ref="fontSelect" class="font-select">
+                    <select ref="fontDropDown"></select>
+                </div>
             </div>
         </div>
         <div class="font-row">
             <div class="font-row-bg">
                 <input type="radio" class="btn-check" name="text-align-options" id="align-left">
-                <label class="btn btn-secondary text-btn" for="align-left">
+                <label class="btn btn-secondary text-btn" for="align-left" @click="alignText('left')">
                     <font-awesome-icon icon="fa-solid fa-align-left" />
                 </label>
 
                 <input type="radio" class="btn-check" name="text-align-options" id="align-center">
-                <label class="btn btn-secondary text-btn" for="align-center">
+                <label class="btn btn-secondary text-btn" for="align-center" @click="alignText('center')">
                     <font-awesome-icon icon="fa-solid fa-align-center" />
                 </label>
 
                 <input type="radio" class="btn-check" name="text-align-options" id="align-right">
-                <label class="btn btn-secondary text-btn" for="align-right">
+                <label class="btn btn-secondary text-btn" for="align-right" @click="alignText('right')">
                     <font-awesome-icon icon="fa-solid fa-align-right" />
                 </label>
             </div>
@@ -131,22 +155,22 @@ export default {
         <div class="font-row">
             <div class="font-row-bg">
                 <input type="button" class="btn-check" name="text-style-options" id="text-bold">
-                <label class="btn btn-secondary text-btn" for="text-bold">
+                <label class="btn btn-secondary text-btn" for="text-bold" @click="toggleWeight()">
                     <font-awesome-icon icon="fa-solid fa-bold" />
                 </label>
-
+                
                 <input type="button" class="btn-check" name="text-style-options" id="text-italic">
-                <label class="btn btn-secondary text-btn" for="text-italic">
+                <label class="btn btn-secondary text-btn" for="text-italic" @click="toggleItalics()">
                     <font-awesome-icon icon="fa-solid fa-italic" />
                 </label>
 
                 <input type="button" class="btn-check" name="text-style-options" id="text-hold">
-                <label class="btn btn-secondary text-btn" for="text-hold">
+                <label class="btn btn-secondary text-btn" for="text-hold" @click="toggleLinethrough()">
                     <font-awesome-icon icon="fa-solid fa-face-frown-open" />
                 </label>
 
                 <input type="button" class="btn-check" name="text-style-options" id="text-underline">
-                <label class="btn btn-secondary text-btn" for="text-underline">
+                <label class="btn btn-secondary text-btn" for="text-underline" @click="toggleUnderline()">
                     <font-awesome-icon icon="fa-solid fa-underline" />
                 </label>
             </div>
@@ -154,7 +178,7 @@ export default {
     </div>
 </template>
 
-<style scoped>
+<style>
 .font-holder {
     padding: 5%;
     background-color: var(--tg-theme-bg-color);
@@ -165,15 +189,70 @@ export default {
 }
 .font-row-bg {
     height: fit-content;
-    width: fit-content;
-    display: flex;
-    justify-content: space-between;
+    width: 80%;
+    display: grid;
     /* background: rgba(72, 66, 66, 0.2); */
+    grid-auto-flow: column;
     background-color: var(--tg-theme-hint-color);
     margin-block: 8px;
     border-radius: 0.375rem;
     padding: 2%;
 }
+
+/* For font select button */
+.font-select {
+    width: 50%;
+    position: relative;
+}
+.font-select select {
+    display: none;
+}
+.select-selected {
+    background-color: #5c646d;
+}
+/* Style the arrow inside the select element: */
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 10px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+  transition-duration: .3s;
+}
+/* Point the arrow upwards when the select box is open (active): */
+.select-selected.select-arrow-active:after {
+  border-color: transparent transparent #fff transparent;
+  top: 3px;
+}
+/* style the items (options), including the selected item: */
+.select-items div.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}
+/* Style items (options): */
+.select-items {
+  position: absolute;
+  background-color: #69727d;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+/* Hide the items when the select box is closed: */
+.select-hide {
+  display: none;
+}
+.select-items div:hover, .same-as-selected {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+/* End of font select button */
+
 .font-btn {
     width: 50%;
     margin-right: 10px;
@@ -185,7 +264,6 @@ export default {
     color: var(--tg-theme-button-text-color);
     background-color: var(--tg-theme-button-color);
 }
-
 .form-control {
     /* background: rgba(72, 66, 66, 0.1) !important; */
     color: var(--tg-theme-text-color) !important;

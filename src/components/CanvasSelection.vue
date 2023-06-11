@@ -193,12 +193,13 @@ export default {
     canvasObjectSelection() {
       this.canvas.on("selection:created", () => this.textboxSelectionCheck()),
       this.canvas.on("selection:updated", () => this.textboxSelectionCheck()),
-      this.canvas.on("selection:cleared", () => this.$refs.toolbar.editableTextboxSelected(false))
+      this.canvas.on("selection:cleared", () => {this.$refs.toolbar.editableTextboxSelected(false), this.fitCanvasToBottomSheet(false)})
     },
 
     textboxSelectionCheck() {
       if (this.canvas.getActiveObject().type === 'textbox') {
         this.$refs.toolbar.editableTextboxSelected(true)
+        this.fitCanvasToBottomSheet(false)
       }
     },
 
@@ -228,8 +229,37 @@ export default {
     setFontFamily(font) {
       this.canvas.getActiveObject().set('fontFamily', font)
       this.canvas.requestRenderAll()
+    },
+
+    setAlignment(alignment) {
+      this.canvas.getActiveObject().set('textAlign', alignment)
+      this.canvas.requestRenderAll()
+    },
+
+    toggleFontWeight() {
+      let fontWeight = this.canvas.getActiveObject().get('fontWeight')
+      fontWeight === 'bold' ? this.canvas.getActiveObject().set('fontWeight', 'normal') : this.canvas.getActiveObject().set('fontWeight', 'bold')
+      this.canvas.requestRenderAll()
+    },
+
+    toggleItalics() {
+      let fontStyle = this.canvas.getActiveObject().get('fontStyle')
+      fontStyle === 'italic' ? this.canvas.getActiveObject().set('fontStyle', 'normal') : this.canvas.getActiveObject().set('fontStyle', 'italic')
+      this.canvas.requestRenderAll()
+    },
+
+    toggleLinethrough() {
+      let linethrough = this.canvas.getActiveObject().get('linethrough')
+      linethrough ? this.canvas.getActiveObject().set('linethrough', false) : this.canvas.getActiveObject().set('linethrough', true)
+      this.canvas.requestRenderAll()
+    },
+
+    toggleUnderline() {
+      let underline = this.canvas.getActiveObject().get('underline')
+      underline ? this.canvas.getActiveObject().set('underline', false) : this.canvas.getActiveObject().set('underline', true)
+      this.canvas.requestRenderAll()
     }
-    
+
   },
 
   mounted() {
