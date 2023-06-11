@@ -117,6 +117,7 @@ export default {
     selectedOptionElement.addEventListener('click', (e) => {
         e.stopPropagation()
         this.closeAllSelect(e.srcElement)
+        e.srcElement.classList.toggle('select-open')
         e.srcElement.nextSibling.classList.toggle('select-hide')
         e.srcElement.classList.toggle('select-arrow-active')
     })
@@ -209,9 +210,12 @@ export default {
     display: none;
 }
 .select-selected {
-    border-radius: 0.375rem 0.375rem 0 0;
+    border-radius: 0.375rem;
     padding-left: 5%;
     background-color: #5c646d;
+}
+.select-open {
+    border-radius: 0.375rem 0.375rem 0 0;
 }
 /* Style the arrow inside the select element: */
 .select-selected:after {
