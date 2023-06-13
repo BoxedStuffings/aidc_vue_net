@@ -231,6 +231,11 @@ export default {
       this.canvas.requestRenderAll()
     },
 
+    changeFont(fontsize) {
+      this.canvas.getActiveObject().set('fontSize', fontsize)
+      this.canvas.requestRenderAll()
+    },
+
     setAlignment(alignment) {
       this.canvas.getActiveObject().set('textAlign', alignment)
       this.canvas.requestRenderAll()

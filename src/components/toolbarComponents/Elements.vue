@@ -13,7 +13,7 @@ export default {
             'Editable TextBox',
             {
                 width: 100,
-                editable: true
+                editable: true,
             }
         )
 

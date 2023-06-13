@@ -5,6 +5,7 @@ export default {
   data() {
     return {
         loadedFont: [],
+        fontSizeArray: [24, 28, 32, 36, 40, 44, 48, 54, 60, 66, 72]
     }
   },
 
@@ -46,6 +47,10 @@ export default {
                 x[i].classList.add('select-hide')
             }
         }
+    },
+
+    fontChangeEvent(e) {
+        this.$parent.$parent.$parent.changeFont(e.srcElement.title)
     },
 
     alignText(alignment) {
@@ -129,11 +134,23 @@ export default {
 <template>
     <div class="font-holder" :style="cssVars">
         <div class="font-row">
-            <div class="font-row-bg">
+            <div class="font-row-bg font-double-row">
                 <div ref="fontSelect" class="font-select">
                     <select ref="fontDropDown"></select>
                 </div>
-
+                <details class="font-size-select">
+                    <summary class="font-size-radios">
+                        <input class="font-size-input" type="radio" name="font-size-item" id="default" title="Select Font" checked>
+                        <input v-on:change="(e) => fontChangeEvent(e)" class="font-size-input" type="radio" name="font-size-item" :id="i" :title="i" v-for="i in fontSizeArray" :key="i">
+                    </summary>
+                    <ul class="font-size-list">
+                        <li class="font-size-li" v-for="i in fontSizeArray" :key="i">
+                            <label class="font-size-label" :for="i">
+                                 {{ i }}
+                            </label>
+                        </li>
+                    </ul>
+                </details>
             </div>
         </div>
         <div class="font-row">
@@ -200,10 +217,14 @@ export default {
     border-radius: 0.375rem;
     padding: 2%;
 }
+.font-double-row {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 5%;
+}
 
 /* For font select button */
 .font-select {
-    width: 50%;
+    width: 100%;
     position: relative;
 }
 .font-select select {
@@ -219,46 +240,172 @@ export default {
 }
 /* Style the arrow inside the select element: */
 .select-selected:after {
-  position: absolute;
-  content: "";
-  top: 10px;
-  right: 10px;
-  width: 0;
-  height: 0;
-  border: 6px solid transparent;
-  border-color: #fff transparent transparent transparent;
-  transition-duration: .3s;
+    height: .5rem;
+    width: .5rem;
+    content: '';
+    position: absolute;
+    top: 5.5px;
+    right: 12px;
+	display: inline-block;
+	float: right;
+	border-bottom: 2px solid currentColor;
+	border-left: 2px solid currentColor;
+	border-bottom-left-radius: 2px;
+    transform-origin: center center;
+	transform: rotate(45deg) translate(50%, 0%);
+	transition: transform ease-in-out 100ms
 }
 /* Point the arrow upwards when the select box is open (active): */
 .select-selected.select-arrow-active:after {
-  border-color: transparent transparent #fff transparent;
-  top: 3px;
+    transform: rotate(-45deg) translate(0%, 0%);
 }
 /* style the items (options), including the selected item: */
 .select-items div.select-selected {
-  color: #ffffff;
-  padding: 8px 16px;
-  border: 1px solid transparent;
-  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-  cursor: pointer;
+    color: #ffffff;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
 }
 /* Style items (options): */
 .select-items {
-  position: absolute;
-  background-color: #69727d;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 99;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding-left: 1%;
+    background-color: #69727d;
+    z-index: 99;
+}
+.select-items:last-child {
+    border-radius: 0 0 0.375rem 0.375rem;
 }
 /* Hide the items when the select box is closed: */
 .select-hide {
-  display: none;
+    display: none;
 }
 .select-items div:hover, .same-as-selected {
-  background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1);
 }
 /* End of font select button */
+
+/* For font size button */
+details.font-size-select {
+    width: 100%;
+    position: relative;
+    margin-right: 1rem;
+}
+details.font-size-select[open] {
+    z-index: 1;
+}
+summary.font-size-radios {
+    padding-inline: 5%;
+    border-radius: 5px;
+    background-color: #5c646d;
+    list-style: none;
+}
+summary.font-size-radios::-webkit-details-marker {
+    display: none;
+}
+details.font-size-select[open] summary.font-size-radios:before {
+    height: 100vh;
+    width: 100vw;
+    content: '';
+    position: fixed;
+	top: 0;
+	left: 0;
+    display: block;
+	background: transparent;
+}
+summary.font-size-radios:after {
+    height: .5rem;
+    width: .5rem;
+    content: '';
+    position: absolute;
+    top: 5.5px;
+    right: 12px;
+	display: inline-block;
+	float: right;
+	border-bottom: 2px solid currentColor;
+	border-left: 2px solid currentColor;
+	border-bottom-left-radius: 2px;
+    transform-origin: center center;
+	transform: rotate(45deg) translate(50%, 0%);
+	transition: transform ease-in-out 100ms
+}
+summary.font-size-radios:focus {
+    outline: none;
+}
+details.font-size-select[open] summary.font-size-radios:after {
+    transform: rotate(-45deg) translate(0%, 0%);
+}
+ul.font-size-list {
+    max-height: 200px;
+    width: 100%;
+	position: absolute;
+	top: calc(112%);
+	left: 0;
+    margin: 0;
+    border-radius: 5px;
+	padding: 5%;
+	box-sizing: border-box;
+    background: #69727d;
+	overflow-y: auto;
+}
+li.font-size-li {
+	margin: 0;
+    border-bottom: 1px solid #5c646d;
+	padding: .5rem 0;
+    list-style: none;
+}
+
+li.font-size-li:first-child {
+	padding-top: 0;
+}
+
+li.font-size-li:last-child {
+    border-bottom: none;
+	padding-bottom: 0;
+}
+
+summary.font-size-radios {
+    counter-reset: radios;
+}
+summary.font-size-radios:before {
+    content: var(--selection);
+}
+input[type=radio].font-size-input {
+    display: none;
+	counter-increment: radios;
+	appearance: none;
+}
+input[type=radio].font-size-input:checked {
+	display: inline;
+	--display: block;
+}
+input[type=radio].font-size-input:after {
+    display: inline;
+	content: attr(title);
+	font-size: 1rem;
+}
+ul.font-size-list {
+	counter-reset: labels;
+}
+label.font-size-label {
+	width: 100%;
+	display: flex;
+	cursor: pointer;
+	justify-content: space-between;
+}
+label.font-size-label span {
+    height: 1rem;
+    width: 1rem;
+	--display: none;
+	display: var(--display);
+	border: 1px solid #727272;
+	border-radius: 3px;
+}
+/* End of font size button */
 
 .font-btn {
     width: 50%;
