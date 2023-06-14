@@ -301,7 +301,7 @@ details.font-size-select[open] {
 }
 summary.font-size-radios {
     padding-inline: 5%;
-    border-radius: 5px;
+    border-radius: 0.375rem;
     background-color: #5c646d;
     list-style: none;
 }
@@ -347,7 +347,7 @@ ul.font-size-list {
 	top: calc(112%);
 	left: 0;
     margin: 0;
-    border-radius: 5px;
+    border-radius: 0.375rem;
 	padding: 5%;
 	box-sizing: border-box;
     background: #69727d;
@@ -359,16 +359,13 @@ li.font-size-li {
 	padding: .5rem 0;
     list-style: none;
 }
-
 li.font-size-li:first-child {
 	padding-top: 0;
 }
-
 li.font-size-li:last-child {
     border-bottom: none;
 	padding-bottom: 0;
 }
-
 summary.font-size-radios {
     counter-reset: radios;
 }

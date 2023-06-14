@@ -61,5 +61,9 @@ input {
   height: 5vh;
   width: 15vw;
   border: none;
+  background-color: transparent;
+}
+input::-webkit-color-swatch{
+  border-radius: 0.375rem;
 }
 </style>
