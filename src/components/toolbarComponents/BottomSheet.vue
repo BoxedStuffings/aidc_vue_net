@@ -27,7 +27,7 @@ export default {
     <div ref="bsExpendable" class="bs-holder">
         <div ref="bsSheet" class="bs-sheet">
             <div class="bs-close-btn-holder">
-                <h2> {{this.$parent.bottomSheetContent}} </h2>
+                <h2 class="noselect" > {{this.$parent.bottomSheetContent}} </h2>
                 <button type="button" class="btn-close bs-close-btn" @click="close"></button>
             </div>
             <slot></slot>

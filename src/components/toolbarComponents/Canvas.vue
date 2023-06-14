@@ -5,22 +5,24 @@ export default {
   data() {
     return {
         canvasLayers: {},
-        canvasElement: Object
+        canvasElement: Object,
+        canvasKey: ''
     }
   },
 
   methods: {
-    test(element, toggle) {
+    test(key, element, toggle) {
         this.$refs.canvasEdit.classList.toggle('open')
         if (toggle) {
             this.canvasElement = element
+            this.canvasKey = key
         } else {
 
         }
     },
 
-    changeLayer(option) {
-        this.$parent.$parent.$parent.changeElementLayer(this.canvasElement, option)
+    editCanvasObject(option) {
+        this.$parent.$parent.$parent.editCanvasObject(this.canvasElement, option, this.canvasKey)
     }
   },
 
@@ -36,19 +38,20 @@ export default {
         <div ref="canvasEdit" class="canvas-edit">
             <div class="canvas-edit-box">
                 <div class="canvas-edit-box-close">
-                    <button type="button" class="btn-close canvas-edit-box-close-btn" @click="test(null, false)"></button>
+                    <button type="button" class="btn-close canvas-edit-box-close-btn" @click="test(null, null, false)"></button>
                 </div>
-                <div class="canvas-edit-box-options">
-                    <ui class="canvas-edit-box-option" @click="changeLayer(1)"><h5>Bring Foward</h5></ui>
-                    <ui class="canvas-edit-box-option" @click="changeLayer(2)"><h5>Send Backwards</h5></ui>
-                    <ui class="canvas-edit-box-option" @click="changeLayer(3)"><h5>Bring to Front</h5></ui>
-                    <ui class="canvas-edit-box-option" @click="changeLayer(4)"><h5>Send to Back</h5></ui>
+                <div class="canvas-edit-box-options noselect">
+                    <ui class="canvas-edit-box-option" @click="editCanvasObject(1)"><h5>Bring Foward</h5></ui>
+                    <ui class="canvas-edit-box-option" @click="editCanvasObject(2)"><h5>Send Backwards</h5></ui>
+                    <ui class="canvas-edit-box-option" @click="editCanvasObject(3)"><h5>Bring to Front</h5></ui>
+                    <ui class="canvas-edit-box-option" @click="editCanvasObject(4)"><h5>Send to Back</h5></ui>
+                    <ui class="canvas-edit-box-option" @click="editCanvasObject(5)"><h5>Delete Object</h5></ui>
                 </div>
             </div>
         </div>
         <ui class="canvas-ui" v-for="value, key in canvasLayers" :key="key">
-            <details class="canvas-layer" @click="test(value, true)">
-                <summary class="canvas-layer-details">{{ key }}</summary>
+            <details class="canvas-layer" @click="test(key, value, true)">
+                <summary class="canvas-layer-details noselect">{{ key }}</summary>
             </details>
         </ui>
     </div>
@@ -72,6 +75,7 @@ export default {
     align-items: center;
     visibility: hidden;
     background-color: transparent;
+    backdrop-filter: blur(3px);
     z-index: 99;
 }
 .open{
@@ -97,16 +101,20 @@ export default {
     padding-inline: 5%;
 }
 .canvas-edit-box-option {
-    margin-block: 1%;
+    margin-block: 2%;
     border-radius: 0.375rem;
     padding: 1%;
     background-color: #69727d;
 }
 h5 {
     margin: 0;
+    color: var(--tg-theme-text-color);
 }
 .canvas-ui {
-    margin: 0.7%;
+    margin: 1%;
+}
+.canvas-layer {
+    list-style: none;
 }
 .canvas-layer-details {
     position: relative;
@@ -120,7 +128,7 @@ h5 {
     width: .5rem;
     content: '';
     position: absolute;
-    top: 13.5px;
+    top: 10.5px;
     right: 25px;
 	display: inline-block;
 	float: right;

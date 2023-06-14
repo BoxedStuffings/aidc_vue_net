@@ -3,7 +3,7 @@ import { store } from '../Store.js'
 import Navbar from './Navbar.vue'
 import Toolbar from './Toolbar.vue'
 import { fabric } from 'fabric'
-import { computed } from 'vue'
+import { toRaw } from 'vue';
 
 export default {
   provide(){
@@ -225,19 +225,23 @@ export default {
       this.updateCanvasDimensions()
     },
 
-    changeElementLayer(element, option) {
+    editCanvasObject(element, option, key) {
       switch (option) {
         case 1:
-          this.canvas.bringForward(element)
+          this.canvas.bringForward(toRaw(element))
           break
         case 2:
-          this.canvas.sendBackwards(element)
+          this.canvas.sendBackwards(toRaw(element))
           break
         case 3:
-          this.canvas.bringToFront(element)
+          this.canvas.bringToFront(toRaw(element))
           break
         case 4:
-          this.canvas.sendToBack(element)
+          this.canvas.sendToBack(toRaw(element))
+          break
+        case 5:
+          this.canvas.remove(toRaw(element))
+          store.removeElementFromCanvas(key)
           break
       }
       this.canvas.requestRenderAll()

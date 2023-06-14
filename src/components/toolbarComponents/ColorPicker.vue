@@ -41,7 +41,7 @@ export default {
 
 <template>
     <div class="color-holder">
-      <h2>Current color: {{ activeObjectColorHex }}</h2>
+      <h2 class="noselect">Current color: {{ activeObjectColorHex }}</h2>
       <input ref="colorpicker" v-model="color" type="color">
     </div>
 </template>

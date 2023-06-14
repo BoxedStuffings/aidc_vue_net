@@ -149,6 +149,11 @@ export const store = reactive({
           break
         }
       }
+    },
+
+    // Removing canvas elements from list (CanvasSelection.vue)
+    removeElementFromCanvas(elementKey){
+      delete this.canvasObjects[`${elementKey}`]
     }
 
 })

@@ -146,7 +146,7 @@ export default {
                     </summary>
                     <ul class="font-size-list">
                         <li class="font-size-li" v-for="i in fontSizeArray" :key="i">
-                            <label class="font-size-label" :for="i">
+                            <label class="font-size-label noselect" :for="i">
                                  {{ i }}
                             </label>
                         </li>
