@@ -84,12 +84,13 @@ export default {
     
     let selectedOptionElement = document.createElement('DIV')
     selectedOptionElement.setAttribute('class', 'select-selected noselect')
-    selectedOptionElement.innerHTML = selectElement.options[selectElement.selectedIndex].innerHTML;
+    // selectedOptionElement.innerHTML = selectElement.options[selectElement.selectedIndex].innerHTML;
+    selectedOptionElement.innerHTML = 'Select Font'
     selectHolder.appendChild(selectedOptionElement)
 
     let selectDropDown = document.createElement('DIV')
     selectDropDown.setAttribute('class', 'select-items select-hide noselect')
-    for (let j = 1; j < selectElement.length; j++) {
+    for (let j = 0; j < selectElement.length; j++) {
         let selectOption = document.createElement('DIV')
 
         selectOption.innerHTML = selectElement.options[j].innerHTML

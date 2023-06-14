@@ -2,9 +2,10 @@
 import { store } from '../Store.js'
 
 import BottomSheet from './toolbarComponents/BottomSheet.vue'
-import Font from '../components/toolbarComponents/Fonts.vue'
 import Elements from './toolbarComponents/Elements.vue'
 import Insert from './toolbarComponents/Insert.vue'
+import Font from '../components/toolbarComponents/Fonts.vue'
+import Color from '../components/toolbarComponents/ColorPicker.vue'
 
 export default {
     data() {
@@ -17,9 +18,10 @@ export default {
 
     components: {
         BottomSheet,
-        Font,
         Elements,
-        Insert
+        Insert,
+        Font,
+        Color
     },
 
     methods: {

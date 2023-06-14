@@ -3,8 +3,15 @@ import { store } from '../Store.js'
 import Navbar from './Navbar.vue'
 import Toolbar from './Toolbar.vue'
 import { fabric } from 'fabric'
+import { computed } from 'vue'
 
 export default {
+  provide(){
+    return {
+      textboxActiveColor: () => this.activeColor
+    }
+  },
+
   data() {
     return {
       store,
@@ -17,6 +24,7 @@ export default {
       scale: 1, // Zoom In, Out Scale
       clientX: 0,
       clientY: 0,
+      activeColor: '',
     }
   },
 
@@ -191,15 +199,23 @@ export default {
     },
 
     canvasObjectSelection() {
-      this.canvas.on("selection:created", () => this.textboxSelectionCheck()),
-      this.canvas.on("selection:updated", () => this.textboxSelectionCheck()),
-      this.canvas.on("selection:cleared", () => {this.$refs.toolbar.editableTextboxSelected(false), this.fitCanvasToBottomSheet(false)})
+      this.canvas.on("selection:created", () => this.textboxSelectionCheck(true)),
+      this.canvas.on("selection:updated", () => this.textboxSelectionCheck(false)),
+      this.canvas.on("selection:cleared", () => {this.$refs.toolbar.editableTextboxSelected(false), this.$refs.toolbar.closeBottomSheet()})
     },
 
-    textboxSelectionCheck() {
+    textboxSelectionCheck(state) {
       if (this.canvas.getActiveObject().type === 'textbox') {
         this.$refs.toolbar.editableTextboxSelected(true)
         this.fitCanvasToBottomSheet(false)
+        this.activeColor = this.canvas.getActiveObject().fill
+        if (state) {
+          this.fitCanvasToBottomSheet(false)
+        } else {
+          this.activeColor += 'h'
+        }
+      } else {
+        this.$refs.toolbar.editableTextboxSelected(false)
       }
     },
 
@@ -263,6 +279,17 @@ export default {
       let underline = this.canvas.getActiveObject().get('underline')
       underline ? this.canvas.getActiveObject().set('underline', false) : this.canvas.getActiveObject().set('underline', true)
       this.canvas.requestRenderAll()
+    },
+
+    changeColor(color) {
+      try{
+        if (this.canvas.getActiveObject().type === 'textbox') {
+          this.canvas.getActiveObject().set('fill', color)
+          this.canvas.requestRenderAll()
+        }
+      } catch(e) {
+
+      }
     }
 
   },

@@ -14,6 +14,7 @@ export default {
             {
                 width: 100,
                 editable: true,
+                fill: '#000000'
             }
         )
 
