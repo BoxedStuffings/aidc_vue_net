@@ -374,6 +374,7 @@ summary.font-size-radios:before {
 }
 input[type=radio].font-size-input {
     display: none;
+    color: var(--tg-theme-text-color);
 	counter-increment: radios;
 	appearance: none;
 }
