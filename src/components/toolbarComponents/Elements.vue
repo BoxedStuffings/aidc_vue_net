@@ -1,4 +1,5 @@
 <script>
+import { store } from '../../Store.js'
 import { fabric } from 'fabric'
 
 export default {
@@ -19,6 +20,7 @@ export default {
         )
 
         this.insertElement(textEditable)
+        this.addElementToCanvasLayer(textEditable)
     },
 
     createCircle() {
@@ -28,6 +30,7 @@ export default {
         })
 
         this.insertElement(circle)
+        this.addElementToCanvasLayer(circle)
     },
     
     createSquare() {
@@ -39,10 +42,15 @@ export default {
         })
 
         this.insertElement(square)
+        this.addElementToCanvasLayer(square)
     },
 
     insertElement(element) {
         this.$parent.$parent.$parent.insertElementToCanvas(element)
+    },
+
+    addElementToCanvasLayer(element) {
+        store.addElementToCanvas(element)
     }
   }
 

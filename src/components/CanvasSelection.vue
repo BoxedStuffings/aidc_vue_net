@@ -225,6 +225,24 @@ export default {
       this.updateCanvasDimensions()
     },
 
+    changeElementLayer(element, option) {
+      switch (option) {
+        case 1:
+          this.canvas.bringForward(element)
+          break
+        case 2:
+          this.canvas.sendBackwards(element)
+          break
+        case 3:
+          this.canvas.bringToFront(element)
+          break
+        case 4:
+          this.canvas.sendToBack(element)
+          break
+      }
+      this.canvas.requestRenderAll()
+    },
+
     insertElementToCanvas(element) {
       element.set({
         top: this.canvas.height/3,

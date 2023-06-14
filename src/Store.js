@@ -89,6 +89,9 @@ export const store = reactive({
       { _id: 5, name: "Options"}
     ],
 
+    // Canvas Objects
+    canvasObjects: {},
+
     // Data to be sent
     telegramWebAppInfo: [],
 
@@ -131,6 +134,21 @@ export const store = reactive({
     // Getting Telegram data (TV.vue)
     initTelegramData(initData) {
       this.telegramWebAppInfo = initData
+    },
+
+    // Adding canvas elements to list (Elements.vue)
+    addElementToCanvas(element) {
+      let keys = Object.keys(this.canvasObjects)
+      let count = 1
+      while (true) {
+        let key = element.type + ` ${count}`
+        if (keys.includes(key)){
+          count++
+        } else {
+          this.canvasObjects[`${key}`] = element
+          break
+        }
+      }
     }
 
 })
