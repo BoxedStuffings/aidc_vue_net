@@ -1,12 +1,12 @@
 <script>
 import { store } from '../Store.js'
 
-import BottomSheet from './toolbarComponents/BottomSheet.vue'
-import Canvas from './toolbarComponents/Canvas.vue'
-import Elements from './toolbarComponents/Elements.vue'
-import Insert from './toolbarComponents/Insert.vue'
-import Font from '../components/toolbarComponents/Fonts.vue'
-import Color from '../components/toolbarComponents/ColorPicker.vue'
+import BottomSheet from './ToolbarComponents/BottomSheet.vue'
+import Canvas from './ToolbarComponents/Canvas.vue'
+import Elements from './ToolbarComponents/Elements.vue'
+import Insert from './ToolbarComponents/Insert.vue'
+import Font from '../components/ToolbarComponents/Fonts.vue'
+import Color from '../components/ToolbarComponents/ColorPicker.vue'
 
 export default {
     data() {

@@ -10,7 +10,7 @@ export default {
     }
   },
 
-  computed: {activeObjectColor(){return this.textboxActiveColor()}},
+  computed: {activeObjectColor() {return this.textboxActiveColor()}},
 
   watch: {
     activeObjectColor(newValue, oldValue) {

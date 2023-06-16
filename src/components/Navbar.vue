@@ -1,7 +1,6 @@
 <script>
 import { store } from '../Store.js'
 import '@fortawesome/fontawesome-free/css/all.css';
-import { fabric } from 'fabric'
 
 export default {
     data() {

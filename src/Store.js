@@ -90,7 +90,7 @@ export const store = reactive({
     ],
 
     // Canvas Objects
-    canvasObjects: {},
+    canvasObjects: [],
 
     // Data to be sent
     telegramWebAppInfo: [],
@@ -136,24 +136,38 @@ export const store = reactive({
       this.telegramWebAppInfo = initData
     },
 
+    // Override canvas elements 
+    setCanvasLayer(value) {
+      this.canvasObjects = value
+    },
+
     // Adding canvas elements to list (Elements.vue)
     addElementToCanvas(element) {
-      let keys = Object.keys(this.canvasObjects)
       let count = 1
       while (true) {
         let key = element.type + ` ${count}`
-        if (keys.includes(key)){
+        if (this.canvasObjects.find(e => e.Name === key)) {
           count++
         } else {
-          this.canvasObjects[`${key}`] = element
+          var elementobj = {
+            Name: key,
+            Object: element
+          }
+          this.canvasObjects.push(elementobj)
           break
         }
       }
+      
     },
-
+    
     // Removing canvas elements from list (CanvasSelection.vue)
     removeElementFromCanvas(elementKey){
-      delete this.canvasObjects[`${elementKey}`]
+      let i = this.canvasObjects.findIndex(e => e.Name === elementKey);
+      if (i > -1) {
+        this.canvasObjects.splice(i, 1)
+        console.log("test")
+      }
+      // delete this.canvasObjects[`${elementKey}`]
     }
 
 })

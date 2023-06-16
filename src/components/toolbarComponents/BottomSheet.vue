@@ -1,8 +1,14 @@
 <script>
+import CloseButton from '../Elements/CloseButton.vue'
+
 export default {
   data() {
     return {
     }
+  },
+
+  components: {
+    CloseButton
   },
 
   methods: {
@@ -28,7 +34,7 @@ export default {
         <div ref="bsSheet" class="bs-sheet">
             <div class="bs-close-btn-holder">
                 <h2 class="noselect" > {{this.$parent.bottomSheetContent}} </h2>
-                <button type="button" class="btn-close bs-close-btn" @click="close"></button>
+                <CloseButton :scale="1" :background="'transparent'" :cross="'black'" :darken="'85%'" @click="close"></CloseButton>
             </div>
             <slot></slot>
         </div>
@@ -66,11 +72,8 @@ export default {
     border-bottom: 1px solid var(--tg-theme-secondary-bg-color);
     z-index: 10;
 }
-.bs-close-btn-holder > h2 {
+.bs-close-btn-holder h2 {
     margin: 0;
 }
-.bs-close-btn {
-    margin: 2%;
-    color: var(--tg-theme-hint-color);
-}
+
 </style>

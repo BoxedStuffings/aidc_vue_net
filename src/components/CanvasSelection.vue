@@ -24,7 +24,7 @@ export default {
       scale: 1, // Zoom In, Out Scale
       clientX: 0,
       clientY: 0,
-      activeColor: '',
+      activeColor: String
     }
   },
 
@@ -199,9 +199,9 @@ export default {
     },
 
     canvasObjectSelection() {
-      this.canvas.on("selection:created", () => this.textboxSelectionCheck(true)),
-      this.canvas.on("selection:updated", () => this.textboxSelectionCheck(false)),
-      this.canvas.on("selection:cleared", () => {this.$refs.toolbar.editableTextboxSelected(false), this.$refs.toolbar.closeBottomSheet()})
+      this.canvas.on('selection:created', () => this.textboxSelectionCheck(true)),
+      this.canvas.on('selection:updated', () => this.textboxSelectionCheck(false)),
+      this.canvas.on('selection:cleared', () => {this.$refs.toolbar.editableTextboxSelected(false), this.$refs.toolbar.closeBottomSheet()})
     },
 
     textboxSelectionCheck(state) {
@@ -225,26 +225,19 @@ export default {
       this.updateCanvasDimensions()
     },
 
-    editCanvasObject(element, option, key) {
-      switch (option) {
-        case 1:
+    editCanvasObject(element, movement, direction, layerArray) {
+      if (direction) {
+        for (let x = 0; x < movement; x++) {
           this.canvas.bringForward(toRaw(element))
-          break
-        case 2:
+        }
+      } else {
+        for (let x = 0; x < movement; x++) {
           this.canvas.sendBackwards(toRaw(element))
-          break
-        case 3:
-          this.canvas.bringToFront(toRaw(element))
-          break
-        case 4:
-          this.canvas.sendToBack(toRaw(element))
-          break
-        case 5:
-          this.canvas.remove(toRaw(element))
-          store.removeElementFromCanvas(key)
-          break
+        }
       }
+
       this.canvas.requestRenderAll()
+      store.setCanvasLayer(layerArray)
     },
 
     insertElementToCanvas(element) {

@@ -22,6 +22,9 @@ export default {
       await jquery.ajax({
         url: 'https://heehee.amphibistudio.sg/api/tv',
         method: 'GET',
+        headers: {
+          'secret' : 'eyJpdiI6InNBaXdUV0RNeHhzRDc3NUJrY0JsWFE9PSIsInZhbHVlIjoiK0J6VHZPUzVOUUREcVUydGc4SHFxQWZsMzI4eVZqMDByRnFBNENhMFcyZz0iLCJtYWMiOiI4M2IxNGQxYTQxMmRlNDIzMTgyNDcyMGNmMTViNDk2MDBiMTE0ZjVkZWQ3MGI4ZWQ3MjYyNmViOTA2YTU0Y2RlIiwidGFnIjoiIn0='
+        },
         success:  (success) => store.initTVfromDB(success.data),
         error: (error) => console.log(error)
       })
