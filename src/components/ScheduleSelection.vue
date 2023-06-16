@@ -1,20 +1,35 @@
 <script>
+import { toRaw } from 'vue';
 import { store } from '../Store.js'
+import { VueScrollPicker } from 'vue-scroll-picker'
+
 
 export default {
   data() {
     return {
         store,
+        telegramMainButton: Telegram.WebApp.MainButton,
         options: [
             {_id: 0, Description: 'Immediately'},
             {_id: 1, Description: 'In 10 Minutes'},
             {_id: 2, Description: 'In 1 Hour'}
         ],
+        days: [...Array(8).keys()],
+        hours: [...Array(24).keys()],
+        minutes: [...Array(60).keys()],
+        endTime: [0, 0, 0],
+        startOrEnd: false,
         currentDate: String,
         selectedDate: '',
         selectedOption: {},
-        calculate: ''
+        selectedEndOption: '',
+        calculate: '',
+        endDate: ''
     }
+  },
+
+  components: {
+    VueScrollPicker
   },
 
   watch: {
@@ -36,6 +51,25 @@ export default {
                 break
         }
         console.log(this.calculate)
+    },
+
+    selectedEndOption() {
+        if (this.selectedEndOption === 'specific') {
+            this.endTime = [0, 0, 0]
+        }
+    },
+
+    endTime: {
+        handler() {
+            if (this.endTime[0] != 0 || this.endTime[1] != 0 || this.endTime[2] != 0) {
+                this.selectedEndOption = 'select'
+            }
+        },
+        deep: true
+    },
+
+    calculate() {
+        this.mainButtonVisibility()
     }
   },
 
@@ -48,9 +82,18 @@ export default {
         this.selectedOption = {_id: 3, Description: 'DateTime'}
     },
 
+    endDateTimePicked() {
+        this.selectedEndOption = 'specific'
+    },
+
     addMinutes(date, minutes) {
         return new Date(date.getTime() + minutes * 60000);
-    }
+    },
+
+    mainButtonVisibility() {
+        // this.calculate ? console.log("open") : console.log("close")
+        this.calculate ? this.telegramMainButton.show() : this.telegramMainButton.hide()
+    },
 
   },
 
@@ -66,6 +109,18 @@ export default {
         this.currentDate = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
     }, 1000);
 
+    let scheduleSelectionStartTelegramButton = () => {
+      if (this.telegramMainButton.isVisible) {
+        this.startOrEnd = true
+        this.telegramMainButton.offClick(scheduleSelectionStartTelegramButton)
+        this.telegramMainButton.hide()
+      }
+    }
+    
+    this.telegramMainButton.setParams({
+      text: 'Select End time',
+    }).onClick(scheduleSelectionStartTelegramButton)
+
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
       if (telegramBackButton.isVisible) {
@@ -73,24 +128,58 @@ export default {
         telegramBackButton.hide()
       }
     })
+
+    this.mainButtonVisibility()
   }
 
 }
 </script>
 
 <template>
-    <div class="ss-holder">
+    <!-- End DateTime Picker -->
+    <div class="ss-holder" v-if="startOrEnd">
+        <button @click="startOrEnd=false">false</button>
+        <div class="ss-header noselect">
+            <img src="../assets/boxedstuffings.png">
+            <h2>Schedule Display</h2>
+        </div>
+        <!-- Option -->
+        <input type="radio" name="endOptions" value="select" id="selectEndTime" class="btn-check" v-model="selectedEndOption">
+        <div class="picker-group">
+            <h3>Days</h3>
+            <h3>Hours</h3>
+            <h3>Minutes</h3>
+            <VueScrollPicker :options="days" v-model="endTime[0]" />
+            <VueScrollPicker :options="hours" v-model="endTime[1]" />
+            <VueScrollPicker :options="minutes" v-model="endTime[2]" />
+        </div>
+        <!-- DateTime selector -->
+        <input type="radio" name="endOptions" value="specific" id="end_option_Date" class="btn-check" v-model="selectedEndOption">
+        <label class="btn btn-secondary ss-btn" for="end_option_Date">
+            Choose Date & Time
+            <span>
+                <input type="datetime-local" :min="calculate" class="form-control" @change="endDateTimePicked" v-model="endDate">
+            </span>
+        </label>
+        End Day: {{ endTime[0] }}<br>
+        End Hour: {{ endTime[1] }}<br>
+        End Minutes: {{ endTime[2] }}<br>
+        End DateTime: {{ endDate }}
+    </div>
+    <!-- Start DateTime Picker -->
+    <div class="ss-holder" v-else>
+        <button @click="startOrEnd=true">true</button>
         <div class="ss-header noselect">
             <img src="../assets/boxedstuffings.png">
             <h2>Schedule Display</h2>
         </div>
         <!-- Options -->
         <ui v-for="option in options" :key="option._id">
-            <input type="radio" name="options" :value="option" :id="'option_' + option._id" class="btn-check" v-model="selectedOption">
+            <input type="radio" name="startOptions" :value="option" :id="'option_' + option._id" class="btn-check" v-model="selectedOption">
             <label class="btn btn-secondary ss-btn" :for="'option_' + option._id">{{ option.Description }}</label>
         </ui>
         <!-- DateTime selector -->
-        <input type="radio" name="options" :value="{_id: 3, Description: 'DateTime'}" id="option_Date" class="btn-check" v-model="selectedOption">
+        <input type="radio" name="startOptions" :value="{_id: 3, Description: 'DateTime'}" id="option_Date" class="btn-check" v-model="selectedOption">
         <label class="btn btn-secondary ss-btn" for="option_Date">
             Choose Date & Time
             <span>
@@ -104,7 +193,16 @@ export default {
     </div>
 </template>
 
+<style src="vue-scroll-picker/lib/style.css"></style>
 <style scoped>
+.picker-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+}
+.picker-group h3 {
+    margin: 0;
+}
 .ss-holder {
     display: flex;
     flex-direction: column;

@@ -64,7 +64,6 @@ export default {
 
 <template>
     <div ref="siuHolder" class="img-upload-holder">
-      <button @click="this.$router.push('/ScheduleSelection')">test</button>
         <div class="img-upload-content">
             <!-- <img class="img-upload-icon noselect" src="../assets/boxedstuffings.png"> -->
             <div class="img-icon-holder"><font-awesome-icon icon="fa-solid fa-upload"  class="img-icon" /></div>
