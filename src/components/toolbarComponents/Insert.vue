@@ -1,4 +1,5 @@
 <script>
+import { store } from '../../Store.js'
 import { fabric } from 'fabric'
 
 export default {
@@ -24,8 +25,13 @@ export default {
     },
 
     createImageObject(imageURL) {
-      fabric.Image.fromURL(imageURL, (imageObj) => this.$parent.$parent.$parent.insertImageToCanvas(imageObj))
+      fabric.Image.fromURL(imageURL, (imageObj) => this.insertImageObjectToCanvas(imageObj))
       this.$refs.canvasInsertInput.value = null
+    },
+
+    insertImageObjectToCanvas(imageObj) {
+      this.$parent.$parent.$parent.insertImageToCanvas(imageObj)
+      store.addElementToCanvas(imageObj)
     }
 
   },

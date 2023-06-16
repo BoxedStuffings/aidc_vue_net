@@ -38,21 +38,30 @@ export default {
 
     mounted() {
         this.canvasLayers = store.canvasObjects.slice().reverse()
+        console.log(this.canvasLayers.length)
     }
 
 }
 </script>
 
 <template>
-    <div class="canvas-holder">
-        <!-- <button @click="test">test</button> -->
-        <draggable :list="canvasLayers" class="list-group" @change="test">
-            <template #item="{ element }">
-                <div class="canvas-item">
-                    <h5 class="noselect">{{ element.Name }}</h5>
-                </div>
-            </template>
-        </draggable>
+    <div v-if="!canvasLayers.length > 0">
+        <div :style="{'text-align':'center', 'padding-top':'2%'}">
+            <h3>There are no elements on the canvas right now.</h3>
+        </div>
+    </div>
+    <div v-else>
+        <h4>Change the element layering by dragging and dropping the elements here.</h4>
+        <div class="canvas-holder">
+            <draggable :list="canvasLayers" class="list-group" @change="test">
+                <template #item="{ element }">
+                    <div class="canvas-item">
+                        <h5 class="noselect">{{ element.Name }}</h5>
+                        <div class="canvas-rename-button"><font-awesome-icon icon="fa-solid fa-i-cursor" /></div>
+                    </div>
+                </template>
+            </draggable>
+        </div>
     </div>
 </template>
 
@@ -60,18 +69,22 @@ export default {
 .canvas-holder {
     display: flex;
     flex-direction: column;
-    padding: 2% 10%;
+    padding: 1% 10%;
     background-color: var(--tg-theme-bg-color);
 }
 .canvas-item {
     position: relative;
-    display: block;
+    display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 1%;
     color: var(--tg-theme-text-color);
     text-decoration: none;
     background-color: #3A3A3A;
     border: 1px solid var(--tg-theme-secondary-bg-color);
+}
+.canvas-item .canvas-rename-button {
+    padding-right: 3%;
 }
 .canvas-item:first-child {
     border-top-left-radius: 0.375rem;
@@ -81,7 +94,10 @@ export default {
     border-bottom-right-radius: 0.375rem;
     border-bottom-left-radius: 0.375rem;
 }
-h5{
+h4 {
+ padding-inline: 3.5%;
+}
+h5 {
     margin: 1%;
 }
 </style>
