@@ -5,28 +5,48 @@ export default {
   data() {
     return {
       store,
+      telegramMainButton: Telegram.WebApp.MainButton
     }
   },
 
   methods: {
     selectImageFile(fileEvent) {
-        let image = fileEvent.target.files[0]
+      let image = fileEvent.target.files[0]
 
-        console.log(image.type)
-        image.type.indexOf('image/') !== 0 ? console.log('invalid image') : store.uploadImage(image)
+      console.log(image.type)
+      image.type.indexOf('image/') !== 0 ? console.log('invalid image') : store.uploadImage(image)
 
-        // test
-        if (store.imageObj instanceof File && image.type.indexOf('image/') == 0) {
-          let bg = this.$refs.siuHolder
-          let img = URL.createObjectURL(store.imageObj)
+      // test
+      if (store.imageObj instanceof File && image.type.indexOf('image/') == 0) {
+        let bg = this.$refs.siuHolder
+        let img = URL.createObjectURL(store.imageObj)
 
-          bg.style.backgroundImage = `url(${img})`
-        }
+        bg.style.backgroundImage = `url(${img})`
+        this.mainButtonVisibility()
+      }
     },
+
+    mainButtonVisibility() {
+      // (store.imageObj instanceof File) ? console.log("open") : console.log("close")
+      (store.imageObj instanceof File) ? this.telegramMainButton.show() : this.telegramMainButton.hide()
+    }
+
   },
 
   mounted() {
     const telegramBackButton = Telegram.WebApp.BackButton
+
+    let imageUploadTelegramButton = () => {
+      if (this.telegramMainButton.isVisible) {
+        this.$router.push('/ScheduleSelection')
+        this.telegramMainButton.offClick(imageUploadTelegramButton)
+        this.telegramMainButton.hide()
+      }
+    }
+    
+    this.telegramMainButton.setParams({
+      text: 'Next',
+    }).onClick(imageUploadTelegramButton)
 
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
@@ -35,6 +55,8 @@ export default {
         telegramBackButton.hide()
       }
     })
+
+    this.mainButtonVisibility()
   }
 
 }
@@ -42,8 +64,10 @@ export default {
 
 <template>
     <div ref="siuHolder" class="img-upload-holder">
+      <button @click="this.$router.push('/ScheduleSelection')">test</button>
         <div class="img-upload-content">
-            <img class="img-upload-icon noselect" src="../assets/boxedstuffings.png">
+            <!-- <img class="img-upload-icon noselect" src="../assets/boxedstuffings.png"> -->
+            <div class="img-icon-holder"><font-awesome-icon icon="fa-solid fa-upload"  class="img-icon" /></div>
             <label class="btn btn-primary img-upload-btn">
                 Choose File
                 <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
@@ -69,11 +93,22 @@ export default {
   align-items: center;
   padding: 1vh 2vw;
 }
-.img-upload-icon {
+.img-icon-holder {
+  height: 10vh;
+  width: 10vw;
+  display: inherit;
+  justify-content: center;
+  margin-bottom: 2%;
+}
+.img-icon {
+  height: 100%;
+  scale: 1.2;
+}
+/* .img-upload-icon {
   max-width: 200px;
   width: 30vw;
   margin: 2%;
-}
+} */
 .img-upload-btn {
   max-width: 240px;
   width: 40vw;

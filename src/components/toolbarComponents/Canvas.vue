@@ -22,7 +22,7 @@ export default {
 
     methods: {
 
-        test(e) {
+        updateLayers(e) {
             let movement = e.moved.newIndex - e.moved.oldIndex
             let element = e.moved.element.Object
             let layerArray = this.canvasLayers.slice().reverse()
@@ -53,7 +53,7 @@ export default {
     <div v-else>
         <h4>Change the element layering by dragging and dropping the elements here.</h4>
         <div class="canvas-holder">
-            <draggable :list="canvasLayers" class="list-group" @change="test">
+            <draggable :list="canvasLayers" class="list-group" @change="updateLayers">
                 <template #item="{ element }">
                     <div class="canvas-item">
                         <h5 class="noselect">{{ element.Name }}</h5>

@@ -6,35 +6,65 @@ export default {
     return {
         store,
         options: [
-            {_id:0, Description: 'Immediately'},
-            {_id:1, Description: 'In 10 Minutes'},
-            {_id:2, Description: 'In 1 Hour'}
+            {_id: 0, Description: 'Immediately'},
+            {_id: 1, Description: 'In 10 Minutes'},
+            {_id: 2, Description: 'In 1 Hour'}
         ],
-        currentDate: '',
+        currentDate: String,
         selectedDate: '',
-        selectedOption: ''
+        selectedOption: {},
+        calculate: ''
+    }
+  },
+
+  watch: {
+    selectedOption() {
+        switch(this.selectedOption._id) {
+            case 0:
+                this.calculate = this.currentDate
+                break
+            case 1:
+                let tenAfterCurrent = this.addMinutes(new Date(this.currentDate), 10)
+                this.calculate = this.formatDateTime(tenAfterCurrent.getTime() - (tenAfterCurrent.getTimezoneOffset() * 60000))
+                break
+            case 2:
+                let sixtyAfterCurrent = this.addMinutes(new Date(this.currentDate), 60)
+                this.calculate = this.formatDateTime(sixtyAfterCurrent.getTime() - (sixtyAfterCurrent.getTimezoneOffset() * 60000))
+                break
+            case 3:
+                this.calculate = this.selectedDate
+                break
+        }
+        console.log(this.calculate)
     }
   },
 
   methods: {
-    selectCard(selection_id) {
-        let card = store.availableMSOptions.find(x => x._id === selection_id)
-
-        card.display_variations ? this.$router.push('/VariationSelection') : this.$router.push('/StandardDisplay')
+    formatDateTime(dateTime) {
+        return new Date(dateTime).toISOString().substring(0, 19) // to 16
     },
 
     dateTimePicked() {
-        this.selectedOption = 'DateTime'
+        this.selectedOption = {_id: 3, Description: 'DateTime'}
+    },
+
+    addMinutes(date, minutes) {
+        return new Date(date.getTime() + minutes * 60000);
     }
+
   },
 
   mounted() {
-    const date = new Date()
+    let now = new Date()
     const telegramBackButton = Telegram.WebApp.BackButton
-    let currentLocalDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().substring(0, 16)
 
-    this.currentDate = currentLocalDateTime
-    this.selectedDate = currentLocalDateTime
+    this.currentDate = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
+    this.selectedDate = this.currentDate
+
+    setInterval(() => {
+        let now = new Date()
+        this.currentDate = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
+    }, 1000);
 
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
@@ -56,11 +86,11 @@ export default {
         </div>
         <!-- Options -->
         <ui v-for="option in options" :key="option._id">
-            <input type="radio" name="options" :value="option.Description" :id="'option_' + option._id" class="btn-check" v-model="selectedOption">
+            <input type="radio" name="options" :value="option" :id="'option_' + option._id" class="btn-check" v-model="selectedOption">
             <label class="btn btn-secondary ss-btn" :for="'option_' + option._id">{{ option.Description }}</label>
         </ui>
         <!-- DateTime selector -->
-        <input type="radio" name="options" value="DateTime" id="option_Date" class="btn-check" v-model="selectedOption">
+        <input type="radio" name="options" :value="{_id: 3, Description: 'DateTime'}" id="option_Date" class="btn-check" v-model="selectedOption">
         <label class="btn btn-secondary ss-btn" for="option_Date">
             Choose Date & Time
             <span>
@@ -69,7 +99,8 @@ export default {
         </label>
         Current Date: {{ currentDate }}<br>
         Selected Date: {{ selectedDate }}<br>
-        Selected Option: {{ selectedOption }}
+        Selected Option: {{ selectedOption }}<br>
+        Calculated Date: {{ calculate }}
     </div>
 </template>
 

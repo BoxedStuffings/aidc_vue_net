@@ -38,7 +38,7 @@ export default {
 
     mainButtonVisibility() {
       this.card._id ? this.telegramMainButton.show() : this.telegramMainButton.hide()
-    },
+    }
 
   },
 
@@ -59,6 +59,10 @@ export default {
       }
     }
 
+    this.telegramMainButton.setParams({
+      text: 'Next',
+    }).onClick(mainSelectionTelegramButton)
+
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
       if (telegramBackButton.isVisible) {
@@ -68,10 +72,6 @@ export default {
       }
     }),
 
-    this.telegramMainButton.setParams({
-      text: 'Next',
-    }).onClick(mainSelectionTelegramButton)
-    
     this.mainButtonVisibility()
   },
 
