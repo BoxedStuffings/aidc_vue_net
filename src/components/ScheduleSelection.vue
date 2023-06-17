@@ -1,5 +1,4 @@
 <script>
-import { toRaw } from 'vue';
 import { store } from '../Store.js'
 import { VueScrollPicker } from 'vue-scroll-picker'
 
@@ -64,11 +63,10 @@ export default {
         handler() {
             if (this.endTime[0] != 0 || this.endTime[1] != 0 || this.endTime[2] != 0) {
                 this.selectedEndOption = 'select'
-
-                let addedMinutes = this.endTime[0] * 1440  + this.endTime[1] * 60 + this.endTime[2]
-                let newDateTime = this.addMinutes(new Date(this.calculate), addedMinutes)
-                this.calculatedEndDate = this.formatDateTime(newDateTime.getTime() - (newDateTime.getTimezoneOffset() * 60000))
             }
+            let addedMinutes = this.endTime[0] * 1440  + this.endTime[1] * 60 + this.endTime[2]
+            let newDateTime = this.addMinutes(new Date(this.calculate), addedMinutes)
+            this.calculatedEndDate = this.formatDateTime(newDateTime.getTime() - (newDateTime.getTimezoneOffset() * 60000))
         },
         deep: true
     },
@@ -220,10 +218,12 @@ export default {
     margin: 0;
 }
 .picker-group >>> .vue-scroll-picker-layer-top {
-    background: linear-gradient(180deg, var(--tg-theme-bg-color) 10%, rgba(255,255,255,.7));
+    /* background: linear-gradient(180deg, var(--tg-theme-bg-color) 10%, rgba(255,255,255,.7)); */
+    background: linear-gradient(180deg, var(--tg-theme-bg-color) 10%, color-mix(in srgb, var(--tg-theme-bg-color), transparent 20%));
 }
 .picker-group >>> .vue-scroll-picker-layer-bottom {
-    background: linear-gradient(0deg, var(--tg-theme-bg-color) 10%, rgba(255,255,255,.7));
+    /* background: linear-gradient(0deg, var(--tg-theme-bg-color) 10%, rgb(255,255,255,.7)); */
+    background: linear-gradient(0deg, var(--tg-theme-bg-color) 10%, color-mix(in srgb, var(--tg-theme-bg-color), transparent 20%));
 }
 .ss-holder {
     display: flex;
