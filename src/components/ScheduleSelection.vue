@@ -8,6 +8,7 @@ export default {
     return {
         store,
         telegramMainButton: Telegram.WebApp.MainButton,
+        scheduleSelectionStartTelegramButton: Function,
         options: [
             {_id: 0, Description: 'Immediately'},
             {_id: 1, Description: 'In 10 Minutes'},
@@ -75,6 +76,36 @@ export default {
         this.calculatedEndDate = this.endDate
     },
 
+    calculatedEndDate() {
+        if (this.calculatedEndDate.length != 0) {
+            let scheduleSelectionNextTelegramButton = () => {
+                if (this.telegramMainButton.isVisible) {
+                    this.$router.push('/MainSelection')
+                    this.telegramMainButton.offClick(scheduleSelectionNextTelegramButton)
+                    this.telegramMainButton.hide()
+                }
+            }
+ 
+            this.telegramMainButton.setParams({
+                text: 'Next',
+            }).onClick(scheduleSelectionNextTelegramButton)
+            this.telegramMainButton.show()
+
+            telegramBackButton.onClick(() => {
+                if (telegramBackButton.isVisible) {
+                    this.startOrEnd = !this.startOrEnd
+                    
+                    this.telegramMainButton.setParams({
+                        text: 'Select End time',
+                    }).onClick(this.scheduleSelectionStartTelegramButton)
+                    this.mainButtonVisibility()
+
+                    telegramBackButton.hide()
+                }
+            })
+        }
+    },
+
     calculate() {
         this.mainButtonVisibility()
     }
@@ -121,17 +152,17 @@ export default {
         this.currentDate = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
     }, 1000);
 
-    let scheduleSelectionStartTelegramButton = () => {
+    this.scheduleSelectionStartTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
         this.startOrEnd = true
-        this.telegramMainButton.offClick(scheduleSelectionStartTelegramButton)
+        this.telegramMainButton.offClick(this.scheduleSelectionStartTelegramButton)
         this.telegramMainButton.hide()
       }
     }
     
     this.telegramMainButton.setParams({
-      text: 'Select End time',
-    }).onClick(scheduleSelectionStartTelegramButton)
+        text: 'Select End time',
+    }).onClick(this.scheduleSelectionStartTelegramButton)
 
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
@@ -153,22 +184,25 @@ export default {
         <button @click="toggle">false</button>
         <div class="ss-header noselect">
             <img src="../assets/boxedstuffings.png">
-            <h2>Schedule Display</h2>
+            <h2>Schedule Display: select end time</h2>
         </div>
         <!-- Option -->
         <input type="radio" name="endOptions" value="select" id="selectEndTime" class="btn-check" v-model="selectedEndOption">
+        <label class="btn btn-secondary ss-btn" for="selectEndTime" :style="{'margin-block':'1%'}">
+            Select how long to display:
+        </label>
         <div class="picker-group">
-            <h3>Days</h3>
-            <h3>Hours</h3>
-            <h3>Minutes</h3>
+            <h4>Days</h4>
+            <h4>Hours</h4>
+            <h4>Minutes</h4>
             <VueScrollPicker :options="days" v-model="endTime[0]" />
             <VueScrollPicker :options="hours" v-model="endTime[1]" />
             <VueScrollPicker :options="minutes" v-model="endTime[2]" />
         </div>
         <!-- DateTime selector -->
-        <input type="radio" name="endOptions" value="specific" id="end_option_Date" class="btn-check" v-model="selectedEndOption">
-        <label class="btn btn-secondary ss-btn" for="end_option_Date">
-            Choose Date & Time
+        <input type="radio" name="endOptions" value="specific" id="end-option-Date" class="btn-check" v-model="selectedEndOption">
+        <label class="btn btn-secondary ss-btn" :style="{'margin-top':'15%'}" for="end-option-Date">
+            or Choose specific Date & Time
             <span>
                 <input ref="test" type="datetime-local" :min="calculate" class="form-control" @change="endDateTimePicked" v-model="endDate">
             </span>
@@ -184,7 +218,7 @@ export default {
         <button @click="toggle">true</button>
         <div class="ss-header noselect">
             <img src="../assets/boxedstuffings.png">
-            <h2>Schedule Display</h2>
+            <h2>Schedule Display: select start time</h2>
         </div>
         <!-- Options -->
         <ui v-for="option in options" :key="option._id">
@@ -208,22 +242,19 @@ export default {
 
 <style src="vue-scroll-picker/lib/style.css"></style>
 <style scoped>
-
 .picker-group {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
 }
-.picker-group h3 {
+.picker-group h4 {
     margin: 0;
 }
 .picker-group >>> .vue-scroll-picker-layer-top {
-    /* background: linear-gradient(180deg, var(--tg-theme-bg-color) 10%, rgba(255,255,255,.7)); */
-    background: linear-gradient(180deg, var(--tg-theme-bg-color) 10%, color-mix(in srgb, var(--tg-theme-bg-color), transparent 20%));
+    background: linear-gradient(180deg, var(--tg-theme-bg-color) 10%, color-mix(in srgb, var(--tg-theme-bg-color), transparent 40%));
 }
 .picker-group >>> .vue-scroll-picker-layer-bottom {
-    /* background: linear-gradient(0deg, var(--tg-theme-bg-color) 10%, rgb(255,255,255,.7)); */
-    background: linear-gradient(0deg, var(--tg-theme-bg-color) 10%, color-mix(in srgb, var(--tg-theme-bg-color), transparent 20%));
+    background: linear-gradient(0deg, var(--tg-theme-bg-color) 10%, color-mix(in srgb, var(--tg-theme-bg-color), transparent 40%));
 }
 .ss-holder {
     display: flex;
@@ -252,7 +283,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     min-height: 7vh;
-    margin-block: 1%;
+    margin-top: 1%;
     text-align: left;
     font-size: 3vmin;
 }
