@@ -101,6 +101,8 @@ export const store = reactive({
 
     videoObj: {},
 
+    mediaLink: String,
+
     // Getting available TVs into store (TV.vue)
     initTVfromDB(tvArray){
       this.availableTVsFromDataBase = tvArray
@@ -129,6 +131,11 @@ export const store = reactive({
     // Video upload (VideoUpload.vue)
     uploadVideo(video) {
       this.videoObj = video
+    },
+
+    // Setting media upload link (VideoUpload.vue, StandardDisplaySelection.vue)
+    setMediaUploadLink(link) {
+      this.mediaLink = link
     },
 
     // Getting Telegram data (TV.vue)

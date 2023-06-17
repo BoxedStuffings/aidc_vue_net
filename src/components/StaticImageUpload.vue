@@ -1,4 +1,5 @@
 <script>
+import $ from 'jquery'
 import { store } from '../Store.js'
 
 export default {
@@ -23,6 +24,31 @@ export default {
 
         bg.style.backgroundImage = `url(${img})`
         this.mainButtonVisibility()
+      }
+    },
+
+    async test() {
+      if (store.imageObj instanceof File) {
+        let form_data = new FormData()
+        form_data.append('file', store.imageObj)
+        
+        await $.ajax({
+        url: 'https://heehee.amphibistudio.sg/api/save/image',
+          method: 'POST',
+          headers: {
+            'Authorization' : 'Bearer ' + '648dbe64b1981ef0c4039be2|fxfgCqI8o9eig8ABkMR0ES7isHzGr5MCh4L74T49'
+          },
+          processData: false,
+          mimeType: 'multipart/form-data',
+          contentType: false,
+          data: form_data,
+          success: (obj) => {
+            obj = JSON.parse(obj),
+            console.log(obj.message),
+            store.setMediaUploadLink(obj.data)
+          },
+          error: (error) => console.log(error)
+        })
       }
     },
 
@@ -64,6 +90,7 @@ export default {
 
 <template>
     <div ref="siuHolder" class="img-upload-holder">
+      <button @click="test">test</button>
         <div class="img-upload-content">
             <!-- <img class="img-upload-icon noselect" src="../assets/boxedstuffings.png"> -->
             <div class="img-icon-holder"><font-awesome-icon icon="fa-solid fa-upload"  class="img-icon" /></div>

@@ -1,4 +1,5 @@
 <script>
+import $ from 'jquery'
 import { store } from '../Store.js'
 
 export default {
@@ -14,6 +15,7 @@ export default {
     selectVideoFile(fileEvent) {
       let video = fileEvent.target.files[0]
 
+      console.log(video.type)
       video.type.indexOf('video/') !== 0 ? console.log('invalid video') : store.uploadVideo(video)
 
       // test
@@ -22,6 +24,31 @@ export default {
         this.mainButtonVisibility()
       }
 
+    },
+
+    async test() {
+      if (store.videoObj instanceof File) {
+        let form_data = new FormData()
+        form_data.append('file', store.videoObj)
+        
+        await $.ajax({
+        url: 'https://heehee.amphibistudio.sg/api/save/video',
+          method: 'POST',
+          headers: {
+            'Authorization' : 'Bearer ' + '648dbe64b1981ef0c4039be2|fxfgCqI8o9eig8ABkMR0ES7isHzGr5MCh4L74T49'
+          },
+          processData: false,
+          mimeType: 'multipart/form-data',
+          contentType: false,
+          data: form_data,
+          success: (obj) => {
+            obj = JSON.parse(obj),
+            console.log(obj.message),
+            store.setMediaUploadLink(obj.data)
+          },
+          error: (error) => console.log(error)
+        })
+      }
     },
 
     mainButtonVisibility() {
@@ -62,6 +89,7 @@ export default {
 
 <template>
     <div class="vid-upload-holder">
+      <button @click="test">test</button>
         <video autoplay muted loop playsinline id="vid-bg" :src="vid"></video>
         <div class="vid-upload-content">
             <!-- <img class="vid-upload-icon noselect" src="../assets/boxedstuffings.png"> -->

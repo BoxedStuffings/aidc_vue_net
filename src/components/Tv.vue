@@ -1,5 +1,5 @@
 <script>
-import jquery from 'jquery'
+import $ from 'jquery'
 import { store } from '../Store.js'
 import TvSkeleton from '../components/TvSkeleton.vue'
 
@@ -19,13 +19,21 @@ export default {
   methods: {
 
     async initTV(){
-      await jquery.ajax({
+      await $.ajax({
         url: 'https://heehee.amphibistudio.sg/api/tv',
         method: 'GET',
         headers: {
           'secret' : 'eyJpdiI6InNBaXdUV0RNeHhzRDc3NUJrY0JsWFE9PSIsInZhbHVlIjoiK0J6VHZPUzVOUUREcVUydGc4SHFxQWZsMzI4eVZqMDByRnFBNENhMFcyZz0iLCJtYWMiOiI4M2IxNGQxYTQxMmRlNDIzMTgyNDcyMGNmMTViNDk2MDBiMTE0ZjVkZWQ3MGI4ZWQ3MjYyNmViOTA2YTU0Y2RlIiwidGFnIjoiIn0='
         },
-        success:  (success) => store.initTVfromDB(success.data),
+        success:  (success) => {
+          store.initTVfromDB(success.data)
+          // Look into this
+          // $.ajaxSetup({
+          //   headers: {
+          //     'Authorization' : 'Bearer ' + success.token
+          //   }
+          // })
+        },
         error: (error) => console.log(error)
       })
       this.loading = !this.loading
