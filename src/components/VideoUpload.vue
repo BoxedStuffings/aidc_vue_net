@@ -89,7 +89,7 @@ export default {
 
 <template>
     <div class="vid-upload-holder">
-      <button @click="test">test</button>
+      <button @click="this.$router.push('/ScheduleSelection')">test</button>
         <video autoplay muted loop playsinline id="vid-bg" :src="vid"></video>
         <div class="vid-upload-content">
             <!-- <img class="vid-upload-icon noselect" src="../assets/boxedstuffings.png"> -->

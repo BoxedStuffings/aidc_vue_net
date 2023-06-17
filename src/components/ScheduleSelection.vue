@@ -24,7 +24,8 @@ export default {
         selectedOption: {},
         selectedEndOption: '',
         calculate: '',
-        endDate: ''
+        endDate: '',
+        calculatedEndDate: ''
     }
   },
 
@@ -63,9 +64,17 @@ export default {
         handler() {
             if (this.endTime[0] != 0 || this.endTime[1] != 0 || this.endTime[2] != 0) {
                 this.selectedEndOption = 'select'
+
+                let addedMinutes = this.endTime[0] * 1440  + this.endTime[1] * 60 + this.endTime[2]
+                let newDateTime = this.addMinutes(new Date(this.calculate), addedMinutes)
+                this.calculatedEndDate = this.formatDateTime(newDateTime.getTime() - (newDateTime.getTimezoneOffset() * 60000))
             }
         },
         deep: true
+    },
+
+    endDate() {
+        this.calculatedEndDate = this.endDate
     },
 
     calculate() {
@@ -90,10 +99,15 @@ export default {
         return new Date(date.getTime() + minutes * 60000);
     },
 
+    toggle() {
+        this.startOrEnd = !this.startOrEnd
+        this.endDate = this.calculate
+    },
+
     mainButtonVisibility() {
         // this.calculate ? console.log("open") : console.log("close")
         this.calculate ? this.telegramMainButton.show() : this.telegramMainButton.hide()
-    },
+    }
 
   },
 
@@ -138,7 +152,7 @@ export default {
 <template>
     <!-- End DateTime Picker -->
     <div class="ss-holder" v-if="startOrEnd">
-        <button @click="startOrEnd=false">false</button>
+        <button @click="toggle">false</button>
         <div class="ss-header noselect">
             <img src="../assets/boxedstuffings.png">
             <h2>Schedule Display</h2>
@@ -158,17 +172,18 @@ export default {
         <label class="btn btn-secondary ss-btn" for="end_option_Date">
             Choose Date & Time
             <span>
-                <input type="datetime-local" :min="calculate" class="form-control" @change="endDateTimePicked" v-model="endDate">
+                <input ref="test" type="datetime-local" :min="calculate" class="form-control" @change="endDateTimePicked" v-model="endDate">
             </span>
         </label>
         End Day: {{ endTime[0] }}<br>
         End Hour: {{ endTime[1] }}<br>
         End Minutes: {{ endTime[2] }}<br>
-        End DateTime: {{ endDate }}
+        End DateTime: {{ endDate }}<br>
+        Calculated End Date: {{ calculatedEndDate }}
     </div>
     <!-- Start DateTime Picker -->
     <div class="ss-holder" v-else>
-        <button @click="startOrEnd=true">true</button>
+        <button @click="toggle">true</button>
         <div class="ss-header noselect">
             <img src="../assets/boxedstuffings.png">
             <h2>Schedule Display</h2>
@@ -195,6 +210,7 @@ export default {
 
 <style src="vue-scroll-picker/lib/style.css"></style>
 <style scoped>
+
 .picker-group {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -202,6 +218,12 @@ export default {
 }
 .picker-group h3 {
     margin: 0;
+}
+.picker-group >>> .vue-scroll-picker-layer-top {
+    background: linear-gradient(180deg, var(--tg-theme-bg-color) 10%, rgba(255,255,255,.7));
+}
+.picker-group >>> .vue-scroll-picker-layer-bottom {
+    background: linear-gradient(0deg, var(--tg-theme-bg-color) 10%, rgba(255,255,255,.7));
 }
 .ss-holder {
     display: flex;
