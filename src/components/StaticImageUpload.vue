@@ -1,5 +1,4 @@
 <script>
-import $ from 'jquery'
 import { store } from '../Store.js'
 
 export default {
@@ -27,31 +26,6 @@ export default {
       }
     },
 
-    async test() {
-      if (store.imageObj instanceof File) {
-        let form_data = new FormData()
-        form_data.append('file', store.imageObj)
-        
-        await $.ajax({
-        url: 'https://heehee.amphibistudio.sg/api/save/image',
-          method: 'POST',
-          headers: {
-            'Authorization' : 'Bearer ' + '648dbe64b1981ef0c4039be2|fxfgCqI8o9eig8ABkMR0ES7isHzGr5MCh4L74T49'
-          },
-          processData: false,
-          mimeType: 'multipart/form-data',
-          contentType: false,
-          data: form_data,
-          success: (obj) => {
-            obj = JSON.parse(obj),
-            console.log(obj.message),
-            store.setMediaUploadLink(obj.data)
-          },
-          error: (error) => console.log(error)
-        })
-      }
-    },
-
     mainButtonVisibility() {
       // (store.imageObj instanceof File) ? console.log("open") : console.log("close")
       (store.imageObj instanceof File) ? this.telegramMainButton.show() : this.telegramMainButton.hide()
@@ -64,6 +38,7 @@ export default {
 
     let imageUploadTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
+        store.setMediaType('Image')
         this.$router.push('/ScheduleSelection')
         this.telegramMainButton.offClick(imageUploadTelegramButton)
         this.telegramMainButton.hide()
@@ -77,6 +52,7 @@ export default {
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
       if (telegramBackButton.isVisible) {
+        store.clearImage()
         this.$router.go(-1)
         telegramBackButton.hide()
       }

@@ -101,7 +101,11 @@ export const store = reactive({
 
     videoObj: {},
 
+    mediaType: String,
+
     mediaLink: String,
+
+    jobTiming: [],
 
     // Getting available TVs into store (TV.vue)
     initTVfromDB(tvArray){
@@ -128,14 +132,34 @@ export const store = reactive({
       this.imageObj = image
     },
 
+    // Clearing image object (StandardDisplaySelection.vue)
+    clearImage() {
+      this.imageObj = {}
+    },
+
     // Video upload (VideoUpload.vue)
     uploadVideo(video) {
       this.videoObj = video
     },
 
+    // Clearing video object (VideoUpload.vue)
+    clearVideo() {
+      this.videoObj = {}
+    },
+
+    // Setting media type to be uploaded
+    setMediaType(type) {
+      this.mediaType = type
+    },
+
     // Setting media upload link (VideoUpload.vue, StandardDisplaySelection.vue)
     setMediaUploadLink(link) {
       this.mediaLink = link
+    },
+
+    // Set job start and end timing
+    setjobTiming(value) {
+      this.jobTiming = value
     },
 
     // Getting Telegram data (TV.vue)

@@ -84,6 +84,7 @@ export default {
         if (this.calculatedEndDate.length != 0) {
             this.scheduleSelectionNextTelegramButton = () => {
                 if (this.telegramMainButton.isVisible) {
+                    store.setjobTiming([this.calculate, this.calculatedEndDate])
                     this.$router.push('/Confirmation')
                     this.telegramMainButton.offClick(this.scheduleSelectionNextTelegramButton)
                     this.telegramMainButton.hide()
@@ -148,6 +149,7 @@ export default {
         this.startOrEnd = !this.startOrEnd
         this.telegramMainButton.offClick(this.scheduleSelectionStartTelegramButton)
         this.telegramBackButton.offClick(this.scheduleSelectionStartBackButton)
+        this.telegramMainButton.hide()
 
         telegramBackButton.onClick(this.scheduleSelectionNextBackButton)
       }

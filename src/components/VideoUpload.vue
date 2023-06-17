@@ -1,5 +1,4 @@
 <script>
-import $ from 'jquery'
 import { store } from '../Store.js'
 
 export default {
@@ -26,31 +25,6 @@ export default {
 
     },
 
-    async test() {
-      if (store.videoObj instanceof File) {
-        let form_data = new FormData()
-        form_data.append('file', store.videoObj)
-        
-        await $.ajax({
-        url: 'https://heehee.amphibistudio.sg/api/save/video',
-          method: 'POST',
-          headers: {
-            'Authorization' : 'Bearer ' + '648dbe64b1981ef0c4039be2|fxfgCqI8o9eig8ABkMR0ES7isHzGr5MCh4L74T49'
-          },
-          processData: false,
-          mimeType: 'multipart/form-data',
-          contentType: false,
-          data: form_data,
-          success: (obj) => {
-            obj = JSON.parse(obj),
-            console.log(obj.message),
-            store.setMediaUploadLink(obj.data)
-          },
-          error: (error) => console.log(error)
-        })
-      }
-    },
-
     mainButtonVisibility() {
       // (store.videoObj instanceof File) ? console.log("open") : console.log("close")
       (store.imageObj instanceof File) ? this.telegramMainButton.show() : this.telegramMainButton.hide()
@@ -63,6 +37,7 @@ export default {
     
     let vidUploadTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
+        store.setMediaType('Video')
         this.$router.push('/ScheduleSelection')
         this.telegramMainButton.offClick(vidUploadTelegramButton)
         this.telegramMainButton.hide()
@@ -76,6 +51,7 @@ export default {
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
       if (telegramBackButton.isVisible) {
+        store.clearVideo()
         this.$router.go(-1)
         telegramBackButton.hide()
       }
