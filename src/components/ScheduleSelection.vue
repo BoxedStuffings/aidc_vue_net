@@ -90,19 +90,6 @@ export default {
                 text: 'Next',
             }).onClick(scheduleSelectionNextTelegramButton)
             this.telegramMainButton.show()
-
-            telegramBackButton.onClick(() => {
-                if (telegramBackButton.isVisible) {
-                    this.startOrEnd = !this.startOrEnd
-                    
-                    this.telegramMainButton.setParams({
-                        text: 'Select End time',
-                    }).onClick(this.scheduleSelectionStartTelegramButton)
-                    this.mainButtonVisibility()
-
-                    telegramBackButton.hide()
-                }
-            })
         }
     },
 
@@ -156,6 +143,18 @@ export default {
       if (this.telegramMainButton.isVisible) {
         this.startOrEnd = true
         this.telegramMainButton.offClick(this.scheduleSelectionStartTelegramButton)
+
+        telegramBackButton.onClick(() => {
+        if (telegramBackButton.isVisible) {
+            this.startOrEnd = !this.startOrEnd
+
+            this.telegramMainButton.setParams({
+                text: 'Select End time',
+            }).onClick(this.scheduleSelectionStartTelegramButton)
+            this.mainButtonVisibility()
+        }
+        })
+
         this.telegramMainButton.hide()
       }
     }
@@ -167,6 +166,7 @@ export default {
     telegramBackButton.show()
     telegramBackButton.onClick(() => {
       if (telegramBackButton.isVisible) {
+        this.telegramMainButton.offClick(this.scheduleSelectionStartTelegramButton)
         this.$router.go(-1)
         telegramBackButton.hide()
       }
