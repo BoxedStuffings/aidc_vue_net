@@ -8,7 +8,11 @@ export default {
     return {
         store,
         telegramMainButton: Telegram.WebApp.MainButton,
+        telegramBackButton: Telegram.WebApp.BackButton,
         scheduleSelectionStartTelegramButton: Function,
+        scheduleSelectionNextTelegramButton: Function,
+        scheduleSelectionStartBackButton: Function,
+        scheduleSelectionNextBackButton: Function,
         options: [
             {_id: 0, Description: 'Immediately'},
             {_id: 1, Description: 'In 10 Minutes'},
@@ -78,17 +82,17 @@ export default {
 
     calculatedEndDate() {
         if (this.calculatedEndDate.length != 0) {
-            let scheduleSelectionNextTelegramButton = () => {
+            this.scheduleSelectionNextTelegramButton = () => {
                 if (this.telegramMainButton.isVisible) {
-                    this.$router.push('/MainSelection')
-                    this.telegramMainButton.offClick(scheduleSelectionNextTelegramButton)
+                    this.$router.push('/Confirmation')
+                    this.telegramMainButton.offClick(this.scheduleSelectionNextTelegramButton)
                     this.telegramMainButton.hide()
                 }
             }
  
             this.telegramMainButton.setParams({
                 text: 'Next',
-            }).onClick(scheduleSelectionNextTelegramButton)
+            }).onClick(this.scheduleSelectionNextTelegramButton)
             this.telegramMainButton.show()
         }
     },
@@ -141,36 +145,40 @@ export default {
 
     this.scheduleSelectionStartTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
-        this.startOrEnd = true
+        this.startOrEnd = !this.startOrEnd
         this.telegramMainButton.offClick(this.scheduleSelectionStartTelegramButton)
+        this.telegramBackButton.offClick(this.scheduleSelectionStartBackButton)
 
-        telegramBackButton.onClick(() => {
-        if (telegramBackButton.isVisible) {
-            this.startOrEnd = !this.startOrEnd
-
-            this.telegramMainButton.setParams({
-                text: 'Select End time',
-            }).onClick(this.scheduleSelectionStartTelegramButton)
-            this.mainButtonVisibility()
-        }
-        })
-
-        this.telegramMainButton.hide()
+        telegramBackButton.onClick(this.scheduleSelectionNextBackButton)
       }
     }
     
+    this.scheduleSelectionStartBackButton = () => {
+        if (this.telegramBackButton.isVisible) {
+            this.telegramMainButton.offClick(this.scheduleSelectionStartTelegramButton)
+            this.$router.go(-1)
+            telegramBackButton.hide()
+        }
+    }
+
+    this.scheduleSelectionNextBackButton = () => {
+        if (this.telegramBackButton.isVisible) {
+            this.startOrEnd = !this.startOrEnd
+            this.telegramMainButton.offClick()
+
+            this.telegramMainButton.setParams({
+                text: 'Select End'
+            }).onClick(this.scheduleSelectionStartTelegramButton)
+            this.mainButtonVisibility()
+        }
+    }
+
     this.telegramMainButton.setParams({
         text: 'Select End time',
     }).onClick(this.scheduleSelectionStartTelegramButton)
 
-    telegramBackButton.show()
-    telegramBackButton.onClick(() => {
-      if (telegramBackButton.isVisible) {
-        this.telegramMainButton.offClick(this.scheduleSelectionStartTelegramButton)
-        this.$router.go(-1)
-        telegramBackButton.hide()
-      }
-    })
+    this.telegramBackButton.show()
+    this.telegramBackButton.onClick(this.scheduleSelectionStartBackButton)
 
     this.mainButtonVisibility()
   }
