@@ -44,15 +44,18 @@ export default {
 
   mounted() {
     const telegramBackButton = Telegram.WebApp.BackButton
+    
     let mainSelectionTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
         switch(this.card.title) {
-          case 'Custom':
-            this.$router.push('/CanvasSelection');
-            break;
-          case 'Standard':
-            this.$router.push('/StandardDisplay')
-            break;
+          case 'Upload Images':
+            this.$router.push('/ImageUp')
+            break
+          case 'Upload Video':
+            this.$router.push('/VideoUp')
+            break
+          case 'Create Custome Banner':
+            this.$router.push('/CanvasSelection')
         }
         this.telegramMainButton.offClick(mainSelectionTelegramButton)
         this.telegramMainButton.hide()

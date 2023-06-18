@@ -7,44 +7,24 @@ export const store = reactive({
     // MainSelection as in db (placeholder values) (MainSelection.vue)
     availableMSOptions: [
         {
-            "_id": 0,
-            "title":"Default Banner",
-            "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
-            "media":"hehe.com"
+          "_id": 0,
+          "title":"Upload Image",
+          "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
+          "media":"hehe.com"
         },
 
         {
-            "_id": 2,
-            "title":"Custom",
-            "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
-            "media":"hehe.com",
-            "display_variations":[
-                {
-                    "_id": 1,
-                    "title":"Variation 1",
-                    "desc":"",
-                    "wireframe":"",
-                    "sample_media":"",
-                    "background_media":[""]
-                }
-            ]
+          "_id": 2,
+          "title":"Upload Video",
+          "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
+          "media":"hehe.com",
         },
 
         {
-            "_id": 1,
-            "title":"Standard",
-            "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
-            "media":"hehe.com",
-            "display_variations":[
-                {
-                    "_id": 1,
-                    "title":"Variation 1",
-                    "desc":"",
-                    "wireframe":"",
-                    "sample_media":"",
-                    "background_media":[""]
-                }
-            ]
+          "_id": 1,
+          "title":"Create Custome Banner",
+          "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
+          "media":"hehe.com",
         }
     ],
 
@@ -125,6 +105,12 @@ export const store = reactive({
     // Add selected TV to selectedTVs (TV.vue)
     pushSelectedTv(TV) {
       this.selectedTvs.push(TV)
+    },
+
+    // Remove specific displays from selectedTVs (ScheduleDisplay.vue)
+    spliceDisplayFromSelectedTV(TV, index) {
+      let tv = this.selectedTvs.findIndex(x => x._id == TV._id)
+      this.selectedTvs[tv].displays.splice(index, 1)
     },
 
     // Image upload (StandardDisplaySelection.vue)

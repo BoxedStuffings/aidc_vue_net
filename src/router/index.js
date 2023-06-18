@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import TV from '../components/Tv.vue'
+import ScheduleDisplay from '../components/ScheduleDisplay.vue'
 import MainSelection from '../components/MainSelection.vue'
 import StandardDisplaySelection from '../components/StandardDisplaySelection.vue'
 import CanvasSelection from '../components/CanvasSelection.vue'
@@ -17,6 +18,11 @@ const router = createRouter({
       path: '/',
       name: 'Tv',
       component: TV
+    },
+    {
+      path: '/ScheduleDisplay',
+      name: 'Schedule Display',
+      component: ScheduleDisplay
     },
     {
       path: '/MainSelection',

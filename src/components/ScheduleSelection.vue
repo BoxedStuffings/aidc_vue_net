@@ -260,10 +260,10 @@ export default {
 .picker-group h4 {
     margin: 0;
 }
-.picker-group >>> .vue-scroll-picker-layer-top {
+.picker-group :deep(.vue-scroll-picker-layer-top) {
     background: linear-gradient(180deg, var(--tg-theme-bg-color) 10%, color-mix(in srgb, var(--tg-theme-bg-color), transparent 40%));
 }
-.picker-group >>> .vue-scroll-picker-layer-bottom {
+.picker-group :deep(.vue-scroll-picker-layer-bottom) {
     background: linear-gradient(0deg, var(--tg-theme-bg-color) 10%, color-mix(in srgb, var(--tg-theme-bg-color), transparent 40%));
 }
 .ss-holder {
