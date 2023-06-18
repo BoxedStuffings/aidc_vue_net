@@ -159,13 +159,13 @@ export default {
 <style>
 .schedule-holder {
     padding-inline: 2%;
-    background-color: var(--tg-theme-secondary-bg-color);
 }
 .schedule-holder .schedule-display-block:first-child .schedule-display-tv .schedule-display-header{
     margin-top: 5%
 }
 .schedule-display-header {
     margin-top: 10%;
+    margin-bottom: 2%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -212,7 +212,7 @@ export default {
 .schedule-display-detail-info {
     overflow: hidden;
     padding: 10px;
-    background-color: var(--tg-theme-bg-color);
+    background-color: color-mix(in srgb, var(--tg-theme-bg-color), white 5%);
 }
 .schedule-display-detail-info .schedule-display-detail-image {
     width: 80px;
