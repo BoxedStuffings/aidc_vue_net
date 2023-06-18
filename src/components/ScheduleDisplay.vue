@@ -101,7 +101,7 @@ export default {
         }}
 
         this.telegramMainButton.setParams({
-        text: 'Select Tv',
+        text: 'Upload Media',
         }).onClick(scheduleSelectionTelegramButton)
 
         telegramBackButton.show()
@@ -159,6 +159,7 @@ export default {
 <style>
 .schedule-holder {
     padding-inline: 2%;
+    background-color: var(--tg-theme-secondary-bg-color);
 }
 .schedule-holder .schedule-display-block:first-child .schedule-display-tv .schedule-display-header{
     margin-top: 5%
@@ -175,55 +176,54 @@ export default {
     margin-right: 3vw;
 }
 .schedule-display-detail-holder {
-  overflow: hidden;
+    overflow: hidden;
 }
 .schedule-display-detail-content-holder {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 .schedule-display-detail-content {
-  transition: all 0.2s;
+    transition: all 0.2s;
 }
 /* 0: hide */
 .schedule-display-detail-content[data-type="0"] {
-  transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
 }
 /* 1: display */
 .schedule-display-detail-content[data-type="1"] {
-  transform: translate3d(-64px, 0, 0);
+    transform: translate3d(-64px, 0, 0);
 }
 .schedule-display-detail-content .schedule-display-delete-btn {
-  width: 64px;
-  height: 103px;
-  background: #e01212;
-  font-size: 18px;
-  color: #fff;
-  text-align: center;
-  line-height: 22px;
-  position: absolute;
-  top: 0px;
-  right: -65px;
-  line-height: 103px;
-  text-align: center;
-  border-radius: 2px;
+    width: 64px;
+    height: 116px;
+    background: #e01212;
+    font-size: 18px;
+    color: #fff;
+    text-align: center;
+    line-height: 22px;
+    position: absolute;
+    top: 0px;
+    right: -65px;
+    line-height: 103px;
+    text-align: center;
+    border-radius: 2px;
 }
 .schedule-display-detail-info {
-  overflow: hidden;
-  padding: 10px;
-  background-color: var(--tg-theme-secondary-bg-color);
+    overflow: hidden;
+    padding: 10px;
+    background-color: var(--tg-theme-bg-color);
 }
 .schedule-display-detail-info .schedule-display-detail-image {
-  width: 80px;
-  height: 80px;
-  border-radius: 4px;
-  float: left;
+    width: 80px;
+    height: 80px;
+    border-radius: 4px;
+    float: left;
 }
 .schedule-display-detail-timing {
-  overflow: hidden;
-  padding-left: 8px;
+    overflow: hidden;
+    padding-left: 8px;
 }
-
 .schedule-display-detail-timing h5{
     margin: 0;
 }
