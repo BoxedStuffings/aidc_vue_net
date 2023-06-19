@@ -37,8 +37,6 @@ export default {
   },
 
   mounted() {
-    this.telegramMainButton.hide()
-
     if (store.imageObj instanceof File) {
       let bg = this.$refs.siuHolder
       this.img = URL.createObjectURL(store.imageObj)
@@ -50,6 +48,7 @@ export default {
       if (this.telegramMainButton.isVisible) {
         this.telegramMainButton.offClick(imageUploadTelegramButton)
         this.telegramBackButton.offClick(imageUploadBackButton)
+        this.telegramMainButton.hide()
         store.setMediaType('Image')
         this.$router.push('/ScheduleSelection')
       }
@@ -59,6 +58,7 @@ export default {
       if (this.telegramBackButton.isVisible) {
         this.telegramMainButton.offClick(imageUploadTelegramButton)
         this.telegramBackButton.offClick(imageUploadBackButton)
+        this.telegramMainButton.hide()
         store.clearImage()
         this.$router.go(-1)
       }

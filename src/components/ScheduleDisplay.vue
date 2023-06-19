@@ -90,6 +90,7 @@ export default {
         if (this.telegramMainButton.isVisible) {
             this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
             this.telegramBackButton.offClick(scheduleSelectionBackButton)
+            this.telegramMainButton.hide()
             this.$router.push('/MainSelection')
         }}
 
@@ -97,6 +98,7 @@ export default {
             if (this.telegramBackButton.isVisible) {
                 this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
                 this.telegramBackButton.offClick(scheduleSelectionBackButton)
+                this.telegramMainButton.hide()
                 this.$router.go(-1)
             }
         }

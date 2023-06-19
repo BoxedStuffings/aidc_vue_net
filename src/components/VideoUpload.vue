@@ -34,8 +34,6 @@ export default {
   },
 
   mounted() {
-    this.telegramMainButton.hide()
-
     if (store.videoObj instanceof File) {
       this.vid = URL.createObjectURL(store.videoObj)
     }
@@ -44,6 +42,7 @@ export default {
       if (this.telegramMainButton.isVisible) {
         this.telegramMainButton.offClick(vidUploadTelegramButton)
         this.telegramBackButton.offClick(vidUploadBackButton)
+        this.telegramMainButton.hide()
         store.setMediaType('Video')
         this.$router.push('/ScheduleSelection')
       }
@@ -53,6 +52,7 @@ export default {
       if (this.telegramBackButton.isVisible) {
         this.telegramMainButton.offClick(vidUploadTelegramButton)
         this.telegramBackButton.offClick(vidUploadBackButton)
+        this.telegramMainButton.hide()
         store.clearVideo()
         this.$router.go(-1)
       }
