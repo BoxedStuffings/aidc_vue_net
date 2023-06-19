@@ -27,6 +27,7 @@ export default {
         selectedOption() {
             switch(this.selectedOption) {
                 case 'default':
+                    this.pushToast()
                     this.$refs.scheduleHolder.classList.remove('enabled')
                     this.$refs.schedulePicker.classList.remove('set')
                     this.selectedEndDate = ''
@@ -131,13 +132,13 @@ export default {
         },
 
         pushToast(result) {
-            let toastMsg = 'Tv: '
-            result.forEach(element => {
-                toastMsg += element.key() + ', '
-            });
-            toastMsg += 'has jobs at this time.'
+            // let toastMsg = 'Tv: '
+            // result.forEach(element => {
+            //     toastMsg += element.key() + ', '
+            // });
+            // toastMsg += 'has jobs at this time.'
 
-            this.toast.error(toastMsg, {
+            this.toast.error("toastMsg", {
                 position: 'bottom-left',
                 timeout: 5000,
                 closeOnClick: false,
