@@ -1,6 +1,5 @@
 <script>
 import { store } from '../Store.js'
-import { VueScrollPicker } from 'vue-scroll-picker'
 
 export default {
   data() {
@@ -19,10 +18,6 @@ export default {
         choice: false
 
     }
-  },
-
-  components: {
-    VueScrollPicker // Remember to uninstall
   },
 
   watch: {
@@ -89,20 +84,20 @@ export default {
     },
 
     checkOverlap(against_start, against_end, check_start, check_end) {
-        let against_start = new Date(against_start)
-        let against_end = new Date(against_end)
-        let check_start = new Date(check_start)
-        let check_end = new Date(check_end)
+        let against_start_date = new Date(against_start)
+        let against_end_date = new Date(against_end)
+        let check_start_date = new Date(check_start)
+        let check_end_date = new Date(check_end)
 
-        if (against_start < check_start && check_start < against_end) {
+        if (against_start_date < check_start_date && check_start_date < against_end_date) {
             // Check starts in Against
             return true
         }
-        if (against_start < check_end && check_end < against_end) {
+        if (against_start_date < check_end_date && check_end_date < against_end_date) {
             // Check ends in Against
             return true
         }
-        if (check_start < against_start && against_end < check_end) {
+        if (check_start_date < against_start_date && against_end_date < check_end_date) {
             // Against in Check (Check wraps against)
             return true
         }
