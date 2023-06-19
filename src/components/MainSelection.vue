@@ -7,6 +7,7 @@ export default {
     return {
       store,
       telegramMainButton: Telegram.WebApp.MainButton,
+      telegramBackButton: Telegram.WebApp.BackButton,
       card: {}
     }
   },
@@ -42,9 +43,7 @@ export default {
 
   },
 
-  mounted() {
-    const telegramBackButton = Telegram.WebApp.BackButton
-    
+  mounted() {    
     let mainSelectionTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
         switch(this.card.title) {
@@ -62,18 +61,20 @@ export default {
       }
     }
 
+    let mainSelectionBackButton = () => {
+      if (this.telegramBackButton.isVisible) {
+        this.telegramMainButton.offClick(mainSelectionTelegramButton)
+        this.$router.go(-1)
+        this.telegramBackButton.hide()
+      }
+    }
+
     this.telegramMainButton.setParams({
       text: 'Next',
     }).onClick(mainSelectionTelegramButton)
 
-    telegramBackButton.show()
-    telegramBackButton.onClick(() => {
-      if (telegramBackButton.isVisible) {
-        this.telegramMainButton.offClick(mainSelectionTelegramButton)
-        this.$router.go(-1)
-        telegramBackButton.hide()
-      }
-    }),
+    this.telegramBackButton.show()
+    this.telegramBackButton.onClick(mainSelectionBackButton),
 
     this.mainButtonVisibility()
   },

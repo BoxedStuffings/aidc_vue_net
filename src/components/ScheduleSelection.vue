@@ -22,7 +22,7 @@ export default {
   },
 
   components: {
-    VueScrollPicker
+    VueScrollPicker // Remember to uninstall
   },
 
   watch: {

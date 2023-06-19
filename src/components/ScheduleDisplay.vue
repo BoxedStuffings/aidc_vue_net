@@ -1,4 +1,5 @@
 <script>
+import $ from 'jquery'
 import { store } from '../Store.js'
 
 export default {
@@ -6,8 +7,10 @@ export default {
         return {
             store,
             telegramMainButton: Telegram.WebApp.MainButton,
+            telegramBackButton: Telegram.WebApp.BackButton,
             startX: 0,
-            endX: 0
+            endX: 0,
+            test: String
         }
     },
 
@@ -56,23 +59,19 @@ export default {
 
         restSlide() {
             let items = document.querySelectorAll(".schedule-display-detail-content")
-            console.log(items)
             for (let i = 0; i <items.length; i++) {
                 items[i].dataset.type = 0
             }
         },
 
         remove(TV, index) {
-            // TO BE TESTED
-            // let displayDeletionPromise = Promise
-            // displayDeletionPromise = this.deleteDisplayJob()
+            let displayDeletionPromise = Promise
+            displayDeletionPromise = this.deleteDisplayJob(TV.displays[index]._id.$oid)
 
-            // displayDeletionPromise.then(() => {
-            //     store.spliceDisplayFromSelectedTV(TV, index),
-            //     this.restSlide()
-            // },
-            // (e) => {console.log(e), this.restSlide()}
-            // )
+            displayDeletionPromise.then(() => {
+                store.spliceDisplayFromSelectedTV(TV, index),
+                this.restSlide()
+            }, (e) => {console.log(e), this.restSlide()})
         },
 
         async deleteDisplayJob(displayId){
@@ -80,7 +79,7 @@ export default {
                 url: 'https://heehee.amphibistudio.sg/api/displays/' + displayId,
                 method: 'DELETE',
                 headers: {
-                    'Authorization' : 'Bearer ' + '648daddfbc0acb0ad907bdd7|Xj7e4Hmn5eAoq7dDkns3ZnfJGuBMG3D1s7ia384f'
+                    'Authorization' : 'Bearer ' + '6490a3b53a0717b5d40317e2|RFik2GUeqUxOFU1rMQ21B9bokuhWSM3e4XNhqYny'
                 },
                 success:  (success) => {
                     console.log(success.message)
@@ -91,8 +90,6 @@ export default {
     },
 
     mounted() {
-        const telegramBackButton = Telegram.WebApp.BackButton
-
         let scheduleSelectionTelegramButton = () => {
         if (this.telegramMainButton.isVisible) {
             this.$router.push('/MainSelection')
@@ -100,27 +97,30 @@ export default {
             this.telegramMainButton.hide()
         }}
 
-        this.telegramMainButton.setParams({
-        text: 'Upload Media',
-        }).onClick(scheduleSelectionTelegramButton)
-
-        telegramBackButton.show()
-        telegramBackButton.onClick(() => {
-        if (telegramBackButton.isVisible) {
-            this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
-            this.$router.go(-1)
-            telegramBackButton.hide()
+        let scheduleSelectionBackButton = () => {
+            if (this.telegramBackButton.isVisible) {
+                this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
+                this.telegramBackButton.offClick(scheduleSelectionBackButton)
+                this.$router.go(-1)
+                this.telegramBackButton.hide()
+            }
         }
-        }),
 
         this.telegramMainButton.show()
-    },
+        this.telegramMainButton.setParams({
+        text: 'Next',
+        }).onClick(scheduleSelectionTelegramButton)
+
+        this.telegramBackButton.show()
+        this.telegramBackButton.onClick(scheduleSelectionBackButton)
+    }
 
 }
 </script>
 
 <template>
   <div class="schedule-holder">
+    {{ test }}
     <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index">
         <div class="schedule-display-tv">
             <div class="schedule-display-header">
