@@ -29,7 +29,7 @@ export default {
       let video = fileEvent.target.files[0]
 
       console.log(video.type)
-      video.type.indexOf('video/') !== 0 ? this.pushToast : store.uploadVideo(video)
+      video.type.indexOf('video/') !== 0 ? this.pushToast() : store.uploadVideo(video)
 
       // test
       if (store.videoObj instanceof File && video.type.indexOf('video/') == 0) {          

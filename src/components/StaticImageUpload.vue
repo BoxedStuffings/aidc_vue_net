@@ -29,7 +29,7 @@ export default {
       let image = fileEvent.target.files[0]
 
       console.log(image.type)
-      image.type.indexOf('image/') !== 0 ? this.pushToast : store.uploadImage(image)
+      image.type.indexOf('image/') !== 0 ? this.pushToast() : store.uploadImage(image)
 
       // test
       if (store.imageObj instanceof File && image.type.indexOf('image/') == 0) {
