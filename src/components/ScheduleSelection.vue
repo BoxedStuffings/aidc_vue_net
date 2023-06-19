@@ -22,7 +22,7 @@ export default {
 
         choice: false,
         testdate: [['2023-07-08T08:30', '2023-07-08T09:30'], ['2023-07-08T09:30', '2023-07-08T010:30']],
-        test: []
+        test22: []
     }},
 
     watch: {
@@ -113,14 +113,14 @@ export default {
                 let results = []
                 let tvsToScan = store.selectedTvs
                 for (let i = 0; i < tvsToScan.length; i++) {
-                    this.test.push({'tv':tvsToScan[i]})
+                    this.test22.push({'tv':tvsToScan[i]})
                     if (tvsToScan[i].displays.length != 0){
                         for (let x = 0; x < tvsToScan[i].displays.length; x++) {
-                            this.test.push({'tv-displays':tvsToScan[i].disaplays[x]})
+                            this.test22.push({'tv-displays':tvsToScan[i].disaplays[x]})
                             let against_start = tvsToScan[i].displays[x].display_start
                             let against_end = tvsToScan[i].displays[x].display_end
                             if (this.checkOverlap(against_start, against_end, this.dateTime[0], this.dateTime[1])) {
-                                this.test.push({'tv-disply-result': tvsToScan[i].displays[x] })
+                                this.test22.push({'tv-disply-result': tvsToScan[i].displays[x] })
                                 results.push({[tvsToScan[i]._id]: tvsToScan[i].displays[x]})
                                 return
                             }
@@ -237,7 +237,7 @@ export default {
         Selected End Date: {{ selectedEndDate }}<br>
         Done?: {{ choice }}<br>
         {{ dateTime }}<br>
-        {{ test }}
+        {{ test22 }}
     </div>
 </template>
 
