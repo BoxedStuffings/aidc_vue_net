@@ -21,7 +21,8 @@ export default {
         disable: true,
 
         choice: false,
-        testdate: ['2023-07-08T08:30', '2023-07-08T09:30']
+        testdate: ['2023-07-08T08:30', '2023-07-08T09:30'],
+        test: String
     }},
 
     watch: {
@@ -168,12 +169,16 @@ export default {
         this.telegramMainButton.setParams({ text: 'Confirm'})
         Telegram.WebApp.onEvent('mainButtonClicked', () => {
             this.checkAvailablility().then((message) => {
+                this.test = "in"
+
                 if (message === 'No overlaps') {
+                    this.test = "inin"
+
                     this.$router.push('/Confirmation')
                 }
             }).catch((result) => {
+                this.test = "out"
                 this.pushToast(result)
-
             })
         })
 
@@ -201,7 +206,7 @@ export default {
     <div class="ss-holder">
         <div class="ss-header noselect">
             <img src="../assets/boxedstuffings.png">
-            <button @click="test">test</button>
+            <button @click="test">test{{ test }}</button>
             <h2>Schedule Display</h2>
         </div>
         <div>
