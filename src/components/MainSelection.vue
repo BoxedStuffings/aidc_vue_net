@@ -8,7 +8,8 @@ export default {
       store,
       telegramMainButton: Telegram.WebApp.MainButton,
       telegramBackButton: Telegram.WebApp.BackButton,
-      card: {}
+      card: {},
+      test: String
     }
   },
 
@@ -19,7 +20,7 @@ export default {
   methods: {
     selectCard(selection_id) {
       this.card = store.availableMSOptions.find(x => x._id === selection_id)
-
+      console.log(this.card)
       this.mainButtonVisibility()
     },
 
@@ -48,10 +49,11 @@ export default {
 
     let mainSelectionTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
+        this.test = "ture"
         this.telegramMainButton.offClick(mainSelectionTelegramButton)
         this.telegramBackButton.offClick(mainSelectionBackButton)
         switch(this.card.title) {
-          case 'Upload Images':
+          case 'Upload Image':
             this.$router.push('/ImageUp')
             break
           case 'Upload Video':
@@ -89,6 +91,7 @@ export default {
     <ui :ref="`ms-card-ref-id_${option._id}`" :id="'ms-card-id_' + option._id" class="ms-card noselect" :class="{selected : this.card._id === option._id }" @click="selectCard(option._id)" @touchstart="pressingDown(`ms-card-ref-id_${option._id}`)" @touchend="notPressingDown(`ms-card-ref-id_${option._id}`)" v-for="option in store.availableMSOptions" :key="option._id">
       <mainSelectionCardComponent :mainSelectionCard="option"></mainSelectionCardComponent>
     </ui>
+    {{ test }}
   </div>
 </template>
 
