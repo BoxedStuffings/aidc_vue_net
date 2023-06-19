@@ -8,6 +8,7 @@ export default {
     return {
       store,
       telegramMainButton: Telegram.WebApp.MainButton,
+      telegramBackButton: Telegram.WebApp.BackButton,
       loading: true
     }
   },

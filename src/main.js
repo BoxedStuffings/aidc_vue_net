@@ -5,6 +5,8 @@ import router from './router'
 
 import 'jquery'
 import 'fontfaceobserver'
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 
 import './style.css'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -27,4 +29,5 @@ library.add(far, fas)
 createApp(App)
 .component('font-awesome-icon', FontAwesomeIcon)
 .use(router)
+.use(Toast)
 .mount('#app');

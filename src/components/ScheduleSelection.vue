@@ -1,8 +1,14 @@
 <script>
 import { store } from '../Store.js'
+import { useToast } from "vue-toastification"
 
 export default {
-  data() {
+    setup() {
+        const toast = useToast()
+        return {toast}
+    },
+
+    data() {
     return {
         store,
         telegramMainButton: Telegram.WebApp.MainButton,
@@ -13,143 +19,167 @@ export default {
         selectedStartDate: '',
         selectedEndDate: '',
         disable: true,
-        
+
         choice: false
-    }
-  },
+    }},
 
-  watch: {
-    selectedOption() {
-        switch(this.selectedOption) {
-            case 'default':
-                this.$refs.scheduleHolder.classList.remove('enabled')
-                this.$refs.schedulePicker.classList.remove('set')
-                this.selectedEndDate = ''
-                this.dateTime = ['default', 'default']
-                break
-            case 'schedule':
-                this.$refs.scheduleHolder.classList.add('enabled')
-                this.$refs.schedulePicker.classList.add('set')
-                this.selectedStartDate = this.currentDateTime
-                this.dateTime = ['', '']
-                break
-        }
-    },
-
-    selectedStartDate() {
-        if (this.selectedStartDate != '') {
-            this.dateTime[0] = this.selectedStartDate
-            this.disable = false
-        } else {
-            this.disable = true
-        }
-        if (new Date(this.selectedStartDate) > new Date(this.selectedEndDate)) {
-            this.selectedEndDate = ''
-        }
-    },
-
-    selectedEndDate() {
-        if (this.selectedOption != 'default') {
-            this.dateTime[1] = this.selectedEndDate
-        }
-    },
-
-    dateTime: {
-        handler() {
-            if ((this.dateTime[0] != '' && this.dateTime[1] != '') || (this.dateTime[0] == 'default' && this.dateTime[1] == 'default')) {
-                this.choice = true
-            } else {
-                this.choice = false
+    watch: {
+        selectedOption() {
+            switch(this.selectedOption) {
+                case 'default':
+                    this.$refs.scheduleHolder.classList.remove('enabled')
+                    this.$refs.schedulePicker.classList.remove('set')
+                    this.selectedEndDate = ''
+                    this.dateTime = ['default', 'default']
+                    break
+                case 'schedule':
+                    this.$refs.scheduleHolder.classList.add('enabled')
+                    this.$refs.schedulePicker.classList.add('set')
+                    this.selectedStartDate = this.currentDateTime
+                    this.dateTime = ['', '']
+                    break
             }
         },
-        deep: true
-    },
 
-    choice() {
-        // this.choice ? console.log("test") : console.log("false") 
-        this.choice ? this.telegramMainButton.show() : this.telegramMainButton.hide()
-    }
+        selectedStartDate() {
+            if (this.selectedStartDate != '') {
+                this.dateTime[0] = this.selectedStartDate
+                this.disable = false
+            } else {
+                this.disable = true
+            }
+            if (new Date(this.selectedStartDate) > new Date(this.selectedEndDate)) {
+                this.selectedEndDate = ''
+            }
+        },
 
-  },
+        selectedEndDate() {
+            if (this.selectedOption != 'default') {
+                this.dateTime[1] = this.selectedEndDate
+            }
+        },
 
-  methods: {
-    formatDateTime(dateTime) {
-        return new Date(dateTime).toISOString().substring(0, 19)
-    },
+        dateTime: {
+            handler() {
+                if ((this.dateTime[0] != '' && this.dateTime[1] != '') || (this.dateTime[0] == 'default' && this.dateTime[1] == 'default')) {
+                    this.choice = true
+                } else {
+                    this.choice = false
+                }
+            },
+            deep: true
+        },
 
-    addMinutes(date, minutes) {
-        return new Date(date.getTime() + minutes * 60000);
-    },
-
-    checkOverlap(against_start, against_end, check_start, check_end) {
-        let against_start_date = new Date(against_start)
-        let against_end_date = new Date(against_end)
-        let check_start_date = new Date(check_start)
-        let check_end_date = new Date(check_end)
-
-        if (against_start_date < check_start_date && check_start_date < against_end_date) {
-            // Check starts in Against
-            return true
+        choice() {
+            // this.choice ? console.log("test") : console.log("false") 
+            this.choice ? this.telegramMainButton.show() : this.telegramMainButton.hide()
         }
-        if (against_start_date < check_end_date && check_end_date < against_end_date) {
-            // Check ends in Against
-            return true
-        }
-        if (check_start_date < against_start_date && against_end_date < check_end_date) {
-            // Against in Check (Check wraps Against)
-            return true
-        }
-        return false
     },
 
-    checkAvailablility() {
-        return new Promise((resolve, reject) => {
-            let results = []
-            let tvsToScan = store.selectedTvs
-            for (let i = 0; i < tvsToScan.length; i++) {
-                if (tvsToScan[i].displays.length != 0){
-                    for (let x = 0; x < tvsToScan[i].displays.length; x++) {
-                        let against_start = tvsToScan[i].displays[x].display_start
-                        let against_end = tvsToScan[i].displays[x].display_end
-                        if (this.checkOverlap(against_start, against_end, this.dateTime[0], this.dateTime[1])) {
-                            results.push({[tvsToScan[i]._id]: tvsToScan[i].displays[x]})
-                            return
+    methods: {
+        formatDateTime(dateTime) {
+            return new Date(dateTime).toISOString().substring(0, 19)
+        },
+
+        addMinutes(date, minutes) {
+            return new Date(date.getTime() + minutes * 60000);
+        },
+
+        checkOverlap(against_start, against_end, check_start, check_end) {
+            let against_start_date = new Date(against_start)
+            let against_end_date = new Date(against_end)
+            let check_start_date = new Date(check_start)
+            let check_end_date = new Date(check_end)
+
+            if (against_start_date < check_start_date && check_start_date < against_end_date) {
+                // Check starts in Against
+                return true
+            }
+            if (against_start_date < check_end_date && check_end_date < against_end_date) {
+                // Check ends in Against
+                return true
+            }
+            if (check_start_date < against_start_date && against_end_date < check_end_date) {
+                // Against in Check (Check wraps Against)
+                return true
+            }
+            return false
+        },
+
+        checkAvailablility() {
+            return new Promise((resolve, reject) => {
+                let results = []
+                let tvsToScan = store.selectedTvs
+                for (let i = 0; i < tvsToScan.length; i++) {
+                    if (tvsToScan[i].displays.length != 0){
+                        for (let x = 0; x < tvsToScan[i].displays.length; x++) {
+                            let against_start = tvsToScan[i].displays[x].display_start
+                            let against_end = tvsToScan[i].displays[x].display_end
+                            if (this.checkOverlap(against_start, against_end, this.dateTime[0], this.dateTime[1])) {
+                                results.push({[tvsToScan[i]._id]: tvsToScan[i].displays[x]})
+                                return
+                            }
                         }
                     }
                 }
-            }
-            if (results.length > 0) {
-                reject(results)
-            } else {
-                resolve('No overlaps')
-            }
+                if (results.length > 0) {
+                    reject(results)
+                } else {
+                    resolve('No overlaps')
+                }
+            })
+        },
+
+        pushToast(result) {
+            let toastMsg = 'Tv: '
+            result.forEach(element => {
+                toastMsg += element.key() + ', '
+            });
+            toastMsg += 'has jobs at this time.'
+
+            this.toast.error(toastMsg, {
+                position: 'bottom-left',
+                timeout: 5000,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.60,
+                closeButton: 'button',
+                icon: true,
+            })
+        }
+    },
+
+    mounted() {
+        this.telegramMainButton.setParams({ text: 'Confirm'})
+        Telegram.WebApp.onEvent('mainButtonClicked', () => {
+            this.checkAvailablility.then((message) => {
+                if (message === 'No overlaps') {
+                    this.$router.push('/Confirmation')
+                }
+            }).catch((result) => {
+                this.pushToast(result)
+            })
+
+            this.telegramMainButton.hide(),
+            store.setMediaType('Image'),
+            this.$router.push('/ScheduleSelection')
         })
-    }
 
-  },
+        this.telegramBackButton.show()
+        Telegram.WebApp.onEvent('backButtonClicked', () => {
+            this.telegramMainButton.hide(),
+            this.$router.go(-1)
+        })
 
-  mounted() {
-    this.telegramMainButton.setParams({ text: 'Confirm'})
-    Telegram.WebApp.onEvent('mainButtonClicked', () => {
-      this.telegramMainButton.hide(),
-      store.setMediaType('Image'),
-      this.$router.push('/ScheduleSelection')
-    })
-
-    this.telegramBackButton.show()
-    Telegram.WebApp.onEvent('backButtonClicked', () => {
-      this.telegramMainButton.hide(),
-      this.$router.go(-1)
-    })
-
-    let now = new Date()
-    this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
-
-    setInterval(() => {
         let now = new Date()
         this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
-    }, 1000)
-  }
+
+        setInterval(() => {
+            let now = new Date()
+            this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
+        }, 1000)
+    }
 
 }
 </script>
