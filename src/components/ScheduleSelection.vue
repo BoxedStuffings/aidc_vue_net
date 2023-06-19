@@ -148,6 +148,19 @@ export default {
                 closeButton: 'button',
                 icon: true,
             })
+        },
+
+        test() {
+            this.toast.error("toastMsg", {
+                position: 'bottom-left',
+                timeout: 5000,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.60,
+                closeButton: 'button',
+                icon: true,
+            })
         }
     },
 
@@ -188,7 +201,7 @@ export default {
     <div class="ss-holder">
         <div class="ss-header noselect">
             <img src="../assets/boxedstuffings.png">
-            <button @click="testp">test</button>
+            <button @click="test">test</button>
             <h2>Schedule Display</h2>
         </div>
         <div>
