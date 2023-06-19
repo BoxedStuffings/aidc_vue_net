@@ -50,7 +50,8 @@ export default {
       store.setMediaType('Image'),
       this.$router.push('/ScheduleSelection')
     })
-    
+
+    this.telegramBackButton.show()
     Telegram.WebApp.onEvent('backButtonClicked', () => {
       this.telegramMainButton.hide(),
       store.clearImage(),

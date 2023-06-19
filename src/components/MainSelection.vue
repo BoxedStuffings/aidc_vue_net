@@ -59,6 +59,7 @@ export default {
         }
     })
     
+    this.telegramBackButton.show()
     Telegram.WebApp.onEvent('backButtonClicked', () => {this.telegramMainButton.hide(), this.$router.go(-1)})
 
     // let mainSelectionTelegramButton = () => {

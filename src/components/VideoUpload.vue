@@ -45,6 +45,7 @@ export default {
       this.$router.push('/ScheduleSelection')
     })
 
+    this.telegramBackButton.show()
     Telegram.WebApp.onEvent('backButtonClicked', () => {
       this.telegramMainButton.hide(),
       store.clearVideo(),
