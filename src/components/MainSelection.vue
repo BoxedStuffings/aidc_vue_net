@@ -44,12 +44,10 @@ export default {
   },
 
   mounted() {
-    let mainSelectionTelegramButton = () => {
-      if (this.telegramMainButton.isVisible) {
-        this.telegramMainButton.offClick(mainSelectionTelegramButton)
-        this.telegramBackButton.offClick(mainSelectionBackButton)
-        this.telegramMainButton.hide()
-        switch(this.card.title) {
+    this.telegramMainButton.setParams({ text: 'Next'})
+    Telegram.WebApp.onEvent('mainButtonClicked', () => {
+      this.telegramMainButton.hide()
+      switch(this.card.title) {
           case 'Upload Image':
             this.$router.push('/ImageUp')
             break
@@ -59,24 +57,43 @@ export default {
           case 'Create Custome Banner':
             this.$router.push('/CanvasSelection')
         }
-      }
-    }
+    })
+    
+    Telegram.WebApp.onEvent('backButtonClicked', () => {this.telegramMainButton.hide(), this.$router.go(-1)})
 
-    let mainSelectionBackButton = () => {
-      if (this.telegramBackButton.isVisible) {
-        this.telegramMainButton.offClick(mainSelectionTelegramButton)
-        this.telegramBackButton.offClick(mainSelectionBackButton)
-        this.telegramMainButton.hide()
-        this.$router.go(-1)
-      }
-    }
+    // let mainSelectionTelegramButton = () => {
+    //   if (this.telegramMainButton.isVisible) {
+    //     this.telegramMainButton.offClick(mainSelectionTelegramButton)
+    //     this.telegramBackButton.offClick(mainSelectionBackButton)
+    //     this.telegramMainButton.hide()
+    //     switch(this.card.title) {
+    //       case 'Upload Image':
+    //         this.$router.push('/ImageUp')
+    //         break
+    //       case 'Upload Video':
+    //         this.$router.push('/VideoUp')
+    //         break
+    //       case 'Create Custome Banner':
+    //         this.$router.push('/CanvasSelection')
+    //     }
+    //   }
+    // }
 
-    this.telegramMainButton.setParams({
-      text: 'Next',
-    }).onClick(mainSelectionTelegramButton)
+    // let mainSelectionBackButton = () => {
+    //   if (this.telegramBackButton.isVisible) {
+    //     this.telegramMainButton.offClick(mainSelectionTelegramButton)
+    //     this.telegramBackButton.offClick(mainSelectionBackButton)
+    //     this.telegramMainButton.hide()
+    //     this.$router.go(-1)
+    //   }
+    // }
 
-    this.telegramBackButton.show()
-    this.telegramBackButton.onClick(mainSelectionBackButton)
+    // this.telegramMainButton.setParams({
+    //   text: 'Next',
+    // }).onClick(mainSelectionTelegramButton)
+
+    // this.telegramBackButton.show()
+    // this.telegramBackButton.onClick(mainSelectionBackButton)
 
     this.mainButtonVisibility()
   },

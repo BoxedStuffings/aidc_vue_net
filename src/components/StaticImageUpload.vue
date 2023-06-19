@@ -44,32 +44,45 @@ export default {
       bg.style.backgroundImage = `url(${img})`
     }
 
-    let imageUploadTelegramButton = () => {
-      if (this.telegramMainButton.isVisible) {
-        this.telegramMainButton.offClick(imageUploadTelegramButton)
-        this.telegramBackButton.offClick(imageUploadBackButton)
-        this.telegramMainButton.hide()
-        store.setMediaType('Image')
-        this.$router.push('/ScheduleSelection')
-      }
-    }
-
-    let imageUploadBackButton = () => {
-      if (this.telegramBackButton.isVisible) {
-        this.telegramMainButton.offClick(imageUploadTelegramButton)
-        this.telegramBackButton.offClick(imageUploadBackButton)
-        this.telegramMainButton.hide()
-        store.clearImage()
-        this.$router.go(-1)
-      }
-    }
+    this.telegramMainButton.setParams({ text: 'Next'})
+    Telegram.WebApp.onEvent('mainButtonClicked', () => {
+      this.telegramMainButton.hide(),
+      store.setMediaType('Image'),
+      this.$router.push('/ScheduleSelection')
+    })
     
-    this.telegramMainButton.setParams({
-      text: 'Next',
-    }).onClick(imageUploadTelegramButton)
+    Telegram.WebApp.onEvent('backButtonClicked', () => {
+      this.telegramMainButton.hide(),
+      store.clearImage(),
+      this.$router.go(-1)
+    })
 
-    this.telegramBackButton.show()
-    this.telegramBackButton.onClick(imageUploadBackButton)
+    // let imageUploadTelegramButton = () => {
+    //   if (this.telegramMainButton.isVisible) {
+    //     this.telegramMainButton.offClick(imageUploadTelegramButton)
+    //     this.telegramBackButton.offClick(imageUploadBackButton)
+    //     this.telegramMainButton.hide()
+    //     store.setMediaType('Image')
+    //     this.$router.push('/ScheduleSelection')
+    //   }
+    // }
+
+    // let imageUploadBackButton = () => {
+    //   if (this.telegramBackButton.isVisible) {
+    //     this.telegramMainButton.offClick(imageUploadTelegramButton)
+    //     this.telegramBackButton.offClick(imageUploadBackButton)
+    //     this.telegramMainButton.hide()
+    //     store.clearImage()
+    //     this.$router.go(-1)
+    //   }
+    // }
+    
+    // this.telegramMainButton.setParams({
+    //   text: 'Next',
+    // }).onClick(imageUploadTelegramButton)
+
+    // this.telegramBackButton.show()
+    // this.telegramBackButton.onClick(imageUploadBackButton)
 
     // this.mainButtonVisibility()
   }

@@ -86,6 +86,8 @@ export default {
 
   mounted() {
     store.initcount >= 1 ? this.loading = !this.loading : this.initTV()
+    this.telegramMainButton.setParams({ text: 'Select Tv'})
+    Telegram.WebApp.onEvent('mainButtonClicked', () => this.$router.push('/ScheduleDisplay'))
 
     // let tvTelegramButton = () => {
     //   if (this.telegramMainButton.isVisible) {
@@ -97,9 +99,6 @@ export default {
     // this.telegramMainButton.setParams({
     //   text: 'Select Tv',
     // }).onClick(tvTelegramButton)
-
-    Telegram.WebApp.onEvent('mainButtonClicked', () => this.$router.push('/ScheduleDisplay'))
-
     this.mainButtonVisibility()
   },
 

@@ -131,7 +131,7 @@ export default {
   },
 
   mounted() {
-    this.telegramMainButton.hide()
+    // this.telegramMainButton.hide()
 
     let now = new Date()
     this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
@@ -139,36 +139,48 @@ export default {
     setInterval(() => {
         let now = new Date()
         this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
-    }, 1000);
+    }, 1000)
 
-    let scheduleSelectionTelegramButton = () => {
-      if (this.telegramMainButton.isVisible) {
-        this.checkAvailablility().then((message) => {
-            if (message === 'No overlaps') {
-                this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
-                this.telegramBackButton.offClick(scheduleSelectionBackButton)
-                this.$router.push('/Confirmation')
-            }
-        }).catch((result) => {
-            console.log(result) // handle overlaps
-        })
-      }
-    }
+    this.telegramMainButton.setParams({ text: 'Confirm'})
+    Telegram.WebApp.onEvent('mainButtonClicked', () => {
+      this.telegramMainButton.hide(),
+      store.setMediaType('Image'),
+      this.$router.push('/ScheduleSelection')
+    })
+
+    Telegram.WebApp.onEvent('backButtonClicked', () => {
+      this.telegramMainButton.hide(),
+      this.$router.go(-1)
+    })
+
+    // let scheduleSelectionTelegramButton = () => {
+    //   if (this.telegramMainButton.isVisible) {
+    //     this.checkAvailablility().then((message) => {
+    //         if (message === 'No overlaps') {
+    //             this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
+    //             this.telegramBackButton.offClick(scheduleSelectionBackButton)
+    //             this.$router.push('/Confirmation')
+    //         }
+    //     }).catch((result) => {
+    //         console.log(result) // handle overlaps
+    //     })
+    //   }
+    // }
     
-    let scheduleSelectionBackButton = () => {
-        if (this.telegramBackButton.isVisible) {
-            this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
-            this.telegramBackButton.offClick(scheduleSelectionBackButton)
-            this.$router.go(-1)
-        }
-    }
+    // let scheduleSelectionBackButton = () => {
+    //     if (this.telegramBackButton.isVisible) {
+    //         this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
+    //         this.telegramBackButton.offClick(scheduleSelectionBackButton)
+    //         this.$router.go(-1)
+    //     }
+    // }
 
-    this.telegramMainButton.setParams({
-        text: 'Confirm',
-    }).onClick(scheduleSelectionTelegramButton)
+    // this.telegramMainButton.setParams({
+    //     text: 'Confirm',
+    // }).onClick(scheduleSelectionTelegramButton)
 
-    this.telegramBackButton.show()
-    this.telegramBackButton.onClick(scheduleSelectionBackButton)
+    // this.telegramBackButton.show()
+    // this.telegramBackButton.onClick(scheduleSelectionBackButton)
   }
 
 }

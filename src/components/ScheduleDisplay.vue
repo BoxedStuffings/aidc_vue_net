@@ -86,30 +86,34 @@ export default {
     },
 
     mounted() {
-        let scheduleSelectionTelegramButton = () => {
-        if (this.telegramMainButton.isVisible) {
-            this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
-            this.telegramBackButton.offClick(scheduleSelectionBackButton)
-            this.telegramMainButton.hide()
-            this.$router.push('/MainSelection')
-        }}
+        this.telegramMainButton.setParams({ text: 'Next'})
+        Telegram.WebApp.onEvent('mainButtonClicked', () => {this.telegramMainButton.hide(), this.$router.push('/MainSelection')})
+        Telegram.WebApp.onEvent('backButtonClicked', () => {this.telegramMainButton.hide(), this.$router.go(-1)})
 
-        let scheduleSelectionBackButton = () => {
-            if (this.telegramBackButton.isVisible) {
-                this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
-                this.telegramBackButton.offClick(scheduleSelectionBackButton)
-                this.telegramMainButton.hide()
-                this.$router.go(-1)
-            }
-        }
+        // let scheduleSelectionTelegramButton = () => {
+        // if (this.telegramMainButton.isVisible) {
+        //     this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
+        //     this.telegramBackButton.offClick(scheduleSelectionBackButton)
+        //     this.telegramMainButton.hide()
+        //     this.$router.push('/MainSelection')
+        // }}
 
-        this.telegramMainButton.show()
-        this.telegramMainButton.setParams({
-        text: 'Next',
-        }).onClick(scheduleSelectionTelegramButton)
+        // let scheduleSelectionBackButton = () => {
+        //     if (this.telegramBackButton.isVisible) {
+        //         this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
+        //         this.telegramBackButton.offClick(scheduleSelectionBackButton)
+        //         this.telegramMainButton.hide()
+        //         this.$router.go(-1)
+        //     }
+        // }
 
-        this.telegramBackButton.show()
-        this.telegramBackButton.onClick(scheduleSelectionBackButton)
+        // this.telegramMainButton.show()
+        // this.telegramMainButton.setParams({
+        // text: 'Next',
+        // }).onClick(scheduleSelectionTelegramButton)
+
+        // this.telegramBackButton.show()
+        // this.telegramBackButton.onClick(scheduleSelectionBackButton)
     }
 
 }
