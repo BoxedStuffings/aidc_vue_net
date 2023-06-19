@@ -120,7 +120,7 @@ export default {
                             if (this.checkOverlap(against_start, against_end, this.dateTime[0], this.dateTime[1])) {
                                 results.push({[tvsToScan[i]._id]: tvsToScan[i].displays[x]})
                                 this.test22.push({'status': 'caught'})
-                                return
+                                break
                             }
                             this.test22.push({'status': 'loop2'})
                         }
@@ -174,15 +174,10 @@ export default {
         this.telegramMainButton.setParams({ text: 'Confirm'})
         Telegram.WebApp.onEvent('mainButtonClicked', () => {
             this.checkAvailablility().then((message) => {
-                this.test = "in"
-
                 if (message === 'No overlaps') {
-                    this.test = "inin"
-
                     this.$router.push('/Confirmation')
                 }
             }).catch((result) => {
-                this.test = "out"
                 this.pushToast(result)
             })
         })
