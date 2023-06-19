@@ -119,19 +119,14 @@ export default {
                             let against_end = tvsToScan[i].displays[x].display_end
                             if (this.checkOverlap(against_start, against_end, this.dateTime[0], this.dateTime[1])) {
                                 results.push({[tvsToScan[i]._id]: tvsToScan[i].displays[x]})
-                                this.test22.push({'status': 'caught'})
                                 break
                             }
-                            this.test22.push({'status': 'loop2'})
                         }
                     }
-                    this.test22.push({'status': 'loop1'})
                 }
                 if (results.length > 0) {
-                    this.test22.push({'status': 'reject'})
                     reject(results)
                 } else {
-                    this.test22.push({'status': 'resolve'})
                     resolve('No overlaps')
                 }
             })
@@ -154,19 +149,6 @@ export default {
                 closeButton: 'button',
                 icon: true,
             })
-        },
-
-        test() {
-            this.toast.error("toastMsg", {
-                position: 'bottom-left',
-                timeout: 5000,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.60,
-                closeButton: 'button',
-                icon: true,
-            })
         }
     },
 
@@ -178,6 +160,7 @@ export default {
                     this.$router.push('/Confirmation')
                 }
             }).catch((result) => {
+                this.telegramMainButton.show()
                 this.pushToast(result)
             })
         })
@@ -206,7 +189,6 @@ export default {
     <div class="ss-holder">
         <div class="ss-header noselect">
             <img src="../assets/boxedstuffings.png">
-            <button @click="test">test</button>
             <h2>Schedule Display</h2>
         </div>
         <div>
@@ -233,8 +215,7 @@ export default {
         Selected Start Date: {{ selectedStartDate }}<br>
         Selected End Date: {{ selectedEndDate }}<br>
         Done?: {{ choice }}<br>
-        {{ dateTime }}<br>
-        {{ test22 }}
+        {{ dateTime }}
     </div>
 </template>
 

@@ -1,7 +1,13 @@
 <script>
 import { store } from '../Store.js'
+import { useToast } from "vue-toastification"
 
 export default {
+  setup() {
+    const toast = useToast()
+    return {toast}
+  },
+
   data() {
     return {
       store,
@@ -23,7 +29,7 @@ export default {
       let image = fileEvent.target.files[0]
 
       console.log(image.type)
-      image.type.indexOf('image/') !== 0 ? console.log('invalid image') : store.uploadImage(image)
+      image.type.indexOf('image/') !== 0 ? this.pushToast : store.uploadImage(image)
 
       // test
       if (store.imageObj instanceof File && image.type.indexOf('image/') == 0) {
@@ -32,6 +38,19 @@ export default {
 
         bg.style.backgroundImage = `url(${img})`
       }
+    },
+
+    pushToast() {
+      this.toast.error('Invalid Image', {
+        position: 'bottom-left',
+        timeout: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        draggablePercent: 0.60,
+        closeButton: 'button',
+        icon: true,
+      })
     }
 
   },
@@ -64,7 +83,6 @@ export default {
 
 <template>
     <div ref="siuHolder" class="img-upload-holder">
-      <button @click="this.$router.push('/ScheduleSelection')">test</button>
         <div class="img-upload-content">
             <!-- <img class="img-upload-icon noselect" src="../assets/boxedstuffings.png"> -->
             <div class="img-icon-holder"><font-awesome-icon icon="fa-solid fa-upload"  class="img-icon" /></div>

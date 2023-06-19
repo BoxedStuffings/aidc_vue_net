@@ -1,7 +1,13 @@
 <script>
 import { store } from '../Store.js'
+import { useToast } from "vue-toastification"
 
 export default {
+  setup() {
+    const toast = useToast()
+    return {toast}
+  },
+
   data() {
     return {
       store,
@@ -23,13 +29,27 @@ export default {
       let video = fileEvent.target.files[0]
 
       console.log(video.type)
-      video.type.indexOf('video/') !== 0 ? console.log('invalid video') : store.uploadVideo(video)
+      video.type.indexOf('video/') !== 0 ? this.pushToast : store.uploadVideo(video)
 
       // test
       if (store.videoObj instanceof File && video.type.indexOf('video/') == 0) {          
         this.vid = URL.createObjectURL(store.videoObj)
       }
+    },
+
+    pushToast() {
+      this.toast.error('Invalid Video', {
+        position: 'bottom-left',
+        timeout: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        draggablePercent: 0.60,
+        closeButton: 'button',
+        icon: true,
+      })
     }
+
   },
 
   mounted() {
@@ -57,7 +77,6 @@ export default {
 
 <template>
     <div class="vid-upload-holder">
-      <button @click="this.$router.push('/ScheduleSelection')">test</button>
         <video autoplay muted loop playsinline id="vid-bg" :src="vid"></video>
         <div class="vid-upload-content">
             <!-- <img class="vid-upload-icon noselect" src="../assets/boxedstuffings.png"> -->
