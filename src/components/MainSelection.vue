@@ -43,9 +43,13 @@ export default {
 
   },
 
-  mounted() {    
+  mounted() {
+    this.telegramMainButton.hide()
+
     let mainSelectionTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
+        this.telegramMainButton.offClick(mainSelectionTelegramButton)
+        this.telegramBackButton.offClick(mainSelectionBackButton)
         switch(this.card.title) {
           case 'Upload Images':
             this.$router.push('/ImageUp')
@@ -56,16 +60,14 @@ export default {
           case 'Create Custome Banner':
             this.$router.push('/CanvasSelection')
         }
-        this.telegramMainButton.offClick(mainSelectionTelegramButton)
-        this.telegramMainButton.hide()
       }
     }
 
     let mainSelectionBackButton = () => {
       if (this.telegramBackButton.isVisible) {
         this.telegramMainButton.offClick(mainSelectionTelegramButton)
+        this.telegramBackButton.offClick(mainSelectionBackButton)
         this.$router.go(-1)
-        this.telegramBackButton.hide()
       }
     }
 
@@ -74,7 +76,7 @@ export default {
     }).onClick(mainSelectionTelegramButton)
 
     this.telegramBackButton.show()
-    this.telegramBackButton.onClick(mainSelectionBackButton),
+    this.telegramBackButton.onClick(mainSelectionBackButton)
 
     this.mainButtonVisibility()
   },

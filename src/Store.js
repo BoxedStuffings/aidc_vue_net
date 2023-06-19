@@ -7,7 +7,7 @@ export const store = reactive({
     // MainSelection as in db (placeholder values) (MainSelection.vue)
     availableMSOptions: [
         {
-          "_id": 0,
+          "_id": 1,
           "title":"Upload Image",
           "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
           "media":"hehe.com"
@@ -21,7 +21,7 @@ export const store = reactive({
         },
 
         {
-          "_id": 1,
+          "_id": 3,
           "title":"Create Custome Banner",
           "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
           "media":"hehe.com",

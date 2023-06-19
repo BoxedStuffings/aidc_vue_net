@@ -5,8 +5,16 @@ export default {
   data() {
     return {
       store,
-      vid: Object,
-      telegramMainButton: Telegram.WebApp.MainButton
+      telegramMainButton: Telegram.WebApp.MainButton,
+      telegramBackButton: Telegram.WebApp.BackButton,
+      vid: Object
+    }
+  },
+
+  watch: {
+    vid() {
+      // (store.videoObj instanceof File) ? console.log("open") : console.log("close")
+      (store.videoObj instanceof File) ? this.telegramMainButton.show() : this.telegramMainButton.hide()
     }
   },
 
@@ -20,27 +28,33 @@ export default {
       // test
       if (store.videoObj instanceof File && video.type.indexOf('video/') == 0) {          
         this.vid = URL.createObjectURL(store.videoObj)
-        this.mainButtonVisibility()
       }
-
-    },
-
-    mainButtonVisibility() {
-      // (store.videoObj instanceof File) ? console.log("open") : console.log("close")
-      (store.imageObj instanceof File) ? this.telegramMainButton.show() : this.telegramMainButton.hide()
     }
 
   },
 
   mounted() {
-    const telegramBackButton = Telegram.WebApp.BackButton
-    
+    this.telegramMainButton.hide()
+
+    if (store.videoObj instanceof File) {
+      this.vid = URL.createObjectURL(store.videoObj)
+    }
+
     let vidUploadTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
+        this.telegramMainButton.offClick(vidUploadTelegramButton)
+        this.telegramBackButton.offClick(vidUploadBackButton)
         store.setMediaType('Video')
         this.$router.push('/ScheduleSelection')
+      }
+    }
+
+    let vidUploadBackButton = () => {
+      if (this.telegramBackButton.isVisible) {
         this.telegramMainButton.offClick(vidUploadTelegramButton)
-        this.telegramMainButton.hide()
+        this.telegramBackButton.offClick(vidUploadBackButton)
+        store.clearVideo()
+        this.$router.go(-1)
       }
     }
     
@@ -48,16 +62,10 @@ export default {
       text: 'Next',
     }).onClick(vidUploadTelegramButton)
 
-    telegramBackButton.show()
-    telegramBackButton.onClick(() => {
-      if (telegramBackButton.isVisible) {
-        store.clearVideo()
-        this.$router.go(-1)
-        telegramBackButton.hide()
-      }
-    })
+    this.telegramBackButton.show()
+    this.telegramBackButton.onClick(vidUploadBackButton)
 
-    this.mainButtonVisibility()
+    // this.mainButtonVisibility()
   }
 
 }

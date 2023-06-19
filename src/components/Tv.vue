@@ -28,12 +28,10 @@ export default {
         success:  (success) => {
           store.initTVfromDB(success.data)
           console.log(success.data)
-          // Look into this
-          // $.ajaxSetup({
-          //   headers: {
-          //     'Authorization' : 'Bearer ' + success.token
-          //   }
-          // })
+          console.log(success.token)
+          $.ajaxSetup({
+            headers: { 'Authorization' : 'Bearer ' + success.token }
+          })
         },
         error: (error) => console.log(error)
       })
@@ -91,9 +89,8 @@ export default {
 
     let tvTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
-        this.$router.push('/ScheduleDisplay')
         this.telegramMainButton.offClick(tvTelegramButton)
-        this.telegramMainButton.hide()
+        this.$router.push('/ScheduleDisplay')
       }
     }
 

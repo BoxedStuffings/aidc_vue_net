@@ -10,7 +10,6 @@ export default {
             telegramBackButton: Telegram.WebApp.BackButton,
             startX: 0,
             endX: 0,
-            test: String
         }
     },
 
@@ -78,9 +77,6 @@ export default {
             await $.ajax({
                 url: 'https://heehee.amphibistudio.sg/api/displays/' + displayId,
                 method: 'DELETE',
-                headers: {
-                    'Authorization' : 'Bearer ' + '6490a3b53a0717b5d40317e2|RFik2GUeqUxOFU1rMQ21B9bokuhWSM3e4XNhqYny'
-                },
                 success:  (success) => {
                     console.log(success.message)
                 },
@@ -92,9 +88,9 @@ export default {
     mounted() {
         let scheduleSelectionTelegramButton = () => {
         if (this.telegramMainButton.isVisible) {
-            this.$router.push('/MainSelection')
             this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
-            this.telegramMainButton.hide()
+            this.telegramBackButton.offClick(scheduleSelectionBackButton)
+            this.$router.push('/MainSelection')
         }}
 
         let scheduleSelectionBackButton = () => {
@@ -102,7 +98,6 @@ export default {
                 this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
                 this.telegramBackButton.offClick(scheduleSelectionBackButton)
                 this.$router.go(-1)
-                this.telegramBackButton.hide()
             }
         }
 
@@ -120,7 +115,6 @@ export default {
 
 <template>
   <div class="schedule-holder">
-    {{ test }}
     <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index">
         <div class="schedule-display-tv">
             <div class="schedule-display-header">
