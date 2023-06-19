@@ -30,7 +30,6 @@ export default {
         this.vid = URL.createObjectURL(store.videoObj)
       }
     }
-
   },
 
   mounted() {
@@ -51,35 +50,6 @@ export default {
       store.clearVideo(),
       this.$router.go(-1)
     })
-
-    // let vidUploadTelegramButton = () => {
-    //   if (this.telegramMainButton.isVisible) {
-    //     this.telegramMainButton.offClick(vidUploadTelegramButton)
-    //     this.telegramBackButton.offClick(vidUploadBackButton)
-    //     this.telegramMainButton.hide()
-    //     store.setMediaType('Video')
-    //     this.$router.push('/ScheduleSelection')
-    //   }
-    // }
-
-    // let vidUploadBackButton = () => {
-    //   if (this.telegramBackButton.isVisible) {
-    //     this.telegramMainButton.offClick(vidUploadTelegramButton)
-    //     this.telegramBackButton.offClick(vidUploadBackButton)
-    //     this.telegramMainButton.hide()
-    //     store.clearVideo()
-    //     this.$router.go(-1)
-    //   }
-    // }
-    
-    // this.telegramMainButton.setParams({
-    //   text: 'Next',
-    // }).onClick(vidUploadTelegramButton)
-
-    // this.telegramBackButton.show()
-    // this.telegramBackButton.onClick(vidUploadBackButton)
-
-    // this.mainButtonVisibility()
   }
 
 }

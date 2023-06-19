@@ -9,7 +9,7 @@ export default {
             telegramMainButton: Telegram.WebApp.MainButton,
             telegramBackButton: Telegram.WebApp.BackButton,
             startX: 0,
-            endX: 0,
+            endX: 0
         }
     },
 
@@ -82,7 +82,7 @@ export default {
                 },
                 error: (error) => console.log(error)
             })
-        },
+        }
     },
 
     mounted() {
@@ -92,31 +92,6 @@ export default {
         
         this.telegramBackButton.show()
         Telegram.WebApp.onEvent('backButtonClicked', () => {this.telegramMainButton.hide(), this.$router.go(-1)})
-
-        // let scheduleSelectionTelegramButton = () => {
-        // if (this.telegramMainButton.isVisible) {
-        //     this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
-        //     this.telegramBackButton.offClick(scheduleSelectionBackButton)
-        //     this.telegramMainButton.hide()
-        //     this.$router.push('/MainSelection')
-        // }}
-
-        // let scheduleSelectionBackButton = () => {
-        //     if (this.telegramBackButton.isVisible) {
-        //         this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
-        //         this.telegramBackButton.offClick(scheduleSelectionBackButton)
-        //         this.telegramMainButton.hide()
-        //         this.$router.go(-1)
-        //     }
-        // }
-
-        // this.telegramMainButton.show()
-        // this.telegramMainButton.setParams({
-        // text: 'Next',
-        // }).onClick(scheduleSelectionTelegramButton)
-
-        // this.telegramBackButton.show()
-        // this.telegramBackButton.onClick(scheduleSelectionBackButton)
     }
 
 }

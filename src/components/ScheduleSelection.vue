@@ -7,16 +7,14 @@ export default {
         store,
         telegramMainButton: Telegram.WebApp.MainButton,
         telegramBackButton: Telegram.WebApp.BackButton,
-
         currentDateTime: String,
         selectedOption: String,
         dateTime: ['', ''],
         selectedStartDate: '',
         selectedEndDate: '',
         disable: true,
-
+        
         choice: false
-
     }
   },
 
@@ -131,16 +129,6 @@ export default {
   },
 
   mounted() {
-    // this.telegramMainButton.hide()
-
-    let now = new Date()
-    this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
-
-    setInterval(() => {
-        let now = new Date()
-        this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
-    }, 1000)
-
     this.telegramMainButton.setParams({ text: 'Confirm'})
     Telegram.WebApp.onEvent('mainButtonClicked', () => {
       this.telegramMainButton.hide(),
@@ -154,34 +142,13 @@ export default {
       this.$router.go(-1)
     })
 
-    // let scheduleSelectionTelegramButton = () => {
-    //   if (this.telegramMainButton.isVisible) {
-    //     this.checkAvailablility().then((message) => {
-    //         if (message === 'No overlaps') {
-    //             this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
-    //             this.telegramBackButton.offClick(scheduleSelectionBackButton)
-    //             this.$router.push('/Confirmation')
-    //         }
-    //     }).catch((result) => {
-    //         console.log(result) // handle overlaps
-    //     })
-    //   }
-    // }
-    
-    // let scheduleSelectionBackButton = () => {
-    //     if (this.telegramBackButton.isVisible) {
-    //         this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
-    //         this.telegramBackButton.offClick(scheduleSelectionBackButton)
-    //         this.$router.go(-1)
-    //     }
-    // }
+    let now = new Date()
+    this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
 
-    // this.telegramMainButton.setParams({
-    //     text: 'Confirm',
-    // }).onClick(scheduleSelectionTelegramButton)
-
-    // this.telegramBackButton.show()
-    // this.telegramBackButton.onClick(scheduleSelectionBackButton)
+    setInterval(() => {
+        let now = new Date()
+        this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
+    }, 1000)
   }
 
 }

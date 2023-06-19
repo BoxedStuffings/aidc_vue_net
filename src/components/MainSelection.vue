@@ -16,6 +16,12 @@ export default {
     mainSelectionCardComponent
   },
 
+  watch: {
+    card() {
+      this.card._id ? this.telegramMainButton.show() : this.telegramMainButton.hide()
+    }
+  },
+
   methods: {
     selectCard(selection_id) {
       this.card = store.availableMSOptions.find(x => x._id === selection_id)
@@ -37,10 +43,6 @@ export default {
       card.style.transitionDuration = '0.2s'
     },
 
-    mainButtonVisibility() {
-      this.card._id ? this.telegramMainButton.show() : this.telegramMainButton.hide()
-    }
-
   },
 
   mounted() {
@@ -61,43 +63,7 @@ export default {
     
     this.telegramBackButton.show()
     Telegram.WebApp.onEvent('backButtonClicked', () => {this.telegramMainButton.hide(), this.$router.go(-1)})
-
-    // let mainSelectionTelegramButton = () => {
-    //   if (this.telegramMainButton.isVisible) {
-    //     this.telegramMainButton.offClick(mainSelectionTelegramButton)
-    //     this.telegramBackButton.offClick(mainSelectionBackButton)
-    //     this.telegramMainButton.hide()
-    //     switch(this.card.title) {
-    //       case 'Upload Image':
-    //         this.$router.push('/ImageUp')
-    //         break
-    //       case 'Upload Video':
-    //         this.$router.push('/VideoUp')
-    //         break
-    //       case 'Create Custome Banner':
-    //         this.$router.push('/CanvasSelection')
-    //     }
-    //   }
-    // }
-
-    // let mainSelectionBackButton = () => {
-    //   if (this.telegramBackButton.isVisible) {
-    //     this.telegramMainButton.offClick(mainSelectionTelegramButton)
-    //     this.telegramBackButton.offClick(mainSelectionBackButton)
-    //     this.telegramMainButton.hide()
-    //     this.$router.go(-1)
-    //   }
-    // }
-
-    // this.telegramMainButton.setParams({
-    //   text: 'Next',
-    // }).onClick(mainSelectionTelegramButton)
-
-    // this.telegramBackButton.show()
-    // this.telegramBackButton.onClick(mainSelectionBackButton)
-
-    this.mainButtonVisibility()
-  },
+  }
 
 }
 </script>

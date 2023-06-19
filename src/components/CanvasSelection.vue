@@ -15,6 +15,8 @@ export default {
   data() {
     return {
       store,
+      telegramMainButton: Telegram.WebApp.MainButton,
+      telegramBackButton: Telegram.WebApp.BackButton,
       wrapperHeight: 0,
       isBottomSheetOpened: false,
       canvasHeight: 0, // Original Canvas Height  
@@ -353,7 +355,17 @@ export default {
   },
 
   mounted() {
-    const telegramBackButton = Telegram.WebApp.BackButton
+    this.telegramMainButton.setParams({ text: 'Next'})
+    Telegram.WebApp.onEvent('mainButtonClicked', () => {
+      this.telegramMainButton.hide(),
+      this.$router.push('/ScheduleSelection')
+    })
+
+    this.telegramBackButton.show()
+    Telegram.WebApp.onEvent('backButtonClicked', () => {
+      this.telegramMainButton.hide(),
+      this.$router.go(-1)
+    })
 
     // Intialize Fabric.js Canvas
     this.canvas = new fabric.Canvas('canvas', {
@@ -371,14 +383,6 @@ export default {
 
     //Add custom delete control
     this.deleteSelection()
-
-    telegramBackButton.show()
-    telegramBackButton.onClick(() => {
-      if (telegramBackButton.isVisible) {
-        this.$router.go(-1)
-        telegramBackButton.hide()
-      }
-    })
 
     Telegram.WebApp.expand()
   },

@@ -17,7 +17,6 @@ export default {
   },
 
   methods: {
-
     async initTV(){
       await $.ajax({
         url: 'https://heehee.amphibistudio.sg/api/tv',
@@ -47,6 +46,7 @@ export default {
           this.$refs[ref][0].innerHTML = 'Unselect'
         }
       })
+      this.mainButtonVisibility()
     },
 
     selectTV(TV, selection_ref) {
@@ -85,22 +85,13 @@ export default {
   },
 
   mounted() {
-    store.initcount >= 1 ? this.loading = !this.loading : this.initTV()
-
     this.telegramMainButton.setParams({ text: 'Select Tv'})
     Telegram.WebApp.onEvent('mainButtonClicked', () => this.$router.push('/ScheduleDisplay'))
+
     this.telegramBackButton.hide()
 
-    // let tvTelegramButton = () => {
-    //   if (this.telegramMainButton.isVisible) {
-    //     this.telegramMainButton.offClick(tvTelegramButton)
-    //     this.$router.push('/ScheduleDisplay')
-    //   }
-    // }
+    store.initcount >= 1 ? this.loading = !this.loading : this.initTV()
 
-    // this.telegramMainButton.setParams({
-    //   text: 'Select Tv',
-    // }).onClick(tvTelegramButton)
     this.mainButtonVisibility()
   },
 
