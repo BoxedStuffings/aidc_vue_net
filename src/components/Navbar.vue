@@ -1,8 +1,12 @@
 <script>
 import { store } from '../Store.js'
-import '@fortawesome/fontawesome-free/css/all.css';
+import { inject } from 'vue'
+import '@fortawesome/fontawesome-free/css/all.css'
+
 
 export default {
+    name:'Navbar',
+    inject:['canvas'],
     data() {
         return {
             store,
