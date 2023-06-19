@@ -1,4 +1,5 @@
 <script>
+import $ from 'jquery'
 import { store } from '../Store.js'
 
 export default {
@@ -6,8 +7,9 @@ export default {
         return {
             store,
             telegramMainButton: Telegram.WebApp.MainButton,
+            telegramBackButton: Telegram.WebApp.BackButton,
             startX: 0,
-            endX: 0
+            endX: 0,
         }
     },
 
@@ -56,32 +58,25 @@ export default {
 
         restSlide() {
             let items = document.querySelectorAll(".schedule-display-detail-content")
-            console.log(items)
             for (let i = 0; i <items.length; i++) {
                 items[i].dataset.type = 0
             }
         },
 
         remove(TV, index) {
-            // TO BE TESTED
-            // let displayDeletionPromise = Promise
-            // displayDeletionPromise = this.deleteDisplayJob()
+            let displayDeletionPromise = Promise
+            displayDeletionPromise = this.deleteDisplayJob(TV.displays[index]._id.$oid)
 
-            // displayDeletionPromise.then(() => {
-            //     store.spliceDisplayFromSelectedTV(TV, index),
-            //     this.restSlide()
-            // },
-            // (e) => {console.log(e), this.restSlide()}
-            // )
+            displayDeletionPromise.then(() => {
+                store.spliceDisplayFromSelectedTV(TV, index),
+                this.restSlide()
+            }, (e) => {console.log(e), this.restSlide()})
         },
 
         async deleteDisplayJob(displayId){
             await $.ajax({
                 url: 'https://heehee.amphibistudio.sg/api/displays/' + displayId,
                 method: 'DELETE',
-                headers: {
-                    'Authorization' : 'Bearer ' + '648daddfbc0acb0ad907bdd7|Xj7e4Hmn5eAoq7dDkns3ZnfJGuBMG3D1s7ia384f'
-                },
                 success:  (success) => {
                     console.log(success.message)
                 },
@@ -91,30 +86,31 @@ export default {
     },
 
     mounted() {
-        const telegramBackButton = Telegram.WebApp.BackButton
-
         let scheduleSelectionTelegramButton = () => {
         if (this.telegramMainButton.isVisible) {
-            this.$router.push('/MainSelection')
             this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
+            this.telegramBackButton.offClick(scheduleSelectionBackButton)
             this.telegramMainButton.hide()
+            this.$router.push('/MainSelection')
         }}
 
-        this.telegramMainButton.setParams({
-        text: 'Upload Media',
-        }).onClick(scheduleSelectionTelegramButton)
-
-        telegramBackButton.show()
-        telegramBackButton.onClick(() => {
-        if (telegramBackButton.isVisible) {
-            this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
-            this.$router.go(-1)
-            telegramBackButton.hide()
+        let scheduleSelectionBackButton = () => {
+            if (this.telegramBackButton.isVisible) {
+                this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
+                this.telegramBackButton.offClick(scheduleSelectionBackButton)
+                this.telegramMainButton.hide()
+                this.$router.go(-1)
+            }
         }
-        }),
 
         this.telegramMainButton.show()
-    },
+        this.telegramMainButton.setParams({
+        text: 'Next',
+        }).onClick(scheduleSelectionTelegramButton)
+
+        this.telegramBackButton.show()
+        this.telegramBackButton.onClick(scheduleSelectionBackButton)
+    }
 
 }
 </script>

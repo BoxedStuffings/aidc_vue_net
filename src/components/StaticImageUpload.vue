@@ -5,7 +5,16 @@ export default {
   data() {
     return {
       store,
-      telegramMainButton: Telegram.WebApp.MainButton
+      telegramMainButton: Telegram.WebApp.MainButton,
+      telegramBackButton: Telegram.WebApp.BackButton,
+      img: Object
+    }
+  },
+
+  watch: {
+    img() {
+      // (store.imageObj instanceof File) ? console.log("open") : console.log("close")
+      (store.imageObj instanceof File) ? this.telegramMainButton.show() : this.telegramMainButton.hide()
     }
   },
 
@@ -19,29 +28,39 @@ export default {
       // test
       if (store.imageObj instanceof File && image.type.indexOf('image/') == 0) {
         let bg = this.$refs.siuHolder
-        let img = URL.createObjectURL(store.imageObj)
+        this.img = URL.createObjectURL(store.imageObj)
 
         bg.style.backgroundImage = `url(${img})`
-        this.mainButtonVisibility()
       }
-    },
-
-    mainButtonVisibility() {
-      // (store.imageObj instanceof File) ? console.log("open") : console.log("close")
-      (store.imageObj instanceof File) ? this.telegramMainButton.show() : this.telegramMainButton.hide()
     }
 
   },
 
   mounted() {
-    const telegramBackButton = Telegram.WebApp.BackButton
+    if (store.imageObj instanceof File) {
+      let bg = this.$refs.siuHolder
+      this.img = URL.createObjectURL(store.imageObj)
+
+      bg.style.backgroundImage = `url(${img})`
+    }
 
     let imageUploadTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
+        this.telegramMainButton.offClick(imageUploadTelegramButton)
+        this.telegramBackButton.offClick(imageUploadBackButton)
+        this.telegramMainButton.hide()
         store.setMediaType('Image')
         this.$router.push('/ScheduleSelection')
+      }
+    }
+
+    let imageUploadBackButton = () => {
+      if (this.telegramBackButton.isVisible) {
         this.telegramMainButton.offClick(imageUploadTelegramButton)
+        this.telegramBackButton.offClick(imageUploadBackButton)
         this.telegramMainButton.hide()
+        store.clearImage()
+        this.$router.go(-1)
       }
     }
     
@@ -49,16 +68,10 @@ export default {
       text: 'Next',
     }).onClick(imageUploadTelegramButton)
 
-    telegramBackButton.show()
-    telegramBackButton.onClick(() => {
-      if (telegramBackButton.isVisible) {
-        store.clearImage()
-        this.$router.go(-1)
-        telegramBackButton.hide()
-      }
-    })
+    this.telegramBackButton.show()
+    this.telegramBackButton.onClick(imageUploadBackButton)
 
-    this.mainButtonVisibility()
+    // this.mainButtonVisibility()
   }
 
 }

@@ -7,6 +7,7 @@ export default {
     return {
       store,
       telegramMainButton: Telegram.WebApp.MainButton,
+      telegramBackButton: Telegram.WebApp.BackButton,
       card: {}
     }
   },
@@ -18,7 +19,7 @@ export default {
   methods: {
     selectCard(selection_id) {
       this.card = store.availableMSOptions.find(x => x._id === selection_id)
-
+      console.log(this.card)
       this.mainButtonVisibility()
     },
 
@@ -43,12 +44,13 @@ export default {
   },
 
   mounted() {
-    const telegramBackButton = Telegram.WebApp.BackButton
-    
     let mainSelectionTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
+        this.telegramMainButton.offClick(mainSelectionTelegramButton)
+        this.telegramBackButton.offClick(mainSelectionBackButton)
+        this.telegramMainButton.hide()
         switch(this.card.title) {
-          case 'Upload Images':
+          case 'Upload Image':
             this.$router.push('/ImageUp')
             break
           case 'Upload Video':
@@ -57,8 +59,15 @@ export default {
           case 'Create Custome Banner':
             this.$router.push('/CanvasSelection')
         }
+      }
+    }
+
+    let mainSelectionBackButton = () => {
+      if (this.telegramBackButton.isVisible) {
         this.telegramMainButton.offClick(mainSelectionTelegramButton)
+        this.telegramBackButton.offClick(mainSelectionBackButton)
         this.telegramMainButton.hide()
+        this.$router.go(-1)
       }
     }
 
@@ -66,14 +75,8 @@ export default {
       text: 'Next',
     }).onClick(mainSelectionTelegramButton)
 
-    telegramBackButton.show()
-    telegramBackButton.onClick(() => {
-      if (telegramBackButton.isVisible) {
-        this.telegramMainButton.offClick(mainSelectionTelegramButton)
-        this.$router.go(-1)
-        telegramBackButton.hide()
-      }
-    }),
+    this.telegramBackButton.show()
+    this.telegramBackButton.onClick(mainSelectionBackButton)
 
     this.mainButtonVisibility()
   },

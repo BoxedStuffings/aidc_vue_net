@@ -1,6 +1,5 @@
 <script>
 import { store } from '../Store.js'
-import { VueScrollPicker } from 'vue-scroll-picker'
 
 export default {
   data() {
@@ -8,21 +7,17 @@ export default {
         store,
         telegramMainButton: Telegram.WebApp.MainButton,
         telegramBackButton: Telegram.WebApp.BackButton,
-        scheduleSelectionTelegramButton: Function,
-        scheduleSelectionBackButton: Function,
 
-        dateTime: ['', ''],
-        disable: true,
-        choice: false,
-        selectedOption: String,
         currentDateTime: String,
+        selectedOption: String,
+        dateTime: ['', ''],
         selectedStartDate: '',
-        selectedEndDate: ''
-    }
-  },
+        selectedEndDate: '',
+        disable: true,
 
-  components: {
-    VueScrollPicker
+        choice: false
+
+    }
   },
 
   watch: {
@@ -31,13 +26,13 @@ export default {
             case 'default':
                 this.$refs.scheduleHolder.classList.remove('enabled')
                 this.$refs.schedulePicker.classList.remove('set')
-                this.selectedStartDate = ''
                 this.selectedEndDate = ''
                 this.dateTime = ['default', 'default']
                 break
             case 'schedule':
                 this.$refs.scheduleHolder.classList.add('enabled')
                 this.$refs.schedulePicker.classList.add('set')
+                this.selectedStartDate = this.currentDateTime
                 this.dateTime = ['', '']
                 break
         }
@@ -51,12 +46,14 @@ export default {
             this.disable = true
         }
         if (new Date(this.selectedStartDate) > new Date(this.selectedEndDate)) {
-            this.selectedEndDate = 0
+            this.selectedEndDate = ''
         }
     },
 
     selectedEndDate() {
-        this.dateTime[1] = this.selectedEndDate
+        if (this.selectedOption != 'default') {
+            this.dateTime[1] = this.selectedEndDate
+        }
     },
 
     dateTime: {
@@ -87,16 +84,21 @@ export default {
     },
 
     checkOverlap(against_start, against_end, check_start, check_end) {
-        if (against_start < check_start && check_start < against_end) {
+        let against_start_date = new Date(against_start)
+        let against_end_date = new Date(against_end)
+        let check_start_date = new Date(check_start)
+        let check_end_date = new Date(check_end)
+
+        if (against_start_date < check_start_date && check_start_date < against_end_date) {
             // Check starts in Against
             return true
         }
-        if (against_start < check_end && check_end < against_end) {
+        if (against_start_date < check_end_date && check_end_date < against_end_date) {
             // Check ends in Against
             return true
         }
-        if (check_start < against_start && against_end < check_end) {
-            // Against in Check (Check wraps against)
+        if (check_start_date < against_start_date && against_end_date < check_end_date) {
+            // Against in Check (Check wraps Against)
             return true
         }
         return false
@@ -109,7 +111,9 @@ export default {
             for (let i = 0; i < tvsToScan.length; i++) {
                 if (tvsToScan[i].displays.length != 0){
                     for (let x = 0; x < tvsToScan[i].displays.length; x++) {
-                        if (this.checkOverlap(tvsToScan[i].displays[x].display_start, tvsToScan[i].displays[x].display_end, this.dateTime[0], this.dateTime[1])) {
+                        let against_start = tvsToScan[i].displays[x].display_start
+                        let against_end = tvsToScan[i].displays[x].display_end
+                        if (this.checkOverlap(against_start, against_end, this.dateTime[0], this.dateTime[1])) {
                             results.push({[tvsToScan[i]._id]: tvsToScan[i].displays[x]})
                             return
                         }
@@ -124,13 +128,12 @@ export default {
         })
     }
 
-    
-
   },
 
   mounted() {
-    let now = new Date()
+    this.telegramMainButton.hide()
 
+    let now = new Date()
     this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
 
     setInterval(() => {
@@ -138,32 +141,34 @@ export default {
         this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
     }, 1000);
 
-    this.scheduleSelectionTelegramButton = () => {
+    let scheduleSelectionTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
         this.checkAvailablility().then((message) => {
-            this.$router.push('/Confirmation')
-            this.telegramMainButton.offClick(this.scheduleSelectionTelegramButton)
-            this.telegramMainButton.hide()
+            if (message === 'No overlaps') {
+                this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
+                this.telegramBackButton.offClick(scheduleSelectionBackButton)
+                this.$router.push('/Confirmation')
+            }
         }).catch((result) => {
             console.log(result) // handle overlaps
         })
       }
     }
     
-    this.scheduleSelectionBackButton = () => {
+    let scheduleSelectionBackButton = () => {
         if (this.telegramBackButton.isVisible) {
-            this.telegramMainButton.offClick(this.scheduleSelectionBackButton)
+            this.telegramMainButton.offClick(scheduleSelectionTelegramButton)
+            this.telegramBackButton.offClick(scheduleSelectionBackButton)
             this.$router.go(-1)
-            telegramBackButton.hide()
         }
     }
 
     this.telegramMainButton.setParams({
         text: 'Confirm',
-    }).onClick(this.scheduleSelectionTelegramButton)
+    }).onClick(scheduleSelectionTelegramButton)
 
     this.telegramBackButton.show()
-    this.telegramBackButton.onClick(this.scheduleSelectionBackButton)
+    this.telegramBackButton.onClick(scheduleSelectionBackButton)
   }
 
 }
@@ -198,11 +203,11 @@ export default {
         Current Date: {{ currentDateTime }}<br>
         Selected Start Date: {{ selectedStartDate }}<br>
         Selected End Date: {{ selectedEndDate }}<br>
-        Done?: {{ choice }}
+        Done?: {{ choice }}<br>
+        {{ dateTime }}
     </div>
 </template>
 
-<style src="vue-scroll-picker/lib/style.css"></style>
 <style scoped>
 .ss-holder {
     height: 0;
@@ -267,7 +272,7 @@ export default {
     padding: 2%;
 }
 .dateTime-picker {
-    min-width: 0 !important;
+	min-height: 2.5rem;
 }
 .form-control {
     font-size: 3vmin;
