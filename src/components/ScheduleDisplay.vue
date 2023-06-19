@@ -88,6 +88,8 @@ export default {
     mounted() {
         this.telegramMainButton.setParams({ text: 'Next'})
         Telegram.WebApp.onEvent('mainButtonClicked', () => {this.telegramMainButton.hide(), this.$router.push('/MainSelection')})
+        
+        this.telegramBackButton.show()
         Telegram.WebApp.onEvent('backButtonClicked', () => {this.telegramMainButton.hide(), this.$router.go(-1)})
 
         // let scheduleSelectionTelegramButton = () => {
