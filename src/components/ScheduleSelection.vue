@@ -2,34 +2,22 @@
 import { store } from '../Store.js'
 import { VueScrollPicker } from 'vue-scroll-picker'
 
-
 export default {
   data() {
     return {
         store,
         telegramMainButton: Telegram.WebApp.MainButton,
         telegramBackButton: Telegram.WebApp.BackButton,
-        scheduleSelectionStartTelegramButton: Function,
-        scheduleSelectionNextTelegramButton: Function,
-        scheduleSelectionStartBackButton: Function,
-        scheduleSelectionNextBackButton: Function,
-        options: [
-            {_id: 0, Description: 'Immediately'},
-            {_id: 1, Description: 'In 10 Minutes'},
-            {_id: 2, Description: 'In 1 Hour'}
-        ],
-        days: [...Array(8).keys()],
-        hours: [...Array(24).keys()],
-        minutes: [...Array(60).keys()],
-        endTime: [0, 0, 0],
-        startOrEnd: false,
-        currentDate: String,
-        selectedDate: '',
-        selectedOption: {},
-        selectedEndOption: '',
-        calculate: '',
-        endDate: '',
-        calculatedEndDate: ''
+        scheduleSelectionTelegramButton: Function,
+        scheduleSelectionBackButton: Function,
+
+        dateTime: ['', ''],
+        disable: true,
+        choice: false,
+        selectedOption: String,
+        currentDateTime: String,
+        selectedStartDate: '',
+        selectedEndDate: ''
     }
   },
 
@@ -39,236 +27,185 @@ export default {
 
   watch: {
     selectedOption() {
-        switch(this.selectedOption._id) {
-            case 0:
-                this.calculate = this.currentDate
+        switch(this.selectedOption) {
+            case 'default':
+                this.$refs.scheduleHolder.classList.remove('enabled')
+                this.$refs.schedulePicker.classList.remove('set')
+                this.selectedStartDate = ''
+                this.selectedEndDate = ''
+                this.dateTime = ['default', 'default']
                 break
-            case 1:
-                let tenAfterCurrent = this.addMinutes(new Date(this.currentDate), 10)
-                this.calculate = this.formatDateTime(tenAfterCurrent.getTime() - (tenAfterCurrent.getTimezoneOffset() * 60000))
+            case 'schedule':
+                this.$refs.scheduleHolder.classList.add('enabled')
+                this.$refs.schedulePicker.classList.add('set')
+                this.dateTime = ['', '']
                 break
-            case 2:
-                let sixtyAfterCurrent = this.addMinutes(new Date(this.currentDate), 60)
-                this.calculate = this.formatDateTime(sixtyAfterCurrent.getTime() - (sixtyAfterCurrent.getTimezoneOffset() * 60000))
-                break
-            case 3:
-                this.calculate = this.selectedDate
-                break
-        }
-        console.log(this.calculate)
-    },
-
-    selectedEndOption() {
-        if (this.selectedEndOption === 'specific') {
-            this.endTime = [0, 0, 0]
         }
     },
 
-    endTime: {
+    selectedStartDate() {
+        if (this.selectedStartDate != '') {
+            this.dateTime[0] = this.selectedStartDate
+            this.disable = false
+        } else {
+            this.disable = true
+        }
+        if (new Date(this.selectedStartDate) > new Date(this.selectedEndDate)) {
+            this.selectedEndDate = 0
+        }
+    },
+
+    selectedEndDate() {
+        this.dateTime[1] = this.selectedEndDate
+    },
+
+    dateTime: {
         handler() {
-            if (this.endTime[0] != 0 || this.endTime[1] != 0 || this.endTime[2] != 0) {
-                this.selectedEndOption = 'select'
+            if ((this.dateTime[0] != '' && this.dateTime[1] != '') || (this.dateTime[0] == 'default' && this.dateTime[1] == 'default')) {
+                this.choice = true
+            } else {
+                this.choice = false
             }
-            let addedMinutes = this.endTime[0] * 1440  + this.endTime[1] * 60 + this.endTime[2]
-            let newDateTime = this.addMinutes(new Date(this.calculate), addedMinutes)
-            this.calculatedEndDate = this.formatDateTime(newDateTime.getTime() - (newDateTime.getTimezoneOffset() * 60000))
         },
         deep: true
     },
 
-    endDate() {
-        this.calculatedEndDate = this.endDate
-    },
-
-    calculatedEndDate() {
-        if (this.calculatedEndDate.length != 0) {
-            this.scheduleSelectionNextTelegramButton = () => {
-                if (this.telegramMainButton.isVisible) {
-                    store.setjobTiming([this.calculate, this.calculatedEndDate])
-                    this.$router.push('/Confirmation')
-                    this.telegramMainButton.offClick(this.scheduleSelectionNextTelegramButton)
-                    this.telegramMainButton.hide()
-                }
-            }
- 
-            this.telegramMainButton.setParams({
-                text: 'Next',
-            }).onClick(this.scheduleSelectionNextTelegramButton)
-            this.telegramMainButton.show()
-        }
-    },
-
-    calculate() {
-        this.mainButtonVisibility()
+    choice() {
+        // this.choice ? console.log("test") : console.log("false") 
+        this.choice ? this.telegramMainButton.show() : this.telegramMainButton.hide()
     }
+
   },
 
   methods: {
     formatDateTime(dateTime) {
-        return new Date(dateTime).toISOString().substring(0, 19) // to 16
-    },
-
-    dateTimePicked() {
-        this.selectedOption = {_id: 3, Description: 'DateTime'}
-    },
-
-    endDateTimePicked() {
-        this.selectedEndOption = 'specific'
+        return new Date(dateTime).toISOString().substring(0, 19)
     },
 
     addMinutes(date, minutes) {
         return new Date(date.getTime() + minutes * 60000);
     },
 
-    toggle() {
-        this.startOrEnd = !this.startOrEnd
-        this.endDate = this.calculate
+    checkOverlap(against_start, against_end, check_start, check_end) {
+        if (against_start < check_start && check_start < against_end) {
+            // Check starts in Against
+            return true
+        }
+        if (against_start < check_end && check_end < against_end) {
+            // Check ends in Against
+            return true
+        }
+        if (check_start < against_start && against_end < check_end) {
+            // Against in Check (Check wraps against)
+            return true
+        }
+        return false
     },
 
-    mainButtonVisibility() {
-        // this.calculate ? console.log("open") : console.log("close")
-        this.calculate ? this.telegramMainButton.show() : this.telegramMainButton.hide()
+    checkAvailablility() {
+        return new Promise((resolve, reject) => {
+            let results = []
+            let tvsToScan = store.selectedTvs
+            for (let i = 0; i < tvsToScan.length; i++) {
+                if (tvsToScan[i].displays.length != 0){
+                    for (let x = 0; x < tvsToScan[i].displays.length; x++) {
+                        if (this.checkOverlap(tvsToScan[i].displays[x].display_start, tvsToScan[i].displays[x].display_end, this.dateTime[0], this.dateTime[1])) {
+                            results.push({[tvsToScan[i]._id]: tvsToScan[i].displays[x]})
+                            return
+                        }
+                    }
+                }
+            }
+            if (results.length > 0) {
+                reject(results)
+            } else {
+                resolve('No overlaps')
+            }
+        })
     }
+
+    
 
   },
 
   mounted() {
     let now = new Date()
-    const telegramBackButton = Telegram.WebApp.BackButton
 
-    this.currentDate = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
-    this.selectedDate = this.currentDate
+    this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
 
     setInterval(() => {
         let now = new Date()
-        this.currentDate = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
+        this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
     }, 1000);
 
-    this.scheduleSelectionStartTelegramButton = () => {
+    this.scheduleSelectionTelegramButton = () => {
       if (this.telegramMainButton.isVisible) {
-        this.startOrEnd = !this.startOrEnd
-        this.telegramMainButton.offClick(this.scheduleSelectionStartTelegramButton)
-        this.telegramBackButton.offClick(this.scheduleSelectionStartBackButton)
-        this.telegramMainButton.hide()
-
-        telegramBackButton.onClick(this.scheduleSelectionNextBackButton)
+        this.checkAvailablility().then((message) => {
+            this.$router.push('/Confirmation')
+            this.telegramMainButton.offClick(this.scheduleSelectionTelegramButton)
+            this.telegramMainButton.hide()
+        }).catch((result) => {
+            console.log(result) // handle overlaps
+        })
       }
     }
     
-    this.scheduleSelectionStartBackButton = () => {
+    this.scheduleSelectionBackButton = () => {
         if (this.telegramBackButton.isVisible) {
-            this.telegramMainButton.offClick(this.scheduleSelectionStartTelegramButton)
+            this.telegramMainButton.offClick(this.scheduleSelectionBackButton)
             this.$router.go(-1)
             telegramBackButton.hide()
         }
     }
 
-    this.scheduleSelectionNextBackButton = () => {
-        if (this.telegramBackButton.isVisible) {
-            this.startOrEnd = !this.startOrEnd
-            this.telegramMainButton.offClick()
-
-            this.telegramMainButton.setParams({
-                text: 'Select End'
-            }).onClick(this.scheduleSelectionStartTelegramButton)
-            this.mainButtonVisibility()
-        }
-    }
-
     this.telegramMainButton.setParams({
-        text: 'Select End time',
-    }).onClick(this.scheduleSelectionStartTelegramButton)
+        text: 'Confirm',
+    }).onClick(this.scheduleSelectionTelegramButton)
 
     this.telegramBackButton.show()
-    this.telegramBackButton.onClick(this.scheduleSelectionStartBackButton)
-
-    this.mainButtonVisibility()
+    this.telegramBackButton.onClick(this.scheduleSelectionBackButton)
   }
 
 }
 </script>
 
 <template>
-    <!-- End DateTime Picker -->
-    <div class="ss-holder" v-if="startOrEnd">
-        <button @click="toggle">false</button>
+    <div class="ss-holder">
         <div class="ss-header noselect">
             <img src="../assets/boxedstuffings.png">
-            <h2>Schedule Display: select end time</h2>
+            <h2>Schedule Display</h2>
         </div>
-        <!-- Option -->
-        <input type="radio" name="endOptions" value="select" id="selectEndTime" class="btn-check" v-model="selectedEndOption">
-        <label class="btn btn-secondary ss-btn" for="selectEndTime" :style="{'margin-block':'1%'}">
-            Select how long to display:
-        </label>
-        <div class="picker-group">
-            <h4>Days</h4>
-            <h4>Hours</h4>
-            <h4>Minutes</h4>
-            <VueScrollPicker :options="days" v-model="endTime[0]" />
-            <VueScrollPicker :options="hours" v-model="endTime[1]" />
-            <VueScrollPicker :options="minutes" v-model="endTime[2]" />
+        <div>
+            <input type="radio" name="startOptions" value="default" id="option-default" class="btn-check" v-model="selectedOption">
+            <label class="btn btn-secondary ss-btn" for="option-default">Set as Default</label>
         </div>
-        <!-- DateTime selector -->
-        <input type="radio" name="endOptions" value="specific" id="end-option-Date" class="btn-check" v-model="selectedEndOption">
-        <label class="btn btn-secondary ss-btn" :style="{'margin-top':'15%'}" for="end-option-Date">
-            or Choose specific Date & Time
-            <span>
-                <input ref="test" type="datetime-local" :min="calculate" class="form-control" @change="endDateTimePicked" v-model="endDate">
-            </span>
-        </label>
-        End Day: {{ endTime[0] }}<br>
-        End Hour: {{ endTime[1] }}<br>
-        End Minutes: {{ endTime[2] }}<br>
-        End DateTime: {{ endDate }}<br>
-        Calculated End Date: {{ calculatedEndDate }}
-    </div>
-    <!-- Start DateTime Picker -->
-    <div class="ss-holder" v-else>
-        <button @click="toggle">true</button>
-        <div class="ss-header noselect">
-            <img src="../assets/boxedstuffings.png">
-            <h2>Schedule Display: select start time</h2>
+        <div>
+            <input type="radio" name="startOptions" value="schedule" id="option-schedule" class="btn-check" v-model="selectedOption">
+            <label class="btn btn-secondary ss-btn" for="option-schedule">Schedule Display</label>
         </div>
-        <!-- Options -->
-        <ui v-for="option in options" :key="option._id">
-            <input type="radio" name="startOptions" :value="option" :id="'option_' + option._id" class="btn-check" v-model="selectedOption">
-            <label class="btn btn-secondary ss-btn" :for="'option_' + option._id">{{ option.Description }}</label>
-        </ui>
-        <!-- DateTime selector -->
-        <input type="radio" name="startOptions" :value="{_id: 3, Description: 'DateTime'}" id="option_Date" class="btn-check" v-model="selectedOption">
-        <label class="btn btn-secondary ss-btn" for="option_Date">
-            Choose Date & Time
-            <span>
-                <input type="datetime-local" :min="currentDate" class="form-control" @change="dateTimePicked" v-model="selectedDate">
-            </span>
-        </label>
-        Current Date: {{ currentDate }}<br>
-        Selected Date: {{ selectedDate }}<br>
-        Selected Option: {{ selectedOption }}<br>
-        Calculated Date: {{ calculate }}
+        <div ref="scheduleHolder" class="ss-dateTime-picker-holder">
+            <div ref="schedulePicker" class="ss-dateTime-pickers">
+                <div class="ss-dateTime-picker-row">
+                    <h6>Starting DateTime: </h6>
+                    <input type="datetime-local" class="form-control dateTime-picker" :min="currentDateTime" @change="startDateTimePicked" v-model="selectedStartDate">
+                </div>
+                <div class="ss-dateTime-picker-row">
+                    <h6>Ending DateTime: </h6>
+                    <input type="datetime-local" class="form-control dateTime-picker" :min="selectedStartDate" :disabled="disable" @change="endDateTimePicked" v-model="selectedEndDate">
+                </div>
+            </div>
+        </div>
+        Current Date: {{ currentDateTime }}<br>
+        Selected Start Date: {{ selectedStartDate }}<br>
+        Selected End Date: {{ selectedEndDate }}<br>
+        Done?: {{ choice }}
     </div>
 </template>
 
 <style src="vue-scroll-picker/lib/style.css"></style>
 <style scoped>
-.picker-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-items: center;
-}
-.picker-group h4 {
-    margin: 0;
-}
-.picker-group :deep(.vue-scroll-picker-layer-top) {
-    background: linear-gradient(180deg, var(--tg-theme-bg-color) 10%, color-mix(in srgb, var(--tg-theme-bg-color), transparent 40%));
-}
-.picker-group :deep(.vue-scroll-picker-layer-bottom) {
-    background: linear-gradient(0deg, var(--tg-theme-bg-color) 10%, color-mix(in srgb, var(--tg-theme-bg-color), transparent 40%));
-}
 .ss-holder {
-    display: flex;
-    flex-direction: column;
+    height: 0;
     padding: 1vh 2vw;
 }
 .ss-header {
@@ -288,14 +225,49 @@ export default {
     font-size: 4vmin;
 }
 .ss-btn {
+    min-height: 7vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    min-height: 7vh;
     margin-top: 1%;
     text-align: left;
     font-size: 3vmin;
+}
+.ss-dateTime-picker-holder {
+    height: 0vh;
+    position: relative;
+    border-radius: 0.375rem;
+    padding-top: 1vh;
+    background-color: color-mix(in srgb, #6c757d, white 10%);
+    text-align: left;
+    font-size: 3vmin;
+    transform: translate(0, -7vh);
+    transition-duration: 0.3s;
+    z-index: -1;
+}
+.enabled {
+    height: 22vh;
+    transform: translate(0, -1vh);
+}
+.ss-dateTime-pickers{
+    visibility: hidden;
+    transition-duration: 0.05s;
+}
+.set {
+    visibility: visible;
+    z-index: 2;
+}
+.ss-dateTime-picker-row {
+    height: 10vh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 2%;
+}
+.dateTime-picker {
+    min-width: 0 !important;
 }
 .form-control {
     font-size: 3vmin;
