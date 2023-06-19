@@ -20,14 +20,14 @@ export default {
         selectedEndDate: '',
         disable: true,
 
-        choice: false
+        choice: false,
+        // testdate: ['2023-07-08T08:30', '2023-07-08T09:30']
     }},
 
     watch: {
         selectedOption() {
             switch(this.selectedOption) {
                 case 'default':
-                    this.pushToast()
                     this.$refs.scheduleHolder.classList.remove('enabled')
                     this.$refs.schedulePicker.classList.remove('set')
                     this.selectedEndDate = ''
@@ -132,11 +132,11 @@ export default {
         },
 
         pushToast(result) {
-            // let toastMsg = 'Tv: '
-            // result.forEach(element => {
-            //     toastMsg += element.key() + ', '
-            // });
-            // toastMsg += 'has jobs at this time.'
+            let toastMsg = 'Tv: '
+            result.forEach(element => {
+                toastMsg += element.key() + ', '
+            });
+            toastMsg += 'has jobs at this time.'
 
             this.toast.error("toastMsg", {
                 position: 'bottom-left',
@@ -180,6 +180,8 @@ export default {
             let now = new Date()
             this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
         }, 1000)
+
+        Telegram.WebApp.expand()
     }
 
 }
