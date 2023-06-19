@@ -21,7 +21,7 @@ export default {
         disable: true,
 
         choice: false,
-        // testdate: ['2023-07-08T08:30', '2023-07-08T09:30']
+        testdate: ['2023-07-08T08:30', '2023-07-08T09:30']
     }},
 
     watch: {
@@ -132,13 +132,13 @@ export default {
         },
 
         pushToast(result) {
-            let toastMsg = 'Tv: '
+            let toastMsg = 'TV(s): '
             result.forEach(element => {
-                toastMsg += element.key() + ', '
+                toastMsg += Object.keys(element) + ', '
             });
-            toastMsg += 'has jobs at this time.'
+            toastMsg += 'has jobs scheduled at this time.'
 
-            this.toast.error("toastMsg", {
+            this.toast.error(toastMsg, {
                 position: 'bottom-left',
                 timeout: 5000,
                 closeOnClick: false,
@@ -154,22 +154,19 @@ export default {
     mounted() {
         this.telegramMainButton.setParams({ text: 'Confirm'})
         Telegram.WebApp.onEvent('mainButtonClicked', () => {
-            this.checkAvailablility.then((message) => {
+            this.checkAvailablility().then((message) => {
                 if (message === 'No overlaps') {
                     this.$router.push('/Confirmation')
                 }
             }).catch((result) => {
                 this.pushToast(result)
-            })
 
-            this.telegramMainButton.hide(),
-            store.setMediaType('Image'),
-            this.$router.push('/ScheduleSelection')
+            })
         })
 
         this.telegramBackButton.show()
         Telegram.WebApp.onEvent('backButtonClicked', () => {
-            this.telegramMainButton.hide(),
+            this.telegramMainButton.hide()
             this.$router.go(-1)
         })
 
@@ -191,6 +188,7 @@ export default {
     <div class="ss-holder">
         <div class="ss-header noselect">
             <img src="../assets/boxedstuffings.png">
+            <button @click="testp">test</button>
             <h2>Schedule Display</h2>
         </div>
         <div>
