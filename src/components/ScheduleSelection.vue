@@ -115,8 +115,9 @@ export default {
                 for (let i = 0; i < tvsToScan.length; i++) {
                     this.test22.push({'tv':tvsToScan[i]})
                     if (tvsToScan[i].displays.length != 0){
+                        this.test22.push({'tv-check': 'fine'})
                         for (let x = 0; x < tvsToScan[i].displays.length; x++) {
-                            this.test22.push({'tv-displays':tvsToScan[i].disaplays[x]})
+                            this.test22.push({'tv-displays':tvsToScan[i].displays[x]})
                             let against_start = tvsToScan[i].displays[x].display_start
                             let against_end = tvsToScan[i].displays[x].display_end
                             if (this.checkOverlap(against_start, against_end, this.dateTime[0], this.dateTime[1])) {
