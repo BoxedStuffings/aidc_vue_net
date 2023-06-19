@@ -1,5 +1,4 @@
 <script>
-import { faThumbsDown } from '@fortawesome/free-regular-svg-icons';
 import { store } from '../Store.js'
 import Navbar from './Navbar.vue'
 import Toolbar from './Toolbar.vue'
@@ -138,6 +137,7 @@ export default {
       this.lastPosX = this.clientX
       this.lastPosY = this.clientY
     },
+
     // Handle interaction move (mouse move / touch move)
     canvasDragMove(opt) {
       if (this.isDragging) {
@@ -156,6 +156,7 @@ export default {
 
       }
     },
+
     // Handle interaction end (mouse up / touch end)
     canvasDragEnd(opt) {
       this.isDragging = false
@@ -167,8 +168,7 @@ export default {
       if (e.clientX != null) {
         this.clientX = e.clientX
         this.clientY = e.clientY
-      }
-      else {
+      } else {
         var touch = e.touches[0]
         this.clientX = touch.pageX
         this.clientY = touch.pageY
@@ -184,24 +184,22 @@ export default {
             selectable: true,
             evented: true
           })
-        });
-      }
-      else {
+        })
+      } else {
         this.canvas.selection = false
         this.canvas.forEachObject((obj) => {
           obj.set({
             selectable: false,
             evented: false
           })
-        });
+        })
       }
-
     },
 
     canvasObjectSelection() {
       this.canvas.on('selection:created', () => this.textboxSelectionCheck(true)),
-        this.canvas.on('selection:updated', () => this.textboxSelectionCheck(false)),
-        this.canvas.on('selection:cleared', () => { this.$refs.toolbar.editableTextboxSelected(false), this.$refs.toolbar.closeBottomSheet()})
+      this.canvas.on('selection:updated', () => this.textboxSelectionCheck(false)),
+      this.canvas.on('selection:cleared', () => { this.$refs.toolbar.editableTextboxSelected(false), this.$refs.toolbar.closeBottomSheet()})
     },
 
     textboxSelectionCheck(state) {
@@ -221,9 +219,9 @@ export default {
 
     //Delete Selected Elements
     deleteSelection() {
-      const deleteIcon = "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
-      const deleteImg = document.createElement('img');
-      deleteImg.src = deleteIcon;
+      const deleteIcon = "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E"
+      const deleteImg = document.createElement('img')
+      deleteImg.src = deleteIcon
 
       const deleteControl = new fabric.Control({
         x: 0.5,
@@ -234,24 +232,27 @@ export default {
         mouseUpHandler: (eventData, transform) => this.deleteObject(eventData, transform),
         render: this.renderIcon(deleteImg),
         cornerSize: 24
-      });
-      fabric.Object.prototype.controls.deleteControl = deleteControl;
-      fabric.Textbox.prototype.controls.deleteControl = deleteControl;
+      })
+      fabric.Object.prototype.controls.deleteControl = deleteControl
+      fabric.Textbox.prototype.controls.deleteControl = deleteControl
     },
+
     deleteObject(eventData, transform) {
-      var target = transform.target;
-      var canvas = target.canvas;
-      canvas.remove(target);
-      canvas.requestRenderAll();
+      var target = transform.target
+      var canvas = target.canvas
+      canvas.remove(target)
+      store.removeElementFromCanvas(target)
+      canvas.requestRenderAll()
     },
+
     renderIcon(icon) {
       return function renderIcon(ctx, left, top, styleOverride, fabricObject) {
-        var size = this.cornerSize;
-        ctx.save();
-        ctx.translate(left, top);
-        ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
-        ctx.drawImage(icon, -size / 2, -size / 2, size, size);
-        ctx.restore();
+        var size = this.cornerSize
+        ctx.save()
+        ctx.translate(left, top)
+        ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle))
+        ctx.drawImage(icon, -size / 2, -size / 2, size, size)
+        ctx.restore()
       }
     },
 
@@ -277,19 +278,25 @@ export default {
     },
 
     insertElementToCanvas(element) {
+      let uid = store.createElementID(element)
       element.set({
         top: this.canvas.height / 3,
-        left: this.canvas.width / 2
+        left: this.canvas.width / 2,
+        id: uid
       })
+      store.addElementToCanvas(element)
       this.canvas.add(element)
     },
 
     insertImageToCanvas(imageObj) {
+      let uid = store.createElementID(imageObj)
       imageObj.set({
         top: this.canvas.height / 3,
-        left: this.canvas.width / 2.5
+        left: this.canvas.width / 2.5,
+        id: uid
       })
       imageObj.scaleToWidth(this.canvas.width / 5, false);
+      store.addElementToCanvas(imageObj)
       this.canvas.add(imageObj)
     },
 
@@ -361,6 +368,7 @@ export default {
 
     // Check for object selection in canvas
     this.canvasObjectSelection()
+
     //Add custom delete control
     this.deleteSelection()
 
@@ -405,7 +413,6 @@ export default {
   background: lightgrey;
   overflow: hidden;
 }
-
 .navbar-wrapper {
   height: 5%;
   min-height: 10px;
@@ -415,7 +422,6 @@ export default {
   position: relative;
   z-index: 3;
 }
-
 .canvas-wrapper {
   width: 100%;
   position: absolute;
@@ -426,7 +432,6 @@ export default {
   background: lightgrey;
   transition-duration: .2s;
 }
-
 .toolbar {
   height: 10%;
   width: 100%;
@@ -434,7 +439,6 @@ export default {
   bottom: 0;
   padding-block: 1vh;
 }
-
 h4 {
   color: black !important;
 }

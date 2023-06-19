@@ -158,33 +158,32 @@ export const store = reactive({
       this.canvasObjects = value
     },
 
-    // Adding canvas elements to list (Elements.vue)
-    addElementToCanvas(element) {
+    // Create canvas element id (Elements.vue)
+    createElementID(element) {
       let count = 1
       while (true) {
         let key = element.type + ` ${count}`
         if (this.canvasObjects.find(e => e.Name === key)) {
           count++
         } else {
-          var elementobj = {
-            Name: key,
-            Object: element
-          }
-          this.canvasObjects.push(elementobj)
-          break
+          return key
         }
       }
-      
+    },
+
+    // Adding canvas elements to list (Elements.vue)
+    addElementToCanvas(element) {
+      let key = element.id
+      let elementobj = {Name: key, Object: element}
+      this.canvasObjects.push(elementobj)
     },
     
     // Removing canvas elements from list (CanvasSelection.vue)
-    removeElementFromCanvas(elementKey){
-      let i = this.canvasObjects.findIndex(e => e.Name === elementKey);
+    removeElementFromCanvas(element){
+      let i = this.canvasObjects.findIndex(e => e.Name === element.id);
       if (i > -1) {
         this.canvasObjects.splice(i, 1)
-        console.log("test")
       }
-      // delete this.canvasObjects[`${elementKey}`]
     }
 
 })

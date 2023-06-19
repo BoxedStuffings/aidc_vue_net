@@ -21,6 +21,7 @@ export default {
     close() {
         let bottomSheet = this.$refs.bsExpendable
         
+        this.$parent.bottomSheetContent = 'font'
         bottomSheet.style.height = '0%'
         this.$parent.$parent.fitCanvasToBottomSheet(false)
     }

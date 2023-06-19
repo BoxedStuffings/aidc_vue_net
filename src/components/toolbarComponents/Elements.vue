@@ -20,7 +20,6 @@ export default {
         )
 
         this.insertElement(textEditable)
-        this.addElementToCanvasLayer(textEditable)
     },
 
     createCircle() {
@@ -28,9 +27,8 @@ export default {
             radius: 20,
             fill: 'green'
         })
-
+        
         this.insertElement(circle)
-        this.addElementToCanvasLayer(circle)
     },
     
     createSquare() {
@@ -42,15 +40,10 @@ export default {
         })
 
         this.insertElement(square)
-        this.addElementToCanvasLayer(square)
     },
 
     insertElement(element) {
         this.$parent.$parent.$parent.insertElementToCanvas(element)
-    },
-
-    addElementToCanvasLayer(element) {
-        store.addElementToCanvas(element)
     }
   }
 

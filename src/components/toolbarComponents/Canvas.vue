@@ -21,7 +21,6 @@ export default {
     },
 
     methods: {
-
         updateLayers(e) {
             let movement = e.moved.newIndex - e.moved.oldIndex
             let element = e.moved.element.Object
@@ -38,7 +37,6 @@ export default {
 
     mounted() {
         this.canvasLayers = store.canvasObjects.slice().reverse()
-        console.log(this.canvasLayers.length)
     }
 
 }
