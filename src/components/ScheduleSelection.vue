@@ -98,7 +98,7 @@ export default {
             return true
         }
         if (check_start_date < against_start_date && against_end_date < check_end_date) {
-            // Against in Check (Check wraps against)
+            // Against in Check (Check wraps Against)
             return true
         }
         return false
@@ -208,7 +208,6 @@ export default {
     </div>
 </template>
 
-<style src="vue-scroll-picker/lib/style.css"></style>
 <style scoped>
 .ss-holder {
     height: 0;
