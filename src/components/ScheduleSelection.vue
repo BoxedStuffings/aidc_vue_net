@@ -152,7 +152,7 @@ export default {
         
     },
 
-    beforeMount(){
+    mounted() {
         this.telegramMainButton.setParams({ text: 'Next'})
         Telegram.WebApp.onEvent('mainButtonClicked', () => {
             if (this.selectedOption === 'default') {
@@ -177,11 +177,8 @@ export default {
             this.telegramMainButton.hide()
             this.$router.go(-1)
         })
-    },
-
-    mounted() {
+        
         this.telegramBackButton.show()
-        Telegram.WebApp.expand()
 
         let now = new Date()
         this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
@@ -190,6 +187,8 @@ export default {
             let now = new Date()
             this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
         }, 1000)
+
+        Telegram.WebApp.expand()
     }
 
 }

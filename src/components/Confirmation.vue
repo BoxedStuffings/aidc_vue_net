@@ -258,10 +258,6 @@ export default {
 
     },
 
-    beforeMount() {
-
-    },
-
     mounted() {
         this.telegramMainButton.setParams({ text: 'Confirm'})
         Telegram.WebApp.onEvent('mainButtonClicked', () => {
@@ -284,7 +280,7 @@ export default {
             this.telegramMainButton.hide()
             this.$router.go(-1)
         })
-        
+
         this.telegramMainButton.show()
         this.telegramBackButton.show()
 
