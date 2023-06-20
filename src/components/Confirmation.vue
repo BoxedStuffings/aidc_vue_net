@@ -93,6 +93,7 @@ export default {
             testconfirm: "",
             testdate: [['2023-07-08T08:30', '2023-07-08T09:30'], ['2023-07-08T09:30', '2023-07-08T010:30']],
             mediaSrc: Object,
+            testtest: []
         }
     },
 
@@ -303,6 +304,10 @@ export default {
                 break
         }
         this.scheduledTime = store.jobTiming
+        this.testconfirm = store.selectedTvs
+        for (let i = 0; i < to.length; i++) {
+            this.testtest.push(this.testconfirm[i]._id)
+        }
     }
 
 }
@@ -315,6 +320,8 @@ export default {
                 <h2>TV(s) SELECTED</h2>
                 {{ scheduledTime }}
                 {{ DorS }}
+                {{ testconfirm }}
+                {{ testtest }}
                 <div class="confirmation-tv" v-for="i, index in testarray" :key="index">
                     <font-awesome-icon icon="fa-solid fa-tv" class="confirmation-tv-icon"/>
                     <h4>TV • {{ i._id }} : {{ i.info }}</h4>
@@ -340,7 +347,6 @@ export default {
             <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
             <!-- <button @click="submitConfirmation">test up</button> -->
             <!-- <button @click="jobCreation">test image up</button> -->
-            {{ testconfirm }}
         </div>
     </div>
 </template>
