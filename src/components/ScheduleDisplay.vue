@@ -102,7 +102,7 @@ export default {
 
         pushSuccessToast(msg) {
             this.toast.success(msg, {
-                position: 'top-right',
+                position: 'bottom-left',
                 timeout: 5000,
                 closeOnClick: false,
                 pauseOnHover: true,
@@ -115,7 +115,7 @@ export default {
 
         pushErrorToast(msg) {
             this.toast.error(msg, {
-                position: 'top-right',
+                position: 'bottom-left',
                 timeout: 5000,
                 closeOnClick: false,
                 pauseOnHover: true,
@@ -156,6 +156,8 @@ export default {
         
         this.telegramBackButton.show()
         Telegram.WebApp.onEvent('backButtonClicked', () => {this.telegramMainButton.hide(), this.$router.go(-1)})
+        
+        Telegram.WebApp.expand()
     }
 
 }
