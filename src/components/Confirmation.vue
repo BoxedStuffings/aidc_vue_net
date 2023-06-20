@@ -258,7 +258,7 @@ export default {
 
     },
 
-    beforeCreate() {
+    beforeMount() {
         this.telegramMainButton.setParams({ text: 'Confirm'})
         Telegram.WebApp.onEvent('mainButtonClicked', () => {
             this.jobCreation().then((message) => {

@@ -1,5 +1,4 @@
 <script>
-import { faBoxesStacked } from '@fortawesome/free-solid-svg-icons';
 import { store } from '../Store.js'
 import Navbar from './Navbar.vue'
 import Toolbar from './Toolbar.vue'
@@ -375,6 +374,7 @@ export default {
       downloadLink.click()
       document.body.removeChild(downloadLink)
     },
+
     //Template upload test
     jsonTemplate(json) {
       this.canvas.loadFromJSON(json, this.canvas.renderAll.bind(this.canvas));
@@ -383,6 +383,7 @@ export default {
         store.addElementToCanvas(objects[o])
       }
     }
+    
   },
 
   mounted() {

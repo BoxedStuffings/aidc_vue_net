@@ -152,7 +152,7 @@ export default {
         
     },
 
-    beforeCreate(){
+    beforeMount(){
         this.telegramMainButton.setParams({ text: 'Next'})
         Telegram.WebApp.onEvent('mainButtonClicked', () => {
             if (this.selectedOption === 'default') {
