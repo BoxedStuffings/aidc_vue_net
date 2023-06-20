@@ -117,15 +117,15 @@ export default {
                         let to = store.selectedTvs
                         this.submitScheduledJobConfirmation(to).then(() => {
                             resolve('Successfully Submitted!')
-                        }, (e) => {console.log('Errors in: ' + e), reject(0)})
-                    }, (e) => {console.log(e), reject(1)})
+                        }, (e) => {console.log('Errors in: ' + e), reject(e)})
+                    }, (e) => {console.log(e), reject(e)})
                 } else {
                     mediaUploadPromise.then(() => {
                         let to = store.selectedTvs
                         this.submitDefaultConfirmation(to).then(() => {
                             resolve('Successfully Submitted!')
-                        }, (e) => {console.log('Errors in: ' + e), reject(0)})
-                    }, (e) => {console.log(e), reject(1)})
+                        }, (e) => {console.log('Errors in: ' + e), reject(e)})
+                    }, (e) => {console.log(e), reject(e)})
                 }
             })
         },
@@ -313,6 +313,7 @@ export default {
             <div class="confirmation-details-sections">
                 <h2>TV(s) SELECTED</h2>
                 {{ scheduledTime }}
+                {{ DorS }}
                 <div class="confirmation-tv" v-for="i, index in testarray" :key="index">
                     <font-awesome-icon icon="fa-solid fa-tv" class="confirmation-tv-icon"/>
                     <h4>TV • {{ i._id }} : {{ i.info }}</h4>
