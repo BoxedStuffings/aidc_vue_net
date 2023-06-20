@@ -13,7 +13,7 @@ export default {
         return {
             telegramMainButton: Telegram.WebApp.MainButton,
             telegramBackButton: Telegram.WebApp.BackButton,
-            DorS: Boolean,
+            DorS: '',
             mediaName: String,
             scheduledTime: [],
             
@@ -117,15 +117,15 @@ export default {
                         let to = store.selectedTvs
                         this.submitScheduledJobConfirmation(to).then(() => {
                             resolve('Successfully Submitted!')
-                        }, (e) => {console.log('Errors in: ' + e), reject(e)})
-                    }, (e) => {console.log(e), reject(e)})
+                        }, (e) => {console.log('Errors in: ' + e), reject('test1')})
+                    }, (e) => {console.log(e), reject('test2')})
                 } else {
                     mediaUploadPromise.then(() => {
                         let to = store.selectedTvs
                         this.submitDefaultConfirmation(to).then(() => {
                             resolve('Successfully Submitted!')
-                        }, (e) => {console.log('Errors in: ' + e), reject(e)})
-                    }, (e) => {console.log(e), reject(e)})
+                        }, (e) => {console.log('Errors in: ' + e), reject('test3')})
+                    }, (e) => {console.log(e), reject('test4')})
                 }
             })
         },

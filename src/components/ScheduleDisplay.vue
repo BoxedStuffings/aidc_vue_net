@@ -102,7 +102,7 @@ export default {
 
         pushSuccessToast(msg) {
             this.toast.success(msg, {
-                position: 'bottom-left',
+                position: 'top-right',
                 timeout: 5000,
                 closeOnClick: false,
                 pauseOnHover: true,

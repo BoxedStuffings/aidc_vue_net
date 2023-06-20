@@ -17,7 +17,7 @@ export const store = reactive({
   videoObj: {},               // Video selected by user
   mediaType: String,          // Type of media to be submitted
   mediaLink: String,          // Link to retrieve media after uploading to server
-  jobType: Boolean,           // Set media as default or scheduled job (true = scheduled job, false = default)
+  jobType: false,             // Set media as default or scheduled job (true = scheduled job, false = default)
   jobTiming: [],              // Start and End DateTime for scheduled job [start, end]
 
   // ------------------------------------- //
