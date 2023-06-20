@@ -70,6 +70,9 @@ export default {
         },
 
         removeAll(TV) {
+            if (store.selectedTvs[store.findIndexOfSelectedTv(TV)].displays.length <= 0) {
+                this.pushErrorToast('There are no scheduled displays for this TV')
+            }
             let confirmMsg = 'Are you sure you want to remove all scheduled jobs for this tv?'
             Telegram.WebApp.showConfirm(confirmMsg, (status) => {
                 if (status) {
@@ -78,9 +81,9 @@ export default {
 
                     allDisplaysDeletionPromise.then(() => {
                         store.emptySelectedTVDisplays(TV),
-                        this.pushToast('All scheduled jobs removed'),
+                        this.pushSuccessToast('All scheduled displays removed'),
                         this.resetSlide()
-                    }, (e) => {console.log(e), this.pushToast('Error removing displays'), this.resetSlide()})
+                    }, (e) => {console.log(e), this.pushErrorToast('Error removing displays'), this.resetSlide()})
                 }
             })
         },
@@ -91,13 +94,26 @@ export default {
 
             displayDeletionPromise.then(() => {
                 store.spliceDisplayFromSelectedTV(TV, index),
-                this.pushToast('Scheduled job removed'),
+                this.pushSuccessToast('Scheduled display removed'),
                 this.resetSlide()
-            }, (e) => {console.log(e), this.pushToast('Error removing display'), this.resetSlide()})
+            }, (e) => {console.log(e), this.pushErrorToast('Error removing display'), this.resetSlide()})
         },
 
-        pushToast(msg) {
-            this.toast.info(msg, {
+        pushSuccessToast(msg) {
+            this.toast.success(msg, {
+                position: 'bottom-left',
+                timeout: 5000,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.5,
+                closeButton: 'button',
+                icon: true,
+            })
+        },
+
+        pushErrorToast(msg) {
+            this.toast.error(msg, {
                 position: 'bottom-left',
                 timeout: 5000,
                 closeOnClick: false,

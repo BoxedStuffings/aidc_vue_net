@@ -117,7 +117,7 @@ export default {
                         let to = store.selectedTvs
                         this.submitScheduledJobConfirmation(to).then(() => {
                             resolve('Successfully Submitted!')
-                        }, (e) => {console.log('Errors inL ' + e), reject(0)})
+                        }, (e) => {console.log('Errors in: ' + e), reject(0)})
                     }, (e) => {console.log(e), reject(1)})
                 } else {
                     mediaUploadPromise.then(() => {
@@ -354,6 +354,7 @@ export default {
 .confirmation-details-sections {
     margin-bottom: 5%;
     position: relative;
+    background-color: var(--tg-theme-secondary-bg-color);
 }
 .confirmation-details-sections h2 {
     color: var(--tg-theme-text-color);

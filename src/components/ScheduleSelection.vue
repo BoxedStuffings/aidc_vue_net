@@ -152,7 +152,7 @@ export default {
     },
 
     mounted() {
-        this.telegramMainButton.setParams({ text: 'Confirm'})
+        this.telegramMainButton.setParams({ text: 'Next'})
         Telegram.WebApp.onEvent('mainButtonClicked', () => {
             if (this.selectedOption === 'default') {
                 store.setjobType = false

@@ -74,7 +74,7 @@ export const store = reactive({
   initTVfromDB(tvArray){
     this.availableTVsFromDataBase = tvArray
   },
-  // Find the index of selected TV within selectedTVs (TV.vue)
+  // Find the index of selected TV within selectedTVs (TV.vue, ScheduleDisplay.vue)
   findIndexOfSelectedTv(TV) {
     return this.selectedTvs.findIndex(x => x._id == TV._id)
   },
