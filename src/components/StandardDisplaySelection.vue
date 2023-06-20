@@ -15,23 +15,23 @@ export default {
 
   methods: {
     selectCard(selection_id) {
-        let card = store.standardDisplayOptions.find(x => x._id === selection_id)
+      let card = store.standardDisplayOptions.find(x => x._id === selection_id)
 
-        card.title === 'Static Image' ? this.$router.push('/ImageUp') : this.$router.push('/VideoUp')
+      card.title === 'Static Image' ? this.$router.push('/ImageUp') : this.$router.push('/VideoUp')
     },
 
     pressingDown(selection_ref) {
-        let card = this.$refs[selection_ref][0]
+      let card = this.$refs[selection_ref][0]
 
-        card.style.transform = 'scale(0.95)'
-        card.style.transitionDuration = '0.4s'
+      card.style.transform = 'scale(0.95)'
+      card.style.transitionDuration = '0.4s'
     },
 
     notPressingDown(selection_ref) {
-        let card = this.$refs[selection_ref][0]
+      let card = this.$refs[selection_ref][0]
 
-        card.style.transform = 'scale(1)'
-        card.style.transitionDuration = '0.2s'
+      card.style.transform = 'scale(1)'
+      card.style.transitionDuration = '0.2s'
     }
   },
 

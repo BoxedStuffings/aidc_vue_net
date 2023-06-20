@@ -47,7 +47,7 @@ export default {
         closeOnClick: false,
         pauseOnHover: true,
         draggable: true,
-        draggablePercent: 0.60,
+        draggablePercent: 0.5,
         closeButton: 'button',
         icon: true,
       })

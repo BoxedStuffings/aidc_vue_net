@@ -1,9 +1,15 @@
 <script>
 import $ from 'jquery'
 import { store } from '../Store.js'
+import { useToast } from "vue-toastification"
 import TvSkeleton from '../components/TvSkeleton.vue'
 
 export default {
+  setup() {
+    const toast = useToast()
+    return {toast}
+  },
+
   data() {
     return {
       store,
@@ -33,7 +39,12 @@ export default {
             headers: { 'Authorization' : 'Bearer ' + success.token }
           })
         },
-        error: (error) => console.log(error)
+        error: (error) => {
+          this.pushToast(error),
+          setTimeout(() => {
+            Telegram.WebApp.close()
+          }, 5000);
+        }
       })
       this.loading = !this.loading
       store.initcount++
@@ -66,17 +77,30 @@ export default {
     },
 
     pressingDown(selection_ref) {
-        let card = this.$refs[selection_ref][0]
+      let card = this.$refs[selection_ref][0]
 
-        card.style.transitionDuration = '0.4s'
-        card.style.transform = 'scale(0.95)'
+      card.style.transitionDuration = '0.4s'
+      card.style.transform = 'scale(0.95)'
     },
 
     notPressingDown(selection_ref) {
-        let card = this.$refs[selection_ref][0]
+      let card = this.$refs[selection_ref][0]
 
-        card.style.transform = 'scale(1)'
-        card.style.transitionDuration = '0.2s'
+      card.style.transform = 'scale(1)'
+      card.style.transitionDuration = '0.2s'
+    },
+    
+    pushToast(msg) {
+      this.toast.error(msg, {
+        position: 'bottom-left',
+        timeout: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        draggablePercent: 0.5,
+        closeButton: 'button',
+        icon: true,
+      })
     },
 
     mainButtonVisibility() {

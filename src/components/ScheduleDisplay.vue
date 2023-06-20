@@ -1,8 +1,14 @@
 <script>
 import $ from 'jquery'
 import { store } from '../Store.js'
+import { useToast } from "vue-toastification"
 
 export default {
+    setup() {
+        const toast = useToast()
+        return {toast}
+    },
+
     data() {
         return {
             store,
@@ -16,7 +22,7 @@ export default {
     methods: {
         clickSelf() {
             if (this.checkSlide()) {
-                this.restSlide()
+                this.resetSlide()
             }
         },
 
@@ -32,13 +38,13 @@ export default {
 
             // Swipe left to show delete button
             if (parentElement.dataset.type == 0 && this.startX-this.endX> 30) {
-                this.restSlide()
+                this.resetSlide()
                 parentElement.dataset.type = 1
             }
 
             // Swipe right
             if (parentElement.dataset.type == 1 && this.startX-this.endX <-30) {
-                this.restSlide()
+                this.resetSlide()
                 parentElement.dataset.type = 0
             }
 
@@ -56,11 +62,27 @@ export default {
             return false
         },
 
-        restSlide() {
+        resetSlide() {
             let items = document.querySelectorAll(".schedule-display-detail-content")
             for (let i = 0; i <items.length; i++) {
                 items[i].dataset.type = 0
             }
+        },
+
+        removeAll(TV) {
+            let confirmMsg = 'Are you sure you want to remove all scheduled jobs for this tv?'
+            Telegram.WebApp.showConfirm(confirmMsg, (status) => {
+                if (status) {
+                    let allDisplaysDeletionPromise = Promise
+                    allDisplaysDeletionPromise = this.deleteAllDisplays(TV._id)
+
+                    allDisplaysDeletionPromise.then(() => {
+                        store.emptySelectedTVDisplays(TV),
+                        this.pushToast('All scheduled jobs removed'),
+                        this.resetSlide()
+                    }, (e) => {console.log(e), this.pushToast('Error removing displays'), this.resetSlide()})
+                }
+            })
         },
 
         remove(TV, index) {
@@ -69,13 +91,38 @@ export default {
 
             displayDeletionPromise.then(() => {
                 store.spliceDisplayFromSelectedTV(TV, index),
-                this.restSlide()
-            }, (e) => {console.log(e), this.restSlide()})
+                this.pushToast('Scheduled job removed'),
+                this.resetSlide()
+            }, (e) => {console.log(e), this.pushToast('Error removing display'), this.resetSlide()})
+        },
+
+        pushToast(msg) {
+            this.toast.info(msg, {
+                position: 'bottom-left',
+                timeout: 5000,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.5,
+                closeButton: 'button',
+                icon: true,
+            })
         },
 
         async deleteDisplayJob(displayId){
             await $.ajax({
                 url: 'https://heehee.amphibistudio.sg/api/displays/' + displayId,
+                method: 'DELETE',
+                success:  (success) => {
+                    console.log(success.message)
+                },
+                error: (error) => console.log(error)
+            })
+        },
+
+        async deleteAllDisplays(tvID){
+            await $.ajax({
+                url: 'https://heehee.amphibistudio.sg/api/tv/' + tvID + '/display',
                 method: 'DELETE',
                 success:  (success) => {
                     console.log(success.message)
@@ -103,7 +150,7 @@ export default {
         <div class="schedule-display-tv">
             <div class="schedule-display-header">
                 <h2 :style="{'margin':0}">TV • {{ TV._id }}</h2>
-                <font-awesome-icon :icon="['fas', 'trash']" class="schedule-display-header-icon"/>
+                <font-awesome-icon :icon="['fas', 'trash']" class="schedule-display-header-icon" @click="removeAll(TV)"/>
             </div>
             <div class="schedule-display-detail" v-if="TV.displays.length != 0">
                 <div class="schedule-display-detail-holder">

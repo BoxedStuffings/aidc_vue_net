@@ -22,7 +22,6 @@ export default {
 
         choice: false,
         testdate: [['2023-07-08T08:30', '2023-07-08T09:30'], ['2023-07-08T09:30', '2023-07-08T010:30']],
-        test22: []
     }},
 
     watch: {
@@ -145,7 +144,7 @@ export default {
                 closeOnClick: false,
                 pauseOnHover: true,
                 draggable: true,
-                draggablePercent: 0.60,
+                draggablePercent: 0.5,
                 closeButton: 'button',
                 icon: true,
             })
@@ -155,14 +154,22 @@ export default {
     mounted() {
         this.telegramMainButton.setParams({ text: 'Confirm'})
         Telegram.WebApp.onEvent('mainButtonClicked', () => {
-            this.checkAvailablility().then((message) => {
-                if (message === 'No overlaps') {
-                    this.$router.push('/Confirmation')
-                }
-            }).catch((result) => {
-                this.telegramMainButton.show()
-                this.pushToast(result)
-            })
+            if (this.selectedOption === 'default') {
+                store.setjobType = false
+                store.setjobTiming(this.dateTime)
+                this.$router.push('/Confirmation')
+            } else {
+                this.checkAvailablility().then((message) => {
+                    if (message === 'No overlaps') {
+                        store.setjobType = true
+                        store.setjobTiming(this.dateTime)
+                        this.$router.push('/Confirmation')
+                    }
+                }).catch((result) => {
+                    this.telegramMainButton.show()
+                    this.pushToast(result)
+                })
+            }
         })
 
         this.telegramBackButton.show()
