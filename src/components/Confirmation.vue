@@ -13,8 +13,9 @@ export default {
         return {
             telegramMainButton: Telegram.WebApp.MainButton,
             telegramBackButton: Telegram.WebApp.BackButton,
+            selectedTvs: [],
             DorS: '',
-            mediaName: String,
+            mediaName: 'Default Media Name',
             scheduledTime: [],
             
             testarray: [{
@@ -286,6 +287,7 @@ export default {
         this.telegramMainButton.show()
         this.telegramBackButton.show()
 
+        this.selectedTvs = store.selectedTvs
         this.DorS = store.jobType
         switch(store.mediaType) {
             case 'Image':
@@ -308,7 +310,7 @@ export default {
         <div class="confirmation-details">
             <div class="confirmation-details-sections">
                 <h2>TV(s) SELECTED</h2>
-                <div class="confirmation-tv" v-for="i, index in store.selectedTvs" :key="index">
+                <div class="confirmation-tv" v-for="i, index in selectedTvs" :key="index">
                     <font-awesome-icon icon="fa-solid fa-tv" class="confirmation-tv-icon"/>
                     <h4>TV • {{ i._id }} : {{ i.info }}</h4>
                 </div>
