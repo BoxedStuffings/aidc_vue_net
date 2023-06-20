@@ -156,14 +156,14 @@ export default {
         this.telegramMainButton.setParams({ text: 'Next'})
         Telegram.WebApp.onEvent('mainButtonClicked', () => {
             if (this.selectedOption === 'default') {
-                store.setjobType = false,
-                store.setjobTiming(this.dateTime),
+                store.setjobType(false)
+                store.setjobTiming(this.dateTime)
                 this.$router.push('/Confirmation')
             } else {
                 this.checkAvailablility().then((message) => {
                     if (message === 'No overlaps') {
-                        store.setjobType = true,
-                        store.setjobTiming(this.dateTime),
+                        store.setjobType(true)
+                        store.setjobTiming(this.dateTime)
                         this.$router.push('/Confirmation')
                     }
                 }).catch((result) => {

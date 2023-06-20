@@ -112,20 +112,20 @@ export default {
                         break
                 }
 
-                if (this.DorS) {
+                if (store.jobType) {
                     mediaUploadPromise.then(() => {
                         let to = store.selectedTvs
                         this.submitScheduledJobConfirmation(to).then(() => {
                             resolve('Successfully Submitted!')
-                        }, (e) => {console.log('Errors in: ' + e), reject('test1')})
-                    }, (e) => {console.log(e), reject('test2')})
+                        }, (e) => {console.log('Errors in: ' + e), reject(0)})
+                    }, (e) => {console.log(e), reject(1)})
                 } else {
                     mediaUploadPromise.then(() => {
                         let to = store.selectedTvs
                         this.submitDefaultConfirmation(to).then(() => {
                             resolve('Successfully Submitted!')
-                        }, (e) => {console.log('Errors in: ' + e), reject('test3')})
-                    }, (e) => {console.log(e), reject('test4')})
+                        }, (e) => {console.log('Errors in: ' + e), reject(0)})
+                    }, (e) => {console.log(e), reject(1)})
                 }
             })
         },
@@ -276,12 +276,11 @@ export default {
                 }, 5000);
             }).catch((result) => {
                 this.telegramMainButton.show()
-                this.pushErrorToast(result)
-                // if (result == 0) {
-                //     this.pushErrorToast('Error Submitting!')
-                // } else {
-                //     this.pushErrorToast('Error Uploading Image!')
-                // }
+                if (result == 0) {
+                    this.pushErrorToast('Error Submitting!')
+                } else {
+                    this.pushErrorToast('Error Uploading Image!')
+                }
             })
         })
 
@@ -314,8 +313,6 @@ export default {
         <div class="confirmation-details">
             <div class="confirmation-details-sections">
                 <h2>TV(s) SELECTED</h2>
-                {{ scheduledTime }}
-                {{ DorS }}
                 <div class="confirmation-tv" v-for="i, index in testarray" :key="index">
                     <font-awesome-icon icon="fa-solid fa-tv" class="confirmation-tv-icon"/>
                     <h4>TV • {{ i._id }} : {{ i.info }}</h4>
