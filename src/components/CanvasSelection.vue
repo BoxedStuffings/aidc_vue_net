@@ -1,4 +1,5 @@
 <script>
+import { faBoxesStacked } from '@fortawesome/free-solid-svg-icons';
 import { store } from '../Store.js'
 import Navbar from './Navbar.vue'
 import Toolbar from './Toolbar.vue'
@@ -200,8 +201,8 @@ export default {
 
     canvasObjectSelection() {
       this.canvas.on('selection:created', () => this.textboxSelectionCheck(true)),
-      this.canvas.on('selection:updated', () => this.textboxSelectionCheck(false)),
-      this.canvas.on('selection:cleared', () => { this.$refs.toolbar.editableTextboxSelected(false), this.$refs.toolbar.closeBottomSheet()})
+        this.canvas.on('selection:updated', () => this.textboxSelectionCheck(false)),
+        this.canvas.on('selection:cleared', () => { this.$refs.toolbar.editableTextboxSelected(false), this.$refs.toolbar.closeBottomSheet() })
     },
 
     textboxSelectionCheck(state) {
@@ -350,21 +351,51 @@ export default {
       } catch (e) {
 
       }
-    }
+    },
 
+    //Saving of Canvas
+    saveCanvas(value) {
+      var dataURL;
+      if (value != 'json') { //Downloads Image : PNG/JPEG/SVG/JSON
+        dataURL = canvas.toDataURL({
+          format: value,
+          quality: 0.8, // 1 represents the highest quality (optional)
+        })
+      }
+      else { // Downloads JSON
+        const json = this.canvas.toObject(['id'])
+        const jsonString = JSON.stringify(json)
+        const dataBlob = new Blob([jsonString], { type: 'application/json' })
+        dataURL = URL.createObjectURL(dataBlob)
+      }
+      const downloadLink = document.createElement('a')
+      downloadLink.href = dataURL
+      downloadLink.download = 'canvas.' + value
+      document.body.appendChild(downloadLink)
+      downloadLink.click()
+      document.body.removeChild(downloadLink)
+    },
+    //Template upload test
+    jsonTemplate(json) {
+      this.canvas.loadFromJSON(json, this.canvas.renderAll.bind(this.canvas));
+      const objects = this.canvas.getObjects()
+      for(let o in objects){
+        store.addElementToCanvas(objects[o])
+      }
+    }
   },
 
   mounted() {
-    this.telegramMainButton.setParams({ text: 'Next'})
+    this.telegramMainButton.setParams({ text: 'Next' })
     Telegram.WebApp.onEvent('mainButtonClicked', () => {
       this.telegramMainButton.hide(),
-      this.$router.push('/ScheduleSelection')
+        this.$router.push('/ScheduleSelection')
     })
 
     this.telegramBackButton.show()
     Telegram.WebApp.onEvent('backButtonClicked', () => {
       this.telegramMainButton.hide(),
-      this.$router.go(-1)
+        this.$router.go(-1)
     })
 
     // Intialize Fabric.js Canvas
@@ -417,6 +448,7 @@ export default {
   background: lightgrey;
   overflow: hidden;
 }
+
 .navbar-wrapper {
   height: 5%;
   min-height: 10px;
@@ -426,6 +458,7 @@ export default {
   position: relative;
   z-index: 3;
 }
+
 .canvas-wrapper {
   width: 100%;
   position: absolute;
@@ -436,6 +469,7 @@ export default {
   background: lightgrey;
   transition-duration: .2s;
 }
+
 .toolbar {
   height: 10%;
   width: 100%;
@@ -443,6 +477,7 @@ export default {
   bottom: 0;
   padding-block: 1vh;
 }
+
 h4 {
   color: black !important;
 }
