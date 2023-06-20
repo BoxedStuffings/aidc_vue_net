@@ -7,6 +7,8 @@ import Elements from './toolbarComponents/Elements.vue'
 import Insert from './toolbarComponents/Insert.vue'
 import Font from '../components/toolbarComponents/Fonts.vue'
 import Color from '../components/toolbarComponents/ColorPicker.vue'
+import Options from '../components/toolbarComponents/Options.vue'
+
 
 export default {
     data() {
@@ -23,7 +25,8 @@ export default {
         Elements,
         Insert,
         Font,
-        Color
+        Color,
+        Options
     },
 
     methods: {
