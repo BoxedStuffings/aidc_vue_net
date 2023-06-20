@@ -115,7 +115,7 @@ export default {
 
         pushErrorToast(msg) {
             this.toast.error(msg, {
-                position: 'bottom-left',
+                position: 'top-right',
                 timeout: 5000,
                 closeOnClick: false,
                 pauseOnHover: true,

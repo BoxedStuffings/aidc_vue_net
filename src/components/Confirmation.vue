@@ -306,7 +306,8 @@ export default {
         this.scheduledTime = store.jobTiming
         this.testconfirm = store.selectedTvs
         for (let i = 0; i < to.length; i++) {
-            this.testtest.push(this.testconfirm[i]._id)
+            let x = this.testconfirm[i]
+            this.testtest.push(x._id)
         }
     }
 
