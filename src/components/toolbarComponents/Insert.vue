@@ -31,7 +31,6 @@ export default {
 
     insertImageObjectToCanvas(imageObj) {
       this.$parent.$parent.$parent.insertImageToCanvas(imageObj)
-      store.addElementToCanvas(imageObj)
     }
 
   },
