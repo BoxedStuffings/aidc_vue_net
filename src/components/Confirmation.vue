@@ -112,7 +112,7 @@ export default {
                         break
                 }
 
-                if (store.jobType) {
+                if (this.DorS) {
                     mediaUploadPromise.then(() => {
                         let to = store.selectedTvs
                         this.submitScheduledJobConfirmation(to).then(() => {
@@ -183,8 +183,9 @@ export default {
                 // let tv = 1
                 // let startTime = jobTiming[0]
                 // let endTime = jobTiming[1]
+                let displayType = 2
                 let mediaLink = store.mediaLink
-
+                
                 let startTime = store.jobTiming[0]
                 let endTime = store.jobTiming[1]
                 for (let i = 0; i < to.length; i++) {
@@ -302,7 +303,6 @@ export default {
                 break
         }
         this.scheduledTime = store.jobTiming
-        this.DorS = store.jobType
     }
 
 }
@@ -313,6 +313,7 @@ export default {
         <div class="confirmation-details">
             <div class="confirmation-details-sections">
                 <h2>TV(s) SELECTED</h2>
+                {{ DorS }}
                 <div class="confirmation-tv" v-for="i, index in testarray" :key="index">
                     <font-awesome-icon icon="fa-solid fa-tv" class="confirmation-tv-icon"/>
                     <h4>TV • {{ i._id }} : {{ i.info }}</h4>
