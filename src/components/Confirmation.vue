@@ -258,7 +258,7 @@ export default {
 
     },
 
-    mounted() {
+    beforeMount() {
         this.telegramMainButton.setParams({ text: 'Confirm'})
         Telegram.WebApp.onEvent('mainButtonClicked', () => {
             this.jobCreation().then((message) => {
@@ -280,7 +280,9 @@ export default {
             this.telegramMainButton.hide()
             this.$router.go(-1)
         })
+    },
 
+    mounted() {
         this.telegramMainButton.show()
         this.telegramBackButton.show()
 
@@ -306,7 +308,7 @@ export default {
         <div class="confirmation-details">
             <div class="confirmation-details-sections">
                 <h2>TV(s) SELECTED</h2>
-=                <div class="confirmation-tv" v-for="i, index in store.selectedTvs" :key="index">
+                <div class="confirmation-tv" v-for="i, index in store.selectedTvs" :key="index">
                     <font-awesome-icon icon="fa-solid fa-tv" class="confirmation-tv-icon"/>
                     <h4>TV • {{ i._id }} : {{ i.info }}</h4>
                 </div>
