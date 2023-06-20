@@ -386,18 +386,28 @@ export default {
     
   },
 
-  mounted() {
-    this.telegramMainButton.setParams({ text: 'Next' })
-    Telegram.WebApp.onEvent('mainButtonClicked', () => {
+  beforeMount() {
+    const mainButton = () => {
       this.telegramMainButton.hide(),
-        this.$router.push('/ScheduleSelection')
-    })
+      this.$router.push('/ScheduleSelection')
+    }
 
+    const backButton = () => {
+      Telegram.WebApp.offEvent('mainButtonClicked', mainButton)
+      Telegram.WebApp.offEvent('backButtonClicked', backButton)
+      this.telegramMainButton.hide()
+      this.$router.go(-1)
+    }
+
+    this.telegramMainButton.setParams({ text: 'Next' })
+    Telegram.WebApp.onEvent('mainButtonClicked', mainButton)
+
+    Telegram.WebApp.onEvent('backButtonClicked', backButton)
+  },
+
+  mounted() {
     this.telegramBackButton.show()
-    Telegram.WebApp.onEvent('backButtonClicked', () => {
-      this.telegramMainButton.hide(),
-        this.$router.go(-1)
-    })
+    Telegram.WebApp.expand()
 
     // Intialize Fabric.js Canvas
     this.canvas = new fabric.Canvas('canvas', {
@@ -415,8 +425,6 @@ export default {
 
     //Add custom delete control
     this.deleteSelection()
-
-    Telegram.WebApp.expand()
   },
 
 }

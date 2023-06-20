@@ -45,24 +45,38 @@ export default {
 
   },
 
-  mounted() {
-    this.telegramMainButton.setParams({ text: 'Next'})
-    Telegram.WebApp.onEvent('mainButtonClicked', () => {
+  beforeMount() {
+    const mainButton = () => {
       this.telegramMainButton.hide()
       switch(this.card.title) {
-          case 'Upload Image':
-            this.$router.push('/ImageUp')
-            break
-          case 'Upload Video':
-            this.$router.push('/VideoUp')
-            break
-          case 'Create Custom Banner':
-            this.$router.push('/CanvasSelection')
-        }
-    })
+        case 'Upload Image':
+          this.$router.push('/ImageUp')
+          break
+        case 'Upload Video':
+          this.$router.push('/VideoUp')
+          break
+        case 'Create Custom Banner':
+          this.$router.push('/CanvasSelection')
+      }
+    }
+
+    const backButton = () => {
+      Telegram.WebApp.offEvent('mainButtonClicked', mainButton)
+      Telegram.WebApp.offEvent('backButtonClicked', backButton)
+
+      this.telegramMainButton.hide()
+      this.$router.go(-1)
+    }
+
+    this.telegramMainButton.setParams({ text: 'Next'})
+    Telegram.WebApp.onEvent('mainButtonClicked', mainButton)
     
+    Telegram.WebApp.onEvent('backButtonClicked', backButton)
+  },
+
+  mounted() {
     this.telegramBackButton.show()
-    Telegram.WebApp.onEvent('backButtonClicked', () => {this.telegramMainButton.hide(), this.$router.go(-1)})
+
   }
 
 }

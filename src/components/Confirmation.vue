@@ -275,14 +275,18 @@ export default {
                 }
             })
         }
+
+        const backButton = () => {
+            Telegram.WebApp.offEvent('mainButtonClicked', mainButton)
+            Telegram.WebApp.offEvent('backButtonClicked', backButton)
+            this.telegramMainButton.hide()
+            this.$router.go(-1)
+        }
+
         this.telegramMainButton.setParams({ text: 'Confirm'})
         Telegram.WebApp.onEvent('mainButtonClicked', mainButton)
 
-        Telegram.WebApp.onEvent('backButtonClicked', () => {
-            Telegram.WebApp.offEvent('mainButtonClicked', mainButton)
-            this.telegramMainButton.hide()
-            this.$router.go(-1)
-        })
+        Telegram.WebApp.onEvent('backButtonClicked', backButton)
     },
 
     mounted() {

@@ -52,24 +52,33 @@ export default {
 
   },
 
-  mounted() {
-    if (store.videoObj instanceof File) {
-      this.vid = URL.createObjectURL(store.videoObj)
-    }
-
-    this.telegramMainButton.setParams({ text: 'Next'})
-    Telegram.WebApp.onEvent('mainButtonClicked', () => {
+  beforeMount() {
+    const mainButton = () => {
       this.telegramMainButton.hide()
       store.setMediaType('Video')
       this.$router.push('/ScheduleSelection')
-    })
+    }
 
-    this.telegramBackButton.show()
-    Telegram.WebApp.onEvent('backButtonClicked', () => {
-      this.telegramMainButton.hide()
+    const backButton = () => {
       store.clearVideo()
+      Telegram.WebApp.offEvent('mainButtonClicked', mainButton)
+      Telegram.WebApp.offEvent('backButtonClicked', backButton)
+      this.telegramMainButton.hide()
       this.$router.go(-1)
-    })
+    }
+
+    this.telegramMainButton.setParams({ text: 'Next'})
+    Telegram.WebApp.onEvent('mainButtonClicked', mainButton)
+
+    Telegram.WebApp.onEvent('backButtonClicked', backButton)
+  },
+
+  mounted() {
+    this.telegramBackButton.show()
+
+    if (store.videoObj instanceof File) {
+      this.vid = URL.createObjectURL(store.videoObj)
+    }
   }
 
 }

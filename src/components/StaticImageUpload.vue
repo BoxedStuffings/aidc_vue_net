@@ -55,27 +55,37 @@ export default {
 
   },
 
+  beforeMount() {
+    const mainButton = () => {
+      store.setMediaType('Image')
+      Telegram.WebApp.offEvent('backButtonClicked', backButton)
+      this.telegramMainButton.hide()
+      this.$router.push('/ScheduleSelection')
+    }
+
+    const backButton = () => {
+      store.clearImage()
+      Telegram.WebApp.offEvent('mainButtonClicked', mainButton)
+      Telegram.WebApp.offEvent('backButtonClicked', backButton)
+      this.telegramMainButton.hide()
+      this.$router.go(-1)
+    }
+
+    this.telegramMainButton.setParams({ text: 'Next'})
+    Telegram.WebApp.onEvent('mainButtonClicked', mainButton)
+
+    Telegram.WebApp.onEvent('backButtonClicked', backButton)
+  },
+
   mounted() {
+    this.telegramBackButton.show()
+
     if (store.imageObj instanceof File) {
       let bg = this.$refs.siuHolder
       this.img = URL.createObjectURL(store.imageObj)
 
       bg.style.backgroundImage = `url(${this.img})`
     }
-
-    this.telegramMainButton.setParams({ text: 'Next'})
-    Telegram.WebApp.onEvent('mainButtonClicked', () => {
-      this.telegramMainButton.hide()
-      store.setMediaType('Image')
-      this.$router.push('/ScheduleSelection')
-    })
-
-    this.telegramBackButton.show()
-    Telegram.WebApp.onEvent('backButtonClicked', () => {
-      this.telegramMainButton.hide()
-      store.clearImage()
-      this.$router.go(-1)
-    })
   }
 
 }
