@@ -36,7 +36,7 @@ export default {
         let bg = this.$refs.siuHolder
         this.img = URL.createObjectURL(store.imageObj)
 
-        bg.style.backgroundImage = `url(${img})`
+        bg.style.backgroundImage = `url(${this.img})`
       }
     },
 
@@ -60,20 +60,20 @@ export default {
       let bg = this.$refs.siuHolder
       this.img = URL.createObjectURL(store.imageObj)
 
-      bg.style.backgroundImage = `url(${img})`
+      bg.style.backgroundImage = `url(${this.img})`
     }
 
     this.telegramMainButton.setParams({ text: 'Next'})
     Telegram.WebApp.onEvent('mainButtonClicked', () => {
-      this.telegramMainButton.hide(),
-      store.setMediaType('Image'),
+      this.telegramMainButton.hide()
+      store.setMediaType('Image')
       this.$router.push('/ScheduleSelection')
     })
 
     this.telegramBackButton.show()
     Telegram.WebApp.onEvent('backButtonClicked', () => {
-      this.telegramMainButton.hide(),
-      store.clearImage(),
+      this.telegramMainButton.hide()
+      store.clearImage()
       this.$router.go(-1)
     })
   }

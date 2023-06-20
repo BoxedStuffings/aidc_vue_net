@@ -138,9 +138,6 @@ export default {
                 await $.ajax({
                     url: 'https://heehee.amphibistudio.sg/api/save/image',
                     method: 'POST',
-                    // headers: {
-                    //     'Authorization' : 'Bearer ' + '648daddfbc0acb0ad907bdd7|Xj7e4Hmn5eAoq7dDkns3ZnfJGuBMG3D1s7ia384f'
-                    // },
                     processData: false,
                     mimeType: 'multipart/form-data',
                     contentType: false,
@@ -180,14 +177,11 @@ export default {
         async submitScheduledJobConfirmation(to) {
             return new Promise((resolve, reject) => {
                 let errorArray = []
-                // let tv = 1
-                // let startTime = jobTiming[0]
-                // let endTime = jobTiming[1]
-                let displayType = 2
+                let displayType = 2 //test
                 let mediaLink = store.mediaLink
-                
                 let startTime = store.jobTiming[0]
                 let endTime = store.jobTiming[1]
+
                 for (let i = 0; i < to.length; i++) {
                     let url =`https://heehee.amphibistudio.sg/api/tv/${to[i]._id}/display?display_type=${displayType}&asset=${mediaLink}&display_start=${startTime}&display_end=${endTime}`
                     $.ajax({
@@ -195,7 +189,6 @@ export default {
                         method: 'POST',
                         success: (obj) => {
                             console.log(obj.message)
-                            this.testconfirm = 'uploaded'
                         },
                         error: (error) => errorArray.push(error)
                     })
@@ -216,7 +209,6 @@ export default {
                         method: 'PUT',
                         success: (obj) => {
                             console.log(obj.message)
-                            this.testconfirm = 'uploaded'
                         },
                         error: (error) => errorArray.push(error)
                     })
@@ -313,32 +305,26 @@ export default {
         <div class="confirmation-details">
             <div class="confirmation-details-sections">
                 <h2>TV(s) SELECTED</h2>
-                {{ DorS }}
-                <div class="confirmation-tv" v-for="i, index in testarray" :key="index">
+=                <div class="confirmation-tv" v-for="i, index in store.selectedTvs" :key="index">
                     <font-awesome-icon icon="fa-solid fa-tv" class="confirmation-tv-icon"/>
                     <h4>TV • {{ i._id }} : {{ i.info }}</h4>
                 </div>
             </div>
             <div class="confirmation-details-sections">
                 <h2>MEDIA SELECTED</h2>
-                <!-- <h4>{{ test.name }}</h4> -->
                 <h4>{{ mediaName }}</h4>
             </div>
             <div class="confirmation-details-sections" v-if="DorS">
                 <div class="confirmation-job-timings">
                     <h2>Starting Time:</h2>
-                    <!-- <h4>{{ testdate[0][0] }}</h4> -->
                     <h4>{{ scheduledTime[0] }}</h4>
                 </div>
                 <div class="confirmation-job-timings">
                     <h2>Ending Time: </h2>
-                    <!-- <h4>{{ testdate[0][1] }}</h4> -->
                     <h4>{{ scheduledTime[1] }}</h4>
                 </div>
             </div>
             <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
-            <!-- <button @click="submitConfirmation">test up</button> -->
-            <!-- <button @click="jobCreation">test image up</button> -->
         </div>
     </div>
 </template>
