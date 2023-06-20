@@ -157,14 +157,13 @@ export default {
             if (this.selectedOption === 'default') {
                 store.setjobType = false
                 store.setjobTiming(this.dateTime)
-                this.telegramMainButton.hide()
-                this.$router.push('/Confirmation')
+                this.pushToast('bad')
+                // this.$router.push('/Confirmation')
             } else {
                 this.checkAvailablility().then((message) => {
                     if (message === 'No overlaps') {
                         store.setjobType = true
                         store.setjobTiming(this.dateTime)
-                        this.telegramMainButton.hide()
                         this.$router.push('/Confirmation')
                     }
                 }).catch((result) => {
