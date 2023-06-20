@@ -258,8 +258,7 @@ export default {
 
     },
 
-    mounted() {
-        this.telegramMainButton.show()
+    beforeCreate() {
         this.telegramMainButton.setParams({ text: 'Confirm'})
         Telegram.WebApp.onEvent('mainButtonClicked', () => {
             this.jobCreation().then((message) => {
@@ -277,11 +276,15 @@ export default {
             })
         })
 
-        this.telegramBackButton.show()
         Telegram.WebApp.onEvent('backButtonClicked', () => {
             this.telegramMainButton.hide()
             this.$router.go(-1)
         })
+    },
+
+    mounted() {
+        this.telegramMainButton.show()
+        this.telegramBackButton.show()
 
         this.DorS = store.jobType
         switch(store.mediaType) {
