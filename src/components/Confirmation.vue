@@ -260,8 +260,7 @@ export default {
     },
 
     beforeMount() {
-        this.telegramMainButton.setParams({ text: 'Confirm'})
-        Telegram.WebApp.onEvent('mainButtonClicked', () => {
+        const mainButton = () => {
             this.jobCreation().then((message) => {
                 this.pushSuccessToast(message),
                 setTimeout(() => {
@@ -275,9 +274,12 @@ export default {
                     this.pushErrorToast('Error Uploading Image!')
                 }
             })
-        })
+        }
+        this.telegramMainButton.setParams({ text: 'Confirm'})
+        Telegram.WebApp.onEvent('mainButtonClicked', mainButton)
 
         Telegram.WebApp.onEvent('backButtonClicked', () => {
+            Telegram.WebApp.offEvent('mainButtonClicked', mainButton)
             this.telegramMainButton.hide()
             this.$router.go(-1)
         })

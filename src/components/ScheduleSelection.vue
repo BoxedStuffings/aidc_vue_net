@@ -153,8 +153,7 @@ export default {
     },
 
     beforeMount() {
-        this.telegramMainButton.setParams({ text: 'Next'})
-        Telegram.WebApp.onEvent('mainButtonClicked', () => {
+        const mainButton = () => {
             if (this.selectedOption === 'default') {
                 store.setjobType(false)
                 store.setjobTiming(this.dateTime)
@@ -171,9 +170,13 @@ export default {
                     this.pushToast(result)
                 })
             }
-        })
+        }
+
+        this.telegramMainButton.setParams({ text: 'Next'})
+        Telegram.WebApp.onEvent('mainButtonClicked', mainButton)
 
         Telegram.WebApp.onEvent('backButtonClicked', () => {
+            Telegram.WebApp.offEvent('mainButtonClicked', mainButton)
             this.telegramMainButton.hide()
             this.$router.go(-1)
         })
