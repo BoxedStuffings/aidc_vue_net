@@ -15,6 +15,7 @@ export default {
             telegramBackButton: Telegram.WebApp.BackButton,
             DorS: Boolean,
             mediaName: String,
+            scheduledTime: [],
             
             testarray: [{
                 "_id": 3,
@@ -91,7 +92,7 @@ export default {
             test: {},
             testconfirm: "",
             testdate: [['2023-07-08T08:30', '2023-07-08T09:30'], ['2023-07-08T09:30', '2023-07-08T010:30']],
-            mediaSrc: Object
+            mediaSrc: Object,
         }
     },
 
@@ -300,6 +301,7 @@ export default {
             case 'Canvas':
                 break
         }
+        this.scheduledTime = store.jobTiming
     }
 
 }
@@ -324,12 +326,12 @@ export default {
                 <div class="confirmation-job-timings">
                     <h2>Starting Time:</h2>
                     <!-- <h4>{{ testdate[0][0] }}</h4> -->
-                    <h4>{{ store.jobTiming[0] }}</h4>
+                    <h4>{{ scheduledTime[0] }}</h4>
                 </div>
                 <div class="confirmation-job-timings">
                     <h2>Ending Time: </h2>
                     <!-- <h4>{{ testdate[0][1] }}</h4> -->
-                    <h4>{{ store.jobTiming[1] }}</h4>
+                    <h4>{{ scheduledTime[1] }}</h4>
                 </div>
             </div>
             <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
