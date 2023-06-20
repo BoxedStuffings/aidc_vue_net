@@ -93,6 +93,7 @@ export default {
             testconfirm: "",
             testdate: [['2023-07-08T08:30', '2023-07-08T09:30'], ['2023-07-08T09:30', '2023-07-08T010:30']],
             mediaSrc: Object,
+            test2: String,
         }
     },
 
@@ -302,6 +303,8 @@ export default {
                 break
         }
         this.scheduledTime = store.jobTiming
+
+        this.test2 = store.jobType
     }
 
 }
@@ -312,6 +315,7 @@ export default {
         <div class="confirmation-details">
             <div class="confirmation-details-sections">
                 <h2>TV(s) SELECTED</h2>
+                {{ test2 }}
                 <div class="confirmation-tv" v-for="i, index in testarray" :key="index">
                     <font-awesome-icon icon="fa-solid fa-tv" class="confirmation-tv-icon"/>
                     <h4>TV • {{ i._id }} : {{ i.info }}</h4>
@@ -354,7 +358,6 @@ export default {
 .confirmation-details-sections {
     margin-bottom: 5%;
     position: relative;
-    background-color: var(--tg-theme-secondary-bg-color);
 }
 .confirmation-details-sections h2 {
     color: var(--tg-theme-text-color);

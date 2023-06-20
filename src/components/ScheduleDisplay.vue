@@ -72,20 +72,21 @@ export default {
         removeAll(TV) {
             if (store.selectedTvs[store.findIndexOfSelectedTv(TV)].displays.length <= 0) {
                 this.pushErrorToast('There are no scheduled displays for this TV')
-            }
-            let confirmMsg = 'Are you sure you want to remove all scheduled jobs for this tv?'
-            Telegram.WebApp.showConfirm(confirmMsg, (status) => {
-                if (status) {
-                    let allDisplaysDeletionPromise = Promise
-                    allDisplaysDeletionPromise = this.deleteAllDisplays(TV._id)
+            } else {
+                let confirmMsg = 'Are you sure you want to remove all scheduled jobs for this tv?'
+                Telegram.WebApp.showConfirm(confirmMsg, (status) => {
+                    if (status) {
+                        let allDisplaysDeletionPromise = Promise
+                        allDisplaysDeletionPromise = this.deleteAllDisplays(TV._id)
 
-                    allDisplaysDeletionPromise.then(() => {
-                        store.emptySelectedTVDisplays(TV),
-                        this.pushSuccessToast('All scheduled displays removed'),
-                        this.resetSlide()
-                    }, (e) => {console.log(e), this.pushErrorToast('Error removing displays'), this.resetSlide()})
-                }
-            })
+                        allDisplaysDeletionPromise.then(() => {
+                            store.emptySelectedTVDisplays(TV),
+                            this.pushSuccessToast('All scheduled displays removed'),
+                            this.resetSlide()
+                        }, (e) => {console.log(e), this.pushErrorToast('Error removing displays'), this.resetSlide()})
+                    }
+                })
+            }
         },
 
         remove(TV, index) {
