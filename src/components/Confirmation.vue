@@ -276,11 +276,12 @@ export default {
                 }, 5000);
             }).catch((result) => {
                 this.telegramMainButton.show()
-                if (result == 0) {
-                    this.pushErrorToast('Error Submitting!')
-                } else {
-                    this.pushErrorToast('Error Uploading Image!')
-                }
+                this.pushErrorToast(result)
+                // if (result == 0) {
+                //     this.pushErrorToast('Error Submitting!')
+                // } else {
+                //     this.pushErrorToast('Error Uploading Image!')
+                // }
             })
         })
 
