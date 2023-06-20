@@ -56,7 +56,7 @@ export default {
           case 'Upload Video':
             this.$router.push('/VideoUp')
             break
-          case 'Create Custome Banner':
+          case 'Create Custom Banner':
             this.$router.push('/CanvasSelection')
         }
     })
