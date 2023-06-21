@@ -13,6 +13,7 @@ export default {
             Telegram.WebApp.showScanQrPopup('Scan QR Code', (data) => {
                 this.hapticFeedback()
                 Telegram.WebApp.sendData(data)
+                Telegram.WebApp.closeScanQrPopup()
                 Telegram.WebApp.close()
             })
         },
