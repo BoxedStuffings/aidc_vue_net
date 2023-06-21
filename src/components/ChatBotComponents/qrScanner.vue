@@ -5,7 +5,7 @@ export default {
         return {
             isTelegramClient: false,
             minTelegramVersionAchieved: false,
-            test: ''
+            test: 'ee'
         }
     },
 
@@ -44,7 +44,14 @@ export default {
 </script>
 
 <template>
-    <div v-if="!isTgClient">
+    <div>
+        <h3>
+            QR Code:<br>
+            {{ test }}<br>
+            {{ this.test }}
+        </h3>
+    </div>
+    <!-- <div v-if="!isTgClient">
         <h3>Please open the app from a Telegram client!</h3>
     </div>
     <div v-else-if="!isTelegramClient && !minTelegramVersionAchieved">
@@ -56,7 +63,7 @@ export default {
     <div v-else>
         <h3>Press the button below to open the QR scanner</h3>
         {{ test }}
-    </div>
+    </div> -->
 </template>
 
 <style scoped>
