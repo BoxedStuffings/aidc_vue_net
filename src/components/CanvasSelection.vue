@@ -425,7 +425,7 @@ export default {
 
     //Add custom delete control
     this.deleteSelection()
-  },
+  }
 
 }
 </script>

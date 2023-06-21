@@ -9,6 +9,7 @@ import ImageUpload from '../components/StaticImageUpload.vue'
 import VideoUpload from '../components/VideoUpload.vue'
 import ScheduleSelection from '../components/ScheduleSelection.vue'
 import Confirmation from '../components/Confirmation.vue'
+import QrScanner from '../components/ChatBotComponents/qrScanner.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,7 +38,14 @@ const router = createRouter({
     {
       path: '/CanvasSelection',
       name: 'Canvas Selection',
-      component: CanvasSelection
+      component: CanvasSelection,
+      // beforeEnter: (to, from, next) => {
+      //   if (from.name === undefined) {
+      //     next('/')
+      //   } else {
+      //     next()
+      //   }
+      // }
     },
     {
       path: '/ImageUp',
@@ -58,6 +66,11 @@ const router = createRouter({
       path: '/Confirmation',
       name: 'Confirmation Page',
       component: Confirmation
+    },
+    {
+      path: '/QrScanner',
+      name: 'Qr Scanner',
+      component: QrScanner
     }
   ]
 
