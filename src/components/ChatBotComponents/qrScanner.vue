@@ -13,8 +13,7 @@ export default {
         showQrPopup() {
             Telegram.WebApp.showScanQrPopup('Scan QR Code', (data) => {
                 this.hapticFeedback()
-                this.test = data
-                // Telegram.WebApp.sendData(data)
+                Telegram.WebApp.sendData(data)
                 // Telegram.WebApp.closeScanQrPopup()
             })
         },
@@ -44,14 +43,7 @@ export default {
 </script>
 
 <template>
-    <div>
-        <h3>
-            QR Code:<br>
-            {{ test }}<br>
-            {{ this.test }}
-        </h3>
-    </div>
-    <!-- <div v-if="!isTgClient">
+    <div v-if="!isTgClient">
         <h3>Please open the app from a Telegram client!</h3>
     </div>
     <div v-else-if="!isTelegramClient && !minTelegramVersionAchieved">
@@ -61,9 +53,12 @@ export default {
         </h3>
     </div>
     <div v-else>
-        <h3>Press the button below to open the QR scanner</h3>
-        {{ test }}
-    </div> -->
+        <h3>
+            Press the button below to open the QR scanner<br>
+            {{ test }}
+        </h3>
+
+    </div>
 </template>
 
 <style scoped>
