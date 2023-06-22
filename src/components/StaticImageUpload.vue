@@ -19,7 +19,6 @@ export default {
 
   watch: {
     img() {
-      // (store.imageObj instanceof File) ? console.log("open") : console.log("close")
       (store.imageObj instanceof File) ? this.telegramMainButton.show() : this.telegramMainButton.hide()
     }
   },

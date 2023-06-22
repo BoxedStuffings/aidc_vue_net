@@ -19,7 +19,6 @@ export default {
 
   watch: {
     vid() {
-      // (store.videoObj instanceof File) ? console.log("open") : console.log("close")
       (store.videoObj instanceof File) ? this.telegramMainButton.show() : this.telegramMainButton.hide()
     }
   },

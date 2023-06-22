@@ -72,7 +72,6 @@ export default {
         },
 
         choice() {
-            // this.choice ? console.log("test") : console.log("false") 
             this.choice ? this.telegramMainButton.show() : this.telegramMainButton.hide()
         }
     },
