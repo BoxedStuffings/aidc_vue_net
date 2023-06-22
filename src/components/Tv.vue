@@ -99,7 +99,7 @@ export default {
         draggable: true,
         draggablePercent: 0.5,
         closeButton: 'button',
-        icon: true,
+        icon: true
       })
     },
 
