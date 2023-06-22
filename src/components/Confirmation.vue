@@ -14,8 +14,8 @@ export default {
             telegramMainButton: Telegram.WebApp.MainButton,
             telegramBackButton: Telegram.WebApp.BackButton,
             selectedTvs: [],
-            DorS: '',
             mediaName: 'Default Media Name',
+            DorS: '',
             scheduledTime: [],
             
             testarray: [{
@@ -89,11 +89,7 @@ export default {
                 "displays": [],
                 "updated_at": "2023-06-14T13:25:55.724000Z",
                 "created_at": "2023-06-14T13:25:55.724000Z"
-            }],
-            test: {},
-            testconfirm: "",
-            testdate: [['2023-07-08T08:30', '2023-07-08T09:30'], ['2023-07-08T09:30', '2023-07-08T010:30']],
-            mediaSrc: Object,
+            }]
         }
     },
 
@@ -242,19 +238,6 @@ export default {
                 closeButton: 'button',
                 icon: true,
             })
-        },
-
-        // TBR
-        selectImageFile(fileEvent) {
-            let image = fileEvent.target.files[0]
-            console.log(image.type)
-
-            image.type.indexOf('image/') !== 0 ? this.pushErrorToast('Invalid Image!') : this.test = image
-            console.log(this.test)
-
-            let img = URL.createObjectURL(image)
-            this.mediaSrc = img
-            console.log(img)
         }
 
     },
