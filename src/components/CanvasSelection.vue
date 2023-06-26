@@ -406,6 +406,7 @@ export default {
   },
 
   mounted() {
+    this.telegramMainButton.show()
     this.telegramBackButton.show()
     Telegram.WebApp.expand()
 
