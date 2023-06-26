@@ -183,7 +183,7 @@ export default {
   <div class="schedule-holder">
     <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index">
         <div class="schedule-display-tv">
-            <div class="schedule-display-header">
+            <div class="schedule-display-header noselect">
                 <h2 :style="{'margin':0}">TV • {{ TV._id }}</h2>
                 <font-awesome-icon :icon="['fas', 'trash']" class="schedule-display-header-icon" @click="removeAll(TV)"/>
             </div>
@@ -195,9 +195,9 @@ export default {
                         <div @touchstart.capture="touchStart" @touchend.capture="touchEnd" @click="clickSelf">
                             <div class="schedule-display-detail-info">
                                 <img class="schedule-display-detail-image" src="../assets/boxedstuffings.png">
-                                <div class="schedule-display-detail-timing">
+                                <div class="schedule-display-detail-timing noselect">
                                     <h5>Start Time:</h5>
-                                    {{ displaySchedule.display_start    }}
+                                    {{ displaySchedule.display_start }}
                                     <h5>End Time:</h5>
                                     {{ displaySchedule.display_end }}
                                 </div>
