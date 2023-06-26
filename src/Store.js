@@ -15,6 +15,7 @@ export const store = reactive({
   selectedTvs: [],            // Tv(s) selected by user
   imageObj: {},               // Image selected by user
   videoObj: {},               // Video selected by user
+  canvasObj: {},
   mediaType: String,          // Type of media to be submitted
   mediaLink: String,          // Link to retrieve media after uploading to server
   jobType: false,             // Set media as default or scheduled job (true = scheduled job, false = default)
@@ -111,6 +112,10 @@ export const store = reactive({
   // Remove video from store (VideoUpload.vue)
   clearVideo() {
     this.videoObj = {}
+  },
+  // Add created canvas file to store (CanvasSelection.vue)
+  uploadCanvas(file){
+    this.canvasObj = file
   },
   // Create canvas element id (Elements.vue)
   createElementID(element) {

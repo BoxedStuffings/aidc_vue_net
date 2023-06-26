@@ -33,6 +33,7 @@ export default {
                         mediaUploadPromise = this.uploadVideo(store.videoObj)
                         break
                     case 'Canvas':
+                        mediaUploadPromise = this.uploadCanvas(store.canvasObj)
                         break
                 }
 
@@ -98,19 +99,42 @@ export default {
             }
         },
 
+        async uploadCanvas(canvas) {
+            if (store.canvasObj instanceof File) {
+                let form_data = new FormData()
+                form_data.append('file', canvas)
+                
+                await $.ajax({
+                    url: 'https://heehee.amphibistudio.sg/api/save/video',
+                    method: 'POST',
+                    processData: false,
+                    mimeType: 'multipart/form-data',
+                    contentType: false,
+                    data: form_data,
+                    success: (obj) => {
+                        obj = JSON.parse(obj),
+                        console.log(obj.message),
+                        store.setMediaUploadLink(obj.data)
+                    },
+                    error: (error) => console.log(error)
+                })
+            }
+        },
+
         async submitScheduledJobConfirmation(to) {
             return new Promise((resolve, reject) => {
                 let errorArray = []
-                let displayType = 2 //test
                 let mediaLink = store.mediaLink
                 let startTime = store.jobTiming[0]
                 let endTime = store.jobTiming[1]
+                let body = {'asset': mediaLink, 'display_start': startTime, 'display_end': endTime}
 
                 for (let i = 0; i < to.length; i++) {
-                    let url =`https://heehee.amphibistudio.sg/api/tv/${to[i]._id}/display?display_type=${displayType}&asset=${mediaLink}&display_start=${startTime}&display_end=${endTime}`
+                    let url =`https://heehee.amphibistudio.sg/api/tv/${to[i]._id}/display`
                     $.ajax({
                         url: url,
                         method: 'POST',
+                        body: body,
                         success: (obj) => {
                             console.log(obj.message)
                         },
