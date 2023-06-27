@@ -16,7 +16,8 @@ export default {
             selectedTvs: [],
             mediaName: 'Default Media Name',
             DorS: '',
-            scheduledTime: []
+            scheduledTime: [],
+            testimage: File
         }
     },
 
@@ -24,7 +25,6 @@ export default {
         jobCreation() {
             return new Promise((resolve, reject) => {
                 let mediaUploadPromise = Promise
-
                 switch (store.mediaType) {
                     case 'Image':
                         mediaUploadPromise = this.uploadImage(store.imageObj)
@@ -42,8 +42,8 @@ export default {
                         let to = store.selectedTvs
                         this.submitScheduledJobConfirmation(to).then(() => {
                             resolve('Successfully Submitted!')
-                        }, (e) => {console.log('Errors in: ' + e), reject(0)})
-                    }, (e) => {console.log(e), reject(1)})
+                        }, (e) => {console.log('Errors in: ' + e), reject(e)})
+                    }, (e) => {console.log(e), reject(e)})
                 } else {
                     mediaUploadPromise.then(() => {
                         let to = store.selectedTvs
@@ -200,11 +200,12 @@ export default {
                 }, 5000);
             }).catch((result) => {
                 this.telegramMainButton.show()
-                if (result == 0) {
-                    this.pushErrorToast('Error Submitting!')
-                } else {
-                    this.pushErrorToast('Error Uploading Image!')
-                }
+                this.pushErrorToast(result)
+                // if (result == 0) {
+                //     this.pushErrorToast('Error Submitting!')
+                // } else {
+                //     this.pushErrorToast('Error Uploading Image!')
+                // }
             })
         }
 
@@ -246,6 +247,7 @@ export default {
     <div class="confirmation-holder">
         <div class="confirmation-details">
             <div class="confirmation-details-sections">
+                <button @click="test">test</button>
                 <h2>TV(s) SELECTED</h2>
                 <div class="confirmation-tv" v-for="i, index in selectedTvs" :key="index">
                     <font-awesome-icon icon="fa-solid fa-tv" class="confirmation-tv-icon"/>
