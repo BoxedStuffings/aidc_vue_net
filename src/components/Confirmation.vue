@@ -63,7 +63,7 @@ export default {
                         let to = store.selectedTvs
                         this.submitScheduledJobConfirmation(to).then(() => {
                             resolve('Successfully Submitted!')
-                        }, (e) => {console.log('Errors in: ' + e), reject(e)})
+                        }, (e) => {console.log('Errors in: ' + e), reject(0)})
                     }, (e) => {console.log(e), reject(1)})
                 } else {
                     mediaUploadPromise.then(() => {
@@ -144,7 +144,7 @@ export default {
 
         async submitScheduledJobConfirmation(to) {
             return new Promise((resolve, reject) => {
-                let errorArray = ''
+                let errorArray = []
                 let mediaLink = store.mediaLink
                 let startTime = store.jobTiming[0]
                 let endTime = store.jobTiming[1]
@@ -157,7 +157,7 @@ export default {
                         success: (obj) => {
                             console.log(obj.message)
                         },
-                        error: (error) => errorArray += error
+                        error: (error) => errorArray.push(error)
                     })
                 }
                 errorArray.length == 0 ? resolve('Successful') : reject(errorArray)
@@ -221,12 +221,11 @@ export default {
                 }, 5000);
             }).catch((result) => {
                 this.telegramMainButton.show()
-                this.pushErrorToast(result)
-                // if (result == 0) {
-                //     this.pushErrorToast('Error Submitting!')
-                // } else {
-                //     this.pushErrorToast('Error Uploading Image!')
-                // }
+                if (result == 0) {
+                    this.pushErrorToast('Error Submitting!')
+                } else {
+                    this.pushErrorToast('Error Uploading Image!')
+                }
             })
         }
 
