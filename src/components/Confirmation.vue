@@ -22,6 +22,27 @@ export default {
     },
 
     methods: {
+        test() {
+            this.jobCreation().then((message) => {
+                this.pushSuccessToast(message),
+                setTimeout(() => {
+                    Telegram.WebApp.close()
+                }, 5000);
+            }).catch((result) => {
+                this.telegramMainButton.show()
+                if (result == 0) {
+                    this.pushErrorToast('Error Submitting!')
+                } else {
+                    this.pushErrorToast('Error Uploading Image!')
+                }
+            })
+        },
+
+        selectImageFile(fileEvent) {
+            let testimage = fileEvent.target.files[0]
+
+        },
+
         jobCreation() {
             return new Promise((resolve, reject) => {
                 let mediaUploadPromise = Promise
@@ -43,7 +64,7 @@ export default {
                         this.submitScheduledJobConfirmation(to).then(() => {
                             resolve('Successfully Submitted!')
                         }, (e) => {console.log('Errors in: ' + e), reject(e)})
-                    }, (e) => {console.log(e), reject(e)})
+                    }, (e) => {console.log(e), reject(1)})
                 } else {
                     mediaUploadPromise.then(() => {
                         let to = store.selectedTvs
@@ -123,7 +144,7 @@ export default {
 
         async submitScheduledJobConfirmation(to) {
             return new Promise((resolve, reject) => {
-                let errorArray = []
+                let errorArray = ''
                 let mediaLink = store.mediaLink
                 let startTime = store.jobTiming[0]
                 let endTime = store.jobTiming[1]
@@ -136,7 +157,7 @@ export default {
                         success: (obj) => {
                             console.log(obj.message)
                         },
-                        error: (error) => errorArray.push(error)
+                        error: (error) => errorArray += error
                     })
                 }
                 errorArray.length == 0 ? resolve('Successful') : reject(errorArray)
