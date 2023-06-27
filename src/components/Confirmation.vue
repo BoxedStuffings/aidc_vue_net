@@ -150,7 +150,7 @@ export default {
                 let endTime = store.jobTiming[1]
 
                 for (let i = 0; i < to.length; i++) {
-                    let url =`https://heehee.amphibistudio.sg/api/tv/${to[i]._id}/display?display_type=${displayType}&asset=${mediaLink}&display_start=${startTime}&display_end=${endTime}`
+                    let url =`https://heehee.amphibistudio.sg/api/tv/${to[i]._id}/display?asset=${mediaLink}&display_start=${startTime}&display_end=${endTime}`
                     $.ajax({
                         url: url,
                         method: 'POST',
@@ -268,7 +268,6 @@ export default {
     <div class="confirmation-holder">
         <div class="confirmation-details">
             <div class="confirmation-details-sections">
-                <button @click="test">test</button>
                 <h2>TV(s) SELECTED</h2>
                 <div class="confirmation-tv" v-for="i, index in selectedTvs" :key="index">
                     <font-awesome-icon icon="fa-solid fa-tv" class="confirmation-tv-icon"/>
