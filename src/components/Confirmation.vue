@@ -127,14 +127,12 @@ export default {
                 let mediaLink = store.mediaLink
                 let startTime = store.jobTiming[0]
                 let endTime = store.jobTiming[1]
-                let body = {'asset': mediaLink, 'display_start': startTime, 'display_end': endTime}
 
                 for (let i = 0; i < to.length; i++) {
-                    let url =`https://heehee.amphibistudio.sg/api/tv/${to[i]._id}/display`
+                    let url =`https://heehee.amphibistudio.sg/api/tv/${to[i]._id}/display?display_type=${displayType}&asset=${mediaLink}&display_start=${startTime}&display_end=${endTime}`
                     $.ajax({
                         url: url,
                         method: 'POST',
-                        body: body,
                         success: (obj) => {
                             console.log(obj.message)
                         },

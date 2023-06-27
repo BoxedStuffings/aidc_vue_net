@@ -147,6 +147,7 @@ export default {
                 error: (error) => console.log(error)
             })
         }
+        
     },
 
     beforeMount() {
@@ -173,7 +174,6 @@ export default {
         this.telegramMainButton.show()
         this.telegramBackButton.show()
         Telegram.WebApp.expand()
-
     }
 
 }
