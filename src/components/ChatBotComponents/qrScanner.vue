@@ -25,7 +25,6 @@ export default {
     },
 
     created() {
-        this.test = Telegram.WebApp.platform
         if (Telegram.WebApp.platform != 'unknown') {
             this.isTelegramClient = true
         }
