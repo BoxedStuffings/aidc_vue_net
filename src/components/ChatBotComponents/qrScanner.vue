@@ -25,6 +25,7 @@ export default {
     },
 
     created() {
+        test = Telegram.WebApp.platform
         if (Telegram.WebApp.platform != 'unknown') {
             this.isTelegramClient = true
         }
@@ -44,7 +45,10 @@ export default {
 </script>
 
 <template>
-    <div v-if="!isTgClient">
+    <div>
+        {{ test }}
+    </div>
+    <!-- <div v-if="!isTgClient">
         <h3>Please open the app from a Telegram client!</h3>
     </div>
     <div v-else-if="!isTelegramClient && !minTelegramVersionAchieved">
@@ -59,7 +63,7 @@ export default {
             Press the button below to open the QR scanner<br>
         </h3>
 
-    </div>
+    </div> -->
 </template>
 
 <style scoped>
