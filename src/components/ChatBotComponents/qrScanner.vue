@@ -5,18 +5,16 @@ export default {
         return {
             isTelegramClient: false,
             minTelegramVersionAchieved: false,
-            test: "test"
         }
     },
 
     methods: {
         showQrPopup() {
             Telegram.WebApp.showScanQrPopup('Scan QR Code', (data) => {
-                this.test = data
-                // this.hapticFeedback()
-                // Telegram.WebApp.sendData(data)
-                // Telegram.WebApp.closeScanQrPopup()
-                // Telegram.WebApp.close()
+                this.hapticFeedback()
+                Telegram.WebApp.sendData(data)
+                Telegram.WebApp.closeScanQrPopup()
+                Telegram.WebApp.close()
             })
         },
 
@@ -58,7 +56,6 @@ export default {
     </div>
     <div v-else>
         <h3>
-            {{ test }}
             Press the button below to open the QR scanner<br>
         </h3>
 
