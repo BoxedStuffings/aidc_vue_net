@@ -17,32 +17,10 @@ export default {
             mediaName: 'Default Media Name',
             DorS: '',
             scheduledTime: [],
-            testimage: File
         }
     },
 
     methods: {
-        test() {
-            this.jobCreation().then((message) => {
-                this.pushSuccessToast(message),
-                setTimeout(() => {
-                    Telegram.WebApp.close()
-                }, 5000);
-            }).catch((result) => {
-                this.telegramMainButton.show()
-                if (result == 0) {
-                    this.pushErrorToast('Error Submitting!')
-                } else {
-                    this.pushErrorToast('Error Uploading Image!')
-                }
-            })
-        },
-
-        selectImageFile(fileEvent) {
-            let testimage = fileEvent.target.files[0]
-
-        },
-
         jobCreation() {
             return new Promise((resolve, reject) => {
                 let mediaUploadPromise = Promise
@@ -287,7 +265,6 @@ export default {
                     <h4>{{ scheduledTime[1] }}</h4>
                 </div>
             </div>
-            <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
         </div>
     </div>
 </template>

@@ -25,6 +25,8 @@ export default {
 
   methods: {
     async initTV(){
+      
+
       await $.ajax({
         url: 'https://heehee.amphibistudio.sg/api/tv',
         method: 'GET',
