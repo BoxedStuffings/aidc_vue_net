@@ -46,7 +46,7 @@ export default {
 
 <template>
     <div>
-        {{ test }}
+        {{ this.test }}
     </div>
     <!-- <div v-if="!isTgClient">
         <h3>Please open the app from a Telegram client!</h3>
