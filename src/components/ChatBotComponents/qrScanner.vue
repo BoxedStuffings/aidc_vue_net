@@ -25,7 +25,7 @@ export default {
     },
 
     created() {
-        test = Telegram.WebApp.platform
+        this.test = Telegram.WebApp.platform
         if (Telegram.WebApp.platform != 'unknown') {
             this.isTelegramClient = true
         }
@@ -46,7 +46,7 @@ export default {
 
 <template>
     <div>
-        {{ this.test }}
+        {{ test }}
     </div>
     <!-- <div v-if="!isTgClient">
         <h3>Please open the app from a Telegram client!</h3>
