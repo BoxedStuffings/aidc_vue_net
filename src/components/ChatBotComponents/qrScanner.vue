@@ -5,6 +5,7 @@ export default {
         return {
             isTelegramClient: false,
             minTelegramVersionAchieved: false,
+            test: ""
         }
     },
 
@@ -54,6 +55,7 @@ export default {
     </div>
     <div v-else>
         <h3>
+            {{ test }}
             Press the button below to open the QR scanner<br>
         </h3>
 
