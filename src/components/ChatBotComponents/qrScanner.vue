@@ -26,6 +26,8 @@ export default {
     },
 
     created() {
+        Telegram.WebApp.onEvent('qrTextReceived', (data) => this.test = data )
+        
         if (Telegram.WebApp.platform != 'unknown') {
             this.isTelegramClient = true
         }
