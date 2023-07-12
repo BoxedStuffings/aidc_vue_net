@@ -16,9 +16,7 @@ export default {
       store,
       telegramMainButton: Telegram.WebApp.MainButton,
       telegramBackButton: Telegram.WebApp.BackButton,
-      loading: 0,
-      test: '',
-      test2: 'false',
+      loading: 0
     }
   },
 
@@ -33,11 +31,6 @@ export default {
       let uid = ''
 
       try {
-        // this.test = store.telegramWebAppInfo.user.id.toString()
-        // if (this.test == '1760608116') {
-        //   this.test2 == 'match'
-        // }
-        // // uid = '2386ebb2b54bac45'
         uid = store.telegramWebAppInfo.user.id.toString()
       } catch(error) {
         this.loading = 2
@@ -176,8 +169,6 @@ export default {
     <TvSkeleton v-if="this.loading == 0"></TvSkeleton>
     <!-- Main Grid -->
     <div id="tv-grid" v-else-if="this.loading == 1">
-      {{ test }}
-      {{ test2 }}
     <!-- Individual cards -->
       <ui class="tv-card noselect" v-for="TV in store.availableTVsFromDataBase" :key="TV._id">
         <!-- Image outline for selection -->
