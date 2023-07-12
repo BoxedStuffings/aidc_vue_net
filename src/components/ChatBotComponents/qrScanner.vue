@@ -58,7 +58,6 @@ export default {
         <h3>
             Press the button below to open the QR scanner<br>
         </h3>
-
     </div>
 </template>
 

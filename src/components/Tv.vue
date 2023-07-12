@@ -1,5 +1,6 @@
 <script>
 import $ from 'jquery'
+import  CryptoJS from 'crypto-js'
 import { store } from '../Store.js'
 import { useToast } from "vue-toastification"
 import TvSkeleton from '../components/TvSkeleton.vue'
@@ -15,7 +16,7 @@ export default {
       store,
       telegramMainButton: Telegram.WebApp.MainButton,
       telegramBackButton: Telegram.WebApp.BackButton,
-      loading: true
+      loading: 0
     }
   },
 
@@ -25,29 +26,63 @@ export default {
 
   methods: {
     async initTV(){
-      
+      const encoder = new TextEncoder()
+      const decoder = new TextDecoder()
+      let uid = ''
 
+      try {
+        uid = store.telegramWebAppInfo.user.id
+      } catch(error) {
+        this.loading = 2
+        return
+      }
+
+      // Hashing ID for IV
+      let hashid = CryptoJS.SHA256(uid)
+      let eiv = btoa(decoder.decode(encoder.encode(hashid).slice(0, 16)))
+
+      // Encrypting ID
+      var encrypted = CryptoJS.AES.encrypt(uid, CryptoJS.enc.Base64.parse('tHagGVi1kYLe403CNvV20VwU82+Flz3z7S7TDN6IDFw='), {
+        iv: CryptoJS.enc.Base64.parse(eiv),
+      })
+      let eid = encrypted.ciphertext.toString(CryptoJS.enc.Base64).replace(/[+]/g,'-').replace(/[/]/g,'_')
+
+      // Authing user
+      let url = `https://heehee.amphibistudio.sg/api/auth/user?id=${eid}&iv=${eiv}`
       await $.ajax({
-        url: 'https://heehee.amphibistudio.sg/api/tv',
-        method: 'GET',
-        headers: {
-          'secret' : 'eyJpdiI6InNBaXdUV0RNeHhzRDc3NUJrY0JsWFE9PSIsInZhbHVlIjoiK0J6VHZPUzVOUUREcVUydGc4SHFxQWZsMzI4eVZqMDByRnFBNENhMFcyZz0iLCJtYWMiOiI4M2IxNGQxYTQxMmRlNDIzMTgyNDcyMGNmMTViNDk2MDBiMTE0ZjVkZWQ3MGI4ZWQ3MjYyNmViOTA2YTU0Y2RlIiwidGFnIjoiIn0='
-        },
-        success:  (success) => {
-          store.initTVfromDB(success.data)
-          console.log(success.data)
-          console.log(success.token)
+        url: url,
+        method: 'POST',
+        success: (success) => {
           $.ajaxSetup({
             headers: { 'Authorization' : 'Bearer ' + success.token }
           })
         },
         error: (error) => {
-          this.pushToast(error),
+          this.pushToast(error.responseJSON.message)
+          console.log(error.responseJSON.message)
           setTimeout(() => {
             Telegram.WebApp.close()
           }, 5000);
         }
       })
+
+      // Grabbing TVs
+      await $.ajax({
+        url: 'https://heehee.amphibistudio.sg/api/tv',
+        method: 'GET',
+        success:  (success) => {
+          store.initTVfromDB(success.data)
+          console.log(success.data)
+        },
+        error: (error) => {
+          this.pushToast(error.responseJSON.message)
+          console.log(error.responseJSON.message)
+          setTimeout(() => {
+            Telegram.WebApp.close()
+          }, 5000);
+        }
+      })
+
       this.loading = !this.loading
       store.initcount++
     },
@@ -117,7 +152,7 @@ export default {
 
     this.telegramBackButton.hide()
 
-    store.initcount >= 1 ? this.loading = !this.loading : this.initTV()
+    store.initcount >= 1 ? this.loading = 1 : this.initTV()
 
     this.mainButtonVisibility()
   },
@@ -131,9 +166,9 @@ export default {
 
 <template>
   <div>
-    <TvSkeleton v-if="this.loading"></TvSkeleton>
+    <TvSkeleton v-if="this.loading == 0"></TvSkeleton>
     <!-- Main Grid -->
-    <div id="tv-grid" v-else-if="!this.loading">
+    <div id="tv-grid" v-else-if="this.loading == 1">
     <!-- Individual cards -->
       <ui class="tv-card noselect" v-for="TV in store.availableTVsFromDataBase" :key="TV._id">
         <!-- Image outline for selection -->
@@ -147,6 +182,9 @@ export default {
         <p>TV • {{ TV._id }}</p>
         <button :ref="`button-ref-id_${TV._id}`" @click="selectTV(TV, `button-ref-id_${TV._id}`)" @touchstart="pressingDown(`button-ref-id_${TV._id}`)" @touchend="notPressingDown(`button-ref-id_${TV._id}`)">Select</button>
       </ui>
+    </div>
+    <div id="tv-grid" v-else-if="this.loading == 2">
+      <h3 :style="{'margin':'0', 'padding-top':'2%', 'text-align':'center'}">Please open the app from a Telegram client!</h3>
     </div>
   </div>
 </template>
