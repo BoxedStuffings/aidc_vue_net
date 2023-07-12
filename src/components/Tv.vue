@@ -31,7 +31,8 @@ export default {
       let uid = ''
 
       try {
-        uid = store.telegramWebAppInfo.user.id
+        // uid = store.telegramWebAppInfo.user.id
+        uid = '2386ebb2b54bac45'
       } catch(error) {
         this.loading = 2
         return
