@@ -33,7 +33,7 @@ export default {
       let uid = ''
 
       try {
-        this.test = store.telegramWebAppInfo.user.id
+        this.test = store.telegramWebAppInfo.user.id.toString()
         if (this.test == '1760608116') {
           this.test2 == 'match'
         }
