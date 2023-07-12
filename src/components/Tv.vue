@@ -33,12 +33,12 @@ export default {
       let uid = ''
 
       try {
-        this.test = store.telegramWebAppInfo.user.id.toString()
-        if (this.test == '1760608116') {
-          this.test2 == 'match'
-        }
-        // uid = '2386ebb2b54bac45'
-        uid = '1760608116'
+        // this.test = store.telegramWebAppInfo.user.id.toString()
+        // if (this.test == '1760608116') {
+        //   this.test2 == 'match'
+        // }
+        // // uid = '2386ebb2b54bac45'
+        uid = store.telegramWebAppInfo.user.id.toString()
       } catch(error) {
         this.loading = 2
         return
