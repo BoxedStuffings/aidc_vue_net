@@ -25,7 +25,7 @@ export default {
     createCircle() {
         let circle = new fabric.Circle({
             radius: 20,
-            fill: 'green'
+            fill: '#000000'
         })
         
         this.insertElement(circle)
@@ -35,11 +35,20 @@ export default {
         let square = new fabric.Rect({
             height: 50,
             width: 50,
-            fill: 'purple',
+            fill: '#000000',
             angle: 30
         })
 
         this.insertElement(square)
+    },
+
+    createLine() {
+        let line = new fabric.Line(
+            [50, 100, 200, 200], {
+            stroke: '#000000'
+        })
+        
+        this.insertElement(line)
     },
 
     insertElement(element) {
@@ -61,7 +70,7 @@ export default {
         <ui class="element-option-card" @click="createCircle()">
             <font-awesome-icon icon="fa-solid fa-circle" />
         </ui>
-        <ui class="element-option-card">
+        <ui class="element-option-card" @click="createLine()">
             <font-awesome-icon icon="fa-solid fa-face-frown-open" />
         </ui>
     </div>

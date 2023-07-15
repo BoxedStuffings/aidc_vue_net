@@ -8,7 +8,8 @@ import { toRaw, ref, provide } from 'vue';
 export default {
   provide() {
     return {
-      textboxActiveColor: () => this.activeColor
+      ActiveColor: () => this.activeColor,
+      BackgroundColor: () => this.backgroundColor
     }
   },
 
@@ -26,7 +27,8 @@ export default {
       scale: 1, // Zoom In, Out Scale
       clientX: 0,
       clientY: 0,
-      activeColor: String
+      activeColor: String,
+      backgroundColor: String
     }
   },
 
@@ -200,22 +202,29 @@ export default {
 
     canvasObjectSelection() {
       this.canvas.on('selection:created', () => this.textboxSelectionCheck(true)),
-        this.canvas.on('selection:updated', () => this.textboxSelectionCheck(false)),
-        this.canvas.on('selection:cleared', () => { this.$refs.toolbar.editableTextboxSelected(false), this.$refs.toolbar.closeBottomSheet() })
+      this.canvas.on('selection:updated', () => this.textboxSelectionCheck(false)),
+      this.canvas.on('selection:cleared', () => {this.$refs.toolbar.editableTextboxSelected(0), this.$refs.toolbar.closeBottomSheet()})
     },
 
     textboxSelectionCheck(state) {
-      if (this.canvas.getActiveObject().type === 'textbox') {
-        this.$refs.toolbar.editableTextboxSelected(true)
-        this.fitCanvasToBottomSheet(false)
+      this.$refs.toolbar.closeBottomSheet()
+      if (this.canvas.getActiveObject().type !== 'line'){
         this.activeColor = this.canvas.getActiveObject().fill
-        if (state) {
-          this.fitCanvasToBottomSheet(false)
-        } else {
-          this.activeColor += 'h'
-        }
       } else {
-        this.$refs.toolbar.editableTextboxSelected(false)
+        this.activeColor =  this.canvas.getActiveObject().stroke
+        console.log(this.canvas.getActiveObject())
+      }
+      if (this.canvas.getActiveObject().type === 'textbox') {
+        this.$refs.toolbar.editableTextboxSelected(2)
+        // No idea why it works without this part now, leaving it in just in case
+        // this.fitCanvasToBottomSheet(false)
+        // if (state) {
+        //   this.fitCanvasToBottomSheet(false)
+        // } else {
+        //   // this.activeColor += 'h'
+        // }
+      } else {
+        this.$refs.toolbar.editableTextboxSelected(1)
       }
     },
 
@@ -343,10 +352,22 @@ export default {
 
     changeColor(color) {
       try {
-        if (this.canvas.getActiveObject().type === 'textbox') {
+        if (this.canvas.getActiveObject().type !== 'line'){
           this.canvas.getActiveObject().set('fill', color)
-          this.canvas.requestRenderAll()
+        } else {
+          this.canvas.getActiveObject().set('stroke', color)
         }
+        this.canvas.requestRenderAll()
+      } catch (e) {
+
+      }
+    },
+
+    changeCanvasColor(color) {
+      try {
+        this.canvas.set('backgroundColor', color)
+        this.canvas.requestRenderAll()
+        this.backgroundColor = this.canvas.backgroundColor
       } catch (e) {
 
       }
@@ -417,8 +438,9 @@ export default {
     Telegram.WebApp.expand()
 
     // Intialize Fabric.js Canvas
+    this.backgroundColor = '#FFFFFF'
     this.canvas = new fabric.Canvas('canvas', {
-      backgroundColor: 'white',
+      backgroundColor: this.backgroundColor,
       selectionColor: 'rgba(163, 180, 255, 0.59)',
       selectionLineWidth: 2
     })

@@ -59,9 +59,15 @@ export const store = reactive({
   canvasEditableTexboxOptions: [
     { _id: 1, name: "Font"},
     { _id: 2, name: "Color"},
-    { _id: 3, name: "Shadow"},
-    { _id: 4, name: "Animations"},
+    // { _id: 3, name: "Shadow"},
+    // { _id: 4, name: "Animations"},
     { _id: 5, name: "Options"}
+  ],
+
+  // Canvas toolbar options for objects (Toolbar.vue)
+  canvasObjectOptions: [
+    { _id: 1, name: "Color"},
+    // { _id: 2, name: "Shadow"}
   ],
 
   // ------------------------------------- //

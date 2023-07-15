@@ -30,12 +30,14 @@ export default {
       const decoder = new TextDecoder()
       let uid = ''
 
-      try {
-        uid = store.telegramWebAppInfo.user.id.toString()
-      } catch(error) {
-        this.loading = 2
-        return
-      }
+      // try {
+      //   uid = store.telegramWebAppInfo.user.id.toString()
+      // } catch(error) {
+      //   this.loading = 2
+      //   return
+      // }
+
+      uid = '2386ebb2b54wwbac45'
 
       // Hashing ID for IV
       let hashid = CryptoJS.SHA256(uid)
@@ -58,6 +60,7 @@ export default {
           })
         },
         error: (error) => {
+          Telegram.WebApp.expand()
           this.pushToast(error.responseJSON.message)
           console.log(error.responseJSON.message)
           setTimeout(() => {
@@ -75,6 +78,7 @@ export default {
           console.log(success.data)
         },
         error: (error) => {
+          Telegram.WebApp.expand()
           this.pushToast(error.responseJSON.message)
           console.log(error.responseJSON.message)
           setTimeout(() => {

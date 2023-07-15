@@ -1,7 +1,7 @@
 <script>
 
 export default {
-  inject: ['textboxActiveColor'],
+  inject: ['ActiveColor'],
 
   data() {
     return {
@@ -10,7 +10,7 @@ export default {
     }
   },
 
-  computed: {activeObjectColor() {return this.textboxActiveColor()}},
+  computed: {activeObjectColor() {return this.ActiveColor()}},
 
   watch: {
     activeObjectColor(newValue, oldValue) {
@@ -35,8 +35,8 @@ export default {
     this.activeObjectColorHex = this.activeObjectColor
     this.color = this.activeObjectColor
   }
-}
 
+}
 </script>
 
 <template>
