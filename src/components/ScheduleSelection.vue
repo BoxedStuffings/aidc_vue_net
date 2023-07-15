@@ -21,7 +21,6 @@ export default {
         disable: true,
 
         choice: false,
-        testdate: [['2023-07-08T08:30', '2023-07-08T09:30'], ['2023-07-08T09:30', '2023-07-08T010:30']],
     }},
 
     watch: {
@@ -160,9 +159,17 @@ export default {
             } else {
                 this.checkAvailablility().then((message) => {
                     if (message === 'No overlaps') {
-                        store.setjobType(true)
-                        store.setjobTiming(this.dateTime)
-                        this.$router.push('/Confirmation')
+                        let now = new Date()
+                        let start = new Date(this.dateTime[0])
+
+                        if (start <= now) {
+                            this.telegramMainButton.show()
+                            this.pushToast('Selected datetime is earlier than current time')
+                        } else {
+                            store.setjobType(true)
+                            store.setjobTiming(this.dateTime)
+                            this.$router.push('/Confirmation')
+                        }
                     }
                 }).catch((result) => {
                     this.telegramMainButton.show()
@@ -226,11 +233,12 @@ export default {
                 </div>
             </div>
         </div>
-        Current Date: {{ currentDateTime }}<br>
+        <!-- Calculated values for selection, uncomment to test -->
+        <!-- Current Date: {{ currentDateTime }}<br>
         Selected Start Date: {{ selectedStartDate }}<br>
         Selected End Date: {{ selectedEndDate }}<br>
         Done?: {{ choice }}<br>
-        {{ dateTime }}
+        {{ dateTime }} -->
     </div>
 </template>
 

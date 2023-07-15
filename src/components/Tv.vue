@@ -30,14 +30,13 @@ export default {
       const decoder = new TextDecoder()
       let uid = ''
 
-      // try {
-      //   uid = store.telegramWebAppInfo.user.id.toString()
-      // } catch(error) {
-      //   this.loading = 2
-      //   return
-      // }
-
-      uid = '2386ebb2b54wwbac45'
+      try {
+        uid = store.telegramWebAppInfo.user.id.toString()
+        // uid = '2386ebb2b54bac45'
+      } catch(error) {
+        this.loading = 2
+        return
+      }
 
       // Hashing ID for IV
       let hashid = CryptoJS.SHA256(uid)

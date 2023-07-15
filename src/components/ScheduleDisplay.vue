@@ -15,14 +15,68 @@ export default {
             telegramMainButton: Telegram.WebApp.MainButton,
             telegramBackButton: Telegram.WebApp.BackButton,
             startX: 0,
-            endX: 0
+            endX: 0,
+
+            test: [{
+    "_id": "eyJpdiI6IkVoei9LRHNPS3V4bUlXOTJSSThkTlE9PSIsInZhbHVlIjoiMW4vdkNJUzduZkQybUFDVlR1Vmh3a3grazR3dVJaT09sQU9tY1FBOGd4MD0iLCJtYWMiOiI1NDc0YzdlNzc1OWZkZTNlM2IzNmNiNDJjZTMwYjcwODIwNzBkNTg5ZmU1ZTljNDIzODUwNGIwMzkxNTkzMjM2IiwidGFnIjoiIn0",
+    "current_display": null,
+    "image": null,
+    "info": null,
+    "default_display": null,
+    "displays": [],
+    "updated_at": "2023-07-06T22:02:17.260000Z",
+    "created_at": "2023-07-03T14:41:01.127000Z"
+},
+{
+    "_id": "b8T2SI-7UmwUShO5CJwb-BtI-c_Lyql_dmrt9Rn3fvY=",
+    "current_display": null,
+    "image": null,
+    "info": null,
+    "default_display": null,
+    "displays": [
+        {
+            "tv_id": "b8T2SI-7UmwUShO5CJwb-BtI-c_Lyql_dmrt9Rn3fvY=",
+            "display_start": "2023-02-09T11:30",
+            "display_end": "2023-02-09T12:30",
+            "asset": "submittedimage.com",
+            "_id": {
+                "$oid": "64b2e10dd0f2b881000787b5"
+            }
+        },
+        {
+            "tv_id": "b8T2SI-7UmwUShO5CJwb-BtI-c_Lyql_dmrt9Rn3fvY=",
+            "display_start": "2023-01-09T11:30",
+            "display_end": "2023-01-09T12:30",
+            "asset": "submittedimage.com",
+            "_id": {
+                "$oid": "64b2e125d0f2b881000787b6"
+            }
+        },
+        {
+            "tv_id": "b8T2SI-7UmwUShO5CJwb-BtI-c_Lyql_dmrt9Rn3fvY=",
+            "display_start": "2023-03-09T11:30",
+            "display_end": "2023-03-09T12:30",
+            "asset": "submittedimage.com",
+            "_id": {
+                "$oid": "64b2e131d0f2b881000787b7"
+            }
+        }
+    ],
+    "updated_at": "2023-07-15T19:22:06.648000Z",
+    "created_at": "2023-07-15T14:14:31.470000Z"
+}]
         }
     },
 
     methods: {
-        clickSelf() {
+        clickSelf(e) {
+            let parentElement = e.currentTarget.parentElement
             if (this.checkSlide()) {
                 this.resetSlide()
+                parentElement.dataset.type = 0
+            } else {
+                this.resetSlide()
+                parentElement.dataset.type = 1
             }
         },
 
@@ -33,6 +87,7 @@ export default {
 
         touchEnd(e) {
             let parentElement = e.currentTarget.parentElement
+
             // Record end position
             this.endX = e.changedTouches[0].clientX
 
@@ -181,7 +236,8 @@ export default {
 
 <template>
   <div class="schedule-holder">
-    <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index">
+    <!-- <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index"> -->
+        <div class="schedule-display-block" v-for="TV, index in this.test" :key="index">
         <div class="schedule-display-tv">
             <div class="schedule-display-header noselect">
                 <h2 :style="{'margin':0}">TV • {{ TV._id }}</h2>
@@ -192,7 +248,7 @@ export default {
                     <ul class="schedule-display-detail-content-holder">
                         <!-- data-type=0 hide the delete button, data-type=1 show the delete button -->
                         <li class="schedule-display-detail-content" v-for="(displaySchedule, index) in TV.displays" data-type="0" :key="index">
-                        <div @touchstart.capture="touchStart" @touchend.capture="touchEnd" @click="clickSelf">
+                        <div @touchstart.capture="touchStart" @touchend.capture="touchEnd" @click.capture="clickSelf">
                             <div class="schedule-display-detail-info">
                                 <img class="schedule-display-detail-image" src="../assets/boxedstuffings.png">
                                 <div class="schedule-display-detail-timing noselect">

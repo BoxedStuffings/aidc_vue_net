@@ -22,12 +22,26 @@ const router = createRouter({
     {
       path: '/ScheduleDisplay',
       name: 'Schedule Display',
-      component: ScheduleDisplay
+      component: ScheduleDisplay,
+      // beforeEnter: (to, from, next) => {
+      //   if (from.name === undefined) {
+      //     next('/')
+      //   } else {
+      //     next()
+      //   }
+      // }
     },
     {
       path: '/MainSelection',
       name: 'Main Selection',
-      component: MainSelection
+      component: MainSelection,
+      // beforeEnter: (to, from, next) => {
+      //   if (from.name === undefined) {
+      //     next('/')
+      //   } else {
+      //     next()
+      //   }
+      // }
     },
     {
       path: '/CanvasSelection',
@@ -44,27 +58,55 @@ const router = createRouter({
     {
       path: '/ImageUp',
       name: 'Static Image Upload',
-      component: ImageUpload
+      component: ImageUpload,
+      // beforeEnter: (to, from, next) => {
+      //   if (from.name === undefined) {
+      //     next('/')
+      //   } else {
+      //     next()
+      //   }
+      // }
     },
     {
       path: '/VideoUp',
       name: 'Video Upload',
-      component: VideoUpload
+      component: VideoUpload,
+      // beforeEnter: (to, from, next) => {
+      //   if (from.name === undefined) {
+      //     next('/')
+      //   } else {
+      //     next()
+      //   }
+      // }
     },
     {
       path: '/ScheduleSelection',
       name: 'Schedule Selection',
-      component: ScheduleSelection
+      component: ScheduleSelection,
+      // beforeEnter: (to, from, next) => {
+      //   if (from.name === undefined) {
+      //     next('/')
+      //   } else {
+      //     next()
+      //   }
+      // }
     },
     {
       path: '/Confirmation',
       name: 'Confirmation Page',
-      component: Confirmation
+      component: Confirmation,
+      // beforeEnter: (to, from, next) => {
+      //   if (from.name === undefined) {
+      //     next('/')
+      //   } else {
+      //     next()
+      //   }
+      // }
     },
     {
       path: '/QrScanner',
       name: 'Qr Scanner',
-      component: QrScanner
+      component: QrScanner,
     }
   ]
 

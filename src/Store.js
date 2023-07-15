@@ -66,7 +66,7 @@ export const store = reactive({
 
   // Canvas toolbar options for objects (Toolbar.vue)
   canvasObjectOptions: [
-    { _id: 1, name: "Color"},
+    { _id: 1, name: "Color"}
     // { _id: 2, name: "Shadow"}
   ],
 
