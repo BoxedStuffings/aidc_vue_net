@@ -3,6 +3,7 @@ import { store } from '../Store.js'
 
 import BottomSheet from './toolbarComponents/BottomSheet.vue'
 import Canvas from './toolbarComponents/Canvas.vue'
+import Templates from './toolbarComponents/Templates.vue'
 import Elements from './toolbarComponents/Elements.vue'
 import Insert from './toolbarComponents/Insert.vue'
 import Font from '../components/toolbarComponents/Fonts.vue'
@@ -22,6 +23,7 @@ export default {
     components: {
         BottomSheet,
         Canvas,
+        Templates,
         Elements,
         Insert,
         Font,

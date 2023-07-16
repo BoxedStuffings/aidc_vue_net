@@ -1,4 +1,5 @@
 <script>
+import $ from 'jquery'
 import { store } from '../Store.js'
 import Navbar from './Navbar.vue'
 import Toolbar from './Toolbar.vue'
@@ -288,6 +289,14 @@ export default {
       store.setCanvasLayer(layerArray)
     },
 
+    loadTemplate(json) {
+      this.canvas.loadFromJSON(json, this.canvas.renderAll.bind(this.canvas));
+      const objects = this.canvas.getObjects()
+      for(let o in objects){
+        store.addElementToCanvas(objects[o])
+      }
+    },
+
     insertElementToCanvas(element) {
       let uid = store.createElementID(element)
       element.set({
@@ -403,8 +412,21 @@ export default {
       for(let o in objects){
         store.addElementToCanvas(objects[o])
       }
-    }
-    
+    },
+
+    async getTemplates() {
+      await $.ajax({
+        headers: { 'Authorization' : 'Bearer 64a6f463632f4066200cc0e5|lu6CIFXUEWudouVhWcoch656JK9mO0F0Kjc3liYX'},
+        url: 'https://heehee.amphibistudio.sg/api/templates',
+        method: 'GET',
+        success: (obj) => {
+          console.log(obj.data)
+          store.initCanvasTemplates(obj.data)
+        },
+        error: (error) => console.log(error)
+      })
+    },
+
   },
 
   beforeMount() {
@@ -454,6 +476,9 @@ export default {
 
     //Add custom delete control
     this.deleteSelection()
+
+    // Get canvas templates
+    this.getTemplates()
   }
 
 }

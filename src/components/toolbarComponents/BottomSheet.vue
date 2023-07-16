@@ -50,7 +50,8 @@ export default {
     bottom: 0;
     background-color: var(--tg-theme-bg-color);
     transition-duration: .2s;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     overscroll-behavior: none;
 }
 .bs-sheet {

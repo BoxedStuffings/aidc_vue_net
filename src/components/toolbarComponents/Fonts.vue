@@ -5,13 +5,13 @@ export default {
   data() {
     return {
         loadedFont: [],
-        fontSizeArray: [24, 28, 32, 36, 40, 44, 48, 54, 60, 66, 72]
+        fontSizeArray: [16,24, 28, 32, 36, 40, 44, 48, 54, 60, 66, 72]
     }
   },
 
   methods: {
     populateFonts() {
-        const fonts = ['Open Sans', 'Pacifico', 'VT323', 'Quicksand', 'Inconsolata'];
+        const fonts = ['Open Sans', 'Pacifico', 'VT323', 'Quicksand', 'Inconsolata', 'Montserrat'];
         fonts.forEach((font) => {
             let option = new Option(font, font)
             this.$refs.fontDropDown.add(option, undefined)
@@ -141,7 +141,7 @@ export default {
                 </div>
                 <details class="font-size-select">
                     <summary class="font-size-radios">
-                        <input class="font-size-input" type="radio" name="font-size-item" id="default" title="Select Font" checked>
+                        <input class="font-size-input" type="radio" name="font-size-item" id="default" title="Select Font Size" checked>
                         <input v-on:change="(e) => fontChangeEvent(e)" class="font-size-input" type="radio" name="font-size-item" :id="i" :title="i" v-for="i in fontSizeArray" :key="i">
                     </summary>
                     <ul class="font-size-list">

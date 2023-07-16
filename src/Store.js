@@ -7,6 +7,7 @@ export const store = reactive({
   initcount: 0,                     // Ensure first load of web app
   availableTVsFromDataBase: [],     // Array of available TVs in the database (TV.vue)
   canvasObjects: [],                // Array of elements in the canvas (CanvasSelection.vue)
+  canvasTemplates: [],              // Templates available in the canvas
 
   // ------------------------------------- //
   // ------DATA FOR REQUEST CRAFTING------ //
@@ -15,7 +16,7 @@ export const store = reactive({
   selectedTvs: [],            // Tv(s) selected by user
   imageObj: {},               // Image selected by user
   videoObj: {},               // Video selected by user
-  canvasObj: {},
+  canvasObj: {},              // Canvas created by user 
   mediaType: String,          // Type of media to be submitted
   mediaLink: String,          // Link to retrieve media after uploading to server
   jobType: false,             // Set media as default or scheduled job (true = scheduled job, false = default)
@@ -118,6 +119,10 @@ export const store = reactive({
   // Remove video from store (VideoUpload.vue)
   clearVideo() {
     this.videoObj = {}
+  },
+  // Add available canvas templates to store (CanvasSelection.vue)
+  initCanvasTemplates(templates){
+    this.canvasTemplates = templates
   },
   // Add created canvas file to store (CanvasSelection.vue)
   uploadCanvas(file){
