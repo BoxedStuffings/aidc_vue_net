@@ -247,7 +247,7 @@ export default {
             <div class="confirmation-details-sections">
                 <h2>TV(s) Selected</h2>
                 <div class="confirmation-tv" v-for="i, index in selectedTvs" :key="index">
-                    <font-awesome-icon icon="fa-solid fa-tv" class="confirmation-tv-icon"/>
+                    <span class='icon1'></span>
                     <h4>TV • {{ i._id }} : {{ i.info }}</h4>
                 </div>
             </div>
@@ -297,5 +297,18 @@ export default {
 }
 .confirmation-job-timings {
     margin-bottom: 2%;
+}
+
+.icon1 {
+    background: url('../assets/icons/display.svg');
+    height: 30px;
+    width: 30px;
+    padding:10px;
+    margin-right: 10px;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: center;
+    /* Other styles here */
 }
 </style>

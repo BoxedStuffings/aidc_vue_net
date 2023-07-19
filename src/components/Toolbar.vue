@@ -74,7 +74,7 @@ export default {
 <template>
     <div v-if="textboxSelected == 2" class="tb-holder">
         <ui :ref="`tb-item-ref-id_${option._id}`" :id="'toolbar-item-id_' + option._id" class="tb-content" @click="selectToolbarOption(option)" @touchstart="pressingDown(`tb-item-ref-id_${option._id}`)" @touchend="notPressingDown(`tb-item-ref-id_${option._id}`)" v-for="option in store.canvasEditableTexboxOptions" :key="option._id">
-            <img class="tb-img noselect" src="../assets/boxedstuffings.png">
+            <span :class="`${option.icon_class}`"></span>
             <h4 class="tb-name noselect">{{ option.name }}</h4>
         </ui>
         <BottomSheet ref="bottomSheetRef">
@@ -83,7 +83,7 @@ export default {
     </div>
     <div v-else-if="textboxSelected == 1" class="tb-holder">
         <ui :ref="`tb-item-ref-id_${option._id}`" :id="'toolbar-item-id_' + option._id" class="tb-content" @click="selectToolbarOption(option)" @touchstart="pressingDown(`tb-item-ref-id_${option._id}`)" @touchend="notPressingDown(`tb-item-ref-id_${option._id}`)" v-for="option in store.canvasObjectOptions" :key="option._id">
-            <img class="tb-img noselect" src="../assets/boxedstuffings.png">
+            <span :class="`${option.icon_class}`"></span>
             <h4 class="tb-name noselect">{{ option.name }}</h4>
         </ui>
         <BottomSheet ref="bottomSheetRef">
@@ -92,9 +92,9 @@ export default {
     </div>
     <div v-else-if="textboxSelected == 0" class="tb-holder">
         <ui :ref="`tb-item-ref-id_${option._id}`" :id="'toolbar-item-id_' + option._id" class="tb-content" @click="selectToolbarOption(option)" @touchstart="pressingDown(`tb-item-ref-id_${option._id}`)" @touchend="notPressingDown(`tb-item-ref-id_${option._id}`)" v-for="option in store.canvasToolbarOptions" :key="option._id">
-            <img class="tb-img noselect" src="../assets/boxedstuffings.png">
+            <span :class="`${option.icon_class}`"></span>
             <h4 class="tb-name noselect">{{ option.name }}</h4>
-        </ui>
+        </ui> 
         <BottomSheet ref="bottomSheetRef">
             <component :is="bottomSheetContent"></component>
         </BottomSheet>
@@ -122,5 +122,85 @@ export default {
     margin: 0;
     text-align: center;
     font-size: 1.4vmax;
+}
+.icon1 {
+    background: url('../assets/icons/toolbar/easel.svg');
+    height: 30px;
+    width: 30px;
+    padding:15px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon2 {
+    background: url('../assets/icons/toolbar/columns.svg');
+    height: 30px;
+    width: 30px;
+    padding:15px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon3 {
+    background: url('../assets/icons/toolbar/circle-square.svg');
+    height: 30px;
+    width: 30px;
+    padding:15px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon4 {
+    background: url('../assets/icons/toolbar/image.svg');
+    height: 30px;
+    width: 30px;
+    padding:15px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon5 {
+    background: url('../assets/icons/toolbar/check-square.svg');
+    height: 30px;
+    width: 30px;
+    padding:15px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon6 {
+    background: url('../assets/icons/toolbar/fonts.svg');
+    height: 30px;
+    width: 30px;
+    padding:15px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon7 {
+    background: url('../assets/icons/toolbar/palette.svg');
+    height: 30px;
+    width: 30px;
+    padding:15px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon8 {
+    background: url('../assets/icons/toolbar/check-square.svg');
+    height: 30px;
+    width: 30px;
+    padding:15px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
 }
 </style>

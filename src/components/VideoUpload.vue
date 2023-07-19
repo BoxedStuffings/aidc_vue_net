@@ -88,7 +88,7 @@ export default {
     <video autoplay muted loop playsinline id="vid-bg" :src="vid"></video>
     <div class="vid-upload-content">
       <!-- <img class="vid-upload-icon noselect" src="../assets/boxedstuffings.png"> -->
-      <div class="vid-icon-holder"><font-awesome-icon icon="fa-solid fa-upload"  class="vid-icon" /></div>
+      <div class="vid-icon-holder"><span class='icon1'></span></div>
       <label class="btn btn-primary vid-upload-btn">
         Choose File
         <input type="file" accept="video/*" @change="(env) => selectVideoFile(env)"/>
@@ -139,7 +139,7 @@ export default {
 .vid-upload-btn {
   max-width: 240px;
   width: 40vw;
-  margin: 2%;
+  margin: 1%;
   background-color: var(--secondary);
   color: var(--tg-theme-button-text-color);
   font-size: 2.5vmin;
@@ -148,6 +148,17 @@ export default {
   background-color: #242862;
   border-color: var(--tg-theme-secondary-bg-color);
   color: var(--tg-theme-button-text-colorr);
+}
+.icon1 {
+    background: url('../assets/icons/upload.svg');
+    height: 70px;
+    width: 70px;
+    margin:0;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 70px;
+    background-position: center;
+    /* Other styles here */
 }
 small {
   font-size: 1.5vmin;

@@ -85,7 +85,7 @@ export default {
                 <template #item="{ element }">
                     <div class="canvas-item">
                         <h6 class="noselect">{{ element.Name }}</h6>
-                        <div class="canvas-rename-button"><font-awesome-icon icon="fa-solid fa-i-cursor" /></div>
+                        <div class="canvas-rename-button"><span class='icon1'></span></div>
                     </div>
                 </template>
             </draggable>
@@ -144,6 +144,16 @@ input::-webkit-color-swatch{
 .canvas-item:last-child {
     border-bottom-right-radius: 0.375rem;
     border-bottom-left-radius: 0.375rem;
+}
+
+.icon1 {
+    background: url('../../assets/icons/toolbar/grip-vertical.svg');
+    height: 20px;
+    width: 20px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
 }
 p {
     margin: 3% 0 0 0;

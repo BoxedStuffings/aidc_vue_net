@@ -62,16 +62,16 @@ export default {
 <template>
     <div class="element-holder">
         <ui class="element-option-card" @click="createTextEditable()">
-            <font-awesome-icon icon="fa-solid fa-face-frown-open" beat />
+            <span class='icon1'></span>
         </ui>
         <ui class="element-option-card" @click="createSquare()">
-            <font-awesome-icon icon="fa-solid fa-square" />
+            <span class='icon2'></span>
         </ui>
         <ui class="element-option-card" @click="createCircle()">
-            <font-awesome-icon icon="fa-solid fa-circle" />
+            <span class='icon3'></span>
         </ui>
         <ui class="element-option-card" @click="createLine()">
-            <font-awesome-icon icon="fa-solid fa-face-frown-open" />
+            <span class='icon4'></span>
         </ui>
     </div>
 </template>
@@ -94,5 +94,41 @@ export default {
     justify-content: center;
     align-items: center;
     border: 1px solid black;
+}
+.icon1 {
+    background: url('../../assets/icons/elements/type.svg');
+    height: 30px;
+    width: 30px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon2 {
+    background: url('../../assets/icons/elements/square.svg');
+    height: 30px;
+    width: 30px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon3 {
+    background: url('../../assets/icons/elements/circle.svg');
+    height: 30px;
+    width: 30px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon4 {
+    background: url('../../assets/icons/elements/triangle.svg');
+    height: 30px;
+    width: 30px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
 }
 </style>

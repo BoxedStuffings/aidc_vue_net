@@ -41,7 +41,7 @@ export default {
 <template>
     <div class="canvas-img-insert-holder">
         <div class="canvas-img-insert-content">
-            <img class="canvas-img-insert-icon noselect" src="../../assets/boxedstuffings.png">
+          <span class='icon1'></span>
             <label class="btn btn-primary canvas-img-insert-btn">
                 Choose Image
                 <input ref="canvasInsertInput" type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
@@ -66,12 +66,12 @@ export default {
 .canvas-img-insert-icon {
   max-width: 100px;
   width: 30vw;
-  margin: 2%;
+  margin: 1%;
 }
 .canvas-img-insert-btn {
   max-width: 240px;
   width: 40vw;
-  margin: 2%;
+  margin: 1%;
   background-color: var(--secondary);
   color: var(--tg-theme-button-text-color);
   font-size: 2.5vmin;
@@ -83,5 +83,16 @@ export default {
 }
 input[type="file"] {
   display: none;
+}
+.icon1 {
+    background: url('../../assets/icons/upload.svg');
+    height: 70px;
+    width: 70px;
+    margin:0;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 70px;
+    background-position: center;
+    /* Other styles here */
 }
 </style>
