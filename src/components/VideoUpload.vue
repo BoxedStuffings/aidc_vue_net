@@ -30,9 +30,10 @@ export default {
       console.log(video.type)
       video.type.indexOf('video/') !== 0 ? this.pushToast() : store.uploadVideo(video)
 
-      // test
       if (store.videoObj instanceof File && video.type.indexOf('video/') == 0) {          
         this.vid = URL.createObjectURL(store.videoObj)
+        let vid = this.$refs.vidHolder
+        vid.style.visibility = 'visible'
       }
     },
 
@@ -85,9 +86,9 @@ export default {
 
 <template>
   <div class="vid-upload-holder">
-    <video autoplay muted loop playsinline id="vid-bg" :src="vid"></video>
+    <!-- <video autoplay muted loop playsinline id="vid-bg" :src="vid"></video> -->
     <div class="vid-upload-content">
-      <!-- <img class="vid-upload-icon noselect" src="../assets/boxedstuffings.png"> -->
+      <video ref="vidHolder" autoplay muted loop playsinline class="vid-upload-preview noselect" :src="vid"></video>
       <div class="vid-icon-holder"><span class='icon1'></span></div>
       <label class="btn btn-primary vid-upload-btn">
         Choose File
@@ -104,14 +105,14 @@ export default {
   position: relative;
   margin: 20px;
 }
-#vid-bg {
+/* #vid-bg {
   height: 100%;
   width: 100%;
   border-radius: 15px;
   position: absolute;
   object-fit: cover;
   z-index: -1;
-}
+} */
 .vid-upload-content {
   height: 100%;
   display: flex;
@@ -120,22 +121,17 @@ export default {
   align-items: center;
   padding: 1vh 2vw;
 }
-.vid-icon-holder {
-  height: 10vh;
-  width: 10vw;
-  display: inherit;
-  justify-content: center;
-  margin-bottom: 2%;
-}
 .vid-icon {
   height: 100%;
   scale: 1.2;
 }
-/* .vid-upload-icon {
-    max-width: 200px;
-    width: 30vw;
-    margin: 2%;
-} */
+.vid-upload-preview {
+  height: 20%;
+  width: 85%;
+  margin: 2%;
+  transform: translateY(-8%);
+  visibility: hidden;
+}
 .vid-upload-btn {
   max-width: 240px;
   width: 40vw;
