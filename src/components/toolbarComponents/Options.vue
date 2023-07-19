@@ -49,14 +49,13 @@ export default {
                 <option value="json">JSON</option>
             </select>
         </div>
-
     </div>
-    <div class="element-holder">
+    <!-- <div class="element-holder">
         <label class="btn btn-primary canvas-img-insert-btn">
             test template upload
             <input ref="canvasInsertInput" accept='application/JSON' type="file" @change="(env) => selectTemplate(env)" />
         </label>
-    </div>
+    </div> -->
 </template>
 
 <style scoped>

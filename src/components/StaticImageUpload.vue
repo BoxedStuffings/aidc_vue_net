@@ -30,12 +30,11 @@ export default {
       console.log(image.type)
       image.type.indexOf('image/') !== 0 ? this.pushToast() : store.uploadImage(image)
 
-      // test
       if (store.imageObj instanceof File && image.type.indexOf('image/') == 0) {
         let bg = this.$refs.siuHolder
         this.img = URL.createObjectURL(store.imageObj)
-
-        bg.style.backgroundImage = `url(${this.img})`
+        bg.src = this.img
+        // bg.src = `url(${this.img})`
       }
     },
 
@@ -91,16 +90,17 @@ export default {
 </script>
 
 <template>
-    <div ref="siuHolder" class="img-upload-holder">
-        <div class="img-upload-content">
-            <!-- <img class="img-upload-icon noselect" src="../assets/boxedstuffings.png"> -->
-            <div class="img-icon-holder"><font-awesome-icon icon="fa-solid fa-upload"  class="img-icon" /></div>
-            <label class="btn btn-primary img-upload-btn">
-                Choose File
-                <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
-            </label>
-            <small>{{ store.imageObj.name }}</small>
-        </div>
+    <div class="img-upload-holder">
+      <div class="img-upload-content">
+        <!-- <div class="img-upload-preview"></div> -->
+        <img ref="siuHolder" class="img-upload-preview noselect">
+        <div class="img-icon-holder"><font-awesome-icon icon="fa-solid fa-upload"  class="img-icon" /></div>
+        <label class="btn btn-primary img-upload-btn">
+            Choose File
+            <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
+        </label>
+        <small>{{ store.imageObj.name }}</small>
+      </div>
     </div>
 </template>
 
@@ -131,11 +131,11 @@ export default {
   height: 100%;
   scale: 1.2;
 }
-/* .img-upload-icon {
-  max-width: 200px;
-  width: 30vw;
+.img-upload-preview {
+  height: 20%;
+  width: 60%;
   margin: 2%;
-} */
+}
 .img-upload-btn {
   max-width: 240px;
   width: 40vw;
