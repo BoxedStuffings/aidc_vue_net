@@ -248,7 +248,7 @@ export default {
                 <h2>TV(s) Selected</h2>
                 <div class="confirmation-tv" v-for="i, index in selectedTvs" :key="index">
                     <span class='icon1'></span>
-                    <h4>TV • {{ i._id }} : {{ i.info }}</h4>
+                    <h4>TV • {{ i.info }}</h4>
                 </div>
             </div>
             <div class="confirmation-details-sections">

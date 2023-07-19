@@ -201,9 +201,17 @@ export default {
       }
     },
 
+    selectOffCanvas(env) {
+      if (!env.srcElement.classList.contains('upper-canvas')) {
+        this.canvas.discardActiveObject()
+        this.$refs.toolbar.editableTextboxSelected(0)
+        this.$refs.toolbar.closeBottomSheet()
+      }
+    },
+
     canvasObjectSelection() {
-      this.canvas.on('selection:created', () => this.textboxSelectionCheck(true)),
-      this.canvas.on('selection:updated', () => this.textboxSelectionCheck(false)),
+      this.canvas.on('selection:created', () => this.textboxSelectionCheck(true))
+      this.canvas.on('selection:updated', () => this.textboxSelectionCheck(false))
       this.canvas.on('selection:cleared', () => {this.$refs.toolbar.editableTextboxSelected(0), this.$refs.toolbar.closeBottomSheet()})
     },
 
@@ -290,14 +298,27 @@ export default {
     },
 
     loadTemplate(json) {
-      this.canvas.loadFromJSON(json, this.canvas.renderAll.bind(this.canvas));
+      this.canvas.loadFromJSON(json);
       store.removeallElementsFromCanvas()
+      this.$refs.toolbar.closeBottomSheet()
+      setTimeout(() => {
+        this.canvas.getObjects().forEach((obj) => {
+          if (obj.id == 'Background') {
+            obj.set('selectable', false)
+            obj.set('top', 0)
+            obj.set('left', 0)
+            obj.scaleToHeight(this.canvas.height)
+            obj.scaleToWidth(this.canvas.width)
+            this.canvas.renderAll()
+          }
+        })
+      }, 50)
       setTimeout(() => {
         const objects = this.canvas.getObjects()
         for(let o in objects){
           store.addElementToCanvas(objects[o])
         }
-      }, 1000)
+      }, 500)
     },
 
     insertElementToCanvas(element) {
@@ -317,7 +338,7 @@ export default {
         top: this.canvas.height / 3,
         left: this.canvas.width / 2.5,
         id: uid
-      })
+      }).setSrc(imageObj._element.src, () => this.canvas.renderAll() ,{'crossOrigin': 'anonymous'})
       imageObj.scaleToWidth(this.canvas.width / 5, false);
       store.addElementToCanvas(imageObj)
       this.canvas.add(imageObj)
@@ -492,7 +513,7 @@ export default {
 <template>
   <div class="cs-holder">
     <navbar class="navbar-wrapper"></navbar>
-    <div class="canvas-wrapper" ref="canvasWrapper" :style="{ 'height': `${wrapperHeight}px` }">
+    <div @click="(env) => selectOffCanvas(env)" class="canvas-wrapper" ref="canvasWrapper" :style="{ 'height': `${wrapperHeight}px` }">
       <canvas id="canvas" ref="canvasElement"></canvas>
     </div>
     <toolbar ref="toolbar" class="toolbar"></toolbar>
@@ -507,6 +528,7 @@ export default {
   position: relative;
   background: lightgrey;
   overflow: hidden;
+  z-index: 0;
 }
 .navbar-wrapper {
   height: 5%;
