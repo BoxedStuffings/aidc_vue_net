@@ -228,8 +228,6 @@ export default {
 
         this.selectedTvs = store.selectedTvs
         this.DorS = store.jobType
-        this.mediaType = 1
-        this.img = 'https://picsum.photos/200'
         switch(store.mediaType) {
             case 'Image':
                 this.mediaName = store.imageObj.name
@@ -243,6 +241,7 @@ export default {
                 break
             case 'Canvas':
                 this.mediaName = 'Canvas'
+                this.mediaType = 0
                 break
         }
         this.scheduledTime = store.jobTiming
