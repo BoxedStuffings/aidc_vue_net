@@ -141,8 +141,8 @@ export default {
   width: 40vw;
   margin: 2%;
   background-color: var(--secondary);
-  color: var(--tg-theme-button-text-color);
   font-size: 2.5vmin;
+  /* pointer-events: none; */
 }
 .img-upload-btn:hover, :not(.btn-check) + .img-upload-btn:active {
   background-color: #242862;
