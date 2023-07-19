@@ -319,7 +319,6 @@ export default {
 .confirmation-upload-preview {
   height: auto;
   width: 85%;
-  /* visibility: hidden; */
 }
 .icon1 {
     background: url('../assets/icons/display.svg');
