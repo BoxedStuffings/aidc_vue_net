@@ -241,7 +241,7 @@ export default {
         <div class="schedule-display-tv">
             <div class="schedule-display-header noselect">
                 <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
-                <font-awesome-icon :icon="['fas', 'trash']" class="schedule-display-header-icon" @click="removeAll(TV)"/>
+                <span class='icon1'></span>
             </div>
             <div class="schedule-display-detail" v-if="TV.displays.length != 0">
                 <div class="schedule-display-detail-holder">
@@ -343,5 +343,18 @@ export default {
 }
 .schedule-display-detail-timing h6{
     margin: 0;
+}
+
+.icon1 {
+    background: url('../assets/icons/trash.svg');
+    height: 30px;
+    width: 30px;
+    padding:10px;
+    margin-right: 10px;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 25px;
+    background-position: center;
+    /* Other styles here */
 }
 </style>

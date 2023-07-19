@@ -61,16 +61,16 @@ export default {
 <template>
     <div>
         <div class="nb-item" id="zoom-in" @click="selectZoom(0)" ref="zoomIn">
-            <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
+            <span class='icon1'></span>
         </div>
         <div class="nb-item" id="zoom-out" @click="selectZoom(1)" ref="zoomOut">
-            <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
+            <span class='icon2'></span>
         </div>
         <div class="nb-item" id="grab" @click="selectGrab()" ref="grab">
-            <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
+            <span class='icon3'></span>
         </div>
         <div class="nb-item" id="fit-screen" @click="selectZoom(2)" ref="fitScreen">
-            <font-awesome-icon icon="fa-solid fa-magnifying-glass-plus" />
+            <span class='icon4'></span>
         </div>
     </div>
 </template>
@@ -84,8 +84,44 @@ export default {
     border: solid grey 1px;
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     background-color: white;
+}
+.icon1 {
+    background: url('../assets/icons/navbar/zoom-in.svg');
+    height: 20px;
+    width: 20px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon2 {
+    background: url('../assets/icons/navbar/zoom-out.svg');
+    height: 20px;
+    width: 20px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon3 {
+    background: url('../assets/icons/navbar/arrows-move.svg');
+    height: 20px;
+    width: 20px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon4 {
+    background: url('../assets/icons/navbar/fullscreen.svg');
+    height: 20px;
+    width: 20px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
 }
 </style>

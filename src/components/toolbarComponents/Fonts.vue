@@ -141,7 +141,7 @@ export default {
                 </div>
                 <details class="font-size-select">
                     <summary class="font-size-radios">
-                        <input class="font-size-input" type="radio" name="font-size-item" id="default" title="Select Font Size" checked>
+                        <input class="font-size-input" type="radio" name="font-size-item" id="default" title="Font Size" checked>
                         <input v-on:change="(e) => fontChangeEvent(e)" class="font-size-input" type="radio" name="font-size-item" :id="i" :title="i" v-for="i in fontSizeArray" :key="i">
                     </summary>
                     <ul class="font-size-list">
@@ -158,17 +158,17 @@ export default {
             <div class="font-row-bg">
                 <input type="radio" class="btn-check" name="text-align-options" id="align-left">
                 <label class="btn btn-secondary text-btn" for="align-left" @click="alignText('left')">
-                    <font-awesome-icon icon="fa-solid fa-align-left" />
+                    <span class='icon1'></span>
                 </label>
 
                 <input type="radio" class="btn-check" name="text-align-options" id="align-center">
                 <label class="btn btn-secondary text-btn" for="align-center" @click="alignText('center')">
-                    <font-awesome-icon icon="fa-solid fa-align-center" />
+                    <span class='icon2'></span>
                 </label>
 
                 <input type="radio" class="btn-check" name="text-align-options" id="align-right">
                 <label class="btn btn-secondary text-btn" for="align-right" @click="alignText('right')">
-                    <font-awesome-icon icon="fa-solid fa-align-right" />
+                    <span class='icon3'></span>
                 </label>
             </div>
         </div>
@@ -176,22 +176,22 @@ export default {
             <div class="font-row-bg">
                 <input type="button" class="btn-check" name="text-style-options" id="text-bold">
                 <label class="btn btn-secondary text-btn" for="text-bold" @click="toggleWeight()">
-                    <font-awesome-icon icon="fa-solid fa-bold" />
+                    <span class='icon4'></span>
                 </label>
                 
                 <input type="button" class="btn-check" name="text-style-options" id="text-italic">
                 <label class="btn btn-secondary text-btn" for="text-italic" @click="toggleItalics()">
-                    <font-awesome-icon icon="fa-solid fa-italic" />
+                    <span class='icon5'></span>
                 </label>
 
                 <input type="button" class="btn-check" name="text-style-options" id="text-linethrough">
                 <label class="btn btn-secondary text-btn" for="text-linethrough" @click="toggleLinethrough()">
-                    <font-awesome-icon icon="fa-solid fa-strikethrough" />
+                    <span class='icon6'></span>
                 </label>
 
                 <input type="button" class="btn-check" name="text-style-options" id="text-underline">
                 <label class="btn btn-secondary text-btn" for="text-underline" @click="toggleUnderline()">
-                    <font-awesome-icon icon="fa-solid fa-underline" />
+                    <span class='icon7'></span>
                 </label>
             </div>
         </div>
@@ -430,5 +430,83 @@ label.font-size-label span {
     font-size: 1.7vmax;
     background-color: var(--tg-theme-button-color) !important;
     color: var(--tg-theme-button-text-color);
+}
+
+.icon1 {
+    background: url('../../assets/icons/fonts/text-left.svg');
+    height: 20px;
+    width: 100%;
+    margin:0;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+    /* Other styles here */
+}
+.icon2 {
+    background: url('../../assets/icons/fonts/text-center.svg');
+    height: 20px;
+    width: 100%;
+    margin:0;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+    /* Other styles here */
+}
+.icon3 {
+    background: url('../../assets/icons/fonts/text-right.svg');
+    height: 20px;
+    width: 100%;
+    margin:0;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+    /* Other styles here */
+}
+.icon4 {
+    background: url('../../assets/icons/fonts/type-bold.svg');
+    height: 20px;
+    width: 100%;
+    margin:0;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+    /* Other styles here */
+}
+.icon5 {
+    background: url('../../assets/icons/fonts/type-italic.svg');
+    height: 20px;
+    width: 100%;
+    margin:0;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+    /* Other styles here */
+}
+.icon6 {
+    background: url('../../assets/icons/fonts/type-strikethrough.svg');
+    height: 20px;
+    width: 100%;
+    margin:0;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+    /* Other styles here */
+}
+.icon7 {
+    background: url('../../assets/icons/fonts/type-underline.svg');
+    height: 20px;
+    width: 100%;
+    margin:0;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+    /* Other styles here */
 }
 </style>

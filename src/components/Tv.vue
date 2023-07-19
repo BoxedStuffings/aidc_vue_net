@@ -177,7 +177,7 @@ export default {
         <!-- Image outline for selection -->
         <div class="tv-card-imageOutline" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }">
           <!-- Card check mark -->
-          <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
+          <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/icons/check.svg">
           <!-- Display image -->
           <img :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
         </div>
@@ -237,7 +237,8 @@ export default {
   max-width: 100%;
 }
 img.selected {
-  box-shadow: 0 0 4px white;
+  background-color: white;
+  box-shadow: 0 0 4px grey;
   transform: scale(0.9);
   z-index: -1;
 }
