@@ -215,20 +215,20 @@ export default {
         </div>
         <div>
             <input type="radio" name="startOptions" value="default" id="option-default" class="btn-check" v-model="selectedOption">
-            <label class="btn btn-secondary ss-btn" for="option-default">Set as Default</label>
+            <label class="btn btn-secondary ss-btn" for="option-default"><h6>Set as Default</h6></label>
         </div>
         <div>
             <input type="radio" name="startOptions" value="schedule" id="option-schedule" class="btn-check" v-model="selectedOption">
-            <label class="btn btn-secondary ss-btn" for="option-schedule">Schedule Display</label>
+            <label class="btn btn-secondary ss-btn" for="option-schedule"><h6>Schedule Display</h6></label>
         </div>
         <div ref="scheduleHolder" class="ss-dateTime-picker-holder">
             <div ref="schedulePicker" class="ss-dateTime-pickers">
                 <div class="ss-dateTime-picker-row">
-                    <h6>Starting DateTime: </h6>
+                    <p>Starting DateTime: </p>
                     <input type="datetime-local" class="form-control dateTime-picker" :min="currentDateTime" @change="startDateTimePicked" v-model="selectedStartDate">
                 </div>
                 <div class="ss-dateTime-picker-row">
-                    <h6>Ending DateTime: </h6>
+                    <p>Ending DateTime: </p>
                     <input type="datetime-local" class="form-control dateTime-picker" :min="selectedStartDate" :disabled="disable" @change="endDateTimePicked" v-model="selectedEndDate">
                 </div>
             </div>
@@ -245,11 +245,11 @@ export default {
 <style scoped>
 .ss-holder {
     height: 0;
-    padding: 1vh 2vw;
+    padding: 1vh 3vw;
 }
 .ss-header {
     display: flex;
-    margin-block: 2%;
+    margin: 3% 0 5% 2%;
 }
 .ss-header img {
     height: 100%;
@@ -311,5 +311,11 @@ export default {
 .form-control {
     font-size: 3vmin;
     min-width: 95%;
+}
+h6 {
+    margin: 0;
+}
+p {
+    margin: 0 0 0 5%;
 }
 </style>

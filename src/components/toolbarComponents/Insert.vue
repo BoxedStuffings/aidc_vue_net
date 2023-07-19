@@ -81,9 +81,6 @@ export default {
   border-color: var(--tg-theme-secondary-bg-color);
   color: var(--tg-theme-button-text-colorr);
 }
-small {
-  font-size: 1.5vmin;
-}
 input[type="file"] {
   display: none;
 }

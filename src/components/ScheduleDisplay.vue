@@ -21,7 +21,7 @@ export default {
     "_id": "eyJpdiI6IkVoei9LRHNPS3V4bUlXOTJSSThkTlE9PSIsInZhbHVlIjoiMW4vdkNJUzduZkQybUFDVlR1Vmh3a3grazR3dVJaT09sQU9tY1FBOGd4MD0iLCJtYWMiOiI1NDc0YzdlNzc1OWZkZTNlM2IzNmNiNDJjZTMwYjcwODIwNzBkNTg5ZmU1ZTljNDIzODUwNGIwMzkxNTkzMjM2IiwidGFnIjoiIn0",
     "current_display": null,
     "image": null,
-    "info": null,
+    "info": 'bebebeb',
     "default_display": null,
     "displays": [],
     "updated_at": "2023-07-06T22:02:17.260000Z",
@@ -31,7 +31,7 @@ export default {
     "_id": "b8T2SI-7UmwUShO5CJwb-BtI-c_Lyql_dmrt9Rn3fvY=",
     "current_display": null,
     "image": null,
-    "info": null,
+    "info": 'teoke',
     "default_display": null,
     "displays": [
         {
@@ -237,10 +237,10 @@ export default {
 <template>
   <div class="schedule-holder">
     <!-- <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index"> -->
-        <div class="schedule-display-block" v-for="TV, index in this.test" :key="index">
+    <div class="schedule-display-block" v-for="TV, index in this.test" :key="index">
         <div class="schedule-display-tv">
             <div class="schedule-display-header noselect">
-                <h2 :style="{'margin':0}">TV • {{ TV._id }}</h2>
+                <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
                 <font-awesome-icon :icon="['fas', 'trash']" class="schedule-display-header-icon" @click="removeAll(TV)"/>
             </div>
             <div class="schedule-display-detail" v-if="TV.displays.length != 0">
@@ -252,9 +252,9 @@ export default {
                             <div class="schedule-display-detail-info">
                                 <img class="schedule-display-detail-image" src="../assets/boxedstuffings.png">
                                 <div class="schedule-display-detail-timing noselect">
-                                    <h5>Start Time:</h5>
+                                    <h6>Start Time:</h6>
                                     {{ displaySchedule.display_start }}
-                                    <h5>End Time:</h5>
+                                    <h6>End Time:</h6>
                                     {{ displaySchedule.display_end }}
                                 </div>
                             </div>
@@ -274,6 +274,7 @@ export default {
 
 <style>
 .schedule-holder {
+    margin-left: 2%;
     padding-inline: 2%;
 }
 .schedule-holder .schedule-display-block:first-child .schedule-display-tv .schedule-display-header{
@@ -327,7 +328,7 @@ export default {
 }
 .schedule-display-detail-info {
     overflow: hidden;
-    padding: 10px;
+    padding-block: 10px;
     background-color: color-mix(in srgb, var(--tg-theme-bg-color), white 5%);
 }
 .schedule-display-detail-info .schedule-display-detail-image {
@@ -340,7 +341,7 @@ export default {
     overflow: hidden;
     padding-left: 8px;
 }
-.schedule-display-detail-timing h5{
+.schedule-display-detail-timing h6{
     margin: 0;
 }
 </style>

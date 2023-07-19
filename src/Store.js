@@ -28,47 +28,44 @@ export const store = reactive({
   // Media type options (MainSelection.vue)
   availableMSOptions: [
       {
-        "_id": 1,
-        "title":"Upload Image",
-        "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
-        "media":"hehe.com"
+        '_id': 1,
+        'title': 'Upload Image',
+        'desc': 'Share your organization\'s noteworthy images on the big screen! Tap here to display your curated visuals in stunning clarity. Accepted file types: jpeg, png, gif, bmp, webp (max size: 50MB). For optimal viewing, maintain a 16:9 ratio.'
       },
 
       {
-        "_id": 2,
-        "title":"Upload Video",
-        "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
-        "media":"hehe.com",
+        '_id': 2,
+        'title': 'Upload Video',
+        'desc': 'Stream videos on your organization\'s TV platform! Tap here to relive important updates and corporate content on the big screen. Accepted video types: mp4 (max size: 50MB). For the best playback experience, maintain a 16:9 ratio and a minimum resolution of 1080p.'  
       },
 
       {
-        "_id": 3,
-        "title":"Create Custom Banner",
-        "desc":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
-        "media":"hehe.com",
+        '_id': 3,
+        'title': 'Create Custom Banner',
+        'desc': 'Design custom banners with ease! Utilize our user-friendly feature to create personalized banner designs swiftly. Please note that while this tool offers quick and convenient banner creation, it is not intended to replace poster design functionality. Our extensive collection includes professional templates for greetings and promotions, allowing you to craft stunning banners within seconds.'
       }
   ],
   // Canvas toolbar options (Toolbar.vue)
   canvasToolbarOptions: [
-    { _id: 1, name: "Canvas"},
-    { _id: 2, name: "Templates"},
-    { _id: 3, name: "Elements"},
-    { _id: 4, name: "Insert"},
-    { _id: 5, name: "Options"}
+    { _id: 1, name: 'Canvas'},
+    { _id: 2, name: 'Templates'},
+    { _id: 3, name: 'Elements'},
+    { _id: 4, name: 'Insert'},
+    { _id: 5, name: 'Options'}
   ],
   // Canvas toolbar options for editable textbox (Toolbar.vue)
   canvasEditableTexboxOptions: [
-    { _id: 1, name: "Font"},
-    { _id: 2, name: "Color"},
-    // { _id: 3, name: "Shadow"},
-    // { _id: 4, name: "Animations"},
-    { _id: 5, name: "Options"}
+    { _id: 1, name: 'Font'},
+    { _id: 2, name: 'Color'},
+    // { _id: 3, name: 'Shadow'},
+    // { _id: 4, name: 'Animations'},
+    { _id: 5, name: 'Options'}
   ],
 
   // Canvas toolbar options for objects (Toolbar.vue)
   canvasObjectOptions: [
-    { _id: 1, name: "Color"}
-    // { _id: 2, name: "Shadow"}
+    { _id: 1, name: 'Color'}
+    // { _id: 2, name: 'Shadow'}
   ],
 
   // ------------------------------------- //
@@ -152,6 +149,10 @@ export const store = reactive({
     if (i > -1) {
       this.canvasObjects.splice(i, 1)
     }
+  },
+  // Remove all canvas elements from list (CanvasSelection.vue)
+  removeallElementsFromCanvas(){
+    this.canvasObjects = []
   },
   // Override canvas elements (CanvasSelection.vue)
   setCanvasLayer(value) {

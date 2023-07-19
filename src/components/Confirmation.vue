@@ -245,15 +245,15 @@ export default {
     <div class="confirmation-holder">
         <div class="confirmation-details">
             <div class="confirmation-details-sections">
-                <h2>TV(s) SELECTED</h2>
+                <h2>TV(s) Selected</h2>
                 <div class="confirmation-tv" v-for="i, index in selectedTvs" :key="index">
                     <font-awesome-icon icon="fa-solid fa-tv" class="confirmation-tv-icon"/>
                     <h4>TV • {{ i._id }} : {{ i.info }}</h4>
                 </div>
             </div>
             <div class="confirmation-details-sections">
-                <h2>MEDIA SELECTED</h2>
-                <h4>{{ mediaName }}</h4>
+                <h2>Media Selected</h2>
+                <h2>{{ mediaName }}</h2>
             </div>
             <div class="confirmation-details-sections" v-if="DorS">
                 <div class="confirmation-job-timings">
@@ -273,7 +273,7 @@ export default {
 .confirmation-holder {
     height: 100vh;
     width: 100vw;
-    padding: 1vh 2vw;
+    padding: 2vh 4vw;
     background-color: var(--tg-theme-bg-color);
     overflow-x: clip;
     overflow-y: scroll;

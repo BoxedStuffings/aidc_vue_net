@@ -32,11 +32,11 @@ export default {
 
       try {
         uid = store.telegramWebAppInfo.user.id.toString()
-        // uid = '2386ebb2b54bac45'
       } catch(error) {
         this.loading = 2
         return
       }
+      // uid = '2386ebb2b54bac45'
 
       // Hashing ID for IV
       let hashid = CryptoJS.SHA256(uid)
@@ -49,7 +49,7 @@ export default {
       let eid = encrypted.ciphertext.toString(CryptoJS.enc.Base64).replace(/[+]/g,'-').replace(/[/]/g,'_')
 
       // Authing user
-      let url = `https://heehee.amphibistudio.sg/api/auth/user?id=${eid}&iv=${eiv}`
+      let url = `https://heehee.amphibistudio.sg/api/auth/user?id=${eid}&iv=${eiv}&chat_id=`
       await $.ajax({
         url: url,
         method: 'POST',
@@ -182,7 +182,7 @@ export default {
           <img :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
         </div>
         <!-- Display name -->
-        <p>TV • {{ TV._id }}</p>
+        <p>TV • {{ TV.info }}</p>
         <button :ref="`button-ref-id_${TV._id}`" @click="selectTV(TV, `button-ref-id_${TV._id}`)" @touchstart="pressingDown(`button-ref-id_${TV._id}`)" @touchend="notPressingDown(`button-ref-id_${TV._id}`)">Select</button>
       </ui>
     </div>

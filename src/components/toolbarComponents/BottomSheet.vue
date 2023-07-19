@@ -55,7 +55,6 @@ export default {
     overscroll-behavior: none;
 }
 .bs-sheet {
-    height: 100%;
     width: 100vw;
     position: relative;
     background-color: var(--tg-theme-bg-color);

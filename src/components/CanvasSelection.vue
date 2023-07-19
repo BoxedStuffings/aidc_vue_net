@@ -291,10 +291,13 @@ export default {
 
     loadTemplate(json) {
       this.canvas.loadFromJSON(json, this.canvas.renderAll.bind(this.canvas));
-      const objects = this.canvas.getObjects()
-      for(let o in objects){
-        store.addElementToCanvas(objects[o])
-      }
+      store.removeallElementsFromCanvas()
+      setTimeout(() => {
+        const objects = this.canvas.getObjects()
+        for(let o in objects){
+          store.addElementToCanvas(objects[o])
+        }
+      }, 1000)
     },
 
     insertElementToCanvas(element) {
@@ -416,7 +419,7 @@ export default {
 
     async getTemplates() {
       await $.ajax({
-        headers: { 'Authorization' : 'Bearer 64a6f463632f4066200cc0e5|lu6CIFXUEWudouVhWcoch656JK9mO0F0Kjc3liYX'},
+        headers: { 'Authorization' : 'Bearer 64a6f463632f4066200cc0e5|lu6CIFXUEWudouVhWcoch656JK9mO0F0Kjc3liYX'}, //tbr
         url: 'https://heehee.amphibistudio.sg/api/templates',
         method: 'GET',
         success: (obj) => {
@@ -467,6 +470,8 @@ export default {
       selectionLineWidth: 2
     })
 
+    this.canvas.backgroundImage
+
     // Resize Canvas Dimensions
     this.updateCanvasDimensions()
     window.addEventListener('resize', this.updateCanvasDimensions)
@@ -503,7 +508,6 @@ export default {
   background: lightgrey;
   overflow: hidden;
 }
-
 .navbar-wrapper {
   height: 5%;
   min-height: 10px;
@@ -513,7 +517,6 @@ export default {
   position: relative;
   z-index: 3;
 }
-
 .canvas-wrapper {
   width: 100%;
   position: absolute;
@@ -524,7 +527,6 @@ export default {
   background: lightgrey;
   transition-duration: .2s;
 }
-
 .toolbar {
   height: 10%;
   width: 100%;
@@ -532,7 +534,6 @@ export default {
   bottom: 0;
   padding-block: 1vh;
 }
-
 h4 {
   color: black !important;
 }
