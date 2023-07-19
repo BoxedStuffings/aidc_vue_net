@@ -23,7 +23,7 @@ export default {
                 reader.onload = (event) => {
                     try {
                         let json = JSON.parse(event.target.result)
-                        this.$parent.$parent.$parent.jsonTemplate(JSON.stringify(json))
+                        this.$parent.$parent.$parent.loadTemplate(JSON.stringify(json))
                     } catch (error) {
                         console.log('Error parsing JSON file:', error)
                     }
@@ -51,12 +51,12 @@ export default {
         </div>
 
     </div>
-    <!-- <div class="element-holder">
+    <div class="element-holder">
         <label class="btn btn-primary canvas-img-insert-btn">
             test template upload
             <input ref="canvasInsertInput" accept='application/JSON' type="file" @change="(env) => selectTemplate(env)" />
         </label>
-    </div> -->
+    </div>
 </template>
 
 <style scoped>
