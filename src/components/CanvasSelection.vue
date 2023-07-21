@@ -212,15 +212,15 @@ export default {
     canvasObjectSelection() {
       this.canvas.on('selection:created', () => this.textboxSelectionCheck(true))
       this.canvas.on('selection:updated', () => this.textboxSelectionCheck(false))
-      this.canvas.on('selection:cleared', () => {this.$refs.toolbar.editableTextboxSelected(0), this.$refs.toolbar.closeBottomSheet()})
+      this.canvas.on('selection:cleared', () => { this.$refs.toolbar.editableTextboxSelected(0), this.$refs.toolbar.closeBottomSheet() })
     },
 
     textboxSelectionCheck(state) {
       this.$refs.toolbar.closeBottomSheet()
-      if (this.canvas.getActiveObject().type !== 'line'){
+      if (this.canvas.getActiveObject().type !== 'line') {
         this.activeColor = this.canvas.getActiveObject().fill
       } else {
-        this.activeColor =  this.canvas.getActiveObject().stroke
+        this.activeColor = this.canvas.getActiveObject().stroke
         console.log(this.canvas.getActiveObject())
       }
       if (this.canvas.getActiveObject().type === 'textbox') {
@@ -298,24 +298,48 @@ export default {
     },
 
     loadTemplate(json) {
+      console.log(this.scale);
       this.canvas.loadFromJSON(json);
       store.removeallElementsFromCanvas()
       this.$refs.toolbar.closeBottomSheet()
+      var scaleX = 0
+      var scaleY = 0
       setTimeout(() => {
         this.canvas.getObjects().forEach((obj) => {
           if (obj.id == 'Background') {
-            obj.set('selectable', false)
+
+            scaleX = this.scale/ obj.scaleX
+            scaleY = this.scale / obj.scaleY
+            console.log("canvas scale: " + this.scale)
+            console.log("old scale: " + obj.scaleX + " " + obj.scaleY)
+            console.log("new scale: " + scaleX + " " + scaleY)
+            return
+          }
+        })
+        this.canvas.getObjects().forEach((obj) => {
+          if (obj.id != 'Background') {
+            console.log("not Background")
+            obj.left *= scaleX
+            obj.top *= scaleY
+            obj.scaleX *= scaleX
+            obj.scaleY *= scaleY
+            obj.setCoords()
+          }
+          else {
+            obj.set('selectable', true)
             obj.set('top', 0)
             obj.set('left', 0)
             obj.scaleToHeight(this.canvas.height)
             obj.scaleToWidth(this.canvas.width)
-            this.canvas.renderAll()
+            obj.selectable = false
+            obj.evented = false
           }
+          this.canvas.renderAll()
         })
-      }, 50)
+      }, 500)
       setTimeout(() => {
         const objects = this.canvas.getObjects()
-        for(let o in objects){
+        for (let o in objects) {
           store.addElementToCanvas(objects[o])
         }
       }, 500)
@@ -338,7 +362,7 @@ export default {
         top: this.canvas.height / 3,
         left: this.canvas.width / 2.5,
         id: uid
-      }).setSrc(imageObj._element.src, () => this.canvas.renderAll() ,{'crossOrigin': 'anonymous'})
+      }).setSrc(imageObj._element.src, () => this.canvas.renderAll(), { 'crossOrigin': 'anonymous' })
       imageObj.scaleToWidth(this.canvas.width / 5, false);
       store.addElementToCanvas(imageObj)
       this.canvas.add(imageObj)
@@ -385,7 +409,7 @@ export default {
 
     changeColor(color) {
       try {
-        if (this.canvas.getActiveObject().type !== 'line'){
+        if (this.canvas.getActiveObject().type !== 'line') {
           this.canvas.getActiveObject().set('fill', color)
         } else {
           this.canvas.getActiveObject().set('stroke', color)
@@ -433,14 +457,14 @@ export default {
     jsonTemplate(json) {
       this.canvas.loadFromJSON(json, this.canvas.renderAll.bind(this.canvas));
       const objects = this.canvas.getObjects()
-      for(let o in objects){
+      for (let o in objects) {
         store.addElementToCanvas(objects[o])
       }
     },
 
     async getTemplates() {
       await $.ajax({
-        headers: { 'Authorization' : 'Bearer 64a6f463632f4066200cc0e5|lu6CIFXUEWudouVhWcoch656JK9mO0F0Kjc3liYX'}, //tbr
+        headers: { 'Authorization': 'Bearer 64a6f463632f4066200cc0e5|lu6CIFXUEWudouVhWcoch656JK9mO0F0Kjc3liYX' }, //tbr
         url: 'https://heehee.amphibistudio.sg/api/templates',
         method: 'GET',
         success: (obj) => {
@@ -462,7 +486,7 @@ export default {
       })
       Telegram.WebApp.offEvent('backButtonClicked', backButton)
       this.telegramMainButton.hide(),
-      this.$router.push('/ScheduleSelection')
+        this.$router.push('/ScheduleSelection')
     }
 
     const backButton = () => {
@@ -513,7 +537,8 @@ export default {
 <template>
   <div class="cs-holder">
     <navbar class="navbar-wrapper"></navbar>
-    <div @click="(env) => selectOffCanvas(env)" class="canvas-wrapper" ref="canvasWrapper" :style="{ 'height': `${wrapperHeight}px` }">
+    <div @click="(env) => selectOffCanvas(env)" class="canvas-wrapper" ref="canvasWrapper"
+      :style="{ 'height': `${wrapperHeight}px` }">
       <canvas id="canvas" ref="canvasElement"></canvas>
     </div>
     <toolbar ref="toolbar" class="toolbar"></toolbar>
@@ -530,6 +555,7 @@ export default {
   overflow: hidden;
   z-index: 0;
 }
+
 .navbar-wrapper {
   height: 5%;
   min-height: 10px;
@@ -539,6 +565,7 @@ export default {
   position: relative;
   z-index: 3;
 }
+
 .canvas-wrapper {
   width: 100%;
   position: absolute;
@@ -549,6 +576,7 @@ export default {
   background: lightgrey;
   transition-duration: .2s;
 }
+
 .toolbar {
   height: 10%;
   width: 100%;
@@ -556,6 +584,7 @@ export default {
   bottom: 0;
   padding-block: 1vh;
 }
+
 h4 {
   color: black !important;
 }
