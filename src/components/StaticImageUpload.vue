@@ -34,6 +34,7 @@ export default {
         let bg = this.$refs.siuHolder
         this.img = URL.createObjectURL(store.imageObj)
         bg.src = this.img
+        bg.style.visibility = 'visible'
         // bg.src = `url(${this.img})`
       }
     },
@@ -82,7 +83,8 @@ export default {
       let bg = this.$refs.siuHolder
       this.img = URL.createObjectURL(store.imageObj)
 
-      bg.style.backgroundImage = `url(${this.img})`
+      bg.src = this.img
+      bg.style.visibility = 'visible'
     }
   }
 
@@ -90,17 +92,17 @@ export default {
 </script>
 
 <template>
-    <div ref="siuHolder" class="img-upload-holder">
-        <div class="img-upload-content">
-            <!-- <img class="img-upload-icon noselect" src="../assets/boxedstuffings.png"> -->
-            <div class="img-icon-holder"><span class='icon1'></span></div>
-            <label class="btn btn-primary img-upload-btn">
-                Choose File
-                <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
-            </label>
-            <small>{{ store.imageObj.name }}</small>
-        </div>
+  <div class="img-upload-holder">
+    <div class="img-upload-content">
+      <img ref="siuHolder" class="img-upload-preview noselect">
+      <div class="img-icon-holder"><span class='icon1'></span></div>
+      <label class="btn btn-primary img-upload-btn">
+        Choose File
+        <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
+      </label>
+      <small>{{ store.imageObj.name }}</small>
     </div>
+  </div>
 </template>
 
 <style scoped>
@@ -119,21 +121,16 @@ export default {
   align-items: center;
   padding: 1vh 2vw;
 }
-.img-icon-holder {
-  height: 10vh;
-  width: 10vw;
-  display: inherit;
-  justify-content: center;
-  margin-bottom: 2%;
-}
 .img-icon {
   height: 100%;
   scale: 1.2;
 }
 .img-upload-preview {
   height: 20%;
-  width: 60%;
+  width: 85%;
   margin: 2%;
+  transform: translateY(-8%);
+  visibility: hidden;
 }
 .img-upload-btn {
   max-width: 240px;
@@ -149,17 +146,16 @@ export default {
   color: var(--tg-theme-button-text-colorr);
 }
 .icon1 {
-    background: url('../assets/icons/upload.svg');
-    height: 70px;
-    width: 70px;
-    margin:0;
-    display: block;
-    background-repeat: no-repeat;
-    background-size: 70px;
-    background-position: center;
-    /* Other styles here */
+  background: url('../assets/icons/upload.svg');
+  height: 70px;
+  width: 70px;
+  margin:0;
+  display: block;
+  background-repeat: no-repeat;
+  background-size: 70px;
+  background-position: center;
+  /* Other styles here */
 }
-
 small {
   font-size: 1.5vmin;
 }

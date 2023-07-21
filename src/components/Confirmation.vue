@@ -15,6 +15,9 @@ export default {
             telegramBackButton: Telegram.WebApp.BackButton,
             selectedTvs: [],
             mediaName: 'Default Media Name',
+            img: '',
+            vid: '',
+            mediaType: 0,
             DorS: '',
             scheduledTime: [],
         }
@@ -228,11 +231,17 @@ export default {
         switch(store.mediaType) {
             case 'Image':
                 this.mediaName = store.imageObj.name
+                this.img = URL.createObjectURL(store.imageObj)
+                this.mediaType = 1
                 break
             case 'Video':
                 this.mediaName = store.videoObj.name
+                this.vid = URL.createObjectURL(store.videoObj)
+                this.mediaType = 2
                 break
             case 'Canvas':
+                this.mediaName = 'Canvas'
+                this.mediaType = 0
                 break
         }
         this.scheduledTime = store.jobTiming
@@ -264,6 +273,10 @@ export default {
                     <h2>Ending Time: </h2>
                     <h4>{{ scheduledTime[1] }}</h4>
                 </div>
+            </div>
+            <div class="confirmation-preview-holder">
+                <img class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
+                <video autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
             </div>
         </div>
     </div>
@@ -298,7 +311,14 @@ export default {
 .confirmation-job-timings {
     margin-bottom: 2%;
 }
-
+.confirmation-preview-holder {
+    display: flex;
+    justify-content: center;
+}
+.confirmation-upload-preview {
+  height: auto;
+  width: 85%;
+}
 .icon1 {
     background: url('../assets/icons/display.svg');
     height: 30px;
