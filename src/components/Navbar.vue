@@ -71,7 +71,7 @@ export default {
     background-color: white;
 }
 .icon1 {
-    background: url('../assets/icons/navbar/zoom-in.svg');
+    background: url('../assets/icons/light/navbar/zoom-in.svg');
     height: 20px;
     width: 20px;
     background-repeat: no-repeat;
@@ -80,7 +80,7 @@ export default {
     /* Other styles here */
 }
 .icon2 {
-    background: url('../assets/icons/navbar/zoom-out.svg');
+    background: url('../assets/icons/light/navbar/zoom-out.svg');
     height: 20px;
     width: 20px;
     background-repeat: no-repeat;
@@ -89,7 +89,7 @@ export default {
     /* Other styles here */
 }
 .icon4 {
-    background: url('../assets/icons/navbar/fullscreen.svg');
+    background: url('../assets/icons/light/navbar/fullscreen.svg');
     height: 20px;
     width: 20px;
     background-repeat: no-repeat;

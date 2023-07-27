@@ -523,7 +523,6 @@ export default {
   overflow: hidden;
   z-index: 0;
 }
-
 .navbar-wrapper {
   height: 5%;
   min-height: 10px;
@@ -533,7 +532,6 @@ export default {
   position: relative;
   z-index: 3;
 }
-
 .canvas-wrapper {
   width: 100%;
   position: absolute;
@@ -544,7 +542,6 @@ export default {
   background: lightgrey;
   transition-duration: .2s;
 }
-
 .toolbar {
   height: 10%;
   width: 100%;
@@ -552,7 +549,6 @@ export default {
   bottom: 0;
   padding-block: 1vh;
 }
-
 h4 {
   color: black !important;
 }

@@ -321,7 +321,7 @@ export default {
   width: 85%;
 }
 .icon1 {
-    background: url('../assets/icons/display.svg');
+    background: url('../assets/icons/light/display.svg');
     height: 30px;
     width: 30px;
     padding:10px;

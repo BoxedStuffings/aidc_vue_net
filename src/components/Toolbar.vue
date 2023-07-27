@@ -124,7 +124,7 @@ export default {
     font-size: 1.4vmax;
 }
 .icon1 {
-    background: url('../assets/icons/toolbar/easel.svg');
+    background: url('../assets/icons/light/toolbar/easel.svg');
     height: 30px;
     width: 30px;
     padding:15px;
@@ -134,7 +134,7 @@ export default {
     /* Other styles here */
 }
 .icon2 {
-    background: url('../assets/icons/toolbar/columns.svg');
+    background: url('../assets/icons/light/toolbar/columns.svg');
     height: 30px;
     width: 30px;
     padding:15px;
@@ -144,7 +144,7 @@ export default {
     /* Other styles here */
 }
 .icon3 {
-    background: url('../assets/icons/toolbar/circle-square.svg');
+    background: url('../assets/icons/light/toolbar/circle-square.svg');
     height: 30px;
     width: 30px;
     padding:15px;
@@ -154,7 +154,7 @@ export default {
     /* Other styles here */
 }
 .icon4 {
-    background: url('../assets/icons/toolbar/image.svg');
+    background: url('../assets/icons/light/toolbar/image.svg');
     height: 30px;
     width: 30px;
     padding:15px;
@@ -164,7 +164,7 @@ export default {
     /* Other styles here */
 }
 .icon5 {
-    background: url('../assets/icons/toolbar/check-square.svg');
+    background: url('../assets/icons/light/toolbar/check-square.svg');
     height: 30px;
     width: 30px;
     padding:15px;
@@ -174,7 +174,7 @@ export default {
     /* Other styles here */
 }
 .icon6 {
-    background: url('../assets/icons/toolbar/fonts.svg');
+    background: url('../assets/icons/light/toolbar/fonts.svg');
     height: 30px;
     width: 30px;
     padding:15px;
@@ -184,7 +184,7 @@ export default {
     /* Other styles here */
 }
 .icon7 {
-    background: url('../assets/icons/toolbar/palette.svg');
+    background: url('../assets/icons/light/toolbar/palette.svg');
     height: 30px;
     width: 30px;
     padding:15px;
@@ -194,7 +194,7 @@ export default {
     /* Other styles here */
 }
 .icon8 {
-    background: url('../assets/icons/toolbar/check-square.svg');
+    background: url('../assets/icons/light/toolbar/check-square.svg');
     height: 30px;
     width: 30px;
     padding:15px;
