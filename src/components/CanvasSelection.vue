@@ -485,7 +485,7 @@ export default {
         store.uploadCanvas(file)
       })
       Telegram.WebApp.offEvent('backButtonClicked', backButton)
-      this.telegramMainButton.hide(),
+      this.telegramMainButton.hide()
       this.$router.push('/ScheduleSelection')
     }
 
@@ -498,7 +498,7 @@ export default {
 
     this.telegramMainButton.setParams({ text: 'Next' })
     Telegram.WebApp.onEvent('mainButtonClicked', mainButton)
-
+    
     Telegram.WebApp.onEvent('backButtonClicked', backButton)
   },
 
