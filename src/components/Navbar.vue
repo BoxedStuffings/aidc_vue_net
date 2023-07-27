@@ -34,9 +34,10 @@ export default {
 
         //change div colour
         uponClick(item) {
+            let currentBgColor = item.style.backgroundColor
             item.style.backgroundColor = this.click
             setTimeout(() => {
-                item.style.backgroundColor = this.unClick
+                item.style.backgroundColor = currentBgColor
             }, 100)
         },
     },
@@ -50,13 +51,13 @@ export default {
 <template>
     <div>
         <div class="nb-item" id="zoom-in" @click="selectZoom(0)" ref="zoomIn">
-            <span class='zoomIn'></span>
+            <span class='zoomIn icon-base'></span>
         </div>
         <div class="nb-item" id="zoom-out" @click="selectZoom(1)" ref="zoomOut">
-            <span class='zoomOut'></span>
+            <span class='zoomOut icon-base'></span>
         </div>
         <div class="nb-item" id="fit-screen" @click="selectZoom(2)" ref="fitScreen">
-            <span class='fitScreen'></span>
+            <span class='fitScreen icon-base'></span>
         </div>
     </div>
 </template>
@@ -72,23 +73,11 @@ export default {
     padding-right: 20px;
     padding-top: 20px;
     padding-bottom: 20px;
-    background-color: white;
+    background-color: var(--tg-theme-bg-color);
 }
-.zoomIn {
+.icon-base {
     height: 20px;
     width: 20px;
     display: block;
-    /* Other styles here */
-}
-.zoomOut {
-    height: 20px;
-    width: 20px;
-    /* Other styles here */
-}
-.fitScreen {
-    height: 20px;
-    width: 20px;
-    display: block;
-    /* Other styles here */
 }
 </style>
