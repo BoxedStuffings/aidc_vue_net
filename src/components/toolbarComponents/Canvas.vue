@@ -54,6 +54,7 @@ export default {
         colorChangeEvent(newColor) {
             this.$parent.$parent.$parent.changeCanvasColor(newColor)
         }
+
     },
 
     mounted() {
@@ -86,7 +87,7 @@ export default {
                 <template #item="{ element }">
                     <div class="canvas-item">
                         <h6 class="noselect">{{ element.Name }}</h6>
-                        <div class="canvas-rename-button"><span class='icon1'></span></div>
+                        <div class="canvas-rename-button"><span class='light-grip-vertical image-base'></span></div>
                     </div>
                 </template>
             </draggable>
@@ -146,14 +147,10 @@ input::-webkit-color-swatch{
     border-bottom-right-radius: 0.375rem;
     border-bottom-left-radius: 0.375rem;
 }
-.icon1 {
+.image-base {
     height: 20px;
     width: 20px;
     display: block;
-    background: url('../../assets/icons/light/toolbar/grip-vertical.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    /* Other styles here */
 }
 p {
     margin: 3% 0 0 0;

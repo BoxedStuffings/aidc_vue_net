@@ -52,6 +52,15 @@ export default {
       })
     },
 
+    colorTheme() {
+      let icon = document.getElementsByTagName('span')
+      if (store.telegramColorScheme == 'light') {
+        icon[0].classList.add('light-upload')
+      } else {
+        icon[0].classList.add('dark-upload')
+      }
+    }
+
   },
 
   beforeMount() {
@@ -77,14 +86,7 @@ export default {
   },
 
   mounted() {
-    let icon = document.getElementsByTagName('span')
-      for (let i=0;i<icon.length;i++) {
-      if (store.telegramColorScheme == 'light') {
-        icon[i].classList.add('light-upload')
-      } else {
-        icon[i].classList.add('dark-upload')
-      }
-    }
+    this.colorTheme()
     this.telegramBackButton.show()
 
     if (store.imageObj instanceof File) {

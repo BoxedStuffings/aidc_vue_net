@@ -73,11 +73,23 @@ export default {
 
     toggleUnderline() {
         this.$parent.$parent.$parent.toggleUnderline()
+    },
+
+    colorTheme() {
+        let spans = document.getElementsByTagName('span')
+        for (let i=0;i<spans.length;i++) {
+            if (store.telegramColorScheme == 'light') {
+                spans[i].classList.add(`light-${spans[i].classList[0]}`)
+            } else {
+                spans[i].classList.add(`dark-${spans[i].classList[0]}`)
+            }
+        }
     }
 
   },
 
   mounted() {
+    this.colorTheme()
     this.populateFonts()
 
     // For font select button
@@ -161,17 +173,17 @@ export default {
             <div class="font-row-bg">
                 <input type="radio" class="btn-check" name="text-align-options" id="align-left">
                 <label class="btn btn-secondary text-btn" for="align-left" @click="alignText('left')">
-                    <span class='icon1'></span>
+                    <span class='text-left icon-base'></span>
                 </label>
 
                 <input type="radio" class="btn-check" name="text-align-options" id="align-center">
                 <label class="btn btn-secondary text-btn" for="align-center" @click="alignText('center')">
-                    <span class='icon2'></span>
+                    <span class='text-center icon-base'></span>
                 </label>
 
                 <input type="radio" class="btn-check" name="text-align-options" id="align-right">
                 <label class="btn btn-secondary text-btn" for="align-right" @click="alignText('right')">
-                    <span class='icon3'></span>
+                    <span class='text-right icon-base'></span>
                 </label>
             </div>
         </div>
@@ -179,22 +191,22 @@ export default {
             <div class="font-row-bg">
                 <input type="button" class="btn-check" name="text-style-options" id="text-bold">
                 <label class="btn btn-secondary text-btn" for="text-bold" @click="toggleWeight()">
-                    <span class='icon4'></span>
+                    <span class='type-bold icon-base'></span>
                 </label>
                 
                 <input type="button" class="btn-check" name="text-style-options" id="text-italic">
                 <label class="btn btn-secondary text-btn" for="text-italic" @click="toggleItalics()">
-                    <span class='icon5'></span>
+                    <span class='type-italic icon-base'></span>
                 </label>
 
                 <input type="button" class="btn-check" name="text-style-options" id="text-linethrough">
                 <label class="btn btn-secondary text-btn" for="text-linethrough" @click="toggleLinethrough()">
-                    <span class='icon6'></span>
+                    <span class='type-strikethrough icon-base'></span>
                 </label>
 
                 <input type="button" class="btn-check" name="text-style-options" id="text-underline">
                 <label class="btn btn-secondary text-btn" for="text-underline" @click="toggleUnderline()">
-                    <span class='icon7'></span>
+                    <span class='type-underline icon-base'></span>
                 </label>
             </div>
         </div>
@@ -434,82 +446,10 @@ label.font-size-label span {
     background-color: var(--tg-theme-button-color) !important;
     color: var(--tg-theme-button-text-color);
 }
-
-.icon1 {
+.icon-base{
     height: 20px;
     width: 100%;
     margin:0;
     display: block;
-    background: url('../../assets/icons/light/fonts/text-left.svg');
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
-    /* Other styles here */
-}
-.icon2 {
-    height: 20px;
-    width: 100%;
-    margin:0;
-    display: block;
-    background: url('../../assets/icons/light/fonts/text-center.svg');
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
-    /* Other styles here */
-}
-.icon3 {
-    height: 20px;
-    width: 100%;
-    margin:0;
-    display: block;
-    background: url('../../assets/icons/light/fonts/text-right.svg');
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
-    /* Other styles here */
-}
-.icon4 {
-    height: 20px;
-    width: 100%;
-    margin:0;
-    display: block;
-    background: url('../../assets/icons/light/fonts/type-bold.svg');
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
-    /* Other styles here */
-}
-.icon5 {
-    height: 20px;
-    width: 100%;
-    margin:0;
-    display: block;
-    background: url('../../assets/icons/light/fonts/type-italic.svg');
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
-    /* Other styles here */
-}
-.icon6 {
-    height: 20px;
-    width: 100%;
-    margin:0;
-    display: block;
-    background: url('../../assets/icons/light/fonts/type-strikethrough.svg');
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
-    /* Other styles here */
-}
-.icon7 {
-    height: 20px;
-    width: 100%;
-    margin:0;
-    display: block;
-    background: url('../../assets/icons/light/fonts/type-underline.svg');
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
-    /* Other styles here */
 }
 </style>

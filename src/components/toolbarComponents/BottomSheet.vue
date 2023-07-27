@@ -1,15 +1,9 @@
 <script>
 import { store } from '../../Store.js'
 import CloseButton from '../Elements/CloseButton.vue'
-import { useToast } from "vue-toastification"
 
 
 export default {
-    setup() {
-        const toast = useToast()
-        return {toast}
-    },
-
     data() {
         return {
             store
@@ -37,60 +31,19 @@ export default {
 
         colorTheme() {
             let spans = document.getElementsByTagName('span')
-            if (store.telegramColorScheme == 'light') {
-                for (let i=0;i<spans.length;i++) {
-                    let style = getComputedStyle(spans[i])
-                    if (style.background.includes('dark')){
-                        let currentTheme = style.background
-                        spans[i].style.background = currentTheme.replace('dark', 'light')
-                    }
-                }
-            } else {
-                for (let i=0;i<spans.length;i++) {
-                    let style = getComputedStyle(spans[i])
-                    if (style.background.includes('light')){
-                        let currentTheme = style.background
-                        spans[i].style.background = currentTheme.replace('light', 'dark')
-
-                    }
+            for (let i=0;i<spans.length;i++) {
+                if (store.telegramColorScheme == 'light') {
+                    spans[i].classList.add(`light-${spans[i].classList[0]}`)
+                } else {
+                    spans[i].classList.add(`dark-${spans[i].classList[0]}`)
                 }
             }
-        },
-
-        pushtoast(msg) {
-            this.toast.success(msg, {
-                position: 'bottom-left',
-                timeout: 5000,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.5,
-                closeButton: 'button',
-                icon: true
-            })
-        },
-
-        pushtoast2(msg) {
-            this.toast.error(msg, {
-                position: 'bottom-left',
-                timeout: 5000,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                draggablePercent: 0.5,
-                closeButton: 'button',
-                icon: true,
-            })
         }
+
     },
 
     mounted() {
         this.colorTheme()
-        let spans = document.getElementsByTagName('span')
-        for (let i=0;i<spans.length;i++) {
-            let style = getComputedStyle(spans[i])
-            this.pushtoast(style.background)
-        }
     }
 
 }

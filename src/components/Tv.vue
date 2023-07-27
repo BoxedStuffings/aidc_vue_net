@@ -146,18 +146,11 @@ export default {
 
     mainButtonVisibility() {
       store.selectedTvs.length >= 1 ? this.telegramMainButton.show() : this.telegramMainButton.hide() 
-    },
-
-    colorTheme() {
-      if (store.telegramColorScheme == 'light') {
-        this.checkTheme = '../assets/icons/light/check.svg'
-      } 
     }
 
   },
 
   mounted() {
-    this.colorTheme()
     this.telegramMainButton.setParams({ text: 'Select Tv'})
     Telegram.WebApp.onEvent('mainButtonClicked', () => this.$router.push('/ScheduleDisplay'))
 
@@ -181,13 +174,12 @@ export default {
     <TvSkeleton v-if="this.loading == 0"></TvSkeleton>
     <!-- Main Grid -->
     <div id="tv-grid" v-else-if="this.loading == 1">
-      {{ store.telegramColorScheme }}
     <!-- Individual cards -->
       <ui class="tv-card noselect" v-for="TV in store.availableTVsFromDataBase" :key="TV._id">
         <!-- Image outline for selection -->
         <div class="tv-card-imageOutline" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }">
           <!-- Card check mark -->
-          <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" :src="checkTheme">
+          <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" :src="'../assets/icons/light/check.svg'">
           <!-- Display image -->
           <img :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
         </div>

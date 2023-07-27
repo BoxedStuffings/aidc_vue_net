@@ -34,12 +34,284 @@ body {
   background: url('./assets/icons/dark/upload.svg');
   background-repeat: no-repeat;
   background-size: 70px;
-  background-position: right;
+  background-position: center;
 }
 
 .light-upload{
   background: url('./assets/icons/light/upload.svg');
   background-repeat: no-repeat;
   background-size: 70px;
-  background-position: right;
+  background-position: center;
+}
+
+.dark-zoomIn{
+  background: url('./assets/icons/dark/navbar/zoom-in.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-zoomIn{
+  background: url('./assets/icons/light/navbar/zoom-in.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-zoomOut{
+  background: url('./assets/icons/dark/navbar/zoom-out.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-zoomOut{
+  background: url('./assets/icons/light/navbar/zoom-out.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-fitScreen{
+  background: url('./assets/icons/dark/navbar/fullscreen.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-fitScreen{
+  background: url('./assets/icons/light/navbar/fullscreen.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-easel{
+  background: url('./assets/icons/dark/toolbar/easel.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-easel{
+  background: url('./assets/icons/light/toolbar/easel.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-columns{
+  background: url('./assets/icons/dark/toolbar/columns.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-columns{
+  background: url('./assets/icons/light/toolbar/columns.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-circle-square{
+  background: url('./assets/icons/dark/toolbar/circle-square.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-circle-square{
+  background: url('./assets/icons/light/toolbar/circle-square.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-image{
+  background: url('./assets/icons/dark/toolbar/image.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-image{
+  background: url('./assets/icons/light/toolbar/image.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-check-square{
+  background: url('./assets/icons/dark/toolbar/check-square.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-check-square{
+  background: url('./assets/icons/light/toolbar/check-square.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-grip-vertical{
+  background: url('./assets/icons/light/toolbar/grip-vertical.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-type{
+  background: url('./assets/icons/dark/elements/type.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-type{
+  background: url('./assets/icons/light/elements/type.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-square{
+  background: url('./assets/icons/dark/elements/square.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-square{
+  background: url('./assets/icons/light/elements/square.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-circle{
+  background: url('./assets/icons/dark/elements/circle.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-circle{
+  background: url('./assets/icons/light/elements/circle.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-triangle{
+  background: url('./assets/icons/dark/elements/triangle.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-triangle{
+  background: url('./assets/icons/light/elements/triangle.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-fonts{
+  background: url('./assets/icons/dark/toolbar/fonts.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-fonts{
+  background: url('./assets/icons/light/toolbar/fonts.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-palette{
+  background: url('./assets/icons/dark/toolbar/palette.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.light-palette{
+  background: url('./assets/icons/light/toolbar/palette.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.dark-text-left{
+  background: url('./assets/icons/dark/fonts/text-left.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
+}
+
+.light-text-left{
+  background: url('./assets/icons/light/fonts/text-left.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
+}
+
+.dark-text-center{
+  background: url('./assets/icons/dark/fonts/text-center.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
+}
+
+.light-text-center{
+  background: url('./assets/icons/light/fonts/text-center.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
+}
+
+.dark-text-right{
+  background: url('./assets/icons/dark/fonts/text-right.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
+}
+
+.light-text-right{
+  background: url('./assets/icons/light/fonts/text-right.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
+}
+
+.dark-type-bold{
+  background: url('./assets/icons/dark/fonts/type-bold.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
+}
+
+.light-type-bold{
+  background: url('./assets/icons/light/fonts/type-bold.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
+}
+
+.dark-type-italic{
+  background: url('./assets/icons/dark/fonts/type-italic.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
+}
+
+.light-type-italic{
+  background: url('./assets/icons/light/fonts/type-italic.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
+}
+
+.dark-type-strikethrough{
+  background: url('./assets/icons/dark/fonts/type-strikethrough.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
+}
+
+.light-type-strikethrough{
+  background: url('./assets/icons/light/fonts/type-strikethrough.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
+}
+
+.dark-type-underline{
+  background: url('./assets/icons/dark/fonts/type-underline.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
+}
+
+.light-type-underline{
+  background: url('./assets/icons/light/fonts/type-underline.svg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background-position: center;
 }

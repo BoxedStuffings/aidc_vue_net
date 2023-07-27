@@ -74,6 +74,13 @@ export default {
   },
 
   mounted() {
+    let icon = document.getElementsByTagName('span')
+    if (store.telegramColorScheme == 'light') {
+      icon[0].classList.add('light-upload')
+    } else {
+      icon[0].classList.add('dark-upload')
+    }
+    
     this.telegramBackButton.show()
 
     if (store.videoObj instanceof File) {
@@ -89,7 +96,7 @@ export default {
     <!-- <video autoplay muted loop playsinline id="vid-bg" :src="vid"></video> -->
     <div class="vid-upload-content">
       <video ref="vidHolder" autoplay muted loop playsinline class="vid-upload-preview noselect" :src="vid"></video>
-      <div class="vid-icon-holder"><span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/upload.svg')`, 'background-repeat':'no-repeat', 'background-size':'70px' , 'background-position':'center'}" class='icon1'></span></div>
+      <div class="vid-icon-holder"><span class='icon1'></span></div>
       <label class="btn btn-primary vid-upload-btn">
         Choose File
         <input type="file" accept="video/*" @change="(env) => selectVideoFile(env)"/>

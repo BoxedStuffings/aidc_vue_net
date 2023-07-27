@@ -48,24 +48,23 @@ export const store = reactive({
   ],
   // Canvas toolbar options (Toolbar.vue)
   canvasToolbarOptions: [
-    { _id: 1, name: 'Canvas', icon_class: 'icon1'},
-    { _id: 2, name: 'Templates', icon_class: 'icon2'},
-    { _id: 3, name: 'Elements', icon_class: 'icon3'},
-    { _id: 4, name: 'Insert', icon_class: 'icon4'},
-    { _id: 5, name: 'Options', icon_class: 'icon5'}
+    { _id: 1, name: 'Canvas', icon_class: 'easel'},
+    { _id: 2, name: 'Templates', icon_class: 'columns'},
+    { _id: 3, name: 'Elements', icon_class: 'circle-square'},
+    { _id: 4, name: 'Insert', icon_class: 'image'},
+    { _id: 5, name: 'Options', icon_class: 'check-square'}
   ],
   // Canvas toolbar options for editable textbox (Toolbar.vue)
   canvasEditableTexboxOptions: [
-    { _id: 1, name: 'Font', icon_class:'icon6'},
-    { _id: 2, name: 'Color', icon_class:'icon7'},
+    { _id: 1, name: 'Font', icon_class:'fonts'},
+    { _id: 2, name: 'Color', icon_class:'palette'},
     // { _id: 3, name: 'Shadow'},
     // { _id: 4, name: 'Animations'},
-    { _id: 5, name: 'Options', icon_class:'icon8'}
+    { _id: 5, name: 'Options', icon_class:'check-square'}
   ],
-
   // Canvas toolbar options for objects (Toolbar.vue)
   canvasObjectOptions: [
-    { _id: 1, name: 'Color', icon_class:'icon7'}
+    { _id: 1, name: 'Color', icon_class:'palette'}
     // { _id: 2, name: 'Shadow'}
   ],
 

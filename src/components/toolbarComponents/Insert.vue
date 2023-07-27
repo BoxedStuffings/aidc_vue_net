@@ -32,9 +32,23 @@ export default {
 
     insertImageObjectToCanvas(imageObj) {
       this.$parent.$parent.$parent.insertImageToCanvas(imageObj)
+    },
+
+    colorTheme() {
+      let icon = document.getElementsByClassName('upload')
+      console.log(icon)
+      if (store.telegramColorScheme == 'light') {
+        icon[0].classList.add('light-upload')
+      } else {
+        icon[0].classList.add('dark-upload')
+      }
     }
 
   },
+
+  mounted() {
+    this.colorTheme()
+  }
 
 }
 </script>
@@ -42,7 +56,7 @@ export default {
 <template>
   <div class="canvas-img-insert-holder">
     <div class="canvas-img-insert-content">
-      <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/upload.svg')`, 'background-repeat':'no-repeat', 'background-size':'70px' , 'background-position':'center'}" class='icon1'></span>
+      <span class='upload'></span>
         <label class="btn btn-primary canvas-img-insert-btn">
           Choose Image
           <input ref="canvasInsertInput" type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
@@ -85,11 +99,10 @@ export default {
 input[type="file"] {
   display: none;
 }
-.icon1 {
+.upload {
   height: 70px;
   width: 70px;
   margin:0;
   display: block;
-  /* Other styles here */
 }
 </style>

@@ -50,13 +50,13 @@ export default {
 <template>
     <div>
         <div class="nb-item" id="zoom-in" @click="selectZoom(0)" ref="zoomIn">
-            <span class='icon1'></span>
+            <span class='zoomIn'></span>
         </div>
         <div class="nb-item" id="zoom-out" @click="selectZoom(1)" ref="zoomOut">
-            <span class='icon2'></span>
+            <span class='zoomOut'></span>
         </div>
         <div class="nb-item" id="fit-screen" @click="selectZoom(2)" ref="fitScreen">
-            <span class='icon4'></span>
+            <span class='fitScreen'></span>
         </div>
     </div>
 </template>
@@ -74,30 +74,21 @@ export default {
     padding-bottom: 20px;
     background-color: white;
 }
-.icon1 {
+.zoomIn {
     height: 20px;
     width: 20px;
     display: block;
-    background: url('../assets/icons/light/navbar/zoom-in.svg');
-    background-repeat: no-repeat;
-    background-position: center;
     /* Other styles here */
 }
-.icon2 {
+.zoomOut {
     height: 20px;
     width: 20px;
-    background: url('../assets/icons/light/navbar/zoom-out.svg');
-    background-repeat: no-repeat;
-    background-position: center;
     /* Other styles here */
 }
-.icon4 {
+.fitScreen {
     height: 20px;
     width: 20px;
     display: block;
-    background: url('../assets/icons/light/navbar/fullscreen.svg');
-    background-repeat: no-repeat;
-    background-position: center;
     /* Other styles here */
 }
 </style>

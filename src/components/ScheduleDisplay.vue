@@ -201,6 +201,17 @@ export default {
                 },
                 error: (error) => console.log(error)
             })
+        },
+
+        colorTheme() {
+            let icon = document.getElementsByTagName('span')
+            for (let i=0;i<icon.length;i++) {
+                if (store.telegramColorScheme == 'light') {
+                    icon[i].classList.add('light-trash')
+                } else {
+                    icon[i].classList.add('dark-trash')
+                }
+            }
         }
         
     },
@@ -226,14 +237,7 @@ export default {
     },
 
     mounted() {
-        let icon = document.getElementsByTagName('span')
-        for (let i=0;i<icon.length;i++) {
-            if (store.telegramColorScheme == 'light') {
-                icon[i].classList.add('light-trash')
-            } else {
-                icon[i].classList.add('dark-trash')
-            }
-        }
+        this.colorTheme()
         this.telegramMainButton.show()
         this.telegramBackButton.show()
         Telegram.WebApp.expand()
@@ -249,7 +253,7 @@ export default {
         <div class="schedule-display-tv">
             <div class="schedule-display-header noselect">
                 <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
-                <span class='icon1'></span>
+                <span class='trash'></span>
             </div>
             <div class="schedule-display-detail" v-if="TV.displays.length != 0">
                 <div class="schedule-display-detail-holder">
@@ -352,11 +356,10 @@ export default {
 .schedule-display-detail-timing h6{
     margin: 0;
 }
-div.schedule-display-header span.icon1 {
+div.schedule-display-header span.trash {
     height: 30px;
     margin-right: 10px;
     padding:10px;
     display: block;
-    /* Other styles here */
 }
 </style>
