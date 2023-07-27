@@ -473,17 +473,17 @@ export default {
         },
         error: (error) => console.log(error)
       })
-    },
-
+    }
+    
   },
 
   beforeMount() {
     const mainButton = () => {
       store.setMediaType('Canvas')
-      // this.canvas.toBlob((blob) => {
-      //   let file = new File([blob], 'AIDC_Canvas')
-      //   store.uploadCanvas(file)
-      // })
+      let dataURL = this.canvas.toDataURL()
+      let blob = new Blob([dataURL], {type: "octet/stream"})
+      let file = new File([blob], 'AIDC_Canvas')
+      store.uploadCanvas(file)
       Telegram.WebApp.offEvent('backButtonClicked', backButton)
       this.telegramMainButton.hide()
       this.$router.push('/ScheduleSelection')
@@ -540,6 +540,7 @@ export default {
     <div @click="(env) => selectOffCanvas(env)" class="canvas-wrapper" ref="canvasWrapper"
       :style="{ 'height': `${wrapperHeight}px` }">
       <canvas id="canvas" ref="canvasElement"></canvas>
+      <button @click="test">test</button>
     </div>
     <toolbar ref="toolbar" class="toolbar"></toolbar>
   </div>
