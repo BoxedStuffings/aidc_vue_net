@@ -276,7 +276,6 @@ export default {
             <div class="confirmation-preview-holder">
                 <img class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
                 <video autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
-                <img class="confirmation-upload-preview noselect" src="../assets/boxedstuffings.png">
             </div>
             <h2> {{ mediaName }} </h2>
         </div>
