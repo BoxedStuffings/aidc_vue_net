@@ -100,39 +100,6 @@ export default {
       this.canvas.setWidth(this.canvasWidth * this.scale)
     },
 
-    GrabCanvas(status) {
-      // Clicked 
-      if (status) {
-        this.canvas.discardActiveObject();
-        this.canvas.defaultCursor = 'move'
-        this.isDragging = false
-        this.selection = false
-
-        // PC
-        this.canvas.on('mouse:down', this.canvasDragStart)
-        this.canvas.on('mouse:move', this.canvasDragMove)
-        this.canvas.on('mouse:up', this.canvasDragEnd)
-
-        // Mobile
-        this.canvas.on('touch:down', this.canvasDragStart)
-        this.canvas.on('touch:move', this.canvasDragMove)
-        this.canvas.on('touch:end', this.canvasDragEnd)
-      }
-      else {
-        // Unclicked
-        this.canvas.off('mouse:down')
-        this.canvas.off('mouse:move')
-        this.canvas.off('mouse:up')
-        this.canvas.off('touch:down')
-        this.canvas.off('touch:move')
-        this.canvas.off('touch:end')
-
-        this.canvas.defaultCursor = 'default'
-        this.isDragging = false
-        this.CanvasSelection(true)
-      }
-    },
-
     // Handle interaction start (mouse down / touch start)
     canvasDragStart(opt) {
       var evt = opt.e
