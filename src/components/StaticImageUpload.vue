@@ -50,7 +50,7 @@ export default {
         closeButton: 'button',
         icon: true
       })
-    }
+    },
 
   },
 

@@ -1,9 +1,11 @@
 <script>
+import { store } from '../../Store.js'
 import CloseButton from '../Elements/CloseButton.vue'
 
 export default {
   data() {
     return {
+        store
     }
   },
 
@@ -24,7 +26,33 @@ export default {
         this.$parent.bottomSheetContent = 'font'
         bottomSheet.style.height = '0%'
         this.$parent.$parent.fitCanvasToBottomSheet(false)
+    },
+
+    colorTheme() {
+    if (store.telegramColorScheme == 'light') {
+        let spans = document.getElementsByTagName('span')
+        for (let i=0;i<spans.length;i++) {
+            let style = getComputedStyle(spans[i])
+            if (style.background.includes('dark')){
+                let currentTheme = style.background
+                spans[i].style.background = currentTheme.replace('dark', 'light')
+            }
+        }
+    } else {
+        let spans = document.getElementsByTagName('span')
+        for (let i=0;i<spans.length;i++) {
+            let style = getComputedStyle(spans[i])
+            if (style.background.includes('light')){
+                let currentTheme = style.background
+                spans[i].style.background = currentTheme.replace('light', 'dark')
+            }
+        }
     }
+}
+  },
+
+  mounted() {
+    this.colorTheme()
   }
 
 }

@@ -161,17 +161,17 @@ export default {
             <div class="font-row-bg">
                 <input type="radio" class="btn-check" name="text-align-options" id="align-left">
                 <label class="btn btn-secondary text-btn" for="align-left" @click="alignText('left')">
-                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/text-left.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon1'></span>
+                    <span class='icon1'></span>
                 </label>
 
                 <input type="radio" class="btn-check" name="text-align-options" id="align-center">
                 <label class="btn btn-secondary text-btn" for="align-center" @click="alignText('center')">
-                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/text-center.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon2'></span>
+                    <span class='icon2'></span>
                 </label>
 
                 <input type="radio" class="btn-check" name="text-align-options" id="align-right">
                 <label class="btn btn-secondary text-btn" for="align-right" @click="alignText('right')">
-                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/text-right.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon3'></span>
+                    <span class='icon3'></span>
                 </label>
             </div>
         </div>
@@ -179,22 +179,22 @@ export default {
             <div class="font-row-bg">
                 <input type="button" class="btn-check" name="text-style-options" id="text-bold">
                 <label class="btn btn-secondary text-btn" for="text-bold" @click="toggleWeight()">
-                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/type-bold.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon4'></span>
+                    <span class='icon4'></span>
                 </label>
                 
                 <input type="button" class="btn-check" name="text-style-options" id="text-italic">
                 <label class="btn btn-secondary text-btn" for="text-italic" @click="toggleItalics()">
-                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/type-italic.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon5'></span>
+                    <span class='icon5'></span>
                 </label>
 
                 <input type="button" class="btn-check" name="text-style-options" id="text-linethrough">
                 <label class="btn btn-secondary text-btn" for="text-linethrough" @click="toggleLinethrough()">
-                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/type-strikethrough.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon6'></span>
+                    <span class='icon6'></span>
                 </label>
 
                 <input type="button" class="btn-check" name="text-style-options" id="text-underline">
                 <label class="btn btn-secondary text-btn" for="text-underline" @click="toggleUnderline()">
-                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/type-underline.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon7'></span>
+                    <span class='icon7'></span>
                 </label>
             </div>
         </div>
@@ -440,6 +440,10 @@ label.font-size-label span {
     width: 100%;
     margin:0;
     display: block;
+    background: url('../../assets/icons/light/fonts/text-left.svg');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
     /* Other styles here */
 }
 .icon2 {
@@ -447,6 +451,10 @@ label.font-size-label span {
     width: 100%;
     margin:0;
     display: block;
+    background: url('../../assets/icons/light/fonts/text-center.svg');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
     /* Other styles here */
 }
 .icon3 {
@@ -454,6 +462,10 @@ label.font-size-label span {
     width: 100%;
     margin:0;
     display: block;
+    background: url('../../assets/icons/light/fonts/text-right.svg');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
     /* Other styles here */
 }
 .icon4 {
@@ -461,6 +473,10 @@ label.font-size-label span {
     width: 100%;
     margin:0;
     display: block;
+    background: url('../../assets/icons/light/fonts/type-bold.svg');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
     /* Other styles here */
 }
 .icon5 {
@@ -468,6 +484,10 @@ label.font-size-label span {
     width: 100%;
     margin:0;
     display: block;
+    background: url('../../assets/icons/light/fonts/type-italic.svg');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
     /* Other styles here */
 }
 .icon6 {
@@ -475,6 +495,10 @@ label.font-size-label span {
     width: 100%;
     margin:0;
     display: block;
+    background: url('../../assets/icons/light/fonts/type-strikethrough.svg');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
     /* Other styles here */
 }
 .icon7 {
@@ -482,6 +506,10 @@ label.font-size-label span {
     width: 100%;
     margin:0;
     display: block;
+    background: url('../../assets/icons/light/fonts/type-underline.svg');
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
     /* Other styles here */
 }
 </style>

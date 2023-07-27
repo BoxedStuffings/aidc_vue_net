@@ -14,6 +14,7 @@ export default {
   data() {
     return {
       store,
+      checkTheme: '../assets/icons/dark/check.svg',
       telegramMainButton: Telegram.WebApp.MainButton,
       telegramBackButton: Telegram.WebApp.BackButton,
       loading: 0
@@ -145,6 +146,12 @@ export default {
 
     mainButtonVisibility() {
       store.selectedTvs.length >= 1 ? this.telegramMainButton.show() : this.telegramMainButton.hide() 
+    },
+
+    colorTheme() {
+      if (store.telegramColorScheme == 'light') {
+        this.checkTheme = '../assets/icons/light/check.svg'
+      } 
     }
 
   },
@@ -158,6 +165,7 @@ export default {
     store.initcount >= 1 ? this.loading = 1 : this.initTV()
 
     this.mainButtonVisibility()
+
   },
 
   updated() {
@@ -177,7 +185,7 @@ export default {
         <!-- Image outline for selection -->
         <div class="tv-card-imageOutline" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }">
           <!-- Card check mark -->
-          <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/icons/light/check.svg">
+          <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" :src="checkTheme">
           <!-- Display image -->
           <img :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
         </div>

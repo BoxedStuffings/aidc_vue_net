@@ -50,13 +50,13 @@ export default {
 <template>
     <div>
         <div class="nb-item" id="zoom-in" @click="selectZoom(0)" ref="zoomIn">
-            <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/navbar/zoom-in.svg')`, 'background-repeat':'no-repeat', 'background-position':'center'}" class='icon1'></span>
+            <span class='icon1'></span>
         </div>
         <div class="nb-item" id="zoom-out" @click="selectZoom(1)" ref="zoomOut">
-            <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/navbar/zoom-out.svg')`, 'background-repeat':'no-repeat', 'background-position':'center'}" class='icon2'></span>
+            <span class='icon2'></span>
         </div>
         <div class="nb-item" id="fit-screen" @click="selectZoom(2)" ref="fitScreen">
-            <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/navbar/fullscreen.svg')`, 'background-repeat':'no-repeat', 'background-position':'center'}" class='icon4'></span>
+            <span class='icon4'></span>
         </div>
     </div>
 </template>
@@ -78,17 +78,26 @@ export default {
     height: 20px;
     width: 20px;
     display: block;
+    background: url('../assets/icons/light/navbar/zoom-in.svg');
+    background-repeat: no-repeat;
+    background-position: center;
     /* Other styles here */
 }
 .icon2 {
     height: 20px;
     width: 20px;
+    background: url('../assets/icons/light/navbar/zoom-out.svg');
+    background-repeat: no-repeat;
+    background-position: center;
     /* Other styles here */
 }
 .icon4 {
     height: 20px;
     width: 20px;
     display: block;
+    background: url('../assets/icons/light/navbar/fullscreen.svg');
+    background-repeat: no-repeat;
+    background-position: center;
     /* Other styles here */
 }
 </style>

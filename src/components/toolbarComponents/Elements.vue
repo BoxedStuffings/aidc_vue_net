@@ -54,7 +54,33 @@ export default {
 
     insertElement(element) {
         this.$parent.$parent.$parent.insertElementToCanvas(element)
+    },
+
+    colorTheme() {
+        if (store.telegramColorScheme == 'light') {
+            let spans = document.getElementsByTagName('span')
+            for (let i=0;i<spans.length;i++) {
+                let style = getComputedStyle(spans[i])
+                if (style.background.includes('dark')){
+                    let currentTheme = style.background
+                    spans[i].style.background = currentTheme.replace('dark', 'light')
+                }
+            }
+        } else {
+            let spans = document.getElementsByTagName('span')
+            for (let i=0;i<spans.length;i++) {
+                let style = getComputedStyle(spans[i])
+                if (style.background.includes('light')){
+                    let currentTheme = style.background
+                    spans[i].style.background = currentTheme.replace('light', 'dark')
+                }
+            }
+        }
     }
+  },
+
+  mounted() {
+    this.colorTheme()
   }
 
 }
@@ -63,16 +89,16 @@ export default {
 <template>
     <div class="element-holder">
         <ui class="element-option-card" @click="createTextEditable()">
-            <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/elements/type.svg')`, 'background-repeat':'no-repeat', 'background-position':'center'}" class='icon1'></span>
+            <span  class='icon1'></span>
         </ui>
         <ui class="element-option-card" @click="createSquare()">
-            <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/elements/square.svg')`, 'background-repeat':'no-repeat', 'background-position':'center'}" class='icon2'></span>
+            <span class='icon2'></span>
         </ui>
         <ui class="element-option-card" @click="createCircle()">
-            <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/elements/circle.svg')`, 'background-repeat':'no-repeat', 'background-position':'center'}" class='icon3'></span>
+            <span class='icon3'></span>
         </ui>
         <ui class="element-option-card" @click="createLine()">
-            <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/elements/triangle.svg')`, 'background-repeat':'no-repeat', 'background-position':'center'}" class='icon4'></span>
+            <span class='icon4'></span>
         </ui>
     </div>
 </template>
@@ -100,24 +126,36 @@ export default {
     height: 30px;
     width: 30px;
     display: block;
+    background: url('../../assets/icons/light/elements/type.svg');
+    background-repeat: no-repeat;
+    background-position: center;
     /* Other styles here */
 }
 .icon2 {
     height: 30px;
     width: 30px;
     display: block;
+    background: url('../../assets/icons/light/elements/square.svg');
+    background-repeat: no-repeat;
+    background-position: center;
     /* Other styles here */
 }
 .icon3 {
     height: 30px;
     width: 30px;
     display: block;
+    background: url('../../assets/icons/light/elements/circle.svg');
+    background-repeat: no-repeat;
+    background-position: center;
     /* Other styles here */
 }
 .icon4 {
     height: 30px;
     width: 30px;
     display: block;
+    background: url('../../assets/icons/light/elements/triangle.svg');
+    background-repeat: no-repeat;
+    background-position: center;
     /* Other styles here */
 }
 </style>

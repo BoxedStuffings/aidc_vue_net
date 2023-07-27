@@ -12,17 +12,17 @@ export default {
 
   methods: {
     selectImageFile(fileEvent) {
-        let image = fileEvent.target.files[0]
-        console.log(image.type)
+      let image = fileEvent.target.files[0]
+      console.log(image.type)
 
-        if (image.type.indexOf('image/') !== 0) {
-            console.log('invalid image')
-        } else {
-            if (image instanceof File && image.type.indexOf('image/') == 0) {
-            let imageURL = URL.createObjectURL(image)
-            this.createImageObject(imageURL)
-            }
+      if (image.type.indexOf('image/') !== 0) {
+        console.log('invalid image')
+      } else {
+        if (image instanceof File && image.type.indexOf('image/') == 0) {
+        let imageURL = URL.createObjectURL(image)
+        this.createImageObject(imageURL)
         }
+      }
     },
 
     createImageObject(imageURL) {
@@ -40,15 +40,15 @@ export default {
 </script>
 
 <template>
-    <div class="canvas-img-insert-holder">
-        <div class="canvas-img-insert-content">
-          <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/upload.svg')`, 'background-repeat':'no-repeat', 'background-size':'70px', 'background-position':'center'}" class='icon1'></span>
-            <label class="btn btn-primary canvas-img-insert-btn">
-                Choose Image
-                <input ref="canvasInsertInput" type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
-            </label>
-        </div>
+  <div class="canvas-img-insert-holder">
+    <div class="canvas-img-insert-content">
+      <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/upload.svg')`, 'background-repeat':'no-repeat', 'background-size':'70px' , 'background-position':'center'}" class='icon1'></span>
+        <label class="btn btn-primary canvas-img-insert-btn">
+          Choose Image
+          <input ref="canvasInsertInput" type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
+        </label>
     </div>
+  </div>
 </template>
 
 <style scoped>
@@ -86,10 +86,10 @@ input[type="file"] {
   display: none;
 }
 .icon1 {
-    height: 70px;
-    width: 70px;
-    margin:0;
-    display: block;
-    /* Other styles here */
+  height: 70px;
+  width: 70px;
+  margin:0;
+  display: block;
+  /* Other styles here */
 }
 </style>

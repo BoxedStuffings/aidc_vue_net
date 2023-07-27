@@ -89,7 +89,7 @@ export default {
     <!-- <video autoplay muted loop playsinline id="vid-bg" :src="vid"></video> -->
     <div class="vid-upload-content">
       <video ref="vidHolder" autoplay muted loop playsinline class="vid-upload-preview noselect" :src="vid"></video>
-      <div class="vid-icon-holder"><span class='icon1'></span></div>
+      <div class="vid-icon-holder"><span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/upload.svg')`, 'background-repeat':'no-repeat', 'background-size':'70px' , 'background-position':'center'}" class='icon1'></span></div>
       <label class="btn btn-primary vid-upload-btn">
         Choose File
         <input type="file" accept="video/*" @change="(env) => selectVideoFile(env)"/>
@@ -146,15 +146,11 @@ export default {
   color: var(--tg-theme-button-text-colorr);
 }
 .icon1 {
-    background: url('../assets/icons/light/upload.svg');
-    height: 70px;
-    width: 70px;
-    margin:0;
-    display: block;
-    background-repeat: no-repeat;
-    background-size: 70px;
-    background-position: center;
-    /* Other styles here */
+  height: 70px;
+  width: 70px;
+  margin:0;
+  display: block;
+  /* Other styles here */
 }
 small {
   font-size: 1.5vmin;
