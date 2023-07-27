@@ -296,7 +296,6 @@ export default {
                 <img class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
                 <video autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
             </div>
-            {{ canvas }}
             <p> {{ mediaName }} </p>
         </div>
     </div>
@@ -336,7 +335,7 @@ export default {
     justify-content: center;
 }
 .confirmation-upload-preview {
-  height: auto;
+  height: 48%;
   width: 85%;
 }
 .icon-base {
