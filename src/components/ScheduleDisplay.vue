@@ -346,7 +346,7 @@ export default {
 }
 
 .icon1 {
-    background: url('../assets/icons/trash.svg');
+    background: url('../assets/icons/light/trash.svg');
     height: 30px;
     width: 30px;
     padding:10px;

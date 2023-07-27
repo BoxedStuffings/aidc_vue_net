@@ -126,7 +126,7 @@ export default {
   scale: 1.2;
 }
 .vid-upload-preview {
-  height: 20%;
+  height: 48%;
   width: 85%;
   margin: 2%;
   transform: translateY(-8%);
@@ -146,7 +146,7 @@ export default {
   color: var(--tg-theme-button-text-colorr);
 }
 .icon1 {
-    background: url('../assets/icons/upload.svg');
+    background: url('../assets/icons/light/upload.svg');
     height: 70px;
     width: 70px;
     margin:0;

@@ -96,7 +96,7 @@ export default {
     border: 1px solid black;
 }
 .icon1 {
-    background: url('../../assets/icons/elements/type.svg');
+    background: url('../../assets/icons/light/elements/type.svg');
     height: 30px;
     width: 30px;
     background-repeat: no-repeat;
@@ -105,7 +105,7 @@ export default {
     /* Other styles here */
 }
 .icon2 {
-    background: url('../../assets/icons/elements/square.svg');
+    background: url('../../assets/icons/light/elements/square.svg');
     height: 30px;
     width: 30px;
     background-repeat: no-repeat;
@@ -114,7 +114,7 @@ export default {
     /* Other styles here */
 }
 .icon3 {
-    background: url('../../assets/icons/elements/circle.svg');
+    background: url('../../assets/icons/light/elements/circle.svg');
     height: 30px;
     width: 30px;
     background-repeat: no-repeat;
@@ -123,7 +123,7 @@ export default {
     /* Other styles here */
 }
 .icon4 {
-    background: url('../../assets/icons/elements/triangle.svg');
+    background: url('../../assets/icons/light/elements/triangle.svg');
     height: 30px;
     width: 30px;
     background-repeat: no-repeat;

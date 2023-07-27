@@ -85,7 +85,7 @@ input[type="file"] {
   display: none;
 }
 .icon1 {
-    background: url('../../assets/icons/upload.svg');
+    background: url('../../assets/icons/light/upload.svg');
     height: 70px;
     width: 70px;
     margin:0;

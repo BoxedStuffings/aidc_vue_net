@@ -440,17 +440,17 @@ export default {
         },
         error: (error) => console.log(error)
       })
-    },
-
+    }
+    
   },
 
   beforeMount() {
     const mainButton = () => {
       store.setMediaType('Canvas')
-      // this.canvas.toBlob((blob) => {
-      //   let file = new File([blob], 'AIDC_Canvas')
-      //   store.uploadCanvas(file)
-      // })
+      let dataURL = this.canvas.toDataURL()
+      let blob = new Blob([dataURL], {type: "octet/stream"})
+      let file = new File([blob], 'AIDC_Canvas')
+      store.uploadCanvas(file)
       Telegram.WebApp.offEvent('backButtonClicked', backButton)
       this.telegramMainButton.hide()
       this.$router.push('/ScheduleSelection')
@@ -522,7 +522,6 @@ export default {
   overflow: hidden;
   z-index: 0;
 }
-
 .navbar-wrapper {
   height: 5%;
   min-height: 10px;
@@ -532,7 +531,6 @@ export default {
   position: relative;
   z-index: 3;
 }
-
 .canvas-wrapper {
   width: 100%;
   position: absolute;
@@ -543,7 +541,6 @@ export default {
   background: lightgrey;
   transition-duration: .2s;
 }
-
 .toolbar {
   height: 10%;
   width: 100%;
@@ -551,7 +548,6 @@ export default {
   bottom: 0;
   padding-block: 1vh;
 }
-
 h4 {
   color: black !important;
 }

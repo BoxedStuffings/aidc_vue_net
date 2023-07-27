@@ -147,7 +147,7 @@ input::-webkit-color-swatch{
 }
 
 .icon1 {
-    background: url('../../assets/icons/toolbar/grip-vertical.svg');
+    background: url('../../assets/icons/light/toolbar/grip-vertical.svg');
     height: 20px;
     width: 20px;
     background-repeat: no-repeat;

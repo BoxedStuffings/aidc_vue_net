@@ -433,7 +433,7 @@ label.font-size-label span {
 }
 
 .icon1 {
-    background: url('../../assets/icons/fonts/text-left.svg');
+    background: url('../../assets/icons/light/fonts/text-left.svg');
     height: 20px;
     width: 100%;
     margin:0;
@@ -444,7 +444,7 @@ label.font-size-label span {
     /* Other styles here */
 }
 .icon2 {
-    background: url('../../assets/icons/fonts/text-center.svg');
+    background: url('../../assets/icons/light/fonts/text-center.svg');
     height: 20px;
     width: 100%;
     margin:0;
@@ -455,7 +455,7 @@ label.font-size-label span {
     /* Other styles here */
 }
 .icon3 {
-    background: url('../../assets/icons/fonts/text-right.svg');
+    background: url('../../assets/icons/light/fonts/text-right.svg');
     height: 20px;
     width: 100%;
     margin:0;
@@ -466,7 +466,7 @@ label.font-size-label span {
     /* Other styles here */
 }
 .icon4 {
-    background: url('../../assets/icons/fonts/type-bold.svg');
+    background: url('../../assets/icons/light/fonts/type-bold.svg');
     height: 20px;
     width: 100%;
     margin:0;
@@ -477,7 +477,7 @@ label.font-size-label span {
     /* Other styles here */
 }
 .icon5 {
-    background: url('../../assets/icons/fonts/type-italic.svg');
+    background: url('../../assets/icons/light/fonts/type-italic.svg');
     height: 20px;
     width: 100%;
     margin:0;
@@ -488,7 +488,7 @@ label.font-size-label span {
     /* Other styles here */
 }
 .icon6 {
-    background: url('../../assets/icons/fonts/type-strikethrough.svg');
+    background: url('../../assets/icons/light/fonts/type-strikethrough.svg');
     height: 20px;
     width: 100%;
     margin:0;
@@ -499,7 +499,7 @@ label.font-size-label span {
     /* Other styles here */
 }
 .icon7 {
-    background: url('../../assets/icons/fonts/type-underline.svg');
+    background: url('../../assets/icons/light/fonts/type-underline.svg');
     height: 20px;
     width: 100%;
     margin:0;

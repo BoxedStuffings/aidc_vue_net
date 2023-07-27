@@ -98,14 +98,34 @@ export default {
     padding-bottom: 20px;
     background-color: white;
 }
-svg {
-    color: var(--icon-theme);
+.icon1 {
+    background: url('../assets/icons/navbar/zoom-in.svg');
+    height: 20px;
+    width: 20px;
+    background-repeat: no-repeat;
     display: block;
     height: 18px;
     width: 18px;
     align-content: center;
     justify-items: center;
 }
-span{
-    padding: 0;
-}</style>
+.icon2 {
+    background: url('../assets/icons/navbar/zoom-out.svg');
+    height: 20px;
+    width: 20px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    /* Other styles here */
+}
+.icon4 {
+    background: url('../assets/icons/navbar/fullscreen.svg');
+    height: 20px;
+    width: 20px;
+    background-repeat: no-repeat;
+    display: block;
+    background-position: center;
+    background-color: red;
+    /* Other styles here */
+}
+</style>
