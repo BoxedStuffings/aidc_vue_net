@@ -13,7 +13,7 @@ export const store = reactive({
   // ------DATA FOR REQUEST CRAFTING------ //
   // ------------------------------------- //
   telegramWebAppInfo: [],       // Information of user provided by Telegram
-  telegramColorScheme: 'light',  // Color scheme determined by Telegram ('light' or 'dark') 
+  telegramColorScheme: '',  // Color scheme determined by Telegram ('light' or 'dark') 
   selectedTvs: [],              // Tv(s) selected by user
   imageObj: {},                 // Image selected by user
   videoObj: {},                 // Video selected by user
