@@ -226,6 +226,14 @@ export default {
     },
 
     mounted() {
+        let icon = document.getElementsByTagName('span')
+        for (let i=0;i<icon.length;i++) {
+            if (store.telegramColorScheme == 'light') {
+                icon[i].classList.add('light-trash')
+            } else {
+                icon[i].classList.add('dark-trash')
+            }
+        }
         this.telegramMainButton.show()
         this.telegramBackButton.show()
         Telegram.WebApp.expand()
@@ -241,7 +249,7 @@ export default {
         <div class="schedule-display-tv">
             <div class="schedule-display-header noselect">
                 <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
-                <span :style="{'background':`url('../assets/icons/light/trash.svg')`, 'background-repeat':'no-repeat', 'background-position':'right'}" class='icon1'></span>
+                <span class='icon1'></span>
             </div>
             <div class="schedule-display-detail" v-if="TV.displays.length != 0">
                 <div class="schedule-display-detail-holder">
@@ -344,7 +352,7 @@ export default {
 .schedule-display-detail-timing h6{
     margin: 0;
 }
-.icon1 {
+div.schedule-display-header span.icon1 {
     height: 30px;
     margin-right: 10px;
     padding:10px;

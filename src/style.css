@@ -17,3 +17,15 @@ body {
   -moz-user-select: none;
   user-select: none;
 }
+
+.dark-trash{
+  background: url('./assets/icons/dark/trash.svg');
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.light-trash{
+  background: url('./assets/icons/light/trash.svg');
+  background-repeat: no-repeat;
+  background-position: right;
+}
