@@ -255,9 +255,11 @@ export default {
                 this.mediaType = 2
                 break
             case 'Canvas':
+                this.mediaType = 0
                 this.mediaName = 'Canvas'
                 this.canvas = URL.createObjectURL(store.canvasObj)
-                this.mediaType = 0
+                let canvas = this.$refs.canvas-viewer
+                canvas.src = this.canvas
                 break
         }
         this.scheduledTime = store.jobTiming
@@ -290,7 +292,7 @@ export default {
                 </div>
             </div>
             <div class="confirmation-preview-holder">
-                <img class="confirmation-upload-preview noselect" :src="`${canvas}`" v-if="this.mediaType == 0">
+                <img ref="canvas-viewer" class="confirmation-upload-preview noselect" v-if="this.mediaType == 0">
                 <img class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
                 <video autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
             </div>
