@@ -126,9 +126,7 @@ export default {
   scale: 1.2;
 }
 .img-upload-preview {
-  /* height: 20%;
-  width: 85%; */
-  height: auto;
+  height: 48%;
   width: 85%;
   margin: 2%;
   transform: translateY(-8%);

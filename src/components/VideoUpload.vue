@@ -126,7 +126,7 @@ export default {
   scale: 1.2;
 }
 .vid-upload-preview {
-  height: auto;
+  height: 48%;
   width: 85%;
   margin: 2%;
   transform: translateY(-8%);
