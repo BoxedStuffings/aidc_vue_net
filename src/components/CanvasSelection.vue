@@ -480,14 +480,15 @@ export default {
   beforeMount() {
     const mainButton = () => {
       store.setMediaType('Canvas')
-      this.canvas.toBlob((blob) => {
-        let file = new File([blob], 'AIDC_Canvas')
-        store.uploadCanvas(file)
-        
-        Telegram.WebApp.offEvent('backButtonClicked', backButton)
-        this.telegramMainButton.hide()
-        this.$router.push('/ScheduleSelection')
-      })
+      // this.canvas.toBlob((blob) => {
+      //   let file = new File([blob], 'AIDC_Canvas')
+      //   store.uploadCanvas(file)
+
+
+      // })
+      Telegram.WebApp.offEvent('backButtonClicked', backButton)
+      this.telegramMainButton.hide()
+      this.$router.push('/ScheduleSelection')
     }
 
     const backButton = () => {
