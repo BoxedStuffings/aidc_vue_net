@@ -228,7 +228,7 @@ export default {
     display: grid;
     /* background: rgba(72, 66, 66, 0.2); */
     grid-auto-flow: column;
-    background-color: var(--tg-theme-hint-color);
+    /* background-color: var(--tg-theme-hint-color); */
     margin-block: 10px;
     border-radius: 0.375rem;
     padding: 2%;
