@@ -241,7 +241,7 @@ export default {
         <div class="schedule-display-tv">
             <div class="schedule-display-header noselect">
                 <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
-                <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/trash.svg')`, 'background-repeat':'no-repeat', 'background-position':'right'}" class='icon1'></span>
+                <span :style="{'background':`url('../assets/icons/light/trash.svg')`, 'background-repeat':'no-repeat', 'background-position':'right'}" class='icon1'></span>
             </div>
             <div class="schedule-display-detail" v-if="TV.displays.length != 0">
                 <div class="schedule-display-detail-holder">
