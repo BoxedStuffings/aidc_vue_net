@@ -12,15 +12,16 @@ export const store = reactive({
   // ------------------------------------- //
   // ------DATA FOR REQUEST CRAFTING------ //
   // ------------------------------------- //
-  telegramWebAppInfo: [],     // Information of user provided by Telegram
-  selectedTvs: [],            // Tv(s) selected by user
-  imageObj: {},               // Image selected by user
-  videoObj: {},               // Video selected by user
-  canvasObj: {},              // Canvas created by user 
-  mediaType: String,          // Type of media to be submitted
-  mediaLink: String,          // Link to retrieve media after uploading to server
-  jobType: false,             // Set media as default or scheduled job (true = scheduled job, false = default)
-  jobTiming: [],              // Start and End DateTime for scheduled job [start, end]
+  telegramWebAppInfo: [],       // Information of user provided by Telegram
+  telegramColorScheme: String,  // Color scheme determined by Telegram ('light' or 'dark') 
+  selectedTvs: [],              // Tv(s) selected by user
+  imageObj: {},                 // Image selected by user
+  videoObj: {},                 // Video selected by user
+  canvasObj: {},                // Canvas created by user 
+  mediaType: String,            // Type of media to be submitted
+  mediaLink: String,            // Link to retrieve media after uploading to server
+  jobType: false,               // Set media as default or scheduled job (true = scheduled job, false = default)
+  jobTiming: [],                // Start and End DateTime for scheduled job [start, end]
 
   // ------------------------------------- //
   // ---------------OPTIONS--------------- //
@@ -75,8 +76,11 @@ export const store = reactive({
   initTelegramData(initData) {
     this.telegramWebAppInfo = initData
   },
+  initTelegramColor(scheme) {
+    this.telegramColorScheme = scheme
+  },
   // Add available TVs to store (TV.vue)
-  initTVfromDB(tvArray){
+  initTVfromDB(tvArray) {
     this.availableTVsFromDataBase = tvArray
   },
   // Find the index of selected TV within selectedTVs (TV.vue, ScheduleDisplay.vue)
