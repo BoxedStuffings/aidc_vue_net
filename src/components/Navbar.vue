@@ -31,21 +31,6 @@ export default {
             }
             this.$parent.ZoomInOutCanvas(option)
         },
-        // Grab Canvas
-        selectGrab() {
-            const grabItem = this.$refs.grab
-            //unClick
-            if (grabItem.style.backgroundColor == this.click){
-                grabItem.style.backgroundColor = this.unClick
-                this.$parent.GrabCanvas(false)
-            }
-            //Click
-            else{
-                grabItem.style.backgroundColor = this.click
-                this.$parent.GrabCanvas(true)
-            }
-
-        },
         //change div colour
         uponClick(item) {
             item.style.backgroundColor = this.click
@@ -65,9 +50,6 @@ export default {
         </div>
         <div class="nb-item" id="zoom-out" @click="selectZoom(1)" ref="zoomOut">
             <span class='icon2'></span>
-        </div>
-        <div class="nb-item" id="grab" @click="selectGrab()" ref="grab">
-            <span class='icon3'></span>
         </div>
         <div class="nb-item" id="fit-screen" @click="selectZoom(2)" ref="fitScreen">
             <span class='icon4'></span>
@@ -106,15 +88,6 @@ export default {
     background-position: center;
     /* Other styles here */
 }
-.icon3 {
-    background: url('../assets/icons/navbar/arrows-move.svg');
-    height: 20px;
-    width: 20px;
-    background-repeat: no-repeat;
-    display: block;
-    background-position: center;
-    /* Other styles here */
-}
 .icon4 {
     background: url('../assets/icons/navbar/fullscreen.svg');
     height: 20px;
@@ -122,6 +95,7 @@ export default {
     background-repeat: no-repeat;
     display: block;
     background-position: center;
+    background-color: red;
     /* Other styles here */
 }
 </style>
