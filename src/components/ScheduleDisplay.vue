@@ -236,8 +236,8 @@ export default {
 
 <template>
   <div class="schedule-holder">
-    <!-- <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index"> -->
-    <div class="schedule-display-block" v-for="TV, index in this.test" :key="index">
+    <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index">
+    <!-- <div class="schedule-display-block" v-for="TV, index in this.test" :key="index"> -->
         <div class="schedule-display-tv">
             <div class="schedule-display-header noselect">
                 <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
