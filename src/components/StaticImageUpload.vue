@@ -77,6 +77,14 @@ export default {
   },
 
   mounted() {
+    let icon = document.getElementsByTagName('span')
+      for (let i=0;i<icon.length;i++) {
+      if (store.telegramColorScheme == 'light') {
+        icon[i].classList.add('light-upload')
+      } else {
+        icon[i].classList.add('dark-upload')
+      }
+    }
     this.telegramBackButton.show()
 
     if (store.imageObj instanceof File) {
@@ -95,8 +103,7 @@ export default {
   <div class="img-upload-holder">
     <div class="img-upload-content">
       <img ref="siuHolder" class="img-upload-preview noselect">
-      {{ `url('../assets/icons/${store.telegramColorScheme}/upload.svg')` }}
-      <div class="img-icon-holder"><span :style="{'background': `url('src/assets/icons/${store.telegramColorScheme}/upload.svg')`, 'background-repeat':'no-repeat', 'background-size':'70px' , 'background-position':'center'}" class='icon1'></span></div>
+      <div class="img-icon-holder"><span class='icon1'></span></div>
       <label class="btn btn-primary img-upload-btn">
         Choose File
         <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>

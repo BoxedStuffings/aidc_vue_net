@@ -29,3 +29,17 @@ body {
   background-repeat: no-repeat;
   background-position: right;
 }
+
+.dark-upload{
+  background: url('./assets/icons/dark/upload.svg');
+  background-repeat: no-repeat;
+  background-size: 70px;
+  background-position: right;
+}
+
+.light-upload{
+  background: url('./assets/icons/light/upload.svg');
+  background-repeat: no-repeat;
+  background-size: 70px;
+  background-position: right;
+}
