@@ -108,7 +108,7 @@ export default {
                 form_data.append('file', canvas)
                 
                 await $.ajax({
-                    url: 'https://heehee.amphibistudio.sg/api/save/video',
+                    url: 'https://heehee.amphibistudio.sg/api/save/video', //here???
                     method: 'POST',
                     processData: false,
                     mimeType: 'multipart/form-data',
@@ -290,7 +290,7 @@ export default {
                 </div>
             </div>
             <div class="confirmation-preview-holder">
-                <img class="confirmation-upload-preview noselect" :src="`url(${canvas})`" v-if="this.mediaType == 0">
+                <img class="confirmation-upload-preview noselect" :src="`${canvas}`" v-if="this.mediaType == 0">
                 <img class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
                 <video autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
             </div>
