@@ -8,9 +8,7 @@ export default {
     data() {
         return {
             store,
-            //preset click values
             click: 'lightgrey',
-            unClick: 'white',
         }
     },
 
