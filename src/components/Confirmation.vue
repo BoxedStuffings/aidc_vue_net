@@ -257,7 +257,7 @@ export default {
             case 'Canvas':
                 this.mediaType = 0
                 this.mediaName = 'Canvas'
-                this.canvas = URL.createObjectURL(store.canvasObj)\
+                this.canvas = URL.createObjectURL(store.canvasObj)
                 setTimeout(() => {
                     let canvas = this.$refs.canvas-viewer
                     canvas.src = this.canvas
