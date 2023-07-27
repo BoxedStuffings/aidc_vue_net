@@ -507,7 +507,6 @@ export default {
     <div @click="(env) => selectOffCanvas(env)" class="canvas-wrapper" ref="canvasWrapper"
       :style="{ 'height': `${wrapperHeight}px` }">
       <canvas id="canvas" ref="canvasElement"></canvas>
-      <button @click="test">test</button>
     </div>
     <toolbar ref="toolbar" class="toolbar"></toolbar>
   </div>
