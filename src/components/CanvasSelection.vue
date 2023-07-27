@@ -486,7 +486,7 @@ export default {
       })
       Telegram.WebApp.offEvent('backButtonClicked', backButton)
       this.telegramMainButton.hide(),
-        this.$router.push('/ScheduleSelection')
+      this.$router.push('/ScheduleSelection')
     }
 
     const backButton = () => {

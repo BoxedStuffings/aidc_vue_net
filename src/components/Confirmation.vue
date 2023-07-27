@@ -262,7 +262,6 @@ export default {
             </div>
             <div class="confirmation-details-sections">
                 <h2>Media Selected</h2>
-                <h2>{{ mediaName }}</h2>
             </div>
             <div class="confirmation-details-sections" v-if="DorS">
                 <div class="confirmation-job-timings">
@@ -277,6 +276,9 @@ export default {
             <div class="confirmation-preview-holder">
                 <img class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
                 <video autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
+                <h2> {{ mediaName }} </h2>
+                <img class="confirmation-upload-preview noselect" src="../assets/boxedstuffings.png">
+                <h2> testname.tele </h2>
             </div>
         </div>
     </div>
