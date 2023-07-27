@@ -49,10 +49,10 @@ export default {
                 for (let i=0;i<spans.length;i++) {
                     let style = getComputedStyle(spans[i])
                     if (style.background.includes('light')){
-                        this.pushtoast(style)
+                        this.pushtoast(style.background)
                         let currentTheme = style.background
                         spans[i].style.background = currentTheme.replace('light', 'dark')
-                        this.pushtoast(currentTheme.replace('light', 'dark'))
+                        this.pushtoast2(currentTheme.replace('light', 'dark'))
 
                     }
                 }
@@ -71,6 +71,19 @@ export default {
                 icon: true
             })
         },
+
+        pushtoast2(msg) {
+            this.toast.error(msg, {
+                position: 'bottom-left',
+                timeout: 5000,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.5,
+                closeButton: 'button',
+                icon: true,
+            })
+        }
     },
 
     mounted() {
