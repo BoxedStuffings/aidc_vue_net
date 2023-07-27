@@ -1,59 +1,81 @@
 <script>
 import { store } from '../../Store.js'
 import CloseButton from '../Elements/CloseButton.vue'
+import { useToast } from "vue-toastification"
+
 
 export default {
-  data() {
-    return {
-        store
-    }
-  },
-
-  components: {
-    CloseButton
-  },
-
-  methods: {
-    open() {
-        let bottomSheet = this.$refs.bsExpendable
-
-        bottomSheet.style.height = '33vh'
+    setup() {
+        const toast = useToast()
+        return {toast}
     },
 
-    close() {
-        let bottomSheet = this.$refs.bsExpendable
-        
-        this.$parent.bottomSheetContent = 'font'
-        bottomSheet.style.height = '0%'
-        this.$parent.$parent.fitCanvasToBottomSheet(false)
+    data() {
+        return {
+            store
+        }
     },
 
-    colorTheme() {
-    if (store.telegramColorScheme == 'light') {
-        let spans = document.getElementsByTagName('span')
-        for (let i=0;i<spans.length;i++) {
-            let style = getComputedStyle(spans[i])
-            if (style.background.includes('dark')){
-                let currentTheme = style.background
-                spans[i].style.background = currentTheme.replace('dark', 'light')
-            }
-        }
-    } else {
-        let spans = document.getElementsByTagName('span')
-        for (let i=0;i<spans.length;i++) {
-            let style = getComputedStyle(spans[i])
-            if (style.background.includes('light')){
-                let currentTheme = style.background
-                spans[i].style.background = currentTheme.replace('light', 'dark')
-            }
-        }
-    }
-}
-  },
+    components: {
+        CloseButton
+    },
 
-  mounted() {
-    this.colorTheme()
-  }
+    methods: {
+        open() {
+            let bottomSheet = this.$refs.bsExpendable
+
+            bottomSheet.style.height = '33vh'
+        },
+
+        close() {
+            let bottomSheet = this.$refs.bsExpendable
+            
+            this.$parent.bottomSheetContent = 'font'
+            bottomSheet.style.height = '0%'
+            this.$parent.$parent.fitCanvasToBottomSheet(false)
+        },
+
+        colorTheme() {
+            let spans = document.getElementsByTagName('span')
+            if (store.telegramColorScheme == 'light') {
+                for (let i=0;i<spans.length;i++) {
+                    let style = getComputedStyle(spans[i])
+                    if (style.background.includes('dark')){
+                        let currentTheme = style.background
+                        spans[i].style.background = currentTheme.replace('dark', 'light')
+                    }
+                }
+            } else {
+                for (let i=0;i<spans.length;i++) {
+                    let style = getComputedStyle(spans[i])
+                    if (style.background.includes('light')){
+                        this.pushtoast(style)
+                        let currentTheme = style.background
+                        spans[i].style.background = currentTheme.replace('light', 'dark')
+                        this.pushtoast(currentTheme.replace('light', 'dark'))
+
+                    }
+                }
+            }
+        },
+
+        pushtoast(msg) {
+            this.toast.success(msg, {
+                position: 'bottom-left',
+                timeout: 5000,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                draggablePercent: 0.5,
+                closeButton: 'button',
+                icon: true
+            })
+        },
+    },
+
+    mounted() {
+        this.colorTheme()
+    }
 
 }
 </script>
