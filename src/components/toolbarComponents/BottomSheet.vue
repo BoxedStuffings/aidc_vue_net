@@ -49,10 +49,8 @@ export default {
                 for (let i=0;i<spans.length;i++) {
                     let style = getComputedStyle(spans[i])
                     if (style.background.includes('light')){
-                        this.pushtoast(style.background)
                         let currentTheme = style.background
                         spans[i].style.background = currentTheme.replace('light', 'dark')
-                        this.pushtoast2(currentTheme.replace('light', 'dark'))
 
                     }
                 }
@@ -88,6 +86,11 @@ export default {
 
     mounted() {
         this.colorTheme()
+        let spans = document.getElementsByTagName('span')
+        for (let i=0;i<spans.length;i++) {
+            let style = getComputedStyle(spans[i])
+            this.pushtoast(style.background)
+        }
     }
 
 }
