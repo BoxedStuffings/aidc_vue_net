@@ -4,7 +4,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 
 
 export default {
-    name:'Navbar',
+    name: 'Navbar',
     data() {
         return {
             store,
@@ -20,17 +20,18 @@ export default {
             const zoomInItem = this.$refs.zoomIn
             const zoomOutItem = this.$refs.zoomOut
             const fitScreenItem = this.$refs.fitScreen
-            if(option == 0){
+            if (option == 0) {
                 this.uponClick(zoomInItem)
             }
-            else if(option == 1){
+            else if (option == 1) {
                 this.uponClick(zoomOutItem)
             }
-            else{
+            else {
                 this.uponClick(fitScreenItem)
             }
             this.$parent.ZoomInOutCanvas(option)
         },
+
         //change div colour
         uponClick(item) {
             item.style.backgroundColor = this.click
@@ -38,9 +39,12 @@ export default {
                 item.style.backgroundColor = this.unClick
             }, 100)
         },
+    },
+    
+    mounted() {
+        store.telegramColorScheme != 'light' ? document.documentElement.style.setProperty('--icon-theme', 'black') : document.documentElement.style.setProperty('--icon-theme', 'white')
     }
-
-}
+}   
 </script>
 
 <template>
