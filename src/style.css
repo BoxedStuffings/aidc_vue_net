@@ -315,3 +315,17 @@ body {
   background-size: 20px;
   background-position: center;
 }
+
+.dark-display{
+  background: url('./assets/icons/dark/display.svg');
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-position: center;
+}
+
+.light-display{
+  background: url('./assets/icons/light/display.svg');
+  background-repeat: no-repeat;
+  background-size: 25px;
+  background-position: center;
+}

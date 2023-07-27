@@ -190,6 +190,19 @@ export default {
                 closeButton: 'button',
                 icon: true,
             })
+        },
+
+        colorTheme() {
+            try {
+                let icon = document.getElementsByClassName('display')
+                if (store.telegramColorScheme == 'light') {
+                    icon[0].classList.add('light-display')
+                } else {
+                    icon[0].classList.add('dark-display')
+                }
+            } catch {
+
+            }
         }
 
     },
@@ -224,6 +237,7 @@ export default {
     },
 
     mounted() {
+        this.colorTheme()
         this.telegramMainButton.show()
         this.telegramBackButton.show()
 
@@ -258,7 +272,7 @@ export default {
             <div class="confirmation-details-sections">
                 <h2>TV(s) Selected</h2>
                 <div class="confirmation-tv" v-for="i, index in selectedTvs" :key="index">
-                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/display.svg')`, 'background-repeat':'no-repeat', 'background-size':'25px', 'background-position':'center'}" class='icon1'></span>
+                    <span class='display icon-base'></span>
                     <h4>TV • {{ i.info }}</h4>
                 </div>
             </div>
@@ -322,7 +336,7 @@ export default {
   height: auto;
   width: 85%;
 }
-.icon1 {
+.icon-base {
     height: 30px;
     width: 30px;
     padding:10px;
