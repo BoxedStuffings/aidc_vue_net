@@ -157,6 +157,7 @@ export default {
   },
 
   mounted() {
+    this.colorTheme()
     this.telegramMainButton.setParams({ text: 'Select Tv'})
     Telegram.WebApp.onEvent('mainButtonClicked', () => this.$router.push('/ScheduleDisplay'))
 
