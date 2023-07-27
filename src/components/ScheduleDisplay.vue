@@ -201,28 +201,6 @@ export default {
                 },
                 error: (error) => console.log(error)
             })
-        },
-
-        colorTheme() {
-            if (store.telegramColorScheme == 'light') {
-                let spans = document.getElementsByTagName('span')
-                for (let i=0;i<spans.length;i++) {
-                    let style = getComputedStyle(spans[i])
-                    if (style.background.includes('dark')){
-                        let currentTheme = style.background
-                        spans[i].style.background = currentTheme.replace('dark', 'light')
-                    }
-                }
-            } else {
-                let spans = document.getElementsByTagName('span')
-                for (let i=0;i<spans.length;i++) {
-                    let style = getComputedStyle(spans[i])
-                    if (style.background.includes('light')){
-                        let currentTheme = style.background
-                        spans[i].style.background = currentTheme.replace('light', 'dark')
-                    }
-                }
-            }
         }
         
     },
@@ -248,7 +226,6 @@ export default {
     },
 
     mounted() {
-        this.colorTheme()
         this.telegramMainButton.show()
         this.telegramBackButton.show()
         Telegram.WebApp.expand()
@@ -264,7 +241,7 @@ export default {
         <div class="schedule-display-tv">
             <div class="schedule-display-header noselect">
                 <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
-                <span class='icon1'></span>
+                <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/trash.svg')`, 'background-repeat':'no-repeat', 'background-position':'right'}" class='icon1'></span>
             </div>
             <div class="schedule-display-detail" v-if="TV.displays.length != 0">
                 <div class="schedule-display-detail-holder">
@@ -369,13 +346,9 @@ export default {
 }
 .icon1 {
     height: 30px;
-    width: 30px;
     margin-right: 10px;
     padding:10px;
     display: block;
-    background: url('../assets//icons/light/trash.svg');
-    background-repeat: no-repeat;
-    background-position: right;
     /* Other styles here */
 }
 </style>
