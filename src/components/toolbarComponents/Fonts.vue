@@ -1,9 +1,11 @@
 <script>
+import { store } from '../../Store.js'
 import fontfaceobserver from 'fontfaceobserver'
 
 export default {
   data() {
     return {
+        store,
         loadedFont: [],
         fontSizeArray: [16,24, 28, 32, 36, 40, 44, 48, 54, 60, 66, 72]
     }
@@ -127,6 +129,7 @@ export default {
         e.srcElement.nextSibling.classList.toggle('select-hide')
         e.srcElement.classList.toggle('select-arrow-active')
     })
+
   }
 
 }
@@ -158,17 +161,17 @@ export default {
             <div class="font-row-bg">
                 <input type="radio" class="btn-check" name="text-align-options" id="align-left">
                 <label class="btn btn-secondary text-btn" for="align-left" @click="alignText('left')">
-                    <span class='icon1'></span>
+                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/text-left.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon1'></span>
                 </label>
 
                 <input type="radio" class="btn-check" name="text-align-options" id="align-center">
                 <label class="btn btn-secondary text-btn" for="align-center" @click="alignText('center')">
-                    <span class='icon2'></span>
+                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/text-center.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon2'></span>
                 </label>
 
                 <input type="radio" class="btn-check" name="text-align-options" id="align-right">
                 <label class="btn btn-secondary text-btn" for="align-right" @click="alignText('right')">
-                    <span class='icon3'></span>
+                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/text-right.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon3'></span>
                 </label>
             </div>
         </div>
@@ -176,22 +179,22 @@ export default {
             <div class="font-row-bg">
                 <input type="button" class="btn-check" name="text-style-options" id="text-bold">
                 <label class="btn btn-secondary text-btn" for="text-bold" @click="toggleWeight()">
-                    <span class='icon4'></span>
+                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/type-bold.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon4'></span>
                 </label>
                 
                 <input type="button" class="btn-check" name="text-style-options" id="text-italic">
                 <label class="btn btn-secondary text-btn" for="text-italic" @click="toggleItalics()">
-                    <span class='icon5'></span>
+                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/type-italic.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon5'></span>
                 </label>
 
                 <input type="button" class="btn-check" name="text-style-options" id="text-linethrough">
                 <label class="btn btn-secondary text-btn" for="text-linethrough" @click="toggleLinethrough()">
-                    <span class='icon6'></span>
+                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/type-strikethrough.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon6'></span>
                 </label>
 
                 <input type="button" class="btn-check" name="text-style-options" id="text-underline">
                 <label class="btn btn-secondary text-btn" for="text-underline" @click="toggleUnderline()">
-                    <span class='icon7'></span>
+                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/fonts/type-underline.svg')`, 'background-repeat':'no-repeat', 'background-size':'20px', 'background-position':'center'}" class='icon7'></span>
                 </label>
             </div>
         </div>
@@ -433,80 +436,52 @@ label.font-size-label span {
 }
 
 .icon1 {
-    background: url('../../assets/icons/light/fonts/text-left.svg');
     height: 20px;
     width: 100%;
     margin:0;
     display: block;
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
     /* Other styles here */
 }
 .icon2 {
-    background: url('../../assets/icons/light/fonts/text-center.svg');
     height: 20px;
     width: 100%;
     margin:0;
     display: block;
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
     /* Other styles here */
 }
 .icon3 {
-    background: url('../../assets/icons/light/fonts/text-right.svg');
     height: 20px;
     width: 100%;
     margin:0;
     display: block;
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
     /* Other styles here */
 }
 .icon4 {
-    background: url('../../assets/icons/light/fonts/type-bold.svg');
     height: 20px;
     width: 100%;
     margin:0;
     display: block;
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
     /* Other styles here */
 }
 .icon5 {
-    background: url('../../assets/icons/light/fonts/type-italic.svg');
     height: 20px;
     width: 100%;
     margin:0;
     display: block;
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
     /* Other styles here */
 }
 .icon6 {
-    background: url('../../assets/icons/light/fonts/type-strikethrough.svg');
     height: 20px;
     width: 100%;
     margin:0;
     display: block;
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
     /* Other styles here */
 }
 .icon7 {
-    background: url('../../assets/icons/light/fonts/type-underline.svg');
     height: 20px;
     width: 100%;
     margin:0;
     display: block;
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
     /* Other styles here */
 }
 </style>

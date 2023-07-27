@@ -258,7 +258,7 @@ export default {
             <div class="confirmation-details-sections">
                 <h2>TV(s) Selected</h2>
                 <div class="confirmation-tv" v-for="i, index in selectedTvs" :key="index">
-                    <span class='icon1'></span>
+                    <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/display.svg')`, 'background-repeat':'no-repeat', 'background-size':'25px', 'background-position':'center'}" class='icon1'></span>
                     <h4>TV • {{ i.info }}</h4>
                 </div>
             </div>
@@ -323,15 +323,11 @@ export default {
   width: 85%;
 }
 .icon1 {
-    background: url('../assets/icons/light/display.svg');
     height: 30px;
     width: 30px;
     padding:10px;
     margin-right: 10px;
     display: block;
-    background-repeat: no-repeat;
-    background-size: 25px;
-    background-position: center;
     /* Other styles here */
 }
 </style>

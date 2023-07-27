@@ -5,6 +5,7 @@ import { fabric } from 'fabric'
 export default {
   data() {
     return {
+      store,
       imageCount: 0
     }
   },
@@ -41,7 +42,7 @@ export default {
 <template>
     <div class="canvas-img-insert-holder">
         <div class="canvas-img-insert-content">
-          <span class='icon1'></span>
+          <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/upload.svg')`, 'background-repeat':'no-repeat', 'background-size':'70px', 'background-position':'center'}" class='icon1'></span>
             <label class="btn btn-primary canvas-img-insert-btn">
                 Choose Image
                 <input ref="canvasInsertInput" type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
@@ -85,14 +86,10 @@ input[type="file"] {
   display: none;
 }
 .icon1 {
-    background: url('../../assets/icons/light/upload.svg');
     height: 70px;
     width: 70px;
     margin:0;
     display: block;
-    background-repeat: no-repeat;
-    background-size: 70px;
-    background-position: center;
     /* Other styles here */
 }
 </style>

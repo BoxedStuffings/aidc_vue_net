@@ -5,6 +5,7 @@ import { fabric } from 'fabric'
 export default {
   data() {
     return {
+        store
     }
   },
 
@@ -62,16 +63,16 @@ export default {
 <template>
     <div class="element-holder">
         <ui class="element-option-card" @click="createTextEditable()">
-            <span class='icon1'></span>
+            <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/elements/type.svg')`, 'background-repeat':'no-repeat', 'background-position':'center'}" class='icon1'></span>
         </ui>
         <ui class="element-option-card" @click="createSquare()">
-            <span class='icon2'></span>
+            <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/elements/square.svg')`, 'background-repeat':'no-repeat', 'background-position':'center'}" class='icon2'></span>
         </ui>
         <ui class="element-option-card" @click="createCircle()">
-            <span class='icon3'></span>
+            <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/elements/circle.svg')`, 'background-repeat':'no-repeat', 'background-position':'center'}" class='icon3'></span>
         </ui>
         <ui class="element-option-card" @click="createLine()">
-            <span class='icon4'></span>
+            <span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/elements/triangle.svg')`, 'background-repeat':'no-repeat', 'background-position':'center'}" class='icon4'></span>
         </ui>
     </div>
 </template>
@@ -96,39 +97,27 @@ export default {
     border: 1px solid black;
 }
 .icon1 {
-    background: url('../../assets/icons/light/elements/type.svg');
     height: 30px;
     width: 30px;
-    background-repeat: no-repeat;
     display: block;
-    background-position: center;
     /* Other styles here */
 }
 .icon2 {
-    background: url('../../assets/icons/light/elements/square.svg');
     height: 30px;
     width: 30px;
-    background-repeat: no-repeat;
     display: block;
-    background-position: center;
     /* Other styles here */
 }
 .icon3 {
-    background: url('../../assets/icons/light/elements/circle.svg');
     height: 30px;
     width: 30px;
-    background-repeat: no-repeat;
     display: block;
-    background-position: center;
     /* Other styles here */
 }
 .icon4 {
-    background: url('../../assets/icons/light/elements/triangle.svg');
     height: 30px;
     width: 30px;
-    background-repeat: no-repeat;
     display: block;
-    background-position: center;
     /* Other styles here */
 }
 </style>

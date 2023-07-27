@@ -8,6 +8,7 @@ export default {
 
     data() {
         return {
+            store,
             color: '',
             backgroundColorHex: '',
             canvasLayers: [],
@@ -145,13 +146,12 @@ input::-webkit-color-swatch{
     border-bottom-right-radius: 0.375rem;
     border-bottom-left-radius: 0.375rem;
 }
-
 .icon1 {
-    background: url('../../assets/icons/light/toolbar/grip-vertical.svg');
     height: 20px;
     width: 20px;
-    background-repeat: no-repeat;
     display: block;
+    background: url('../../assets/icons/light/toolbar/grip-vertical.svg');
+    background-repeat: no-repeat;
     background-position: center;
     /* Other styles here */
 }

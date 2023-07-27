@@ -95,7 +95,7 @@ export default {
   <div class="img-upload-holder">
     <div class="img-upload-content">
       <img ref="siuHolder" class="img-upload-preview noselect">
-      <div class="img-icon-holder"><span class='icon1'></span></div>
+      <div class="img-icon-holder"><span :style="{'background':`url('src/assets/icons/${store.telegramColorScheme}/upload.svg')`, 'background-repeat':'no-repeat', 'background-size':'70px' , 'background-position':'center'}" class='icon1'></span></div>
       <label class="btn btn-primary img-upload-btn">
         Choose File
         <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
@@ -146,14 +146,10 @@ export default {
   color: var(--tg-theme-button-text-colorr);
 }
 .icon1 {
-  background: url('../assets/icons/light/upload.svg');
   height: 70px;
   width: 70px;
   margin:0;
   display: block;
-  background-repeat: no-repeat;
-  background-size: 70px;
-  background-position: center;
   /* Other styles here */
 }
 small {

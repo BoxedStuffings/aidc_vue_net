@@ -13,7 +13,7 @@ export const store = reactive({
   // ------DATA FOR REQUEST CRAFTING------ //
   // ------------------------------------- //
   telegramWebAppInfo: [],       // Information of user provided by Telegram
-  telegramColorScheme: String,  // Color scheme determined by Telegram ('light' or 'dark') 
+  telegramColorScheme: 'dark',  // Color scheme determined by Telegram ('light' or 'dark') 
   selectedTvs: [],              // Tv(s) selected by user
   imageObj: {},                 // Image selected by user
   videoObj: {},                 // Video selected by user
@@ -48,11 +48,11 @@ export const store = reactive({
   ],
   // Canvas toolbar options (Toolbar.vue)
   canvasToolbarOptions: [
-    { _id: 1, name: 'Canvas', icon_class:'icon1'},
-    { _id: 2, name: 'Templates', icon_class:'icon2'},
-    { _id: 3, name: 'Elements', icon_class:'icon3'},
-    { _id: 4, name: 'Insert', icon_class:'icon4'},
-    { _id: 5, name: 'Options', icon_class:'icon5'}
+    { _id: 1, name: 'Canvas', icon_class: 'icon1'},
+    { _id: 2, name: 'Templates', icon_class: 'icon2'},
+    { _id: 3, name: 'Elements', icon_class: 'icon3'},
+    { _id: 4, name: 'Insert', icon_class: 'icon4'},
+    { _id: 5, name: 'Options', icon_class: 'icon5'}
   ],
   // Canvas toolbar options for editable textbox (Toolbar.vue)
   canvasEditableTexboxOptions: [
