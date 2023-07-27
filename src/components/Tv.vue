@@ -181,6 +181,7 @@ export default {
     <TvSkeleton v-if="this.loading == 0"></TvSkeleton>
     <!-- Main Grid -->
     <div id="tv-grid" v-else-if="this.loading == 1">
+      {{ store.telegramColorScheme }}
     <!-- Individual cards -->
       <ui class="tv-card noselect" v-for="TV in store.availableTVsFromDataBase" :key="TV._id">
         <!-- Image outline for selection -->
