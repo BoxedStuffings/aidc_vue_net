@@ -242,7 +242,7 @@ export default {
                 break
             case 'Canvas':
                 this.mediaName = 'Canvas'
-                this.canvas = URL.createObjectURL(store.canvasObj)
+                // this.canvas = URL.createObjectURL(store.canvasObj)
                 this.mediaType = 0
                 break
         }
@@ -276,7 +276,7 @@ export default {
                 </div>
             </div>
             <div class="confirmation-preview-holder">
-                <img class="confirmation-upload-preview noselect" :src="canvas" v-if="this.mediaType == 0">
+                <!-- <img class="confirmation-upload-preview noselect" :src="canvas" v-if="this.mediaType == 0"> -->
                 <img class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
                 <video autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
             </div>
@@ -328,6 +328,5 @@ export default {
     padding:10px;
     margin-right: 10px;
     display: block;
-    /* Other styles here */
 }
 </style>
