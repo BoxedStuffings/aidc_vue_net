@@ -15,12 +15,10 @@ export default {
             telegramBackButton: Telegram.WebApp.BackButton,
             selectedTvs: [],
             mediaName: 'Default Media Name',
-            img: '',
             vid: '',
             mediaType: 0,
             DorS: '',
-            scheduledTime: [],
-            test: ''
+            scheduledTime: []
         }
     },
 
@@ -240,7 +238,6 @@ export default {
         this.colorTheme()
         this.telegramMainButton.show()
         this.telegramBackButton.show()
-        this.test = typeof store.canvasObj
 
         this.selectedTvs = store.selectedTvs
         this.DorS = store.jobType
@@ -250,9 +247,9 @@ export default {
                 let imgWidth = imgPreview.width * 0.5625
                 imgPreview.style.maxHeight = `${imgWidth}px`
 
-                this.mediaName = store.imageObj.name
-                this.img = URL.createObjectURL(store.imageObj)
                 this.mediaType = 1
+                this.mediaName = store.imageObj.name
+                imgPreview.src = URL.createObjectURL(store.imageObj)
                 break
             case 'Video':
                 const vidPreview = this.$refs.videoPreview
@@ -270,8 +267,7 @@ export default {
 
                 this.mediaType = 0
                 this.mediaName = 'Canvas'
-                let canvas = this.$refs.canvasPreview
-                canvas.src = store.canvasObj
+                canvasPreview.src = store.canvasObj
                 break
         }
         this.scheduledTime = store.jobTiming
@@ -305,7 +301,7 @@ export default {
             </div>
             <div class="confirmation-preview-holder">
                 <img ref="canvasPreview" class="confirmation-upload-preview noselect" v-if="this.mediaType == 0">
-                <img ref="imgPreview" class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
+                <img ref="imgPreview" class="confirmation-upload-preview noselect" v-if="this.mediaType == 1">
                 <video ref="videoPreview" autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
             </div>
             <p> {{ mediaName }} </p>
