@@ -72,6 +72,7 @@ export default {
 
       this.canvas.setWidth(this.canvasWidth)
       this.canvas.setHeight(this.canvasHeight)
+      this.scaleToCanvas()
       this.canvas.renderAll()
     },
 
@@ -98,6 +99,7 @@ export default {
       // scaling canvas dimension down
       this.canvas.setHeight(this.canvasHeight * this.scale)
       this.canvas.setWidth(this.canvasWidth * this.scale)
+      this.scaleToCanvas()
     },
 
     // Handle interaction start (mouse down / touch start)
@@ -278,34 +280,38 @@ export default {
           }
         })
 
-        this.canvas.setZoom(1)
-        const group = new fabric.Group(this.canvas.getObjects())
-
-        const y = (group.top + (group.height / 2)) - (this.canvas.height / 2)
-        const x = (group.left + (group.width / 2)) - (this.canvas.width / 2)
-        this.canvas.absolutePan({x:x, y:y})
-
-        const heightDist = this.canvas.getHeight() - group.height
-        const widthDist = this.canvas.getWidth() - group.width
-        let groupDimensions = 0
-        let canvasDimensions = 0
-
-        if (heightDist < widthDist) {
-          groupDimensions = group.height
-          canvasDimensions = this.canvas.getHeight()
-        } else {
-          groupDimensions = group.width
-          canvasDimensions = this.canvas.getWidth()
-        }
-        group.ungroupOnCanvas()
-        const zoom = (canvasDimensions/groupDimensions)
-        this.canvas.zoomToPoint({x: this.canvas.width / 2, y: this.canvas.height / 2 }, zoom)
+        this.scaleToCanvas()
         
         const objects = this.canvas.getObjects()
         for (let o in objects) {
           store.addElementToCanvas(objects[o])
         }
       }, 500)
+    },
+
+    scaleToCanvas() {
+      this.canvas.setZoom(1)
+      const group = new fabric.Group(this.canvas.getObjects())
+
+      const y = (group.top + (group.height / 2)) - (this.canvas.height / 2)
+      const x = (group.left + (group.width / 2)) - (this.canvas.width / 2)
+      this.canvas.absolutePan({x:x, y:y})
+
+      const heightDist = this.canvas.getHeight() - group.height
+      const widthDist = this.canvas.getWidth() - group.width
+      let groupDimensions = 0
+      let canvasDimensions = 0
+
+      if (heightDist < widthDist) {
+        groupDimensions = group.height
+        canvasDimensions = this.canvas.getHeight()
+      } else {
+        groupDimensions = group.width
+        canvasDimensions = this.canvas.getWidth()
+      }
+      group.ungroupOnCanvas()
+      const zoom = (canvasDimensions/groupDimensions)
+      this.canvas.zoomToPoint({x: this.canvas.width / 2, y: this.canvas.height / 2 }, zoom)
     },
 
     insertElementToCanvas(element) {
