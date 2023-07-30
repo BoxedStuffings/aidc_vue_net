@@ -49,7 +49,7 @@ export default {
       let slider = this.$refs.siuSlider
       slider.animate(
         { transform: 'translateY(120%)'}, 
-        { duration: 500, fill: 'forwards'}
+        { duration: 600, fill: 'forwards'}
       )
     },
 
@@ -164,7 +164,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: translateY(60%);
+  transform: translateY(0%);
 }
 .img-upload-btn {
   max-width: 240px;
