@@ -48,7 +48,7 @@ export default {
 
       let slider = this.$refs.siuSlider
       slider.animate(
-        { transform: 'translateY(0%)'}, 
+        { transform: 'translateY(110%)'}, 
         { duration: 300, fill: 'forwards'}
       )
     },
@@ -103,6 +103,10 @@ export default {
     this.colorTheme()
     this.telegramBackButton.show()
 
+    const preview = this.$refs.siuHolder
+    let width = preview.width * 0.5625
+    preview.style.maxHeight = `${width}px`
+
     if (store.imageObj instanceof File) {
       this.display()
     }
@@ -148,18 +152,19 @@ export default {
   scale: 1.2;
 }
 .img-upload-preview {
-  height: 48%;
+  height: 100%;
   width: 85%;
   margin: 2%;
   opacity: 0;
-  transition: all 1s;
+  transition: all 1.5s;
 }
 .img-upload-slider {
+  position: absolute;
   height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: translateY(-100%);
+  transform: translateY(100%);
 }
 .img-upload-btn {
   max-width: 240px;

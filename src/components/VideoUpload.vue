@@ -31,10 +31,25 @@ export default {
       video.type.indexOf('video/') !== 0 ? this.pushToast() : store.uploadVideo(video)
 
       if (store.videoObj instanceof File && video.type.indexOf('video/') == 0) {          
-        this.vid = URL.createObjectURL(store.videoObj)
-        let vid = this.$refs.vidHolder
-        vid.style.visibility = 'visible'
+        this.display()
       }
+    },
+
+    display() {
+      this.vid = URL.createObjectURL(store.videoObj)
+      
+      let preview = this.$refs.vidHolder
+      preview.style.opacity = 1
+      preview.animate(
+        { transform: 'translateY(-8%)'},
+        { duration: 300, fill: 'forwards'}
+      )
+
+      let slider = this.$refs.vidSlider
+      slider.animate(
+        { transform: 'translateY(110%)'}, 
+        { duration: 300, fill: 'forwards'}
+      )
     },
 
     pushToast() {
@@ -48,6 +63,15 @@ export default {
         closeButton: 'button',
         icon: true
       })
+    },
+
+    colorTheme() {
+      let icon = document.getElementsByTagName('span')
+      if (store.telegramColorScheme == 'light') {
+        icon[0].classList.add('light-upload')
+      } else {
+        icon[0].classList.add('dark-upload')
+      }
     }
 
   },
@@ -74,17 +98,15 @@ export default {
   },
 
   mounted() {
-    let icon = document.getElementsByTagName('span')
-    if (store.telegramColorScheme == 'light') {
-      icon[0].classList.add('light-upload')
-    } else {
-      icon[0].classList.add('dark-upload')
-    }
-    
+    this.colorTheme()
     this.telegramBackButton.show()
 
+    const preview = this.$refs.vidHolder
+    let width = preview.getBoundingClientRect.width * 0.5625
+    preview.style.maxHeight = `${width}px`
+
     if (store.videoObj instanceof File) {
-      this.vid = URL.createObjectURL(store.videoObj)
+      this.display()
     }
   }
 
@@ -96,12 +118,14 @@ export default {
     <!-- <video autoplay muted loop playsinline id="vid-bg" :src="vid"></video> -->
     <div class="vid-upload-content">
       <video ref="vidHolder" autoplay muted loop playsinline class="vid-upload-preview noselect" :src="vid"></video>
-      <div class="vid-icon-holder"><span class='icon1'></span></div>
-      <label class="btn btn-primary vid-upload-btn">
-        Choose File
-        <input type="file" accept="video/*" @change="(env) => selectVideoFile(env)"/>
-      </label>
-      <small>{{ store.videoObj.name }}</small>
+      <div ref="vidSlider" class="vid-upload-slider">
+        <div class="vid-icon-holder"><span class='icon1'></span></div>
+        <label class="btn btn-primary vid-upload-btn">
+          Choose File
+          <input type="file" accept="video/*" @change="(env) => selectVideoFile(env)"/>
+        </label>
+        <small>{{ store.videoObj.name }}</small>
+      </div>
     </div>
   </div>
 </template>
@@ -133,11 +157,18 @@ export default {
   scale: 1.2;
 }
 .vid-upload-preview {
-  height: 48%;
   width: 85%;
   margin: 2%;
-  transform: translateY(-8%);
-  visibility: hidden;
+  opacity: 0;
+  transition: all 1.5s;
+}
+.vid-upload-slider {
+  position: absolute;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(100%);
 }
 .vid-upload-btn {
   max-width: 240px;

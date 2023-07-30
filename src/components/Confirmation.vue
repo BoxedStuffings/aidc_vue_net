@@ -246,16 +246,28 @@ export default {
         this.DorS = store.jobType
         switch(store.mediaType) {
             case 'Image':
+                const imgPreview = this.$refs.imgPreview
+                let imgWidth = imgPreview.width * 0.5625
+                imgPreview.style.maxHeight = `${imgWidth}px`
+
                 this.mediaName = store.imageObj.name
                 this.img = URL.createObjectURL(store.imageObj)
                 this.mediaType = 1
                 break
             case 'Video':
+                const vidPreview = this.$refs.videoPreview
+                let vidWidth = vidPreview.getBoundingClientRect.width * 0.5625
+                vidPreview.style.maxHeight = `${vidWidth}px`
+
                 this.mediaName = store.videoObj.name
                 this.vid = URL.createObjectURL(store.videoObj)
                 this.mediaType = 2
                 break
             case 'Canvas':
+                const canvasPreview = this.$refs.canvasPreview
+                let canvasWidth = canvasPreview.width * 0.5625
+                canvasPreview.style.maxHeight = `${canvasWidth}px`
+
                 this.mediaType = 0
                 this.mediaName = 'Canvas'
                 let canvas = this.$refs.canvasPreview
@@ -293,8 +305,8 @@ export default {
             </div>
             <div class="confirmation-preview-holder">
                 <img ref="canvasPreview" class="confirmation-upload-preview noselect" v-if="this.mediaType == 0">
-                <img class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
-                <video autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
+                <img ref="imgPreview" class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
+                <video ref="videoPreview" autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
             </div>
             <p> {{ mediaName }} </p>
         </div>
@@ -335,7 +347,6 @@ export default {
     justify-content: center;
 }
 .confirmation-upload-preview {
-  height: 48%;
   width: 85%;
 }
 .icon-base {
