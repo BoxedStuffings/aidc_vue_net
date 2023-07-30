@@ -346,6 +346,7 @@ export default {
 }
 .confirmation-upload-preview {
   width: 85%;
+  object-fit: fill;
 }
 .icon-base {
     height: 30px;
