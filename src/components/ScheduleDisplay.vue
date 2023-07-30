@@ -17,7 +17,7 @@ export default {
             startX: 0,
             endX: 0,
 
-            test: store.testTV
+            test: store.testTV //TBR
         }
     },
 

@@ -21,6 +21,7 @@ export default {
             mediaType: 0,
             DorS: '',
             scheduledTime: [],
+            test: ''
         }
     },
 
@@ -103,12 +104,12 @@ export default {
         },
 
         async uploadCanvas(canvas) {
-            if (store.canvasObj instanceof File) {
+            if (store.imageObj instanceof File) {
                 let form_data = new FormData()
                 form_data.append('file', canvas)
-                
+
                 await $.ajax({
-                    url: 'https://heehee.amphibistudio.sg/api/save/video', //here???
+                    url: 'https://heehee.amphibistudio.sg/api/save/image',
                     method: 'POST',
                     processData: false,
                     mimeType: 'multipart/form-data',
@@ -240,7 +241,8 @@ export default {
         this.colorTheme()
         this.telegramMainButton.show()
         this.telegramBackButton.show()
-
+        this.test = typeof store.canvasObj
+        
         this.selectedTvs = store.selectedTvs
         this.DorS = store.jobType
         switch(store.mediaType) {
@@ -292,6 +294,7 @@ export default {
                 </div>
             </div>
             <div class="confirmation-preview-holder">
+                {{ store.canvasObj }}
                 <img ref="canvas-viewer" class="confirmation-upload-preview noselect" v-if="this.mediaType == 0">
                 <img class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
                 <video autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
