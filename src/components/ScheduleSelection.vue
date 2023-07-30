@@ -165,8 +165,9 @@ export default {
             } else {
                 this.checkAvailablility().then((message) => {
                     if (message === 'No overlaps') {
+                        let now = new Date(this.timeOnLoad)
                         let start = new Date(this.dateTime[0])
-                        if (start <= this.timeOnLoad) {
+                        if (start <= now) {
                             this.telegramMainButton.show()
                             this.pushToast(['Selected datetime is earlier than current time'], false)
                         } else {
@@ -195,10 +196,10 @@ export default {
     },
 
     mounted() {
-        this.timeOnLoad = new Date()
         this.telegramBackButton.show()
-
+        
         let now = new Date()
+        this.timeOnLoad = now.getTime() - (now.getTimezoneOffset() * 60000)
         this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
 
         setInterval(() => {
