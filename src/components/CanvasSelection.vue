@@ -422,7 +422,7 @@ export default {
       document.body.removeChild(downloadLink)
     },
 
-    //Template upload test
+    //Template upload test TBR
     jsonTemplate(json) {
       this.canvas.loadFromJSON(json, this.canvas.renderAll.bind(this.canvas));
       const objects = this.canvas.getObjects()
@@ -433,7 +433,7 @@ export default {
 
     async getTemplates() {
       await $.ajax({
-        headers: { 'Authorization': 'Bearer 64a6f463632f4066200cc0e5|lu6CIFXUEWudouVhWcoch656JK9mO0F0Kjc3liYX' }, //tbr
+        headers: { 'Authorization': 'Bearer 64a6f463632f4066200cc0e5|lu6CIFXUEWudouVhWcoch656JK9mO0F0Kjc3liYX' }, //TBR
         url: 'https://heehee.amphibistudio.sg/api/templates',
         method: 'GET',
         success: (obj) => {

@@ -13,6 +13,7 @@ export default {
         store,
         telegramMainButton: Telegram.WebApp.MainButton,
         telegramBackButton: Telegram.WebApp.BackButton,
+        timeOnLoad: Object,
         currentDateTime: String,
         selectedOption: String,
         dateTime: ['', ''],
@@ -108,7 +109,8 @@ export default {
         checkAvailablility() {
             return new Promise((resolve, reject) => {
                 let results = []
-                let tvsToScan = store.selectedTvs
+                // let tvsToScan = store.selectedTvs 
+                let tvsToScan = store.testTV
                 for (let i = 0; i < tvsToScan.length; i++) {
                     if (tvsToScan[i].displays.length != 0){
                         for (let x = 0; x < tvsToScan[i].displays.length; x++) {
@@ -129,13 +131,18 @@ export default {
             })
         },
 
-        pushToast(result) {
-            let toastMsg = 'TV(s): '
-            result.forEach(element => {
-                toastMsg += Object.keys(element) + ', '
-            });
-            toastMsg += 'has jobs scheduled at this time.'
-
+        pushToast(result, avail) {
+            let toastMsg = ''
+            if (avail) {
+                toastMsg = 'TV(s): '
+                result.forEach(element => {
+                    toastMsg += Object.keys(element) + ', '
+                });
+                toastMsg += 'has jobs scheduled at this time.'
+            } else {
+                toastMsg = result[0]
+            }
+        
             this.toast.error(toastMsg, {
                 position: 'bottom-left',
                 timeout: 5000,
@@ -159,12 +166,10 @@ export default {
             } else {
                 this.checkAvailablility().then((message) => {
                     if (message === 'No overlaps') {
-                        let now = new Date()
                         let start = new Date(this.dateTime[0])
-
-                        if (start <= now) {
+                        if (start <= this.timeOnLoad) {
                             this.telegramMainButton.show()
-                            this.pushToast('Selected datetime is earlier than current time')
+                            this.pushToast(['Selected datetime is earlier than current time'], false)
                         } else {
                             store.setjobType(true)
                             store.setjobTiming(this.dateTime)
@@ -173,7 +178,7 @@ export default {
                     }
                 }).catch((result) => {
                     this.telegramMainButton.show()
-                    this.pushToast(result)
+                    this.pushToast(result, true)
                 })
             }
         }
@@ -191,6 +196,7 @@ export default {
     },
 
     mounted() {
+        this.timeOnLoad = new Date()
         this.telegramBackButton.show()
 
         let now = new Date()
@@ -225,7 +231,8 @@ export default {
             <div ref="schedulePicker" class="ss-dateTime-pickers">
                 <div class="ss-dateTime-picker-row">
                     <p>Starting DateTime: </p>
-                    <input type="datetime-local" class="form-control dateTime-picker" :min="currentDateTime" @change="startDateTimePicked" v-model="selectedStartDate">
+                    <!-- <input type="datetime-local" class="form-control dateTime-picker" :min="currentDateTime" @change="startDateTimePicked" v-model="selectedStartDate"> -->
+                    <input type="datetime-local" class="form-control dateTime-picker" @change="startDateTimePicked" v-model="selectedStartDate">
                 </div>
                 <div class="ss-dateTime-picker-row">
                     <p>Ending DateTime: </p>

@@ -176,6 +176,57 @@ export const store = reactive({
   // Setting media upload link (Confirmation.vue)
   setMediaUploadLink(link) {
     this.mediaLink = link
-  }
+  },
 
+  // Test values for tvs
+  testTV: [
+    {
+      "_id": "eyJpdiI6IkVoei9LRHNPS3V4bUlXOTJSSThkTlE9PSIsInZhbHVlIjoiMW4vdkNJUzduZkQybUFDVlR1Vmh3a3grazR3dVJaT09sQU9tY1FBOGd4MD0iLCJtYWMiOiI1NDc0YzdlNzc1OWZkZTNlM2IzNmNiNDJjZTMwYjcwODIwNzBkNTg5ZmU1ZTljNDIzODUwNGIwMzkxNTkzMjM2IiwidGFnIjoiIn0",
+      "current_display": null,
+      "image": null,
+      "info": 'bebebeb',
+      "default_display": null,
+      "displays": [],
+      "updated_at": "2023-07-06T22:02:17.260000Z",
+      "created_at": "2023-07-03T14:41:01.127000Z"
+    },
+    {
+      "_id": "b8T2SI-7UmwUShO5CJwb-BtI-c_Lyql_dmrt9Rn3fvY=",
+      "current_display": null,
+      "image": null,
+      "info": 'teoke',
+      "default_display": null,
+      "displays": [
+        {
+          "tv_id": "b8T2SI-7UmwUShO5CJwb-BtI-c_Lyql_dmrt9Rn3fvY=",
+          "display_start": "2023-02-09T11:30",
+          "display_end": "2023-02-09T12:30",
+          "asset": "submittedimage.com",
+          "_id": {
+            "$oid": "64b2e10dd0f2b881000787b5"
+          }
+        },
+        {
+          "tv_id": "b8T2SI-7UmwUShO5CJwb-BtI-c_Lyql_dmrt9Rn3fvY=",
+          "display_start": "2023-01-09T11:30",
+          "display_end": "2023-01-09T12:30",
+          "asset": "submittedimage.com",
+          "_id": {
+            "$oid": "64b2e125d0f2b881000787b6"
+          }
+        },
+        {
+          "tv_id": "b8T2SI-7UmwUShO5CJwb-BtI-c_Lyql_dmrt9Rn3fvY=",
+          "display_start": "2023-03-09T11:30",
+          "display_end": "2023-03-09T12:30",
+          "asset": "submittedimage.com",
+          "_id": {
+            "$oid": "64b2e131d0f2b881000787b7"
+          }
+        }
+      ],
+      "updated_at": "2023-07-15T19:22:06.648000Z",
+      "created_at": "2023-07-15T14:14:31.470000Z"
+    }
+  ]
 })
