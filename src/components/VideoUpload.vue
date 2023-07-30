@@ -102,7 +102,7 @@ export default {
     this.telegramBackButton.show()
 
     const preview = this.$refs.vidHolder
-    let width = preview.getBoundingClientRect.width * 0.5625
+    let width = preview.getBoundingClientRect().width * 0.5625
     preview.style.maxHeight = `${width}px`
 
     if (store.videoObj instanceof File) {

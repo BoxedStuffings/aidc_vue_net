@@ -249,7 +249,7 @@ export default {
 
                 this.mediaType = 1
                 this.mediaName = store.imageObj.name
-                imgPreview.src = URL.createObjectURL(store.imageObj)
+                imgPreview.src = store.imageObj
                 break
             case 'Video':
                 const vidPreview = this.$refs.videoPreview
@@ -257,7 +257,7 @@ export default {
                 vidPreview.style.maxHeight = `${vidWidth}px`
 
                 this.mediaName = store.videoObj.name
-                this.vid = URL.createObjectURL(store.videoObj)
+                this.vid = store.videoObj
                 this.mediaType = 2
                 break
             case 'Canvas':
