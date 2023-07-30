@@ -48,7 +48,7 @@ export default {
 
       let slider = this.$refs.siuSlider
       slider.animate(
-        { transform: 'translateY(110%)'}, 
+        { transform: 'translateY(120%)'}, 
         { duration: 300, fill: 'forwards'}
       )
     },
