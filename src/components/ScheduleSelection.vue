@@ -78,7 +78,7 @@ export default {
 
     methods: {
         formatDateTime(dateTime) {
-            return new Date(dateTime).toISOString().substring(0, 19)
+            return new Date(dateTime).toISOString().substring(0, 16)
         },
 
         addMinutes(date, minutes) {
@@ -230,8 +230,7 @@ export default {
             <div ref="schedulePicker" class="ss-dateTime-pickers">
                 <div class="ss-dateTime-picker-row">
                     <p>Starting DateTime: </p>
-                    <!-- <input type="datetime-local" class="form-control dateTime-picker" :min="currentDateTime" @change="startDateTimePicked" v-model="selectedStartDate"> -->
-                    <input type="datetime-local" class="form-control dateTime-picker" @change="startDateTimePicked" v-model="selectedStartDate">
+                    <input type="dateselectedStartDatetime-local" class="form-control dateTime-picker" :min="currentDateTime" @change="startDateTimePicked" v-model="selectedStartDate">
                 </div>
                 <div class="ss-dateTime-picker-row">
                     <p>Ending DateTime: </p>
