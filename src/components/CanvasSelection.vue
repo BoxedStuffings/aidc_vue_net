@@ -271,8 +271,6 @@ export default {
       store.removeallElementsFromCanvas()
       this.$refs.toolbar.closeBottomSheet()
 
-      // Reference here for below code
-      // https://stackoverflow.com/questions/63092376/fabric-js-transform-and-zoom-canvas-to-fit-all-objects-in-viewport
       setTimeout(() => {        
         this.canvas.getObjects().forEach((obj) => {
           if (obj.id == 'Background') {
@@ -289,6 +287,8 @@ export default {
       }, 500)
     },
 
+    // Reference here for below code
+    // stackoverflow.com/questions/63092376/fabric-js-transform-and-zoom-canvas-to-fit-all-objects-in-viewport
     scaleToCanvas() {
       this.canvas.setZoom(1)
       const group = new fabric.Group(this.canvas.getObjects())
@@ -303,10 +303,10 @@ export default {
       let canvasDimensions = 0
 
       if (heightDist < widthDist) {
-        groupDimensions = group.height
+        groupDimensions = group.width
         canvasDimensions = this.canvas.getHeight()
       } else {
-        groupDimensions = group.width
+        groupDimensions = group.height
         canvasDimensions = this.canvas.getWidth()
       }
       group.ungroupOnCanvas()
@@ -433,7 +433,7 @@ export default {
 
     async getTemplates() {
       await $.ajax({
-        headers: { 'Authorization': 'Bearer 64a6f463632f4066200cc0e5|lu6CIFXUEWudouVhWcoch656JK9mO0F0Kjc3liYX' }, //TBR
+        headers: { 'Authorization': 'Bearer 64a6f463632f4066200cc0e5|lu6CIFXUEWudouVhWcoch656JK9mO0F0Kjc3liYX' }, //tbr
         url: 'https://heehee.amphibistudio.sg/api/templates',
         method: 'GET',
         success: (obj) => {

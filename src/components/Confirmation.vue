@@ -242,7 +242,7 @@ export default {
         this.telegramMainButton.show()
         this.telegramBackButton.show()
         this.test = typeof store.canvasObj
-        
+
         this.selectedTvs = store.selectedTvs
         this.DorS = store.jobType
         switch(store.mediaType) {
@@ -295,7 +295,7 @@ export default {
             </div>
             <div class="confirmation-preview-holder">
                 {{ store.canvasObj }}
-                <img ref="canvas-viewer" class="confirmation-upload-preview noselect" v-if="this.mediaType == 0">
+                <!-- <img ref="canvas-viewer" class="confirmation-upload-preview noselect" v-if="this.mediaType == 0"> -->
                 <img class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
                 <video autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
             </div>
