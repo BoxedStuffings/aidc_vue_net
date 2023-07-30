@@ -265,46 +265,42 @@ export default {
     },
 
     loadTemplate(json) {
-      console.log(this.scale);
       this.canvas.loadFromJSON(json);
       store.removeallElementsFromCanvas()
       this.$refs.toolbar.closeBottomSheet()
-      var scaleX = 0
-      var scaleY = 0
-      setTimeout(() => {
+
+      // Reference here for below code
+      // https://stackoverflow.com/questions/63092376/fabric-js-transform-and-zoom-canvas-to-fit-all-objects-in-viewport
+      setTimeout(() => {        
         this.canvas.getObjects().forEach((obj) => {
           if (obj.id == 'Background') {
-
-            scaleX = this.scale/ obj.scaleX
-            scaleY = this.scale / obj.scaleY
-            console.log("canvas scale: " + this.scale)
-            console.log("old scale: " + obj.scaleX + " " + obj.scaleY)
-            console.log("new scale: " + scaleX + " " + scaleY)
-            return
-          }
-        })
-        this.canvas.getObjects().forEach((obj) => {
-          if (obj.id != 'Background') {
-            console.log("not Background")
-            obj.left *= scaleX
-            obj.top *= scaleY
-            obj.scaleX *= scaleX
-            obj.scaleY *= scaleY
-            obj.setCoords()
-          }
-          else {
-            obj.set('selectable', true)
-            obj.set('top', 0)
-            obj.set('left', 0)
-            obj.scaleToHeight(this.canvas.height)
-            obj.scaleToWidth(this.canvas.width)
             obj.selectable = false
-            obj.evented = false
           }
-          this.canvas.renderAll()
         })
-      }, 500)
-      setTimeout(() => {
+
+        this.canvas.setZoom(1)
+        const group = new fabric.Group(this.canvas.getObjects())
+
+        const y = (group.top + (group.height / 2)) - (this.canvas.height / 2)
+        const x = (group.left + (group.width / 2)) - (this.canvas.width / 2)
+        this.canvas.absolutePan({x:x, y:y})
+
+        const heightDist = this.canvas.getHeight() - group.height
+        const widthDist = this.canvas.getWidth() - group.width
+        let groupDimensions = 0
+        let canvasDimensions = 0
+
+        if (heightDist < widthDist) {
+          groupDimensions = group.height
+          canvasDimensions = this.canvas.getHeight()
+        } else {
+          groupDimensions = group.width
+          canvasDimensions = this.canvas.getWidth()
+        }
+        group.ungroupOnCanvas()
+        const zoom = (canvasDimensions/groupDimensions)
+        this.canvas.zoomToPoint({x: this.canvas.width / 2, y: this.canvas.height / 2 }, zoom)
+        
         const objects = this.canvas.getObjects()
         for (let o in objects) {
           store.addElementToCanvas(objects[o])

@@ -258,10 +258,8 @@ export default {
                 this.mediaType = 0
                 this.mediaName = 'Canvas'
                 this.canvas = URL.createObjectURL(store.canvasObj)
-                setTimeout(() => {
-                    let canvas = this.$refs.canvas-viewer
-                    canvas.src = this.canvas
-                }, 200);
+                let canvas = this.$refs.canvas-viewer
+                canvas.src = this.canvas
                 break
         }
         this.scheduledTime = store.jobTiming
