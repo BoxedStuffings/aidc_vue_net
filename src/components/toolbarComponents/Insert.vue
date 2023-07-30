@@ -76,7 +76,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 1vh 2vw;
+  padding: 3vh;
 }
 .canvas-img-insert-icon {
   max-width: 100px;

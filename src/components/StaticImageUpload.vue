@@ -31,11 +31,20 @@ export default {
       image.type.indexOf('image/') !== 0 ? this.pushToast() : store.uploadImage(image)
 
       if (store.imageObj instanceof File && image.type.indexOf('image/') == 0) {
-        let bg = this.$refs.siuHolder
         this.img = URL.createObjectURL(store.imageObj)
-        bg.src = this.img
-        bg.style.visibility = 'visible'
+
+        let preview = this.$refs.siuHolder
+        preview.src = this.img
+        preview.animate(
+          { transform: 'translateY(-8%)'}, 
+          { duration: 1200, fill: 'forwards'})
+        preview.style.visibility = 'visible'
         // bg.src = `url(${this.img})`
+
+        let slider = this.$refs.siuSlider
+        slider.animate(
+          { transform: 'translateY(0%)'}, 
+          { duration: 1200, fill: 'forwards'})
       }
     },
 
@@ -105,11 +114,13 @@ export default {
   <div class="img-upload-holder">
     <div class="img-upload-content">
       <img ref="siuHolder" class="img-upload-preview noselect">
-      <div class="img-icon-holder"><span class='icon1'></span></div>
-      <label class="btn btn-primary img-upload-btn">
-        Choose File
-        <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
-      </label>
+      <div ref="siuSlider" class="img-upload-slider">
+        <div class="img-icon-holder"><span class='icon1'></span></div>
+        <label class="btn btn-primary img-upload-btn">
+          Choose File
+          <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
+        </label>
+      </div>
       <small>{{ store.imageObj.name }}</small>
     </div>
   </div>
@@ -139,8 +150,14 @@ export default {
   height: 48%;
   width: 85%;
   margin: 2%;
-  transform: translateY(-8%);
   visibility: hidden;
+}
+.img-upload-slider {
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(-100%);
 }
 .img-upload-btn {
   max-width: 240px;
