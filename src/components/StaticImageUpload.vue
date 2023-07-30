@@ -36,15 +36,16 @@ export default {
         let preview = this.$refs.siuHolder
         preview.src = this.img
         preview.animate(
-          { transform: 'translateY(-8%)'}, 
-          { duration: 1200, fill: 'forwards'})
+          { transform: 'translateY(-8%)'},
+          { opacity: 1},
+          { duration: 600, fill: 'forwards'})
         preview.style.visibility = 'visible'
         // bg.src = `url(${this.img})`
 
         let slider = this.$refs.siuSlider
         slider.animate(
           { transform: 'translateY(0%)'}, 
-          { duration: 1200, fill: 'forwards'})
+          { duration: 600, fill: 'forwards'})
       }
     },
 
@@ -120,8 +121,8 @@ export default {
           Choose File
           <input type="file" accept="image/*" @change="(env) => selectImageFile(env)"/>
         </label>
+        <small>{{ store.imageObj.name }}</small>
       </div>
-      <small>{{ store.imageObj.name }}</small>
     </div>
   </div>
 </template>
@@ -150,7 +151,7 @@ export default {
   height: 48%;
   width: 85%;
   margin: 2%;
-  visibility: hidden;
+  opacity: 0;
 }
 .img-upload-slider {
   height: fit-content;
