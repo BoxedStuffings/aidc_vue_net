@@ -109,8 +109,7 @@ export default {
         checkAvailablility() {
             return new Promise((resolve, reject) => {
                 let results = []
-                // let tvsToScan = store.selectedTvs 
-                let tvsToScan = store.testTV
+                let tvsToScan = store.selectedTvs 
                 for (let i = 0; i < tvsToScan.length; i++) {
                     if (tvsToScan[i].displays.length != 0){
                         for (let x = 0; x < tvsToScan[i].displays.length; x++) {
@@ -241,11 +240,11 @@ export default {
             </div>
         </div>
         <!-- Calculated values for selection, uncomment to test -->
-        <!-- Current Date: {{ currentDateTime }}<br>
+        Current Date: {{ currentDateTime }}<br>
         Selected Start Date: {{ selectedStartDate }}<br>
         Selected End Date: {{ selectedEndDate }}<br>
         Done?: {{ choice }}<br>
-        {{ dateTime }} -->
+        {{ dateTime }}
     </div>
 </template>
 
