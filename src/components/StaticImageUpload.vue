@@ -43,13 +43,13 @@ export default {
       preview.style.opacity = 1
       preview.animate(
         { transform: 'translateY(-8%)'},
-        { duration: 300, fill: 'forwards'}
+        { duration: 600, fill: 'forwards'}
       )
 
       let slider = this.$refs.siuSlider
       slider.animate(
         { transform: 'translateY(120%)'}, 
-        { duration: 300, fill: 'forwards'}
+        { duration: 600, fill: 'forwards'}
       )
     },
 
