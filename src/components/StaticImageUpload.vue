@@ -37,7 +37,7 @@ export default {
         preview.src = this.img
         preview.animate(
           { transform: 'translateY(-8%)'},
-          { opacity: 1},
+          { opacity: '1'},
           { duration: 600, fill: 'forwards'})
         preview.style.visibility = 'visible'
         // bg.src = `url(${this.img})`
