@@ -303,10 +303,10 @@ export default {
       let canvasDimensions = 0
 
       if (heightDist < widthDist) {
-        groupDimensions = group.width
+        groupDimensions = group.height
         canvasDimensions = this.canvas.getHeight()
       } else {
-        groupDimensions = group.height
+        groupDimensions = group.width
         canvasDimensions = this.canvas.getWidth()
       }
       group.ungroupOnCanvas()
