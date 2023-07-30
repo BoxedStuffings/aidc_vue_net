@@ -15,7 +15,6 @@ export default {
             telegramBackButton: Telegram.WebApp.BackButton,
             selectedTvs: [],
             mediaName: 'Default Media Name',
-            canvas: '',
             img: '',
             vid: '',
             mediaType: 0,
@@ -259,9 +258,8 @@ export default {
             case 'Canvas':
                 this.mediaType = 0
                 this.mediaName = 'Canvas'
-                this.canvas = URL.createObjectURL(store.canvasObj)
                 let canvas = this.$refs.canvas-viewer
-                canvas.src = this.canvas
+                canvas.src = store.canvasObj
                 break
         }
         this.scheduledTime = store.jobTiming
@@ -295,7 +293,7 @@ export default {
             </div>
             <div class="confirmation-preview-holder">
                 {{ store.canvasObj }}
-                <!-- <img ref="canvas-viewer" class="confirmation-upload-preview noselect" v-if="this.mediaType == 0"> -->
+                <img ref="canvas-viewer" class="confirmation-upload-preview noselect" v-if="this.mediaType == 0">
                 <img class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
                 <video autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
             </div>

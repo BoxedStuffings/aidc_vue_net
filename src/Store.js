@@ -17,7 +17,7 @@ export const store = reactive({
   selectedTvs: [],              // Tv(s) selected by user
   imageObj: {},                 // Image selected by user
   videoObj: {},                 // Video selected by user
-  canvasObj: {},                // Canvas created by user 
+  canvasObj: {},                // Canvas created by user (DataURL)
   mediaType: String,            // Type of media to be submitted
   mediaLink: String,            // Link to retrieve media after uploading to server
   jobType: false,               // Set media as default or scheduled job (true = scheduled job, false = default)
