@@ -37,7 +37,7 @@ export default {
         this.loading = 2
         return
       }
-      // uid = '2386ebb2b54bac45'
+      //uid = '2386ebb2b54bac45'
 
       // Hashing ID for IV
       let hashid = CryptoJS.SHA256(uid)
@@ -179,7 +179,7 @@ export default {
         <!-- Image outline for selection -->
         <div class="tv-card-imageOutline" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }">
           <!-- Card check mark -->
-          <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" :src="'../assets/icons/dark/check.svg'">
+          <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" :src="'../src/assets/icons/light/check.svg'">
           <!-- Display image -->
           <img :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
         </div>
