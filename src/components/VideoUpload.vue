@@ -115,7 +115,6 @@ export default {
 
 <template>
   <div class="vid-upload-holder">
-    <!-- <video autoplay muted loop playsinline id="vid-bg" :src="vid"></video> -->
     <div class="vid-upload-content">
       <video ref="vidHolder" autoplay muted loop playsinline class="vid-upload-preview noselect" :src="vid"></video>
       <div ref="vidSlider" class="vid-upload-slider">
@@ -136,14 +135,6 @@ export default {
   position: relative;
   margin: 20px;
 }
-/* #vid-bg {
-  height: 100%;
-  width: 100%;
-  border-radius: 15px;
-  position: absolute;
-  object-fit: cover;
-  z-index: -1;
-} */
 .vid-upload-content {
   height: 100%;
   display: flex;
@@ -160,6 +151,7 @@ export default {
   width: 85%;
   margin: 2%;
   opacity: 0;
+  object-fit: fill;
   transition: all 1.5s;
 }
 .vid-upload-slider {
