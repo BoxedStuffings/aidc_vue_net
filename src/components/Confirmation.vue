@@ -292,7 +292,6 @@ export default {
                 </div>
             </div>
             <div class="confirmation-preview-holder">
-                {{ store.canvasObj }}
                 <img ref="canvas-viewer" class="confirmation-upload-preview noselect" v-if="this.mediaType == 0">
                 <img class="confirmation-upload-preview noselect" :src="img" v-if="this.mediaType == 1">
                 <video autoplay muted loop playsinline class="confirmation-upload-preview noselect" :src="vid" v-else-if="mediaType == 2"></video>
