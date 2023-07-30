@@ -35,11 +35,10 @@ export default {
 
         let preview = this.$refs.siuHolder
         preview.src = this.img
+        preview.style.opacity = 1
         preview.animate(
           { transform: 'translateY(-8%)'},
-          { opacity: '1'},
           { duration: 600, fill: 'forwards'})
-        preview.style.visibility = 'visible'
         // bg.src = `url(${this.img})`
 
         let slider = this.$refs.siuSlider
@@ -152,6 +151,7 @@ export default {
   width: 85%;
   margin: 2%;
   opacity: 0;
+  transition: all 1s;
 }
 .img-upload-slider {
   height: fit-content;
