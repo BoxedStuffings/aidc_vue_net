@@ -310,7 +310,7 @@ export default {
         canvasDimensions = this.canvas.getWidth()
       }
       group.ungroupOnCanvas()
-      const zoom = (canvasDimensions/groupDimensions) * 1.1
+      const zoom = (canvasDimensions/groupDimensions) * 1.15
       this.canvas.zoomToPoint({x: this.canvas.width / 2, y: this.canvas.height / 2 }, zoom)
     },
 
