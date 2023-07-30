@@ -310,7 +310,7 @@ export default {
         canvasDimensions = this.canvas.getWidth()
       }
       group.ungroupOnCanvas()
-      const zoom = (canvasDimensions/groupDimensions)
+      const zoom = (canvasDimensions/groupDimensions) * 1.1
       this.canvas.zoomToPoint({x: this.canvas.width / 2, y: this.canvas.height / 2 }, zoom)
     },
 
@@ -528,8 +528,7 @@ export default {
 <template>
   <div class="cs-holder">
     <navbar class="navbar-wrapper"></navbar>
-    <div class="canvas-wrapper" ref="canvasWrapper"
-      :style="{ 'height': `${wrapperHeight}px` }">
+    <div class="canvas-wrapper" ref="canvasWrapper" :style="{ 'height': `${wrapperHeight}px` }">
       <canvas id="canvas" ref="canvasElement"></canvas>
     </div>
     <toolbar ref="toolbar" class="toolbar"></toolbar>

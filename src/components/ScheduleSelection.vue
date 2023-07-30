@@ -167,7 +167,7 @@ export default {
                     if (message === 'No overlaps') {
                         let now = new Date(this.timeOnLoad)
                         let start = new Date(this.dateTime[0])
-                        if (start <= now) {
+                        if (start < now) {
                             this.telegramMainButton.show()
                             this.pushToast(['Selected datetime is earlier than current time'], false)
                         } else {
@@ -240,12 +240,12 @@ export default {
             </div>
         </div>
         <!-- Calculated values for selection, uncomment to test -->
-        Current Date: {{ currentDateTime }}<br>
+        <!-- Current Date: {{ currentDateTime }}<br>
         Selected Start Date: {{ selectedStartDate }}<br>
         Selected End Date: {{ selectedEndDate }}<br>
         Done?: {{ choice }}<br>
         {{ dateTime }}
-        {{ timeOnLoad }}
+        {{ timeOnLoad }} -->
     </div>
 </template>
 
