@@ -199,7 +199,7 @@ export default {
         this.telegramBackButton.show()
 
         let now = new Date()
-        this.timeOnLoad = now.getTime()
+        this.timeOnLoad = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
         this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
 
         setInterval(() => {
