@@ -31,21 +31,26 @@ export default {
       image.type.indexOf('image/') !== 0 ? this.pushToast() : store.uploadImage(image)
 
       if (store.imageObj instanceof File && image.type.indexOf('image/') == 0) {
-        this.img = URL.createObjectURL(store.imageObj)
-
-        let preview = this.$refs.siuHolder
-        preview.src = this.img
-        preview.style.opacity = 1
-        preview.animate(
-          { transform: 'translateY(-8%)'},
-          { duration: 600, fill: 'forwards'})
-        // bg.src = `url(${this.img})`
-
-        let slider = this.$refs.siuSlider
-        slider.animate(
-          { transform: 'translateY(0%)'}, 
-          { duration: 600, fill: 'forwards'})
+        this.display()
       }
+    },
+
+    display() {
+      this.img = URL.createObjectURL(store.imageObj)
+
+      let preview = this.$refs.siuHolder
+      preview.src = this.img
+      preview.style.opacity = 1
+      preview.animate(
+        { transform: 'translateY(-8%)'},
+        { duration: 300, fill: 'forwards'}
+      )
+
+      let slider = this.$refs.siuSlider
+      slider.animate(
+        { transform: 'translateY(0%)'}, 
+        { duration: 300, fill: 'forwards'}
+      )
     },
 
     pushToast() {
@@ -99,11 +104,7 @@ export default {
     this.telegramBackButton.show()
 
     if (store.imageObj instanceof File) {
-      let bg = this.$refs.siuHolder
-      this.img = URL.createObjectURL(store.imageObj)
-
-      bg.src = this.img
-      bg.style.visibility = 'visible'
+      this.display()
     }
   }
 
