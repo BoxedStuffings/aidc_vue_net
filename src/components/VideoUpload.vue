@@ -160,7 +160,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: translateY(100%);
+  transform: translateY(60%);
 }
 .vid-upload-btn {
   max-width: 240px;
