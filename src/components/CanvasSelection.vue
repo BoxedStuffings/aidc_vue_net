@@ -471,7 +471,7 @@ export default {
   beforeMount() {
     const mainButton = () => {
       store.setMediaType('Canvas')
-      let dataURL = this.canvas.toDataURL('image/png')
+      let dataURL = this.canvas.toDataURL()
       store.uploadCanvas(dataURL)
       Telegram.WebApp.offEvent('backButtonClicked', backButton)
       this.telegramMainButton.hide()

@@ -197,9 +197,9 @@ export default {
 
     mounted() {
         this.telegramBackButton.show()
-        
+
         let now = new Date()
-        this.timeOnLoad = now.getTime() - (now.getTimezoneOffset() * 60000)
+        this.timeOnLoad = now.getTime()
         this.currentDateTime = this.formatDateTime(now.getTime() - (now.getTimezoneOffset() * 60000))
 
         setInterval(() => {
@@ -245,6 +245,7 @@ export default {
         Selected End Date: {{ selectedEndDate }}<br>
         Done?: {{ choice }}<br>
         {{ dateTime }}
+        {{ timeOnLoad }}
     </div>
 </template>
 
