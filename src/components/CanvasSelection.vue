@@ -72,6 +72,14 @@ export default {
 
       this.canvas.setWidth(this.canvasWidth)
       this.canvas.setHeight(this.canvasHeight)
+
+      // Keeps scaling when zoomed in or out
+      if (this.scale != 1) {
+        this.canvas.setZoom(this.scale)
+        this.canvas.setHeight(this.canvasHeight * this.scale)
+        this.canvas.setWidth(this.canvasWidth * this.scale)
+      }
+      
       this.scaleToCanvas()
       this.canvas.renderAll()
     },
@@ -167,14 +175,6 @@ export default {
             evented: false
           })
         })
-      }
-    },
-
-    selectOffCanvas(env) {
-      if (!env.srcElement.classList.contains('upper-canvas')) {
-        this.canvas.discardActiveObject()
-        this.$refs.toolbar.editableTextboxSelected(0)
-        this.$refs.toolbar.closeBottomSheet()
       }
     },
 
@@ -530,7 +530,7 @@ export default {
 <template>
   <div class="cs-holder">
     <navbar class="navbar-wrapper"></navbar>
-    <div @click="(env) => selectOffCanvas(env)" class="canvas-wrapper" ref="canvasWrapper"
+    <div class="canvas-wrapper" ref="canvasWrapper"
       :style="{ 'height': `${wrapperHeight}px` }">
       <canvas id="canvas" ref="canvasElement"></canvas>
     </div>
