@@ -219,6 +219,7 @@ export default {
   z-index: 2;
 }
 .tv-card-imageCheck {
+  background-color: white;
   display: block;
   visibility: hidden;
   position: absolute;
@@ -241,7 +242,6 @@ export default {
   max-width: 100%;
 }
 img.selected {
-  background-color: white;
   transform: scale(0.9);
   z-index: -1;
 }
