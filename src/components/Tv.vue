@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       store,
-      checkTheme: '../src/assets/icons/light/check.svg',
+      checkTheme: '../assets/check.svg',
       telegramMainButton: Telegram.WebApp.MainButton,
       telegramBackButton: Telegram.WebApp.BackButton,
       loading: 0
@@ -178,7 +178,7 @@ export default {
         <!-- Image outline for selection -->
         <div class="tv-card-imageOutline" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }">
           <!-- Card check mark -->
-          <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" :src="'../src/assets/icons/light/check.svg'">
+          <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/check.svg">
           <!-- Display image -->
           <img :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/tv.png">
         </div>
