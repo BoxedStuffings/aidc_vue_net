@@ -190,6 +190,11 @@ export default {
             })
         },
 
+        toggleOverlay() {
+            this.$refs.ConfirmationOverlay.classList.toggle('overlay-visible')
+            this.$refs.ConfirmationLoader.classList.toggle('loader')
+        },
+
         colorTheme() {
             try {
                 let icon = document.getElementsByClassName('display')
@@ -207,12 +212,15 @@ export default {
 
     beforeMount() {
         const mainButton = () => {
+            this.toggleOverlay()
             this.jobCreation().then((message) => {
+                this.toggleOverlay()
                 this.pushSuccessToast(message),
                 setTimeout(() => {
                     Telegram.WebApp.close()
                 }, 5000);
             }).catch((result) => {
+                this.toggleOverlay()
                 this.telegramMainButton.show()
                 if (result == 0) {
                     this.pushErrorToast('Error Submitting!')
@@ -280,6 +288,7 @@ export default {
 
 <template>
     <div class="confirmation-holder">
+        <div ref="ConfirmationOverlay"><div ref="ConfirmationLoader"></div></div>
         <div class="confirmation-details">
             <div class="confirmation-details-sections">
                 <h2>TV(s) Selected</h2>

@@ -84,20 +84,23 @@ export default {
                 let confirmMsg = 'Are you sure you want to remove all scheduled jobs for this tv?'
                 Telegram.WebApp.showConfirm(confirmMsg, (status) => {
                     if (status) {
+                        this.$refs.ScheduleDisplayOverlay.classList.toggle('overlay-visible')
                         let allDisplaysDeletionPromise = Promise
                         allDisplaysDeletionPromise = this.deleteAllDisplays(TV._id)
 
                         allDisplaysDeletionPromise.then(() => {
+                            this.toggleOverlay()
                             store.emptySelectedTVDisplays(TV),
                             this.pushSuccessToast('All scheduled displays removed'),
                             this.resetSlide()
-                        }, (e) => {console.log(e), this.pushErrorToast('Error removing displays'), this.resetSlide()})
+                        }, (e) => {console.log(e), this.toggleOverlay(), this.pushErrorToast('Error removing displays'), this.resetSlide()})
                     }
                 })
             }
         },
 
         remove(TV, index) {
+            this.toggleOverlay()
             let displayDeletionPromise = Promise
             displayDeletionPromise = this.deleteDisplayJob(TV.displays[index]._id.$oid)
 
@@ -105,7 +108,8 @@ export default {
                 store.spliceDisplayFromSelectedTV(TV, index),
                 this.pushSuccessToast('Scheduled display removed'),
                 this.resetSlide()
-            }, (e) => {console.log(e), this.pushErrorToast('Error removing display'), this.resetSlide()})
+            
+            }, (e) => {console.log(e), this.toggleOverlay(), this.pushErrorToast('Error removing display'), this.resetSlide()})
         },
 
         pushSuccessToast(msg) {
@@ -132,6 +136,11 @@ export default {
                 closeButton: 'button',
                 icon: true,
             })
+        },
+
+        toggleOverlay() {
+            this.$refs.ScheduleDisplayOverlay.classList.toggle('overlay-visible')
+            this.$refs.ScheduleDisplayLoader.classList.toggle('loader')
         },
 
         async deleteDisplayJob(displayId){
@@ -200,11 +209,12 @@ export default {
 </script>
 
 <template>
-  <div class="schedule-holder">
+    <div class="schedule-holder">
+    <div ref="ScheduleDisplayOverlay"><div ref="ScheduleDisplayLoader"></div></div>
     <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index">
-    <!-- <div class="schedule-display-block" v-for="TV, index in this.test" :key="index"> -->
+    <!-- <div class="schedule-display-block" v-for="TV, index in store.testTV" :key="index"> -->
         <div class="schedule-display-tv">
-            <div class="schedule-display-header noselect">
+            <div class="schedule-display-header noselect" @click="removeAll">
                 <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
                 <span class='trash'></span>
             </div>
@@ -215,7 +225,7 @@ export default {
                         <li class="schedule-display-detail-content" v-for="(displaySchedule, index) in TV.displays" data-type="0" :key="index">
                         <div @touchstart.capture="touchStart" @touchend.capture="touchEnd" @click.capture="clickSelf">
                             <div class="schedule-display-detail-info">
-                                <img class="schedule-display-detail-image" src="../assets/boxedstuffings.png">
+                                <img class="schedule-display-detail-image noselect" src="../assets/boxedstuffings.png">
                                 <div class="schedule-display-detail-timing noselect">
                                     <h6>Start Time:</h6>
                                     {{ displaySchedule.display_start }}
@@ -224,7 +234,7 @@ export default {
                                 </div>
                             </div>
                         </div>
-                        <div class="schedule-display-delete-btn" @click="remove(TV, index)" :data-index="index">Delete</div>
+                        <div class="schedule-display-delete-btn noselect" @click="remove(TV, index)" :data-index="index">Delete</div>
                         </li>
                     </ul>
                 </div>

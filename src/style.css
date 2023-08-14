@@ -18,6 +18,40 @@ body {
   user-select: none;
 }
 
+.overlay-visible {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2147483647;
+}
+
+.loader {
+  height: 60px;
+  width: 60px;
+  border: 12px solid #f3f3f3;
+  border-top: 12px solid #71189a;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .dark-trash{
   background: url('./assets/icons/dark/trash.svg');
   background-repeat: no-repeat;
