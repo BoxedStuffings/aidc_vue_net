@@ -105,6 +105,7 @@ export default {
             displayDeletionPromise = this.deleteDisplayJob(TV.displays[index]._id.$oid)
 
             displayDeletionPromise.then(() => {
+                this.toggleOverlay()
                 store.spliceDisplayFromSelectedTV(TV, index),
                 this.pushSuccessToast('Scheduled display removed'),
                 this.resetSlide()
