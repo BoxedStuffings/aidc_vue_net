@@ -224,7 +224,7 @@ export default {
   visibility: hidden;
   position: absolute;
   outline-color: lightgray;
-  outline-style: double;
+  outline-style: solid;
   box-shadow: 5px 5px 10px black;
   top: -5px;
   left: -5px;
