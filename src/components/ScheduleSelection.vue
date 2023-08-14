@@ -116,7 +116,7 @@ export default {
                             let against_start = tvsToScan[i].displays[x].display_start
                             let against_end = tvsToScan[i].displays[x].display_end
                             if (this.checkOverlap(against_start, against_end, this.dateTime[0], this.dateTime[1])) {
-                                results.push({[tvsToScan[i]._id]: tvsToScan[i].displays[x]})
+                                results.push({[tvsToScan[i].info]: tvsToScan[i].displays[x]})
                                 break
                             }
                         }
