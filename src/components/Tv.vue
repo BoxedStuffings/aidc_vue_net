@@ -180,7 +180,7 @@ export default {
           <!-- Card check mark -->
           <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" :src="'../assets/icons/light/check.svg'">
           <!-- Display image -->
-          <img :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
+          <img :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/tv.png">
         </div>
         <!-- Display name -->
         <p>TV • {{ TV.info }}</p>
@@ -239,7 +239,6 @@ export default {
 }
 img.selected {
   background-color: white;
-  box-shadow: 0 0 4px grey;
   transform: scale(0.9);
   z-index: -1;
 }
