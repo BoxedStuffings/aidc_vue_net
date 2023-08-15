@@ -103,7 +103,6 @@ export default {
         },
 
         async uploadCanvas(canvas) {
-            this.pushErrorToast("test")
             let form_data = new FormData()
             form_data.append('file', canvas)
 
@@ -120,7 +119,8 @@ export default {
                     this.pushErrorToast(obj)
                     store.setMediaUploadLink(obj.data)
                 },
-                error: (error) => console.log(error)
+                // error: (error) => console.log(error)
+                error: (error) => this.pushErrorToast(error)
             })
         },
 
