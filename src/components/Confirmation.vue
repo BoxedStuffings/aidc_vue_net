@@ -282,7 +282,7 @@ export default {
                     break
             }
         }, 10)
-        
+
         setTimeout(() => {
             this.colorTheme()
         }, 100)
@@ -347,7 +347,7 @@ export default {
     align-items: center;
 }
 .confirmation-tv h4 {
-    margin: 0 0 0 4%;
+    margin: 0 0 0 8%;
     text-align: center;
     color: var(--tg-theme-text-color);
 }
