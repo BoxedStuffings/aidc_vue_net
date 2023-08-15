@@ -104,7 +104,7 @@ export default {
 
         async uploadCanvas(canvas) {
             let form_data = new FormData()
-            form_data.append('file', canvas)
+            form_data.append('file', this.dataURIToBlob(canvas))
 
             await $.ajax({
                 url: 'https://heehee.amphibistudio.sg/api/save/image',
@@ -119,8 +119,7 @@ export default {
                     this.pushErrorToast(obj)
                     store.setMediaUploadLink(obj.data)
                 },
-                // error: (error) => console.log(error)
-                error: (error) => this.pushErrorToast(error)
+                error: (error) => console.log(error)
             })
         },
 
@@ -165,6 +164,24 @@ export default {
                 }
                 errorArray.length == 0 ? resolve('Successful') : reject(errorArray)
             })
+        },
+
+        dataURIToBlob(dataURI) {
+            // convert base64 to raw binary data held in a string
+            // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+            var byteString = atob(dataURI.split(',')[1]);
+
+            // separate out the mime component
+            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+            // write the bytes of the string to an ArrayBuffer
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+
+            return new Blob([ab], {type: mimeString});
         },
 
         pushSuccessToast(msg) {
