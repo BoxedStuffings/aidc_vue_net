@@ -152,6 +152,17 @@ export default {
                 closeButton: 'button',
                 icon: true
             })
+        },
+
+        colorTheme() {
+            let icon = document.getElementsByTagName('span')
+            for (let i=0;i<icon.length;i++) {
+                if (store.telegramColorScheme == 'light') {
+                    icon[i].classList.add('light-schedule')
+                } else {
+                    icon[i].classList.add('dark-schedule')
+                }
+            }
         }
         
     },
@@ -196,6 +207,7 @@ export default {
     },
 
     mounted() {
+        this.colorTheme()
         this.telegramBackButton.show()
 
         let now = new Date()
@@ -216,7 +228,8 @@ export default {
 <template>
     <div class="ss-holder">
         <div class="ss-header noselect">
-            <img src="../assets/boxedstuffings.png">
+            <span class="icon"></span>
+            <!-- <img src="../assets/boxedstuffings.png"> -->
             <h2>Schedule Display</h2>
         </div>
         <div>
@@ -255,14 +268,16 @@ export default {
     padding: 1vh 3vw;
 }
 .ss-header {
+    margin: 3% 0 0% 2%;
     display: flex;
-    margin: 3% 0 5% 2%;
+    align-items: center;
 }
-.ss-header img {
-    height: 100%;
+.ss-header .icon {
+    height: 8vh;
     width: 8vw;
     object-fit: cover;
     border-radius: 8px;
+    background-size: 28px;
 }
 .ss-header h2 {
     width: 100%;

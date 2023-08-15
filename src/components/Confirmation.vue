@@ -281,6 +281,8 @@ export default {
         }, 10)
 
         this.scheduledTime = store.jobTiming
+        this.scheduledTime[0] = this.scheduledTime[0].replace('T', '\n')
+        this.scheduledTime[1] = this.scheduledTime[1].replace('T', '\n')
     }
 
 }
