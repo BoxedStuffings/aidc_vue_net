@@ -19,6 +19,7 @@ export default {
             mediaType: 0,
             DorS: '',
             scheduledTime: [],
+            scheduledTimez: ['', ''],
             test: store.testTV
         }
     },
@@ -252,8 +253,8 @@ export default {
         this.mediaType = store.mediaType
         
         this.scheduledTime = store.jobTiming
-        this.scheduledTime[1] = this.scheduledTime[1].replace('T', ' • ')
-        this.scheduledTime[0] = this.scheduledTime[0].replace('T', ' • ')
+        this.scheduledTimez[0] = this.scheduledTime[0].replace('T', ' • ')
+        this.scheduledTimez[1] = this.scheduledTime[1].replace('T', ' • ')
 
         setTimeout(() => {
             switch(store.mediaType) {
@@ -306,11 +307,11 @@ export default {
             <div class="confirmation-details-sections" v-if="DorS">
                 <div class="confirmation-job-timings">
                     <h2>Starting Time:</h2>
-                    <h6>{{ scheduledTime[0] }}</h6>
+                    <h6>{{ scheduledTimez[0] }}</h6>
                 </div>
                 <div class="confirmation-job-timings">
                     <h2>Ending Time: </h2>
-                    <h6>{{ scheduledTime[1] }}</h6>
+                    <h6>{{ scheduledTimez[1] }}</h6>
                 </div>
             </div>
             <div class="confirmation-details-sections media-section">
