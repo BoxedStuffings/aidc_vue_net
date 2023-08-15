@@ -282,7 +282,7 @@ export default {
                     break
             }
         }, 10)
-
+        
         setTimeout(() => {
             this.colorTheme()
         }, 100)
@@ -347,12 +347,15 @@ export default {
     align-items: center;
 }
 .confirmation-tv h4 {
-    margin: 0 0 0 8%;
+    margin: 0 0 0 4%;
     text-align: center;
     color: var(--tg-theme-text-color);
 }
 .confirmation-job-timings {
     margin-bottom: 2%;
+}
+.confirmation-job-timings h4{
+    margin-left: 4%;
 }
 .confirmation-preview-holder {
     display: flex;
