@@ -302,7 +302,7 @@ export default {
                     <h4>TV • {{ i.info }}</h4>
                 </div>
             </div>
-            <div class="confirmation-details-sections">
+            <div class="confirmation-details-sections media-section">
                 <h2>Media Selected</h2>
             </div>
             <div class="confirmation-details-sections" v-if="DorS">
@@ -338,6 +338,9 @@ export default {
     margin-bottom: 1%;
     position: relative;
 }
+.media-section{
+    margin-top: 10px;
+}
 .confirmation-details-sections h2 {
     color: var(--tg-theme-text-color);
 }
@@ -354,10 +357,9 @@ export default {
 }
 .confirmation-job-timings {
     margin-bottom: 2%;
-    margin-left: 30px;
 }
 .confirmation-job-timings h4{
-    margin-left: 15px;
+    margin-left: 30px;
 }
 .confirmation-preview-holder {
     display: flex;
