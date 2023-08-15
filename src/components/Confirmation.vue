@@ -244,7 +244,6 @@ export default {
     },
 
     mounted() {
-        this.colorTheme()
         this.telegramMainButton.show()
         this.telegramBackButton.show()
 
@@ -279,11 +278,13 @@ export default {
                     canvasPreview.src = store.canvasObj
                     break
             }
+            this.colorTheme()
         }, 10)
 
         this.scheduledTime = store.jobTiming
         let x = "2023-08-30T13:29"
         console.log(x.replace('T', '\n'))
+        
         this.scheduledTimez[0] = this.scheduledTime[0].replace('T', '\n')
         this.scheduledTimez[1] = this.scheduledTime[1].replace('T', '\n')
     }
