@@ -116,7 +116,6 @@ export default {
                 success: (obj) => {
                     obj = JSON.parse(obj),
                     console.log(obj.message),
-                    this.pushErrorToast(obj)
                     store.setMediaUploadLink(obj.data)
                 },
                 error: (error) => console.log(error)
@@ -167,6 +166,7 @@ export default {
         },
 
         dataURIToBlob(dataURI) {
+            // https://stackoverflow.com/questions/6850276/how-to-convert-dataurl-to-file-object-in-javascript
             // convert base64 to raw binary data held in a string
             // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
             var byteString = atob(dataURI.split(',')[1]);

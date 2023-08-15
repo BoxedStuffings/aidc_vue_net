@@ -224,7 +224,7 @@ export default {
         <div class="schedule-display-tv">
             <div class="schedule-display-header noselect" @click="removeAll">
                 <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
-                <span class='trash'></span>
+                <span class='trash' @click="removeAll"></span>
             </div>
             <div class="schedule-display-detail" v-if="TV.displays.length != 0">
                 <div class="schedule-display-detail-holder">
