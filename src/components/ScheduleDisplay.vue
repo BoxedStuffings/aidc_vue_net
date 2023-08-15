@@ -220,11 +220,12 @@ export default {
 <template>
     <div class="schedule-holder">
     <div ref="ScheduleDisplayOverlay"><div ref="ScheduleDisplayLoader"></div></div>
-    <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index">
+    <!-- <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index"> -->
+    <div class="schedule-display-block" v-for="TV, index in store.testTV" :key="index">
         <div class="schedule-display-tv">
-            <div class="schedule-display-header">
+            <div class="schedule-display-header" @click="removeAll">
                 <h2 class="noselect" :style="{'margin':0}">TV • {{ TV.info }}</h2>
-                <span class='trash' @click="removeAll"></span>
+                <span class='trash'></span>
             </div>
             <div class="schedule-display-detail" v-if="TV.displays.length != 0">
                 <div class="schedule-display-detail-holder">
@@ -248,7 +249,7 @@ export default {
                     </ul>
                 </div>
             </div>
-            <div class="schedule-display-detail" v-else>
+            <div class="schedule-display-detail noselect" v-else>
                 <h4>No Scheduled Jobs</h4>
             </div>
         </div>
