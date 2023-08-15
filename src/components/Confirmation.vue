@@ -343,6 +343,7 @@ export default {
 }
 .confirmation-tv {
     margin-block: 2%;
+    margin-left: 20px;
     display: flex;
     align-items: center;
 }
@@ -355,7 +356,7 @@ export default {
     margin-bottom: 2%;
 }
 .confirmation-job-timings h4{
-    margin-left: 40px;
+    margin-left: 20px;
 }
 .confirmation-preview-holder {
     display: flex;
