@@ -308,11 +308,11 @@ export default {
             <div class="confirmation-details-sections" v-if="DorS">
                 <div class="confirmation-job-timings">
                     <h2>Starting Time:</h2>
-                    <h4>{{ scheduledTime[0] }}</h4>
+                    <h6>{{ scheduledTime[0] }}</h6>
                 </div>
                 <div class="confirmation-job-timings">
                     <h2>Ending Time: </h2>
-                    <h4>{{ scheduledTime[1] }}</h4>
+                    <h6>{{ scheduledTime[1] }}</h6>
                 </div>
             </div>
             <div class="confirmation-preview-holder">
@@ -358,9 +358,6 @@ export default {
 }
 .confirmation-job-timings {
     margin-bottom: 2%;
-}
-.confirmation-job-timings h4{
-    margin-left: 30px;
 }
 .confirmation-preview-holder {
     display: flex;
