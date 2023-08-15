@@ -103,27 +103,25 @@ export default {
         },
 
         async uploadCanvas(canvas) {
-            if (store.imageObj instanceof File) {
-                this.pushErrorToast("test")
-                let form_data = new FormData()
-                form_data.append('file', canvas)
+            this.pushErrorToast("test")
+            let form_data = new FormData()
+            form_data.append('file', canvas)
 
-                await $.ajax({
-                    url: 'https://heehee.amphibistudio.sg/api/save/image',
-                    method: 'POST',
-                    processData: false,
-                    mimeType: 'multipart/form-data',
-                    contentType: false,
-                    data: form_data,
-                    success: (obj) => {
-                        obj = JSON.parse(obj),
-                        console.log(obj.message),
-                        this.pushErrorToast(obj)
-                        store.setMediaUploadLink(obj.data)
-                    },
-                    error: (error) => console.log(error)
-                })
-            }
+            await $.ajax({
+                url: 'https://heehee.amphibistudio.sg/api/save/image',
+                method: 'POST',
+                processData: false,
+                mimeType: 'multipart/form-data',
+                contentType: false,
+                data: form_data,
+                success: (obj) => {
+                    obj = JSON.parse(obj),
+                    console.log(obj.message),
+                    this.pushErrorToast(obj)
+                    store.setMediaUploadLink(obj.data)
+                },
+                error: (error) => console.log(error)
+            })
         },
 
         async submitScheduledJobConfirmation(to) {
