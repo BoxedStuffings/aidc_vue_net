@@ -36,7 +36,6 @@ export default {
                         mediaUploadPromise = this.uploadVideo(store.videoObj)
                         break
                     case 'Canvas':
-                        this.pushErrorToast('canvas')
                         mediaUploadPromise = this.uploadCanvas(store.canvasObj)
                         break
                 }
@@ -105,7 +104,7 @@ export default {
 
         async uploadCanvas(canvas) {
             if (store.imageObj instanceof File) {
-                this.pushErrorToast(obj)
+                this.pushErrorToast("test")
                 let form_data = new FormData()
                 form_data.append('file', canvas)
 
