@@ -132,6 +132,7 @@ export default {
 
                 for (let i = 0; i < to.length; i++) {
                     let url =`https://heehee.amphibistudio.sg/api/tv/${to[i]._id}/display?asset=${mediaLink}&display_start=${startTime}&display_end=${endTime}`
+                    this.pushErrorToast(url)
                     $.ajax({
                         url: url,
                         method: 'POST',

@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       store,
-      checkTheme: '../assets/check.svg',
+      checkTheme: '../assets/icons/dark/check.svg',
       telegramMainButton: Telegram.WebApp.MainButton,
       telegramBackButton: Telegram.WebApp.BackButton,
       loading: 0
@@ -178,9 +178,9 @@ export default {
         <!-- Image outline for selection -->
         <div class="tv-card-imageOutline" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }">
           <!-- Card check mark -->
-          <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/check.svg">
+          <img class="tv-card-imageCheck" :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" :src="'../assets/icons/light/check.svg'">
           <!-- Display image -->
-          <img :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/tv.png">
+          <img :class="{selected : store.findIndexOfSelectedTv(TV) >= 0 }" src="../assets/boxedstuffings.png">
         </div>
         <!-- Display name -->
         <p>TV • {{ TV.info }}</p>
@@ -219,13 +219,9 @@ export default {
   z-index: 2;
 }
 .tv-card-imageCheck {
-  background-color: white;
   display: block;
   visibility: hidden;
   position: absolute;
-  outline-color: lightgray;
-  outline-style: solid;
-  box-shadow: 5px 5px 10px black;
   top: -5px;
   left: -5px;
   width: 25px;
@@ -242,6 +238,8 @@ export default {
   max-width: 100%;
 }
 img.selected {
+  background-color: white;
+  box-shadow: 0 0 4px grey;
   transform: scale(0.9);
   z-index: -1;
 }
