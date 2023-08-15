@@ -335,7 +335,7 @@ export default {
     overflow-y: scroll;
 }
 .confirmation-details-sections {
-    margin-bottom: 5%;
+    margin-bottom: 1%;
     position: relative;
 }
 .confirmation-details-sections h2 {
