@@ -31,13 +31,13 @@ export default {
       const decoder = new TextDecoder()
       let uid = ''
 
-      // try {
-      //   uid = store.telegramWebAppInfo.user.id.toString()
-      // } catch(error) {
-      //   this.loading = 2
-      //   return
-      // }
-      uid = '2386ebb2b54bac45'
+      try {
+        uid = store.telegramWebAppInfo.user.id.toString()
+      } catch(error) {
+        this.loading = 2
+        return
+      }
+      // uid = '2386ebb2b54bac45'
 
       // Hashing ID for IV
       let hashid = CryptoJS.SHA256(uid)
@@ -173,7 +173,6 @@ export default {
     <TvSkeleton v-if="this.loading == 0"></TvSkeleton>
     <!-- Main Grid -->
     <div id="tv-grid" v-else-if="this.loading == 1">
-    <button @click="this.$router.push('/ScheduleDisplay')">test</button>
     <!-- Individual cards -->
       <ui class="tv-card noselect" v-for="TV in store.availableTVsFromDataBase" :key="TV._id">
         <!-- Image outline for selection -->

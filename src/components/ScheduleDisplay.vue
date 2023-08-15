@@ -84,12 +84,12 @@ export default {
                 let confirmMsg = 'Are you sure you want to remove all scheduled jobs for this tv?'
                 Telegram.WebApp.showConfirm(confirmMsg, (status) => {
                     if (status) {
+                        this.toggleOverlay()
                         this.$refs.ScheduleDisplayOverlay.classList.toggle('overlay-visible')
                         let allDisplaysDeletionPromise = Promise
                         allDisplaysDeletionPromise = this.deleteAllDisplays(TV._id)
 
                         allDisplaysDeletionPromise.then(() => {
-                            this.toggleOverlay()
                             store.emptySelectedTVDisplays(TV),
                             this.pushSuccessToast('All scheduled displays removed'),
                             this.resetSlide()
@@ -221,7 +221,6 @@ export default {
     <div class="schedule-holder">
     <div ref="ScheduleDisplayOverlay"><div ref="ScheduleDisplayLoader"></div></div>
     <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index">
-    <!-- <div class="schedule-display-block" v-for="TV, index in store.testTV" :key="index"> -->
         <div class="schedule-display-tv">
             <div class="schedule-display-header">
                 <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
