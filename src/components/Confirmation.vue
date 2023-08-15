@@ -250,7 +250,11 @@ export default {
         this.selectedTvs = store.selectedTvs
         this.DorS = store.jobType
         this.mediaType = store.mediaType
-
+        
+        this.scheduledTime = store.jobTiming
+        this.scheduledTime[0] = this.scheduledTime[0].replace('T', ' • ')
+        this.scheduledTime[1] = this.scheduledTime[1].replace('T', ' • ')
+        
         setTimeout(() => {
             switch(store.mediaType) {
                 case 'Image':
@@ -279,14 +283,11 @@ export default {
                     break
             }
         }, 10)
-        
+
         setTimeout(() => {
             this.colorTheme()
         }, 100);
 
-        this.scheduledTime = store.jobTiming
-        this.scheduledTime[0] = this.scheduledTime[0].replace('T', ' • ')
-        this.scheduledTime[1] = this.scheduledTime[1].replace('T', ' • ')
     }
 
 }

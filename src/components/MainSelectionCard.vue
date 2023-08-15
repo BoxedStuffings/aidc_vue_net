@@ -76,7 +76,7 @@ export default {
     font-size: 4vmin;
 }
 .ms-card-icon {
-    min-height: 3vh;
+    min-height: 3.5vh;
     width: 12%;
 }
 .ms-card-description {
