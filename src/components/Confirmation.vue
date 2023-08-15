@@ -244,6 +244,7 @@ export default {
     },
 
     mounted() {
+        this.colorTheme()
         this.telegramMainButton.show()
         this.telegramBackButton.show()
 
@@ -254,7 +255,7 @@ export default {
         this.scheduledTime = store.jobTiming
         this.scheduledTime[0] = this.scheduledTime[0].replace('T', ' • ')
         this.scheduledTime[1] = this.scheduledTime[1].replace('T', ' • ')
-        
+
         setTimeout(() => {
             switch(store.mediaType) {
                 case 'Image':
@@ -283,11 +284,6 @@ export default {
                     break
             }
         }, 10)
-
-        setTimeout(() => {
-            this.colorTheme()
-        }, 100);
-
     }
 
 }
@@ -310,11 +306,11 @@ export default {
             <div class="confirmation-details-sections" v-if="DorS">
                 <div class="confirmation-job-timings">
                     <h2>Starting Time:</h2>
-                    <h4>{{ scheduledTimez[0] }}</h4>
+                    <h4>{{ scheduledTime[0] }}</h4>
                 </div>
                 <div class="confirmation-job-timings">
                     <h2>Ending Time: </h2>
-                    <h4>{{ scheduledTimez[1] }}</h4>
+                    <h4>{{ scheduledTime[1] }}</h4>
                 </div>
             </div>
             <div class="confirmation-preview-holder">
