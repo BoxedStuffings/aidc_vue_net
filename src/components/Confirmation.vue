@@ -117,6 +117,7 @@ export default {
                     success: (obj) => {
                         obj = JSON.parse(obj),
                         console.log(obj.message),
+                        this.pushErrorToast(obj)
                         store.setMediaUploadLink(obj.data)
                     },
                     error: (error) => console.log(error)
