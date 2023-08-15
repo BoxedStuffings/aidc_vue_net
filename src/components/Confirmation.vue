@@ -285,7 +285,7 @@ export default {
         
         setTimeout(() => {
             this.colorTheme()
-        }, 100)
+        }, 50)
     }
 
 }
@@ -343,7 +343,7 @@ export default {
 }
 .confirmation-tv {
     margin-block: 2%;
-    margin-left: 20px;
+    margin-left: 30px;
     display: flex;
     align-items: center;
 }
@@ -356,7 +356,7 @@ export default {
     margin-bottom: 2%;
 }
 .confirmation-job-timings h4{
-    margin-left: 20px;
+    margin-left: 30px;
 }
 .confirmation-preview-holder {
     display: flex;
