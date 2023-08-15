@@ -355,7 +355,7 @@ export default {
     margin-bottom: 2%;
 }
 .confirmation-job-timings h4{
-    margin-left: 4%;
+    margin-left: 40px;
 }
 .confirmation-preview-holder {
     display: flex;
