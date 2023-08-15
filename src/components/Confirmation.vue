@@ -19,7 +19,7 @@ export default {
             mediaType: 0,
             DorS: '',
             scheduledTime: [],
-            scheduledTimez: ['', '']
+            test: store.testTV
         }
     },
 
@@ -197,15 +197,14 @@ export default {
         },
 
         colorTheme() {
-            try {
-                let icon = document.getElementsByClassName('display')
+            let icon = document.getElementsByTagName('span')
+            console.log(icon)
+            for (let i=0;i<icon.length;i++) {
                 if (store.telegramColorScheme == 'light') {
-                    icon[0].classList.add('light-display')
+                    icon[i].classList.add('light-display')
                 } else {
-                    icon[0].classList.add('dark-display')
+                    icon[i].classList.add('dark-display')
                 }
-            } catch {
-
             }
         }
 
@@ -242,8 +241,9 @@ export default {
 
         Telegram.WebApp.onEvent('backButtonClicked', backButton)
     },
-
+    
     mounted() {
+        this.colorTheme()
         this.telegramMainButton.show()
         this.telegramBackButton.show()
         
@@ -252,8 +252,8 @@ export default {
         this.mediaType = store.mediaType
         
         this.scheduledTime = store.jobTiming
-        this.scheduledTime[0] = this.scheduledTime[0].replace('T', ' • ')
         this.scheduledTime[1] = this.scheduledTime[1].replace('T', ' • ')
+        this.scheduledTime[0] = this.scheduledTime[0].replace('T', ' • ')
 
         setTimeout(() => {
             switch(store.mediaType) {
@@ -284,17 +284,13 @@ export default {
             }
         }, 10)
 
-        setTimeout(() => {
-            this.colorTheme()
-        }, 200)
-
     }
 
 }
 </script>
 
 <template>
-    <div class="confirmation-holder">
+    <div class="confirmation-holder noselect">
         <div ref="ConfirmationOverlay"><div ref="ConfirmationLoader"></div></div>
         <div class="confirmation-details">
             <div class="confirmation-details-sections">
