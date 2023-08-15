@@ -36,6 +36,7 @@ export default {
                         mediaUploadPromise = this.uploadVideo(store.videoObj)
                         break
                     case 'Canvas':
+                        this.pushErrorToast('canvas')
                         mediaUploadPromise = this.uploadCanvas(store.canvasObj)
                         break
                 }
@@ -104,6 +105,7 @@ export default {
 
         async uploadCanvas(canvas) {
             if (store.imageObj instanceof File) {
+                this.pushErrorToast(obj)
                 let form_data = new FormData()
                 form_data.append('file', canvas)
 
@@ -134,6 +136,7 @@ export default {
 
                 for (let i = 0; i < to.length; i++) {
                     let url =`https://heehee.amphibistudio.sg/api/tv/${to[i]._id}/display?asset=${mediaLink}&display_start=${startTime}&display_end=${endTime}`
+                    this.pushErrorToast(url)
                     $.ajax({
                         url: url,
                         method: 'POST',
