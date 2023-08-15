@@ -18,7 +18,8 @@ export default {
             vid: '',
             mediaType: 0,
             DorS: '',
-            scheduledTime: []
+            scheduledTime: [],
+            scheduledTimez: ['', '']
         }
     },
 
@@ -281,8 +282,10 @@ export default {
         }, 10)
 
         this.scheduledTime = store.jobTiming
-        this.scheduledTime[0] = this.scheduledTime[0].replace('T', '\n')
-        this.scheduledTime[1] = this.scheduledTime[1].replace('T', '\n')
+        let x = "2023-08-30T13:29"
+        console.log(x.replace('T', '\n'))
+        this.scheduledTimez[0] = this.scheduledTime[0].replace('T', '\n')
+        this.scheduledTimez[1] = this.scheduledTime[1].replace('T', '\n')
     }
 
 }
@@ -293,6 +296,7 @@ export default {
         <div ref="ConfirmationOverlay"><div ref="ConfirmationLoader"></div></div>
         <div class="confirmation-details">
             <div class="confirmation-details-sections">
+                <span class='display icon-base'></span>
                 <h2>TV(s) Selected</h2>
                 <div class="confirmation-tv" v-for="i, index in selectedTvs" :key="index">
                     <span class='display icon-base'></span>
