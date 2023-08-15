@@ -120,7 +120,7 @@ export default {
                 closeOnClick: false,
                 pauseOnHover: true,
                 draggable: true,
-                draggablePercent: 0.5,
+                draggablePercent: 0.35,
                 closeButton: 'button',
                 icon: true,
             })
@@ -133,7 +133,7 @@ export default {
                 closeOnClick: false,
                 pauseOnHover: true,
                 draggable: true,
-                draggablePercent: 0.5,
+                draggablePercent: 0.35,
                 closeButton: 'button',
                 icon: true,
             })
