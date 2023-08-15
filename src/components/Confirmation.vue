@@ -243,7 +243,6 @@ export default {
     },
     
     mounted() {
-        this.colorTheme()
         this.telegramMainButton.show()
         this.telegramBackButton.show()
         
@@ -283,7 +282,10 @@ export default {
                     break
             }
         }, 10)
-
+        
+        setTimeout(() => {
+            this.colorTheme()
+        }, 100)
     }
 
 }
