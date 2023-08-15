@@ -223,7 +223,7 @@ export default {
     <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index">
         <div class="schedule-display-tv">
             <div class="schedule-display-header">
-                <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
+                <h2 class="noselect" :style="{'margin':0}">TV • {{ TV.info }}</h2>
                 <span class='trash' @click="removeAll(TV)"></span>
             </div>
             <div class="schedule-display-detail" v-if="TV.displays.length != 0">
