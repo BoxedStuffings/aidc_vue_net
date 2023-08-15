@@ -78,7 +78,6 @@ export default {
         },
 
         removeAll(TV) {
-            this.pushErrorToast(store.selectedTvs)
             if (store.selectedTvs[store.findIndexOfSelectedTv(TV)].displays.length <= 0) {
                 this.pushErrorToast('There are no scheduled displays for this TV')
             } else {
@@ -226,7 +225,7 @@ export default {
         <div class="schedule-display-tv">
             <div class="schedule-display-header">
                 <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
-                <span class='trash' @click="removeAll"></span>
+                <span class='trash' @click="removeAll(TV)"></span>
             </div>
             <div class="schedule-display-detail" v-if="TV.displays.length != 0">
                 <div class="schedule-display-detail-holder">
