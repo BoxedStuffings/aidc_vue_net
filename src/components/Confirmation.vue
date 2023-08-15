@@ -339,7 +339,8 @@ export default {
     position: relative;
 }
 .media-section{
-    margin-top: 10px;
+    margin-top: 20px;
+    margin-bottom: 0px;
 }
 .confirmation-details-sections h2 {
     color: var(--tg-theme-text-color);
