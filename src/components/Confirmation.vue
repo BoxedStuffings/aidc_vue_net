@@ -302,9 +302,6 @@ export default {
                     <h4>TV • {{ i.info }}</h4>
                 </div>
             </div>
-            <div class="confirmation-details-sections media-section">
-                <h2>Media Selected</h2>
-            </div>
             <div class="confirmation-details-sections" v-if="DorS">
                 <div class="confirmation-job-timings">
                     <h2>Starting Time:</h2>
@@ -314,6 +311,9 @@ export default {
                     <h2>Ending Time: </h2>
                     <h6>{{ scheduledTime[1] }}</h6>
                 </div>
+            </div>
+            <div class="confirmation-details-sections media-section">
+                <h2>Media Selected</h2>
             </div>
             <div class="confirmation-preview-holder">
                 <img ref="canvasPreview" class="confirmation-upload-preview noselect" v-show="this.mediaType == 'Canvas'">
@@ -337,10 +337,6 @@ export default {
 .confirmation-details-sections {
     margin-bottom: 1%;
     position: relative;
-}
-.media-section{
-    margin-top: 20px;
-    margin-bottom: 0px;
 }
 .confirmation-details-sections h2 {
     color: var(--tg-theme-text-color);
