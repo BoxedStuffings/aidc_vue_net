@@ -244,10 +244,9 @@ export default {
     },
 
     mounted() {
-        this.colorTheme()
         this.telegramMainButton.show()
         this.telegramBackButton.show()
-
+        
         this.selectedTvs = store.selectedTvs
         this.DorS = store.jobType
         this.mediaType = store.mediaType
@@ -284,6 +283,11 @@ export default {
                     break
             }
         }, 10)
+
+        setTimeout(() => {
+            this.colorTheme()
+        }, 200)
+
     }
 
 }
