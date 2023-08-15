@@ -222,7 +222,7 @@ export default {
     <div ref="ScheduleDisplayOverlay"><div ref="ScheduleDisplayLoader"></div></div>
     <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index">
         <div class="schedule-display-tv">
-            <div class="schedule-display-header noselect" @click="removeAll">
+            <div class="schedule-display-header">
                 <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
                 <span class='trash' @click="removeAll"></span>
             </div>
