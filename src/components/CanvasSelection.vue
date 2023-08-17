@@ -248,7 +248,7 @@ export default {
     // Move canvas to fit bottom sheet on screen
     fitCanvasToBottomSheet(state) {
       this.isBottomSheetOpened = state
-      this.updateCanvasDimensions()
+      // this.updateCanvasDimensions()
     },
 
     editCanvasObject(element, movement, direction, layerArray) {
