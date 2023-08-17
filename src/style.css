@@ -216,14 +216,14 @@ body {
   background-position: center;
 }
 
-.dark-triangle{
-  background: url('./assets/icons/dark/elements/triangle.svg');
+.dark-line{
+  background: url('./assets/icons/dark/elements/line.svg');
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.light-triangle{
-  background: url('./assets/icons/light/elements/triangle.svg');
+.light-line{
+  background: url('./assets/icons/light/elements/line.svg');
   background-repeat: no-repeat;
   background-position: center;
 }

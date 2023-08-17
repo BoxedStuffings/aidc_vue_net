@@ -88,7 +88,7 @@ export default {
             <span class='circle icon-base'></span>
         </ui>
         <ui class="element-option-card" @click="createLine()">
-            <span class='triangle icon-base'></span>
+            <span class='line icon-base'></span>
         </ui>
     </div>
 </template>
