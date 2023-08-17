@@ -153,7 +153,7 @@ export default {
 
                     console.log(success.message)
                 },
-                error: (error) => {console.log(error), this.pushSuccessToast('success')}
+                error: (error) => {console.log(error), this.pushSuccessToast('test')}
             })
         },
 
