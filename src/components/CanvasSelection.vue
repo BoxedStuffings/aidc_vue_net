@@ -323,6 +323,7 @@ export default {
       })
       store.addElementToCanvas(element)
       this.canvas.add(element)
+      this.canvas.requestRenderAll()
     },
 
     insertImageToCanvas(imageObj) {
