@@ -137,7 +137,7 @@ export default {
                         success: (obj) => {
                             console.log(obj.message)
                         },
-                        error: (error) => errorArray.push(error)
+                        error: (error, dt) => errorArray.push(dt)
                     })
                 }
                 errorArray.length == 0 ? resolve('Successful') : reject(errorArray)
@@ -157,7 +157,7 @@ export default {
                         success: (obj) => {
                             console.log(obj.message)
                         },
-                        error: (error) => errorArray.push(error)
+                        error: (error, dt) => errorArray.push(dt)
                     })
                 }
                 errorArray.length == 0 ? resolve('Successful') : reject(errorArray)

@@ -151,7 +151,7 @@ export default {
                 success:  (success) => {
                     console.log(success.message)
                 },
-                error: (error) => this.pushSuccessToast(error.responseText)
+                error: (error) => console.log(error)
             })
         },
 
