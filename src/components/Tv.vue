@@ -71,8 +71,7 @@ export default {
 
       // Grabbing TVs
       await $.ajax({
-        // url: 'https://heehee.amphibistudio.sg/api/tv',
-        url: '127.0.0.1:8000/api/tv',
+        url: 'https://heehee.amphibistudio.sg/api/tv',
         method: 'GET',
         success:  (success) => {
           store.initTVfromDB(success.data)
