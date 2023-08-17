@@ -80,7 +80,10 @@ export default {
         this.canvas.setWidth(this.canvasWidth * this.scale)
       }
       
-      this.scaleToCanvas()
+      if (this.canvas.getObjects().length != 0) {
+        this.scaleToCanvas()
+      }
+
       this.canvas.renderAll()
     },
 
@@ -248,7 +251,6 @@ export default {
     // Move canvas to fit bottom sheet on screen
     fitCanvasToBottomSheet(state) {
       this.isBottomSheetOpened = state
-      // this.updateCanvasDimensions()
     },
 
     editCanvasObject(element, movement, direction, layerArray) {
