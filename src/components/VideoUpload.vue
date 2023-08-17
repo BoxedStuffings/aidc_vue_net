@@ -47,7 +47,7 @@ export default {
 
       let slider = this.$refs.vidSlider
       slider.animate(
-        { transform: 'translateY(120%)'}, 
+        { transform: 'translateY(130%)'}, 
         { duration: 600, fill: 'forwards'}
       )
     },
