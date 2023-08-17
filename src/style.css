@@ -64,6 +64,62 @@ body {
   background-position: right;
 }
 
+.dark-schedule{
+  background: url('./assets/icons/dark/main/schedule_icon.svg');
+  background-repeat: no-repeat;
+  background-size: 60px;
+  background-position: center;
+}
+
+.light-schedule{
+  background: url('./assets/icons/light/main/schedule_icon.svg');
+  background-repeat: no-repeat;
+  background-size: 60px;
+  background-position: center;
+}
+
+.dark-imagez{
+  background: url('./assets/icons/dark/main/upload_image.svg');
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: center;
+}
+
+.light-imagez{
+  background: url('./assets/icons/light/main/upload_image.svg');
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: center;
+}
+
+.dark-video{
+  background: url('./assets/icons/dark/main/upload_video.svg');
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: center;
+}
+
+.light-video{
+  background: url('./assets/icons/light/main/upload_video.svg');
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: center;
+}
+
+.dark-custom{
+  background: url('./assets/icons/dark/main/custom_banner_icon.svg');
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: center;
+}
+
+.light-custom{
+  background: url('./assets/icons/light/main/custom_banner_icon.svg');
+  background-repeat: no-repeat;
+  background-size: 30px;
+  background-position: center;
+}
+
 .dark-upload{
   background: url('./assets/icons/dark/upload.svg');
   background-repeat: no-repeat;

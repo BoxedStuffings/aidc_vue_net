@@ -84,12 +84,12 @@ export default {
                 let confirmMsg = 'Are you sure you want to remove all scheduled jobs for this tv?'
                 Telegram.WebApp.showConfirm(confirmMsg, (status) => {
                     if (status) {
+                        this.toggleOverlay()
                         this.$refs.ScheduleDisplayOverlay.classList.toggle('overlay-visible')
                         let allDisplaysDeletionPromise = Promise
                         allDisplaysDeletionPromise = this.deleteAllDisplays(TV._id)
 
                         allDisplaysDeletionPromise.then(() => {
-                            this.toggleOverlay()
                             store.emptySelectedTVDisplays(TV),
                             this.pushSuccessToast('All scheduled displays removed'),
                             this.resetSlide()
@@ -120,7 +120,7 @@ export default {
                 closeOnClick: false,
                 pauseOnHover: true,
                 draggable: true,
-                draggablePercent: 0.5,
+                draggablePercent: 0.35,
                 closeButton: 'button',
                 icon: true,
             })
@@ -133,7 +133,7 @@ export default {
                 closeOnClick: false,
                 pauseOnHover: true,
                 draggable: true,
-                draggablePercent: 0.5,
+                draggablePercent: 0.35,
                 closeButton: 'button',
                 icon: true,
             })
@@ -169,10 +169,18 @@ export default {
         colorTheme() {
             let icon = document.getElementsByTagName('span')
             for (let i=0;i<icon.length;i++) {
-                if (store.telegramColorScheme == 'light') {
-                    icon[i].classList.add('light-trash')
+                if (icon[i].classList[0] != 'iconz') {
+                    if (store.telegramColorScheme == 'light') {
+                        icon[i].classList.add('light-trash')
+                    } else {
+                        icon[i].classList.add('dark-trash')
+                    }
                 } else {
-                    icon[i].classList.add('dark-trash')
+                    if (store.telegramColorScheme == 'light') {
+                        icon[i].classList.add('light-schedule')
+                    } else {
+                        icon[i].classList.add('dark-schedule')
+                    }
                 }
             }
         }
@@ -213,11 +221,10 @@ export default {
     <div class="schedule-holder">
     <div ref="ScheduleDisplayOverlay"><div ref="ScheduleDisplayLoader"></div></div>
     <div class="schedule-display-block" v-for="TV, index in store.selectedTvs" :key="index">
-    <!-- <div class="schedule-display-block" v-for="TV, index in store.testTV" :key="index"> -->
         <div class="schedule-display-tv">
-            <div class="schedule-display-header noselect" @click="removeAll">
-                <h2 :style="{'margin':0}">TV • {{ TV.info }}</h2>
-                <span class='trash'></span>
+            <div class="schedule-display-header">
+                <h2 class="noselect" :style="{'margin':0}">TV • {{ TV.info }}</h2>
+                <span class='trash' @click="removeAll(TV)"></span>
             </div>
             <div class="schedule-display-detail" v-if="TV.displays.length != 0">
                 <div class="schedule-display-detail-holder">
@@ -226,7 +233,8 @@ export default {
                         <li class="schedule-display-detail-content" v-for="(displaySchedule, index) in TV.displays" data-type="0" :key="index">
                         <div @touchstart.capture="touchStart" @touchend.capture="touchEnd" @click.capture="clickSelf">
                             <div class="schedule-display-detail-info">
-                                <img class="schedule-display-detail-image noselect" src="../assets/boxedstuffings.png">
+                                <span class="iconz noselect"></span>
+                                <!-- <img class="schedule-display-detail-image noselect" src="../assets/boxedstuffings.png"> -->
                                 <div class="schedule-display-detail-timing noselect">
                                     <h6>Start Time:</h6>
                                     {{ displaySchedule.display_start }}
@@ -240,7 +248,7 @@ export default {
                     </ul>
                 </div>
             </div>
-            <div class="schedule-display-detail" v-else>
+            <div class="schedule-display-detail noselect" v-else>
                 <h4>No Scheduled Jobs</h4>
             </div>
         </div>
@@ -307,10 +315,9 @@ export default {
     padding-block: 10px;
     background-color: color-mix(in srgb, var(--tg-theme-bg-color), white 5%);
 }
-.schedule-display-detail-info .schedule-display-detail-image {
+.schedule-display-detail-info .iconz {
     width: 80px;
     height: 80px;
-    border-radius: 4px;
     float: left;
 }
 .schedule-display-detail-timing {

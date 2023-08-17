@@ -18,7 +18,9 @@ export default {
             vid: '',
             mediaType: 0,
             DorS: '',
-            scheduledTime: []
+            scheduledTime: [],
+            scheduledTimez: ['', ''],
+            test: store.testTV
         }
     },
 
@@ -101,25 +103,23 @@ export default {
         },
 
         async uploadCanvas(canvas) {
-            if (store.imageObj instanceof File) {
-                let form_data = new FormData()
-                form_data.append('file', canvas)
+            let form_data = new FormData()
+            form_data.append('file', this.dataURIToBlob(canvas))
 
-                await $.ajax({
-                    url: 'https://heehee.amphibistudio.sg/api/save/image',
-                    method: 'POST',
-                    processData: false,
-                    mimeType: 'multipart/form-data',
-                    contentType: false,
-                    data: form_data,
-                    success: (obj) => {
-                        obj = JSON.parse(obj),
-                        console.log(obj.message),
-                        store.setMediaUploadLink(obj.data)
-                    },
-                    error: (error) => console.log(error)
-                })
-            }
+            await $.ajax({
+                url: 'https://heehee.amphibistudio.sg/api/save/image',
+                method: 'POST',
+                processData: false,
+                mimeType: 'multipart/form-data',
+                contentType: false,
+                data: form_data,
+                success: (obj) => {
+                    obj = JSON.parse(obj),
+                    console.log(obj.message),
+                    store.setMediaUploadLink(obj.data)
+                },
+                error: (error) => console.log(error)
+            })
         },
 
         async submitScheduledJobConfirmation(to) {
@@ -164,6 +164,25 @@ export default {
             })
         },
 
+        dataURIToBlob(dataURI) {
+            // https://stackoverflow.com/questions/6850276/how-to-convert-dataurl-to-file-object-in-javascript
+            // convert base64 to raw binary data held in a string
+            // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+            var byteString = atob(dataURI.split(',')[1]);
+
+            // separate out the mime component
+            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+            // write the bytes of the string to an ArrayBuffer
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+
+            return new Blob([ab], {type: mimeString});
+        },
+
         pushSuccessToast(msg) {
             this.toast.success(msg, {
                 position: 'bottom-left',
@@ -196,15 +215,14 @@ export default {
         },
 
         colorTheme() {
-            try {
-                let icon = document.getElementsByClassName('display')
+            let icon = document.getElementsByTagName('span')
+            console.log(icon)
+            for (let i=0;i<icon.length;i++) {
                 if (store.telegramColorScheme == 'light') {
-                    icon[0].classList.add('light-display')
+                    icon[i].classList.add('light-display')
                 } else {
-                    icon[0].classList.add('dark-display')
+                    icon[i].classList.add('dark-display')
                 }
-            } catch {
-
             }
         }
 
@@ -241,15 +259,18 @@ export default {
 
         Telegram.WebApp.onEvent('backButtonClicked', backButton)
     },
-
+    
     mounted() {
-        this.colorTheme()
         this.telegramMainButton.show()
         this.telegramBackButton.show()
-
+        
         this.selectedTvs = store.selectedTvs
         this.DorS = store.jobType
         this.mediaType = store.mediaType
+        
+        this.scheduledTime = store.jobTiming
+        this.scheduledTimez[0] = this.scheduledTime[0].replace('T', ' • ')
+        this.scheduledTimez[1] = this.scheduledTime[1].replace('T', ' • ')
 
         setTimeout(() => {
             switch(store.mediaType) {
@@ -279,15 +300,17 @@ export default {
                     break
             }
         }, 10)
-
-        this.scheduledTime = store.jobTiming
+        
+        setTimeout(() => {
+            this.colorTheme()
+        }, 50)
     }
 
 }
 </script>
 
 <template>
-    <div class="confirmation-holder">
+    <div class="confirmation-holder noselect">
         <div ref="ConfirmationOverlay"><div ref="ConfirmationLoader"></div></div>
         <div class="confirmation-details">
             <div class="confirmation-details-sections">
@@ -297,18 +320,18 @@ export default {
                     <h4>TV • {{ i.info }}</h4>
                 </div>
             </div>
-            <div class="confirmation-details-sections">
-                <h2>Media Selected</h2>
-            </div>
             <div class="confirmation-details-sections" v-if="DorS">
                 <div class="confirmation-job-timings">
                     <h2>Starting Time:</h2>
-                    <h4>{{ scheduledTime[0] }}</h4>
+                    <h6>{{ scheduledTimez[0] }}</h6>
                 </div>
                 <div class="confirmation-job-timings">
                     <h2>Ending Time: </h2>
-                    <h4>{{ scheduledTime[1] }}</h4>
+                    <h6>{{ scheduledTimez[1] }}</h6>
                 </div>
+            </div>
+            <div class="confirmation-details-sections media-section">
+                <h2>Media Selected</h2>
             </div>
             <div class="confirmation-preview-holder">
                 <img ref="canvasPreview" class="confirmation-upload-preview noselect" v-show="this.mediaType == 'Canvas'">
@@ -330,7 +353,7 @@ export default {
     overflow-y: scroll;
 }
 .confirmation-details-sections {
-    margin-bottom: 5%;
+    margin-bottom: 1%;
     position: relative;
 }
 .confirmation-details-sections h2 {
@@ -338,6 +361,7 @@ export default {
 }
 .confirmation-tv {
     margin-block: 2%;
+    margin-left: 30px;
     display: flex;
     align-items: center;
 }
