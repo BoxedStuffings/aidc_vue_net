@@ -149,9 +149,11 @@ export default {
                 url: 'https://heehee.amphibistudio.sg/api/displays/' + displayId,
                 method: 'DELETE',
                 success:  (success) => {
+                    this.pushSuccessToast('success')
+
                     console.log(success.message)
                 },
-                error: (error) => console.log(error)
+                error: (error) => {console.log(error), this.pushSuccessToast('success')}
             })
         },
 
