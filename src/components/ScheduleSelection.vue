@@ -174,23 +174,27 @@ export default {
                 store.setjobTiming(this.dateTime)
                 this.$router.push('/Confirmation')
             } else {
-                this.checkAvailablility().then((message) => {
-                    if (message === 'No overlaps') {
-                        let now = new Date(this.timeOnLoad)
-                        let start = new Date(this.dateTime[0])
-                        if (start < now) {
-                            this.telegramMainButton.show()
-                            this.pushToast(['Selected datetime is earlier than current time'], false)
-                        } else {
-                            store.setjobType(true)
-                            store.setjobTiming(this.dateTime)
-                            this.$router.push('/Confirmation')
+                if (this.dateTime[0] == this.dateTime[1]) {
+                    this.pushToast(['Start and End datetime must be different'], false)
+                } else {
+                    this.checkAvailablility().then((message) => {
+                        if (message === 'No overlaps') {
+                            let now = new Date(this.timeOnLoad)
+                            let start = new Date(this.dateTime[0])
+                            if (start < now) {
+                                this.telegramMainButton.show()
+                                this.pushToast(['Selected datetime is earlier than current time'], false)
+                            } else {
+                                store.setjobType(true)
+                                store.setjobTiming(this.dateTime)
+                                this.$router.push('/Confirmation')
+                            }
                         }
-                    }
-                }).catch((result) => {
-                    this.telegramMainButton.show()
-                    this.pushToast(result, true)
-                })
+                    }).catch((result) => {
+                        this.telegramMainButton.show()
+                        this.pushToast(result, true)
+                    })
+                }
             }
         }
 

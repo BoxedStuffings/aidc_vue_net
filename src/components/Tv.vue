@@ -74,8 +74,15 @@ export default {
         url: 'https://heehee.amphibistudio.sg/api/tv',
         method: 'GET',
         success:  (success) => {
-          store.initTVfromDB(success.data)
-          console.log(success.data)
+          if (success.data.length != 0) {
+            store.initTVfromDB(success.data)
+            console.log(success.data)
+          } else {
+            this.pushWarningToast('There are no TVs registered...')
+            setTimeout(() => {
+              Telegram.WebApp.close()
+            }, 5000);
+          }
         },
         error: (error) => {
           Telegram.WebApp.expand()
@@ -133,6 +140,19 @@ export default {
     
     pushToast(msg) {
       this.toast.error(msg, {
+        position: 'bottom-left',
+        timeout: 5000,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        draggablePercent: 0.5,
+        closeButton: 'button',
+        icon: true
+      })
+    },
+
+    pushWarningToast(msg) {
+      this.toast.warning(msg, {
         position: 'bottom-left',
         timeout: 5000,
         closeOnClick: false,

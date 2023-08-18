@@ -90,6 +90,7 @@ export default {
                         allDisplaysDeletionPromise = this.deleteAllDisplays(TV._id)
 
                         allDisplaysDeletionPromise.then(() => {
+                            this.toggleOverlay()
                             store.emptySelectedTVDisplays(TV),
                             this.pushSuccessToast('All scheduled displays removed'),
                             this.resetSlide()
