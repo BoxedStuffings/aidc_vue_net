@@ -85,7 +85,6 @@ export default {
                 Telegram.WebApp.showConfirm(confirmMsg, (status) => {
                     if (status) {
                         this.toggleOverlay()
-                        this.$refs.ScheduleDisplayOverlay.classList.toggle('overlay-visible')
                         let allDisplaysDeletionPromise = Promise
                         allDisplaysDeletionPromise = this.deleteAllDisplays(TV._id)
 
