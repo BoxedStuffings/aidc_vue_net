@@ -78,6 +78,7 @@ export default {
             store.initTVfromDB(success.data)
             console.log(success.data)
           } else {
+            Telegram.WebApp.expand()
             this.pushWarningToast('There are no TVs registered...')
             setTimeout(() => {
               Telegram.WebApp.close()
