@@ -5,18 +5,18 @@ Telegram Bot for Ngee Ann Polytechnic's Capstone project in the School of Infoco
 ## AIDC Telegram Bot
 [AIDC Bot](https://t.me/aidctestwebappbot/aidctest)
 
-##How to run
+## How to run
 Clone the repository first:
 
 ```git clone https://github.com/BoxedStuffings/aidc_vue_net.git```
 
 Run installtion to download packages 
 
-'''npm install'''
+```npm install```
 
 Run the application (development ver, not on telegram unless commited)
 
-''' npm run dev```
+```npm run dev```
 
 ## Contributors
 Celsius (BoxedStuffings) (> ${\color{red}///}$ <)
