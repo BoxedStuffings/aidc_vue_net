@@ -20,6 +20,6 @@ Run the application (development ver, not on telegram unless commited):
 ``` npm run dev ```
 
 ## Contributors
-Celsius (BoxedStuffings) (> ${\color{red}///}$ <)
+Celsius Chia (BoxedStuffings) (> ${\color{red}///}$ <)
 
-Yongqing (beefwhale)
+Wang Yongqing (beefwhale)
